@@ -210,7 +210,6 @@
 					@include('layouts.partialsAdmin.notification')
 					<div class="m-portlet__body">
                         <div id="app">
-                            @yield('content')
                         </div>
 					</div>
 				</div>
@@ -274,7 +273,8 @@
 	<script src="{{ asset('js/webfont.js') }}"></script>
 	<script src="{{ asset('js/forWebFont.js') }}"></script>
 	<script src="{{ asset('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
 	<script src="{{ asset('assets/fill.box.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customize.js') }}" type="text/javascript"></script>
 	@stack('javascript')
