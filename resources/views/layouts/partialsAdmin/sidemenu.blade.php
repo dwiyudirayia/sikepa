@@ -13,25 +13,9 @@
             <h4 class="m-menu__section-text">Optional</h4>
             <i class="m-menu__section-icon flaticon-more-v2"></i>
         </li>
-        <li class="m-menu__item m-menu__item--submenu {{ (request()->is('kelompok/*')) ? 'm-menu__item--open' : '' }}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-            <a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-group"></i><span class="m-menu__link-text">Kelompok Tani</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-            <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
-                <ul class="m-menu__subnav">
-                    @if (Auth::check())
-                    <li class="m-menu__item m-menu__item--submenu {{ (request()->is('kelompok/tani')) ? 'm-menu__item--active' : '' }}" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{ url('kelompok/tani') }}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Daftar Kelompok Tani</span></a>
-                    </li>
-                    <li class="m-menu__item m-menu__item--submenu {{ (request()->is('kelompok/latlng')) ? 'm-menu__item--active' : '' }}" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{ url('kelompok/latlng') }}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Daftar Latitude / Longitude Kosong</span></a>
-                    </li>
-                    @else
-                    <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{ url('kelompok/tani/guest') }}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Daftar Kelompok Tani</span></a>
-                    </li>
-                    @endif
-                </ul>
-            </div>
-        </li>
         @if (Auth::guest())
-        <li class="m-menu__item {{ (request()->is('tamu/saran/create')) ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
-            <a href="{{url('tamu/saran/create')}}" class="m-menu__link "><i class="m-menu__link-icon la la-paper-plane-o"></i><span class="m-menu__link-title"><span class="m-menu__link-wrap"> <span class="m-menu__link-text">Saran / Masukan</span><span class="m-menu__link-badge"></span></span></span></a>
+        <li class="m-menu__item {{ (request()->is('user/create')) ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+            <a href="{{url('user/create')}}" class="m-menu__link "><i class="m-menu__link-icon la la-users"></i><span class="m-menu__link-title"><span class="m-menu__link-wrap"> <span class="m-menu__link-text">User</span><span class="m-menu__link-badge"></span></span></span></a>
         </li>
         @else
         <li class="m-menu__item m-menu__item--submenu {{ (request()->is('histori/hibah') || request()->is('histori/hibah/filter')) ? 'm-menu__item--open' : '' }}" aria-haspopup="true" m-menu-submenu-toggle="hover">

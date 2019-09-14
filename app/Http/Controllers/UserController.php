@@ -15,6 +15,11 @@ class UserController extends Controller
     {
         $this->notification = $notification;
     }
+
+    public function create()
+    {
+        return view('admin.user.create');
+    }
     /**
      * Store a newly created resource in storage.
      * @param Request $request

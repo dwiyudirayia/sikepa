@@ -209,7 +209,9 @@
 				<div class="m-content">
 					@include('layouts.partialsAdmin.notification')
 					<div class="m-portlet__body">
-                        <div id="app"></div>
+                        <div id="app">
+                            @yield('content')
+                        </div>
 					</div>
 				</div>
 			</div>
