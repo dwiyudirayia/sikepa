@@ -33,7 +33,7 @@
 @section('headerPage')
     Tambah User
 @endsection
-@section('isi')
+@section('content')
 <div class="m-portlet">
     <div class="m-portlet__head" style="margin-bottom:20px;">
         <div class="m-portlet__head-caption">
