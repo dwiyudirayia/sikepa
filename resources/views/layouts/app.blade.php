@@ -145,7 +145,7 @@
 															</li>
 															<li class="m-nav__separator m-nav__separator--fit">
                                                             </li> --}}
-                                                            @if (Auth::check())
+                                                            {{-- @if (Auth::check())
 
 															<li class="m-nav__item">
 																<a href="{{ route('logout') }}" class="m-nav__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -169,7 +169,7 @@
 																	<span class="m-nav__link-text">Login Halaman Admin</span>
 																</a>
 															</li>
-                                                            @endif
+                                                            @endif --}}
 														</ul>
 													</div>
 												</div>
