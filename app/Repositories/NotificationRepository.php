@@ -8,58 +8,59 @@ class NotificationRepository implements NotificationRepositoryInterfaces
 {
     public function storeSuccess()
     {
-        $data = [
+        $array = [
             'messages' => 'Data Berhasil di Masukan',
             'status' => 200
         ];
 
-        return $data;
+        return $array;
     }
     public function storeFailed($error)
     {
-        $data = [
+        $array = [
             'messages' => $error->getMessage(),
             'status' => $error->getCode()
         ];
 
-        return $data;
+        return $array;
     }
     public function showSuccess($data)
     {
-        $data = [
+        $array = [
             'data' => $data,
             'messages' => 'Data Berhasil di Ambil',
             'status' => 200
         ];
 
-        return $data;
+        return $array;
     }
     public function showFailed($error)
     {
-        $data = [
+        $array = [
             'messages' => $error->getMessage(),
             'status' => $error->getCode()
         ];
 
-        return $data;
+        return $array;
     }
-    public function deleteSuccess()
+    public function deleteSuccess($data)
     {
-        $data = [
+        $array = [
+            'data' => $data,
             'messages' => 'Data Berhasil di Hapus',
             'status' => 200
         ];
 
-        return $data;
+        return $array;
     }
     public function deleteFailed($error)
     {
-        $data = [
+        $array = [
             'messages' => $error->getMessage(),
             'status' => $error->getCode()
         ];
 
-        return $data;
+        return $array;
     }
     public function updateSuccess()
     {

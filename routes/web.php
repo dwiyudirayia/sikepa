@@ -11,10 +11,13 @@
 |
 */
 
+
+Route::prefix('admin')->group(function () {
+    Route::resource('user', 'UserController');
+    Route::resource('faq', 'FAQController');
+});
+
 Route::get('/{any}', function(){
     return view('layouts.app');
 })->where('any', '.*');
-
-Route::resource('user', 'UserController');
-
 Auth::routes();

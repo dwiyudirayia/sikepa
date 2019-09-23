@@ -8,7 +8,7 @@ interface NotificationRepositoryInterfaces
     public function storeFailed($error);
     public function showSuccess($data);
     public function showFailed($error);
-    public function deleteSuccess();
+    public function deleteSuccess($data);
     public function deleteFailed($error);
     public function updateSuccess();
     public function updateFailed($error);

@@ -4,19 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class CategoryArticle extends Model
+
+class SectionArticle extends Model
 {
     use SoftDeletes;
     
-    protected $table = 'category_article';
+    protected $table = 'section_article';
     protected $fillable = ['created_by', 'updated_by', 'name'];
-
+    
     public function articles()
     {
-        return $this->hasMany(ArticleModel::class);
+        return $this->hasMany(Article::class);
     }
-    public function section()
+    public function categories()
     {
-        return $this->belongsTo(SectionArticle::class);
+        return $this->hasMany(CategoryArticle::class);
     }
 }

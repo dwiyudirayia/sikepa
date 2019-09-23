@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Agency;
+use App\Http\Requests\StoreAgencyRequest;
+use App\Http\Requests\UpdateAgencyRequest;
 
-class UserController extends Controller
+class AgencyController extends Controller
 {
     private $notification;
 
@@ -17,36 +15,32 @@ class UserController extends Controller
     {
         $this->notification = $notification;
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         try {
-            $data = User::where('id', '!=', 1)->get();
+            $data = Agency::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function create()
-    {
-        try {
-            $data['role'] = Role::all();
-            $data['permission'] = Permission::all();
 
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
-    }
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreAgencyRequest $request)
     {
         try {
-            User::create($request->store());
+            Agency::create($request->store());
 
             return response()->json($this->notification->storeSuccess());
         } catch (\Throwable $th) {
@@ -55,14 +49,15 @@ class UserController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
+            $data = Agency::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -72,13 +67,14 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
+            $data = Agency::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -88,14 +84,15 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateAgencyRequest $request, $id)
     {
         try {
-            User::where('id', $id)->update($request->update());
+            Agency::where('id', $id)->update($request->update());
 
             return response()->json($this->notification->updateSuccess());
         } catch (\Throwable $th) {
@@ -106,13 +103,14 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
-            $data = User::findOrFail($id);
+            $data = Agency::findOrFail($id);
             $data->delete();
 
             return response()->json($this->notification->deleteSuccess());

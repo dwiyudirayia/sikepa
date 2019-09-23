@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryArticlesTable extends Migration
+class CreateSectionArticleTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCategoryArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_article', function (Blueprint $table) {
+        Schema::create('section_article', function (Blueprint $table) {
             $table->mediumIncrements('id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->mediumInteger('section_id');
             $table->string('name');
             $table->softDeletes();
             $table->timestamps();
@@ -31,6 +30,6 @@ class CreateCategoryArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_article');
+        Schema::dropIfExists('section_article');
     }
 }

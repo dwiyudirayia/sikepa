@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\FAQ;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Http\Requests\StoreFAQRequest;
+use App\Http\Requests\UpdateFAQRequest;
 
-class UserController extends Controller
+class FAQController extends Controller
 {
     private $notification;
 
@@ -17,21 +15,15 @@ class UserController extends Controller
     {
         $this->notification = $notification;
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         try {
-            $data = User::where('id', '!=', 1)->get();
-
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
-    }
-    public function create()
-    {
-        try {
-            $data['role'] = Role::all();
-            $data['permission'] = Permission::all();
+            $data = FAQ::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -40,13 +32,14 @@ class UserController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreFAQRequest $request)
     {
         try {
-            User::create($request->store());
+            FAQ::create($request->store());
 
             return response()->json($this->notification->storeSuccess());
         } catch (\Throwable $th) {
@@ -55,14 +48,15 @@ class UserController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
+            $data = FAQ::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -72,13 +66,14 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
+            $data = FAQ::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -88,14 +83,15 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateFAQRequest $request, $id)
     {
         try {
-            User::where('id', $id)->update($request->update());
+            FAQ::where('id', $id)->update($request->update());
 
             return response()->json($this->notification->updateSuccess());
         } catch (\Throwable $th) {
@@ -106,16 +102,18 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
-            $data = User::findOrFail($id);
+            $data = FAQ::findOrFail($id);
             $data->delete();
 
-            return response()->json($this->notification->deleteSuccess());
+            $currentData = FAQ::all();
+            return response()->json($this->notification->deleteSuccess($currentData));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
         }
