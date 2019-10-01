@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryArticle;
-use App\Http\Requests\StoreCategoryArticleRequest;
-use App\Http\Requests\UpdateCategoryArticleRequest;
+use Illuminate\Http\Request;
 use App\SectionArticle;
+use App\CategoryArticle;
+use App\Article;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 
-class CategoryArticleController extends Controller
+class ArticleController extends Controller
 {
     private $notification;
 
     public function __construct(NotificationRepositoryInterfaces $notification)
     {
         $this->notification = $notification;
+    }
+    public function listCategoryArticle($id)
+    {
+        try {
+            $data = Article::where('category_id', $id)->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +36,7 @@ class CategoryArticleController extends Controller
     public function index()
     {
         try {
-            $data = CategoryArticle::all();
+            $data = Article::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -40,7 +52,8 @@ class CategoryArticleController extends Controller
     public function create()
     {
         try {
-            $data = SectionArticle::all();
+            $data['section'] = SectionArticle::all();
+            $data['category'] = CategoryArticle::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -54,12 +67,13 @@ class CategoryArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryArticleRequest $request)
+    public function store(StoreArticleRequest $request)
     {
         try {
-            CategoryArticle::create($request->store());
+            Article::create($request->store());
 
-            $data = CategoryArticle::where('section_id', $request->section_id)->get();
+            $data = Article::where('category_id', $request->category_id)->get();
+
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
@@ -75,7 +89,7 @@ class CategoryArticleController extends Controller
     public function show($id)
     {
         try {
-            $data = CategoryArticle::with('articles')->findOrFail($id);
+            $data = Article::with('category', 'section')->findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -94,6 +108,7 @@ class CategoryArticleController extends Controller
         try {
             $data['data'] = CategoryArticle::with('section')->findOrFail($id);
             $data['section'] = SectionArticle::all();
+            $data['category'] = CategoryArticle::all();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -108,11 +123,11 @@ class CategoryArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryArticleRequest $request, $id)
+    public function update(UpdateArticleRequest $request, $id)
     {
         try {
-            CategoryArticle::where('id', $id)->update($request->update());
-            $data = CategoryArticle::where('section_id', $request->section_id)->get();
+            Article::where('id', $id)->update($request->update());
+            $data = SectionArticle::all();
 
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
@@ -130,50 +145,39 @@ class CategoryArticleController extends Controller
     public function destroy($id)
     {
         try {
-            $data = CategoryArticle::findOrFail($id);
+            $data = Article::findOrFail($id);
             $data->delete();
 
-            $array = CategoryArticle::where('section_id', $data->section_id)->get();
+            $array = Article::where('category_id', $data->category_id)->get();
             return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
         }
     }
-    public function listSectionCategory($id)
+    public function changePublishStatus($id)
     {
         try {
-            $data = SectionArticle::with('categories')->findOrFail($id);
-            return response()->json($this->notification->generalSuccess($data));
+            $data = Article::findOrFail($id);
+            $data->publish = !$data->publish;
+            $data->save();
+
+            $array = SectionArticle::all();
+            return response()->json($this->notification->generalSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function checkNameCategory($name, $section_id)
+    public function changeApprovedStatus($id)
     {
-        $data = CategoryArticle::where('name', $name)->where('deleted_at', null)->where('section_id', $section_id)->get();
+        try {
+            $data = Article::findOrFail($id);
+            $data->approved = !$data->approved;
+            $data->save();
 
-        if($data->isNotEmpty())
-        {
-            return response()->json(['isExist'=> true]);
+            $array = SectionArticle::all();
+            return response()->json($this->notification->generalSuccess($array));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
-
-        return response()->json(['isExist' => false]);
-    }
-    public function checkNameCategoryEdit($name, $id)
-    {
-        $checkSameValueOnId = CategoryArticle::where('id', $id)->where('name', $name)->where('deleted_at', null)->get();
-        if($checkSameValueOnId->count() == 1)
-        {
-            return response()->json(['isExist' => false]);
-        }
-
-        $checkAllData = CategoryArticle::where('name', $name)->where('deleted_at', null)->get();
-
-        if($checkAllData->count() > 0)
-        {
-            return response()->json(['isExist' => true]);
-        }
-
-        return response()->json(['isExist' => false]);
     }
 }

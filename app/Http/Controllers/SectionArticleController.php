@@ -41,8 +41,8 @@ class SectionArticleController extends Controller
     {
         try {
             SectionArticle::create($request->store());
-
-            return response()->json($this->notification->storeSuccess());
+            $data = SectionArticle::all();
+            return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
         }
@@ -93,8 +93,9 @@ class SectionArticleController extends Controller
     {
         try {
             SectionArticle::where('id', $id)->update($request->update());
+            $data = SectionArticle::all();
 
-            return response()->json($this->notification->updateSuccess());
+            return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
 
             return response()->json($this->notification->updateSuccess($th));
@@ -113,9 +114,38 @@ class SectionArticleController extends Controller
             $data = SectionArticle::findOrFail($id);
             $data->delete();
 
-            return response()->json($this->notification->deleteSuccess());
+            $array = SectionArticle::all();
+            return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
         }
+    }
+    public function checkNameSection($name)
+    {
+        $data = SectionArticle::where('name', $name)->where('deleted_at', null)->get();
+
+        if($data->isNotEmpty())
+        {
+            return response()->json(['isExist'=> true]);
+        }
+
+        return response()->json(['isExist' => false]);
+    }
+    public function checkNameSectionEdit($name, $id)
+    {
+        $checkSameValueOnId = SectionArticle::where('id', $id)->where('name', $name)->where('deleted_at', null)->get();
+        if($checkSameValueOnId->count() == 1)
+        {
+            return response()->json(['isExist' => false]);
+        }
+
+        $checkAllData = SectionArticle::where('name', $name)->where('deleted_at', null)->get();
+
+        if($checkAllData->count() > 0)
+        {
+            return response()->json(['isExist' => true]);
+        }
+
+        return response()->json(['isExist' => false]);
     }
 }

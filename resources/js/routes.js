@@ -7,12 +7,23 @@ import UserCreate from './components/User/Create';
 import UserEdit from './components/User/Edit';
 import UserChangePassword from './components/User/ChangePassword';
 //End User
-
-//Section Article
+// --- Article --- //
+//Section
 import SectionIndex from './components/Article/Section/Index';
-// import SectionShow from './components/Article/Section/Show';
-//End Section Article
+import SectionCreate from './components/Article/Section/Create';
+import SectionEdit from './components/Article/Section/Edit';
+//End Section
+//Category
+import ListSectionCategory from './components/Article/Category/ListSectionCategory';
+import CategoryCreate from './components/Article/Category/Create';
+import CategoryEdit from './components/Article/Category/Edit';
+//End Category
 
+//Article
+import ListCategoryArticle from './components/Article/ListCategoryArticle';
+import ArticleCreate from './components/Article/Create';
+//End Article
+// --- End Article --- //
 //Faq
 import FaqIndex from './components/Faq/Index';
 import FaqCreate from './components/Faq/Create';
@@ -32,7 +43,7 @@ const router = new VueRouter({
         },
         {
             path: '/user/create',
-            name: 'user-create',
+            name: 'UserCreate',
             component: UserCreate
         },
         {
@@ -48,8 +59,45 @@ const router = new VueRouter({
         //Section
         {
             path: '/section',
-            name: 'section',
+            name: 'SectionIndex',
             component: SectionIndex
+        },
+        {
+            path: '/section/create',
+            name: 'SectionCreate',
+            component: SectionCreate
+        },
+        {
+            path: '/section/:id/edit',
+            name: 'SectionEdit',
+            component: SectionEdit
+        },
+        //Category
+        {
+            path: '/list/:id/category',
+            name: 'ListSectionCategory',
+            component: ListSectionCategory
+        },
+        {
+            path: '/category/create',
+            name: 'CategoryCreate',
+            component: CategoryCreate,
+        },
+        {
+            path: '/category/:id/edit',
+            name: 'CategoryEdit',
+            component: CategoryEdit,
+        },
+        //Article
+        {
+            path: '/category/:id/article',
+            name: 'ListCategoryArticle',
+            component: ListCategoryArticle
+        },
+        {
+            path: '/article/create',
+            name: 'ArticleCreate',
+            component: ArticleCreate
         },
         //Faq
         {

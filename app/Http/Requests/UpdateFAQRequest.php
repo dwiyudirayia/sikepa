@@ -24,8 +24,8 @@ class UpdateFAQRequest extends FormRequest
     public function rules()
     {
         return [
-            'question' => 'required',
-            'answere' => 'required'
+            'question' => 'required||unique:faq,question,'.$this->id.',id',
+            'answere' => 'required|unique:faq,answere,'.$this->id.',id'
         ];
     }
     public function attributes()

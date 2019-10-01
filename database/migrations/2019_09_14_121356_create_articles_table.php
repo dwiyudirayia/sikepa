@@ -21,13 +21,13 @@ class CreateArticlesTable extends Migration
             $table->mediumInteger('category_id');
             $table->string('title');
             $table->string('url');
-            $table->longText('content');
-            $table->string('image');
-            $table->text('seo_title');
-            $table->text('seo_meta_key');
-            $table->text('seo_meta_desc');
-            $table->tinyInteger('publish');
-            $table->tinyInteger('approved');
+            $table->text('content')->nullable();
+            $table->string('image')->nullable();
+            $table->text('seo_title')->nullable();
+            $table->text('seo_meta_key')->nullable();
+            $table->text('seo_meta_desc')->nullable();
+            $table->boolean('publish')->nullable();
+            $table->boolean('approved')->nullable();
             $table->timestamps();
         });
     }

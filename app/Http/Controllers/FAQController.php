@@ -41,7 +41,9 @@ class FAQController extends Controller
         try {
             FAQ::create($request->store());
 
-            return response()->json($this->notification->storeSuccess());
+            $data = FAQ::all();
+
+            return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
         }
@@ -90,10 +92,11 @@ class FAQController extends Controller
      */
     public function update(UpdateFAQRequest $request, $id)
     {
+        // dd($request->all());
         try {
             FAQ::where('id', $id)->update($request->update());
-
-            return response()->json($this->notification->updateSuccess());
+            $data = FAQ::all();
+            return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
 
             return response()->json($this->notification->updateSuccess($th));

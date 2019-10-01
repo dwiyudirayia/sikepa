@@ -9,7 +9,7 @@ class UpdateCategoryArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:category_article,name,'.$this->id.'',
+            'name' => 'required|unique:category_article,name,'.$this->id.',id,deleted_at,NULL,section_id,'.$this->section_id,
         ];
     }
     public function attributes()
@@ -29,7 +29,7 @@ class UpdateCategoryArticleRequest extends FormRequest
     {
         return [
             'created_by' => 1,
-            'section_id' => $this->section_id,
+            'section_id' => (int) $this->section_id,
             'name' => $this->name,
         ];
     }

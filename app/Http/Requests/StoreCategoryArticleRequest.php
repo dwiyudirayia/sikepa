@@ -9,7 +9,7 @@ class StoreCategoryArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:category_article,name'
+            'name' => 'required|unique:category_article,name,NULL,id,deleted_at,NULL,section_id,'.$this->section_id,
         ];
     }
     public function attributes()

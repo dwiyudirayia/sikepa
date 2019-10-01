@@ -7,6 +7,7 @@ import Routes from './routes.js'
 import App from './layouts/App.vue';
 import store from './store/store';
 import vuevalidate from 'vuelidate';
+import VTooltip from 'v-tooltip';
 
 //Partial Layout Admin
 import SideMenu from './components/partialsAdmin/SideMenu'
@@ -22,8 +23,9 @@ Vue.component('notification-validation', NotificationValidation);
 Vue.component('notification-success', NotificationSuccess);
 Vue.component('notification-error', NotificationError);
 
-
 Vue.use(vuevalidate);
+Vue.use(VTooltip);
+VTooltip.options.defaultClass = 'tooltip';
 
 const app = new Vue({
     el: '#app',

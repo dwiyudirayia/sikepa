@@ -6,12 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSectionArticleRequest extends FormRequest
 {
-    public function rules()
-    {
-        return [
-            'name' => 'required|unique:section_article,name'
-        ];
-    }
     public function attributes()
     {
         return [
@@ -22,6 +16,12 @@ class StoreSectionArticleRequest extends FormRequest
     {
         return [
             'name.required' => ':attribute Harus di Isi',
+        ];
+    }
+    public function rules()
+    {
+        return [
+            'name' => 'required|unique:section_article,name,NULL,id,deleted_at,NULL',
         ];
     }
 

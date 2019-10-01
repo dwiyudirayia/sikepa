@@ -6,9 +6,10 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 
 class NotificationRepository implements NotificationRepositoryInterfaces
 {
-    public function storeSuccess()
+    public function storeSuccess($data)
     {
         $array = [
+            'data' => $data,
             'messages' => 'Data Berhasil di Masukan',
             'status' => 200
         ];
@@ -62,9 +63,10 @@ class NotificationRepository implements NotificationRepositoryInterfaces
 
         return $array;
     }
-    public function updateSuccess()
+    public function updateSuccess($data)
     {
         $data = [
+            'data' => $data,
             'messages' => 'Data Berhasil di Ubah',
             'status' => 200
         ];

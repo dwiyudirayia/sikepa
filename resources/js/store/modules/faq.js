@@ -1,63 +1,15 @@
 import Axios from "axios"
 
-const listBreadcrumb = [
-    {
-        link: [
-            {
-                id: 1,
-                label: 'FAQ',
-                path: '/faq'
-            }
-        ]
-    },
-    {
-        link: [
-            {
-                id: 1,
-                label: 'FAQ',
-                path: '/faq'
-            },
-            {
-                id: 2,
-                label: 'Tambah FAQ',
-                path: '/faq/create'
-            }
-        ]
-    },
-    {
-        link: [
-            {
-                id: 1,
-                label: 'FAQ',
-                path: '/faq'
-            },
-        ]
-    }
-];
-
 const faq = {
     namespaced: true,
     state: {
         data: [],
-        breadcrumbTitle: 'FAQ',
-        breadcrumb: listBreadcrumb,
+        forms: [],
         message: null,
         statusCode: null,
         showNotification: null,
     },
     getters: {
-        breadcrumbTitle(state) {
-            return state.breadcrumbTitle;
-        },
-        breadcrumbIndex(state) {
-            return state.breadcrumb[0];
-        },
-        breadcrumbCreate(state) {
-            return state.breadcrumb[1];
-        },
-        breadcrumbEdit(state) {
-            return state.breadcrumb[2];
-        },
         getMessage(state)
         {
             return state.message;
@@ -74,31 +26,28 @@ const faq = {
         }
     },
     mutations: {
-
         updateQuestion(state, payload) {
-            state.data.question = payload;
+            state.forms.question = payload;
         },
         updateAnswere(state, payload) {
-            state.data.answere = payload;
+            state.forms.answere = payload;
         },
         updateId(state, payload) {
-            state.data.answere = payload;
+            state.forms.id = payload;
         },
-        message(state, payload)
+        notification(state, payload)
         {
             state.message = payload.data.messages;
-        },
-        statusCode(state, payload)
-        {
             state.statusCode = payload.data.status;
-        },
-        showNotification(state)
-        {
             state.showNotification = true;
         },
         updateData(state, payload)
         {
             state.data = payload.data.data;
+        },
+        updateDataForm(state, payload)
+        {
+            state.forms = payload.data.data;
         },
         clearPage(state)
         {
@@ -108,23 +57,6 @@ const faq = {
         }
     },
     actions: {
-        store({ commit },data) {
-            Axios.post('/admin/faq', data)
-            .then(response => {
-                commit('message', response);
-                commit('statusCode', response);
-                commit('showNotification');
-                data.answere = '';
-                data.question = '';
-            })
-            .catch(error => {
-                commit('message', error);
-                commit('statusCode', error);
-                commit('showNotification');
-                data.answere = '';
-                data.question = '';
-            });
-        },
         index({ commit }) {
             Axios.get('/admin/faq')
             .then(response => {
@@ -132,36 +64,47 @@ const faq = {
                 commit('clearPage');
             });
         },
+        store({ commit }, data) {
+            Axios.post('/admin/faq', data)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+                data.answere = '';
+                data.question = '';
+            })
+            .catch(error => {
+                commit('notification', error);
+                data.answere = '';
+                data.question = '';
+            });
+        },
         destroy({ commit }, id) {
             Axios.delete('/admin/faq/'+id)
             .then(response => {
-                commit('message', response);
-                commit('statusCode', response);
-                commit('showNotification');
+                commit('notification', error);
                 commit('updateData', response)
             })
             .catch(error => {
-                commit('message', error);
-                commit('statusCode', error);
-                commit('showNotification');
+                commit('notification', error);
             })
         },
         edit({ commit }, id) {
             Axios.get(`/admin/faq/${id}/edit`)
             .then(response => {
-                commit('updateData', response)
+                commit('clearPage');
+                commit('updateDataForm', response);
             })
             .catch(error => {
 
             });
         },
         update({ commit, state }) {
-            Axios.put(`/admin/faq/${state.data.id}`, state.data)
+            Axios.put(`/admin/faq/${state.forms.id}`, state.forms)
             .then(response => {
-                commit('message', response);
-                commit('statusCode', response);
-                commit('showNotification');
+                commit('notification', response);
+                commit('updateData', response);
             })
+
         },
         clearPage({commit})
         {

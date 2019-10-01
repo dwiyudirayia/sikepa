@@ -9,33 +9,23 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah FAQ
+                            Tambah Section
                         </h3>
                     </div>
                 </div>
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Pertanyaan</label>
+                    <label for="Nama Lengkap">Nama Section</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.question.$model" class="form-control" @blur="$v.forms.question.$touch()">
+                        <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
-                    <template v-if="$v.forms.question.$error">
-                        <span v-if="!$v.forms.question.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <template v-if="$v.forms.name.$error">
+                        <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <span class="m--font-danger" v-if="!$v.forms.name.isUnique">Nama Section Sudah Terdaftar.</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Masukan pertanyaannya, Tanpa <strong>tanda tanya (?)</strong> di akhir kalimat</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Username">Jawaban</label>
-                    <div class="m-form__control">
-                        <textarea type="text" v-model="$v.forms.answere.$model" class="form-control" @blur="$v.forms.answere.$touch()"></textarea>
-                    </div>
-                    <template v-if="$v.forms.answere.$error">
-                        <span v-if="!$v.forms.answere.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                    <br>
-                    <span class="m-form__help">Tolong sesuaikan jawabannya, agar user tidak bingung</span>
+                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -55,42 +45,57 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import Axios from 'axios';
+
 export default {
-    name: 'FaqCreate',
+    name: 'SectionCreate',
     data() {
         return {
-            forms: {
-                question: null,
-                answere: null
-            },
             breadcrumbTitle: 'FAQ',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'FAQ',
-                    path: '/faq'
+                    label: 'Section',
+                    path: '/section'
                 },
                 {
-                    id: 1,
-                    label: 'Tambah FAQ',
-                    path: '/faq/create'
-                }
-            ]
+                    id: 2,
+                    label: 'Tambah Section',
+                    path: '/section/create'
+                },
+            ],
+            forms: {
+                name: null,
+            },
+            statusNameUnique: null
         }
     },
-
     validations: {
         forms: {
-            question: {
-                required
+            name: {
+                required,
+                async isUnique(value) {
+                    // standalone validator ideally should not assume a field is required
+                    if (value === '') return true
+
+                    const response = Axios.get(`/admin/check/section/article/${value}`)
+                    .then(response => {
+                        this.statusNameUnique = response.data.isExist;
+                    })
+
+                    // simulate async call, fail for all logins with even length
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(this.statusNameUnique == false)
+                        }, 350 + Math.random() * 300)
+                    })
+                }
+
             },
-            answere: {
-                required
-            }
         }
     },
     created() {
-        this.$store.dispatch('faq/clearPage');
+        this.$store.dispatch('article/clearPage');
     },
     methods: {
         store() {
@@ -98,10 +103,10 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('faq/store', this.forms);
+                this.$store.dispatch('article/storeSection', this.forms);
                 this.$v.$reset();
             }
-            this.$router.push({ name: 'FaqIndex' });
+            this.$router.push({ name: 'SectionIndex' });
         }
     },
 }

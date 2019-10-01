@@ -1,8 +1,6 @@
 <template>
     <div>
-        <breadcrumb :data="breadcrumbEdit.link" :title="breadcrumbTitle"></breadcrumb>
-        <notification-success v-show="getShowNotification" :data="getMessage" v-if="getStatusatusCode == 200"></notification-success>
-        <notification-error v-show="getShowNotification" :data="getMessage" v-else></notification-error>
+        <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
         <div class="m-portlet">
             <div class="m-portlet__head" style="margin-bottom:20px;">
                 <div class="m-portlet__head-caption">
@@ -20,7 +18,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pertanyaan</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="question" class="form-control" @blur="$v.question.$touch()">
+                        <input type="text" v-model="$v.question.$model" class="form-control" @blur="$v.question.$touch()">
                         <input type="hidden" v-model="id" class="form-control">
                     </div>
                     <template v-if="$v.question.$error">
@@ -32,7 +30,7 @@
                 <div class="form-group m-form__group">
                     <label for="Username">Jawaban</label>
                     <div class="m-form__control">
-                        <textarea type="text" v-model="answere" class="form-control" @blur="$v.answere.$touch()"></textarea>
+                        <textarea type="text" v-model="$v.answere.$model" class="form-control" @blur="$v.answere.$touch()"></textarea>
                     </div>
                     <template v-if="$v.answere.$error">
                         <span v-if="!$v.answere.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -62,7 +60,21 @@ import { required } from 'vuelidate/lib/validators';
 export default {
     name: 'FaqEdit',
     data() {
-        return {}
+        return {
+            breadcrumbTitle: 'FAQ',
+            breadcrumbLink: [
+                {
+                    id: 1,
+                    label: 'FAQ',
+                    path: '/faq'
+                },
+                {
+                    id: 1,
+                    label: 'Edit FAQ',
+                    path: `/faq/${this.$route.params.id}/edit`
+                }
+            ]
+        }
     },
     validations: {
         question: {
@@ -76,29 +88,9 @@ export default {
         this.$store.dispatch('faq/edit', this.$route.params.id);
     },
     computed: {
-        breadcrumbTitle()
-        {
-            return this.$store.getters['faq/breadcrumbTitle'];
-        },
-        breadcrumbEdit()
-        {
-            return this.$store.getters['faq/breadcrumbEdit'];
-        },
-        getMessage()
-        {
-            return this.$store.getters['faq/getMessage'];
-        },
-        getStatusatusCode()
-        {
-            return this.$store.getters['faq/getStatusCode'];
-        },
-        getShowNotification()
-        {
-            return this.$store.getters['faq/getShowNotification'];
-        },
         question: {
             get() {
-                return this.$store.state.faq.data.question;
+                return this.$store.state.faq.forms.question;
             },
             set(value) {
                 this.$store.commit('faq/updateQuestion', value)
@@ -106,7 +98,7 @@ export default {
         },
         answere: {
             get() {
-                return this.$store.state.faq.data.answere;
+                return this.$store.state.faq.forms.answere;
             },
             set(value) {
                 this.$store.commit('faq/updateAnswere', value)
@@ -114,7 +106,7 @@ export default {
         },
         id: {
             get() {
-                return this.$store.state.faq.data.id;
+                return this.$store.state.faq.forms.id;
             },
             set(value) {
                 this.$store.commit('faq/updateId', value)
@@ -131,6 +123,8 @@ export default {
                 this.$store.dispatch('faq/update');
                 this.$v.$reset();
             }
+
+            this.$router.push('/faq')
         }
     },
 }

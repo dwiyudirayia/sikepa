@@ -5,7 +5,7 @@
             <i class="la la-exclamation-circle"></i>
         </div>
         <div class="m-alert__text">
-            <strong>Gagal!</strong> Bla Bla Bla ...
+            <strong>Gagal!</strong> {{ data }}
         </div>
         <div class="m-alert__close">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,5 +17,6 @@
 <script>
 export default {
     name: 'NotificationError',
+    props: ['data']
 }
 </script>

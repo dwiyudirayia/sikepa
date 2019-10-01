@@ -9,7 +9,7 @@ class UpdateSectionArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:section_article,name,'.$this->id.'',
+            'name' => 'required|unique:section_article,name,'.$this->id.',id,deleted_at,null',
         ];
     }
     public function attributes()

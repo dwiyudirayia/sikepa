@@ -11,49 +11,47 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar FAQ</span>
+                            <span>Daftar Section</span>
                         </h2>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/faq/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah FAQ'">
+                    <router-link to="/article/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Artikel'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah FAQ</span>
+                            <span>Tambah Artikel</span>
                         </span>
                     </router-link>
                 </div>
             </div>
             <div class="m-portlet__body">
-                <!--begin::Content-->
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
-
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['faq/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['faq/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="this.$store.getters['article/getData'].length != 0">
+                            <div class="m-widget5__item" v-for="value in this.$store.getters['article/getData']" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
-                                            {{ value.question }}?
+                                            {{ value.title }}
                                         </h4>
                                         <span class="m-widget5__desc">
-                                            {{ value.answere }}
+                                            Tanggal di Buat: {{ value.created_at }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'FaqEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit FAQ'">
+                                        <router-link :to="{name: 'CategoryEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Artikel'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit FAQ</span>
+                                                <span>Edit Artikel</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus FAQ'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Artikel'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus FAQ</span>
+                                                <span>Hapus Artikel</span>
                                             </span>
                                         </button>
                                     </div>
@@ -70,45 +68,49 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
-    name: 'FaqIndex',
+    name: 'ListCategoryArticle',
     data() {
         return {
-            breadcrumbTitle: 'FAQ',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'FAQ',
-                    path: '/faq'
+                    label: 'Section',
+                    path: `/section`
                 },
-            ]
+                {
+                    id: 2,
+                    label: 'Daftar Kategori Artikel',
+                    path: `/list/${this.$route.params.id}/category`
+                },
+            ],
+            breadcrumbTitle: 'Kategori'
         }
     },
-    props: ['data', 'title'],
     computed: {
         getMessage()
         {
-            return this.$store.getters['faq/getMessage'];
+            return this.$store.getters['article/getMessage'];
         },
         getStatusatusCode()
         {
-            return this.$store.getters['faq/getStatusCode'];
+            return this.$store.getters['article/getStatusCode'];
         },
         getShowNotification()
         {
-            return this.$store.getters['faq/getShowNotification'];
+            return this.$store.getters['article/getShowNotification'];
         }
     },
-    mounted() {
-        this.$store.dispatch('faq/index');
+    created() {
+        this.$store.dispatch('article/listCategoryArticle', this.$route.params.id)
     },
     methods: {
         destroy(id) {
-            this.$store.dispatch('faq/destroy', id);
+            this.$store.dispatch('article/destroyArticle', id);
         },
-        confirmDelete(id)
-        {
+        confirmDelete(id) {
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
                 text: "Data yang terhapus tidak bisa di kembalikan",
@@ -127,7 +129,11 @@ export default {
                     this.destroy(id);
                 }
             })
-        },
+        }
     }
 }
 </script>
+
+<style>
+
+</style>

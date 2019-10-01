@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CategoryArticle extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'category_article';
-    protected $fillable = ['created_by', 'updated_by', 'name'];
+    protected $fillable = ['created_by', 'updated_by', 'section_id', 'name'];
 
     public function articles()
     {
@@ -17,6 +17,6 @@ class CategoryArticle extends Model
     }
     public function section()
     {
-        return $this->belongsTo(SectionArticle::class);
+        return $this->belongsTo(SectionArticle::class, 'section_id');
     }
 }

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <breadcrumb :data="breadcrumbIndex.link" :title="breadcrumbTitle"></breadcrumb>
+        <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
+        <notification-success v-show="getShowNotification" :data="getMessage" v-if="getStatusatusCode == 200"></notification-success>
+        <notification-error v-show="getShowNotification" :data="getMessage" v-else></notification-error>
         <div class="m-portlet m-portlet--creative m-portlet--bordered-semi">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -14,87 +16,61 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <ul class="m-portlet__nav">
-                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl">
-                                <i class="la la-ellipsis-h m--font-brand"></i>
-                            </a>
-                            <div class="m-dropdown__wrapper" style="z-index: 101;">
-                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
-                                <div class="m-dropdown__inner">
-                                    <div class="m-dropdown__body">
-                                        <div class="m-dropdown__content">
-                                            <ul class="m-nav">
-                                                <li class="m-nav__section m-nav__section--first">
-                                                    <span class="m-nav__section-text">Quick Actions</span>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-share"></i>
-                                                        <span class="m-nav__link-text">Activity</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                        <span class="m-nav__link-text">Messages</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-info"></i>
-                                                        <span class="m-nav__link-text">FAQ</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                        <span class="m-nav__link-text">Support</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__separator m-nav__separator--fit">
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">Cancel</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <router-link to="/section/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Section'">
+                        <span>
+                            <i class="la la-plus"></i>
+                            <span>Tambah Section</span>
+                        </span>
+                    </router-link>
                 </div>
             </div>
             <div class="m-portlet__body">
-                <table class="table table-striped- table-bordered table-hover" style="width:100%;">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody v-if="data != undefined && data == []">
-                        <tr v-for="(item, index) in data" :key="item.id">
-                            <td>{{ index+1 }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>
-                                <router-link :to="{name: 'userEdit', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only">
-                                    <span>
-                                        <i class="la la-pencil"></i>
-                                        <span>Edit User</span>
-                                    </span>
-                                </router-link>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody v-else>
-                        <tr>
-                            <td colspan="4" class="text-center">Data Tidak Ada</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
+
+                        <!--begin::m-widget5-->
+                        <div class="m-widget5" v-if="this.$store.getters['article/getData'].length != 0">
+                            <div class="m-widget5__item" v-for="value in this.$store.getters['article/getData']" :key="value.id">
+                                <div class="m-widget5__content">
+                                    <div class="m-widget5__section">
+                                        <h4 class="m-widget5__title">
+                                            {{ value.name }}
+                                        </h4>
+                                        <span class="m-widget5__desc">
+                                            Tanggal di Buat: {{ value.created_at }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="m-widget5__content">
+                                    <div class="m-widget5__stats1">
+                                        <router-link :to="{name: 'ListSectionCategory', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Melihat Daftar Section Kategori'">
+                                            <span>
+                                                <i class="la la-list"></i>
+                                                <span>Daftar Kategori</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'SectionEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Section'">
+                                            <span>
+                                                <i class="la la-pencil"></i>
+                                                <span>Edit Section</span>
+                                            </span>
+                                        </router-link>
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Section'">
+                                            <span>
+                                                <i class="la la-trash"></i>
+                                                <span>Hapus Section</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-widget5" v-else>
+                            <span class="m--font-danger text-center">Data Kosong</span>
+                        </div>
+                        <!--end::m-widget5-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,20 +78,61 @@
 <script>
 export default {
     name: 'SectionIndex',
-    data: function(){
+    data() {
         return {
-            data: [],
+            breadcrumbTitle: 'Section',
+            breadcrumbLink: [
+                {
+                    id: 1,
+                    label: 'Section',
+                    path: '/section'
+                },
+            ]
         }
     },
+    props: ['data', 'title'],
     computed: {
-        breadcrumbTitle()
+        getMessage()
         {
-            return this.$store.getters['article/breadcrumbTitle'];
+            return this.$store.getters['article/getMessage'];
         },
-        breadcrumbIndex()
+        getStatusatusCode()
         {
-            return this.$store.getters['article/breadcrumbIndex'];
+            return this.$store.getters['article/getStatusCode'];
+        },
+        getShowNotification()
+        {
+            return this.$store.getters['article/getShowNotification'];
         }
+    },
+    created() {
+        this.$store.dispatch('article/indexSection');
+    },
+    methods: {
+        destroy(id) {
+            this.$store.dispatch('article/destroySection', id);
+        },
+        confirmDelete(id)
+        {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data yang terhapus tidak bisa di kembalikan",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus!'
+                }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    );
+                    this.destroy(id);
+                }
+            })
+        },
     }
 }
 </script>
