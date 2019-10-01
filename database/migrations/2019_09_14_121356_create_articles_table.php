@@ -21,7 +21,7 @@ class CreateArticlesTable extends Migration
             $table->mediumInteger('category_id');
             $table->string('title');
             $table->string('url');
-            $table->text('content')->nullable();
+            $table->longText('content')->nullable();
             $table->string('image')->nullable();
             $table->text('seo_title')->nullable();
             $table->text('seo_meta_key')->nullable();
