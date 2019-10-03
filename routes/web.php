@@ -29,6 +29,15 @@ Route::prefix('admin')->group(function () {
     Route::get('check/section/category/{name}/edit/{id}', 'CategoryArticleController@checkNameCategoryEdit');
 });
 
+Route::get('user-authenticated', 'UserController@getUserLogin');
+Route::get('user-lists', 'UserController@userLists');
+Route::post('/login', 'LoginController@login');
+Route::get('roles', 'RolePermissionController@getAllRole');
+Route::get('permissions', 'RolePermissionController@getAllPermission');
+Route::post('role-permission', 'RolePermissionController@getRolePermission');
+Route::post('set-role-permission', 'RolePermissionController@setRolePermission');
+Route::post('set-role-user', 'RolePermissionController@setRoleUser');
+
 Route::get('/{any}', function(){
     return view('layouts.app');
 })->where('any', '.*');

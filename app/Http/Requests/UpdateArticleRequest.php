@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Article;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Str;
 class UpdateArticleRequest extends FormRequest
 {
     /**
@@ -13,7 +14,7 @@ class UpdateArticleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,20 +28,44 @@ class UpdateArticleRequest extends FormRequest
             'title' => 'required',
         ];
     }
-    public function store()
+    public function update()
     {
-        return [
-            'updated_by' => 1,
-            'section_id' => $this->section_id,
-            'category_id' => $this->category_id,
-            'title' => $this->title,
-            'url' => Str::slug($this->title,"-"),
-            'content' => $this->content,
-            'seo_title' => $this->seo_title,
-            'seo_meta_key' => $this->seo_meta_key,
-            'seo_meta_desc' => $this->seo_meta_desc,
-            'publish' => $this->publish,
-            'approved' => $this->approved,
-        ];
+        $data = Article::findOrFail($this->id);
+
+        if($this->image == $data->image)
+        {
+            return [
+                'created_by' => 1,
+                'section_id' => (int)$this->section_id,
+                'category_id' => (int)$this->category_id,
+                'title' => $this->title,
+                'url' => Str::slug($this->title,"-"),
+                'content' => $this['content'],
+                'seo_title' => $this->seo_title,
+                'seo_meta_key' => $this->seo_meta_key,
+                'seo_meta_desc' => $this->seo_meta_desc,
+                'publish' => (int)$this->publish,
+                'approved' => (int)$this->approved,
+            ];
+        } else {
+            $image = $this->image;
+            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            \Image::make($this->image)->save(public_path('article/').$name);
+
+            return [
+                'created_by' => 1,
+                'section_id' => (int)$this->section_id,
+                'category_id' => (int)$this->category_id,
+                'title' => $this->title,
+                'url' => Str::slug($this->title,"-"),
+                'content' => $this['content'],
+                'image' => $name,
+                'seo_title' => $this->seo_title,
+                'seo_meta_key' => $this->seo_meta_key,
+                'seo_meta_desc' => $this->seo_meta_desc,
+                'publish' => (int)$this->publish,
+                'approved' => (int)$this->approved,
+            ];
+        }
     }
 }

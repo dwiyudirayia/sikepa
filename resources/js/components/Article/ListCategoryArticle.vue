@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'CategoryEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Artikel'">
+                                        <router-link :to="{name: 'ArticleEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Artikel'">
                                             <span>
                                                 <i class="la la-pencil"></i>
                                                 <span>Edit Artikel</span>

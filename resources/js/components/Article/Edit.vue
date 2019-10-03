@@ -14,17 +14,19 @@
                     </div>
                 </div>
             </div>
-            <form class="m-form m-form--fit" @submit.prevent="store">
+            <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Section</label>
                     <div class="m-form__control">
-                        <Select2
+                        <Select2Edit
+                        @input="changeSection"
                         :options="section"
+                        :initSelected="selectedSection"
                         v-model="$v.forms.section_id.$model"
                         class="form-control"
                         @blur="$v.forms.section_id.$touch()"
                         >
-                        </Select2>
+                        </Select2Edit>
                     </div>
                     <template v-if="$v.forms.section_id.$error">
                         <span v-if="!$v.forms.section_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -34,13 +36,15 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Kategori</label>
-                    <Select2
+                    <Select2Edit
+                    @input="changeCategory"
                     :options="category"
+                    :initSelected="selectedCategory"
                     v-model="$v.forms.category_id.$model"
                     class="form-control"
                     @blur="$v.forms.category_id.$touch()"
                     >
-                    </Select2>
+                    </Select2Edit>
                     <template v-if="$v.forms.category_id.$error">
                         <span v-if="!$v.forms.category_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -82,7 +86,7 @@
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
-                <div class="form-group m-form__group" v-if="forms.image">
+                <div class="form-group m-form__group" v-show="changeImage">
                     <img :src="forms.image" class="img-responsive" height="70" width="90">
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -126,11 +130,11 @@
 import { required } from 'vuelidate/lib/validators';
 import { VueEditor } from "vue2-editor";
 import Axios from 'axios';
-import Select2 from './Select2'
+import Select2Edit from './Select2Edit'
 export default {
     name: 'ArticleCreate',
     components: {
-        Select2,
+        Select2Edit,
         VueEditor
     },
     data() {
@@ -162,6 +166,9 @@ export default {
             },
             section: null,
             category: null,
+            selectedSection: null,
+            selectedCategory: null,
+            changeImage: false
         }
     },
     validations: {
@@ -178,18 +185,28 @@ export default {
         }
     },
     created() {
-        Axios.get('/admin/article/create')
+        Axios.get(`/admin/article/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
+            this.forms = response.data.data.data;
+            this.selectedSection = response.data.data.data.section_id;
+            this.selectedCategory = response.data.data.data.category_id;
         });
     },
     methods: {
+        changeSection(value) {
+            this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
+        },
+        changeCategory(value) {
+            this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
+        },
         onImageChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)
                 return;
             this.createImage(files[0]);
+            this.changeImage = true;
         },
         createImage(file) {
             let reader = new FileReader();
@@ -199,12 +216,12 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        store() {
+        update() {
             this.$v.forms.$touch();
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/storeArticle', this.forms);
+                this.$store.dispatch('article/updateArticle', this.forms);
                 this.$v.$reset();
             }
 

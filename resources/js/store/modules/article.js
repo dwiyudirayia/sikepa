@@ -156,6 +156,16 @@ const article = {
                 commit('notification', error);
             });
         },
+        updateArticle({ commit }, forms) {
+            Axios.put(`/admin/article/${forms.id}`, forms)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
+        },
         clearPage({commit})
         {
             commit('clearPage');

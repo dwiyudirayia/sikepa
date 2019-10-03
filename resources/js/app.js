@@ -8,7 +8,7 @@ import App from './layouts/App.vue';
 import store from './store/store';
 import vuevalidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
-
+import Permissions from './mixins/permission';
 //Partial Layout Admin
 import SideMenu from './components/partialsAdmin/SideMenu'
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
@@ -25,13 +25,20 @@ Vue.component('notification-error', NotificationError);
 
 Vue.use(vuevalidate);
 Vue.use(VTooltip);
+Vue.mixin(Permissions)
+
 VTooltip.options.defaultClass = 'tooltip';
 
 const app = new Vue({
     el: '#app',
     store,
     router: Routes,
-    render: h => h(App)
+    render: h => h(App),
+    created() {
+        if (this.$store.getters['isAuth']) {
+            this.$store.dispatch('user/getUserLogin');
+        }
+    }
 });
 
 export default app;

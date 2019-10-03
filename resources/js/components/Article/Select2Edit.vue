@@ -39,14 +39,14 @@ export default {
             .trigger('change')
         },
         options: function (options) {
-            let section = $.map(options, function (obj) {
+            let data = $.map(options, function (obj) {
                 obj.id = obj.id;
                 obj.text = obj.name;
 
                 return obj;
             });
             $(this.$el).empty().select2({
-                data: section,
+                data: data,
                 placeholder: 'Pilih dan Sesuaikan',
                 width: '100%',
                 allowClear:true

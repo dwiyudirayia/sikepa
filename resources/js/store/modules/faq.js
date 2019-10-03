@@ -69,19 +69,15 @@ const faq = {
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
-                data.answere = '';
-                data.question = '';
             })
             .catch(error => {
                 commit('notification', error);
-                data.answere = '';
-                data.question = '';
             });
         },
         destroy({ commit }, id) {
             Axios.delete('/admin/faq/'+id)
             .then(response => {
-                commit('notification', error);
+                commit('notification', response);
                 commit('updateData', response)
             })
             .catch(error => {

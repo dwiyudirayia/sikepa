@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\SectionArticle;
 use App\CategoryArticle;
 use App\Article;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-
+use File;
 class ArticleController extends Controller
 {
     private $notification;
@@ -106,7 +105,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         try {
-            $data['data'] = CategoryArticle::with('section')->findOrFail($id);
+            $data['data'] = Article::findOrFail($id);
             $data['section'] = SectionArticle::all();
             $data['category'] = CategoryArticle::all();
 
@@ -127,12 +126,11 @@ class ArticleController extends Controller
     {
         try {
             Article::where('id', $id)->update($request->update());
-            $data = SectionArticle::all();
 
+            $data = Article::where('category_id', $request->category_id)->get();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
-
-            return response()->json($this->notification->updateSuccess($th));
+            return response()->json($this->notification->updateFailed($th));
         }
     }
 
@@ -146,6 +144,8 @@ class ArticleController extends Controller
     {
         try {
             $data = Article::findOrFail($id);
+
+            File::delete("article/".$data->image);
             $data->delete();
 
             $array = Article::where('category_id', $data->category_id)->get();

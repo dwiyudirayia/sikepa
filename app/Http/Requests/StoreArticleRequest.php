@@ -30,19 +30,40 @@ class StoreArticleRequest extends FormRequest
     }
     public function store()
     {
-        return [
-            'created_by' => 1,
-            'section_id' => (int)$this->section_id,
-            'category_id' => (int)$this->category_id,
-            'title' => $this->title,
-            'url' => Str::slug($this->title,"-"),
-            'content' => $this['content'],
-            'image' => $this->image,
-            'seo_title' => $this->seo_title,
-            'seo_meta_key' => $this->seo_meta_key,
-            'seo_meta_desc' => $this->seo_meta_desc,
-            'publish' => (int)$this->publish,
-            'approved' => (int)$this->approved,
-        ];
+        if($this->image != "")
+        {
+            $image = $this->image;
+            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            \Image::make($this->image)->save(public_path('article/').$name);
+
+            return [
+                'created_by' => 1,
+                'section_id' => (int)$this->section_id,
+                'category_id' => (int)$this->category_id,
+                'title' => $this->title,
+                'url' => Str::slug($this->title,"-"),
+                'content' => $this['content'],
+                'image' => $name,
+                'seo_title' => $this->seo_title,
+                'seo_meta_key' => $this->seo_meta_key,
+                'seo_meta_desc' => $this->seo_meta_desc,
+                'publish' => (int)$this->publish,
+                'approved' => (int)$this->approved,
+            ];
+        } else {
+            return [
+                'created_by' => 1,
+                'section_id' => (int)$this->section_id,
+                'category_id' => (int)$this->category_id,
+                'title' => $this->title,
+                'url' => Str::slug($this->title,"-"),
+                'content' => $this['content'],
+                'seo_title' => $this->seo_title,
+                'seo_meta_key' => $this->seo_meta_key,
+                'seo_meta_desc' => $this->seo_meta_desc,
+                'publish' => (int)$this->publish,
+                'approved' => (int)$this->approved,
+            ];
+        }
     }
 }

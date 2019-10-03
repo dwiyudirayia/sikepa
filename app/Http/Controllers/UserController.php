@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use Spatie\Permission\Models\Permission;
 use App\User;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -17,107 +15,35 @@ class UserController extends Controller
     {
         $this->notification = $notification;
     }
-    public function index()
+    public function userLists()
     {
         try {
-            $data = User::where('id', '!=', 1)->get();
-
+            $data = User::where('role', '!=', 3)->get();
             return response()->json($this->notification->generalSuccess($data));
+
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function create()
+    public function getUserLogin()
     {
-        try {
-            $data['role'] = Role::all();
-            $data['permission'] = Permission::all();
-
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
+        $user = request()->user(); //MENGAMBIL USER YANG SEDANG LOGIN
+        $permissions = [];
+        $role = [];
+        foreach (Permission::all() as $permission) {
+            //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
+            if (request()->user()->can($permission->name)) {
+                $permissions[] = $permission->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
+            }
         }
-    }
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(StoreUserRequest $request)
-    {
-        try {
-            User::create($request->store());
-
-            return response()->json($this->notification->storeSuccess());
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->storeFailed($th));
+        foreach (Role::all() as $role) {
+            //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
+            if (request()->user()->can($role->name)) {
+                $role[] = $role->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
+            }
         }
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
-
-            return response()->json($this->notification->showSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->showFailed($th));
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        try {
-            $data = User::with('roles', 'permissions')->findOrFail($id);
-
-            return response()->json($this->notification->showSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->showFailed($th));
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(UpdateUserRequest $request, $id)
-    {
-        try {
-            User::where('id', $id)->update($request->update());
-
-            return response()->json($this->notification->updateSuccess());
-        } catch (\Throwable $th) {
-
-            return response()->json($this->notification->updateSuccess($th));
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        try {
-            $data = User::findOrFail($id);
-            $data->delete();
-
-            return response()->json($this->notification->deleteSuccess());
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->deleteFailed($th));
-        }
+        $user['permission'] = $permissions; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
+        $user['role'] = $role; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
+        return response()->json(['status' => 'success', 'data' => $user]);
     }
 }
