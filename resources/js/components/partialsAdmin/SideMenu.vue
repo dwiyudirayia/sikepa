@@ -11,7 +11,7 @@
                     <h4 class="m-menu__section-text">Optional</h4>
                     <i class="m-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li v-if="$can('Create Article')" class="m-menu__item" aria-haspopup="true">
+                <li class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/section">
                         <i class="m-menu__link-icon la la-file-text"></i>
                         <span class="m-menu__link-title">
