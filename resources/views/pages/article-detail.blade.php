@@ -64,7 +64,7 @@
                         Artikel
                     </a>
                 </div>
-                <a href="#" class="btn btn-primary">Login</a>
+                <a href="/login/admin" class="btn btn-primary">Login</a>
             </div>
         </nav>
         <div class="container mb-3">
