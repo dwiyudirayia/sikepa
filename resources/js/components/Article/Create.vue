@@ -59,6 +59,10 @@
                     <span class="m-form__help">Pastikan Judul Terisi</span>
                 </div>
                 <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Konten Singkat</label>
+                    <textarea class="form-control" v-model="forms.short_content"></textarea>
+                </div>
+                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten</label>
                     <vue-editor v-model="forms.content"></vue-editor>
                 </div>
@@ -152,6 +156,7 @@ export default {
                 section_id: null,
                 category_id: null,
                 title: null,
+                short_cotent: null,
                 content: null,
                 image: null,
                 seo_title: null,

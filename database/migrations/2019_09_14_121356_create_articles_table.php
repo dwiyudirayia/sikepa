@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->mediumInteger('section_id');
             $table->mediumInteger('category_id');
             $table->string('title');
+            $table->text('short_content');
             $table->string('url');
             $table->longText('content')->nullable();
             $table->string('image')->nullable();

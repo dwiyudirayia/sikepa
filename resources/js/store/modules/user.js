@@ -117,7 +117,7 @@ const user = {
         //MENGAMBIL DATA USER YANG SEDANG LOGIN
         getUserLogin({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get(`user-authenticated`)
+                Axios.get(`/user-authenticated`)
                 .then((response) => {
                     //SIMPAN DATA USER TERSEBUT
                     commit('ASSIGN_USER_AUTH', response.data.data)

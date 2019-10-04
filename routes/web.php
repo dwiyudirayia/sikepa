@@ -38,9 +38,10 @@ Route::post('role-permission', 'RolePermissionController@getRolePermission');
 Route::post('set-role-permission', 'RolePermissionController@setRolePermission');
 Route::post('set-role-user', 'RolePermissionController@setRoleUser');
 
-Route::get('/', function() {
-    return view('layouts.appLanding');
-});
+Route::get('/', 'FrontController@home');
+Route::get('/front/article', 'FrontController@article');
+Route::get('/front/article/{id}', 'FrontController@articleDetail');
+
 Route::get('/{any}', function(){
     return view('layouts.app');
 })->where('any', '.*');

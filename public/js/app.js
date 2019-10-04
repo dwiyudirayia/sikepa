@@ -2466,6 +2466,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2492,6 +2496,7 @@ __webpack_require__.r(__webpack_exports__);
         section_id: null,
         category_id: null,
         title: null,
+        short_cotent: null,
         content: null,
         image: null,
         seo_title: null,
@@ -2575,6 +2580,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2Edit */ "./resources/js/components/Article/Select2Edit.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -46074,6 +46083,33 @@ var render = function() {
               2
             ),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                _vm._v("Konten Singkat")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.forms.short_content,
+                    expression: "forms.short_content"
+                  }
+                ],
+                staticClass: "form-control",
+                domProps: { value: _vm.forms.short_content },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.forms, "short_content", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "form-group m-form__group" },
@@ -46608,6 +46644,33 @@ var render = function() {
               ],
               2
             ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                _vm._v("Konten Singkat")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.forms.short_content,
+                    expression: "forms.short_content"
+                  }
+                ],
+                staticClass: "form-control",
+                domProps: { value: _vm.forms.short_content },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.forms, "short_content", $event.target.value)
+                  }
+                }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -72825,7 +72888,7 @@ var user = {
     getUserLogin: function getUserLogin(_ref7) {
       var commit = _ref7.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("user-authenticated").then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user-authenticated").then(function (response) {
           //SIMPAN DATA USER TERSEBUT
           commit('ASSIGN_USER_AUTH', response.data.data);
           resolve(response.data);

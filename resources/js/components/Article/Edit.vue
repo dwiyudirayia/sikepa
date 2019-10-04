@@ -63,6 +63,10 @@
                     <span class="m-form__help">Pastikan Judul Terisi</span>
                 </div>
                 <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Konten Singkat</label>
+                    <textarea class="form-control" v-model="forms.short_content"></textarea>
+                </div>
+                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten</label>
                     <vue-editor v-model="forms.content"></vue-editor>
                 </div>

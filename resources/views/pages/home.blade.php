@@ -57,6 +57,12 @@
                     >
                         FAQ
                     </a>
+                    <a
+                        class="nav-item nav-link text-dark font-weight-bold"
+                        href="{{ url('/front/article') }}"
+                    >
+                        Artikel
+                    </a>
                 </div>
                 <a href="#" class="btn btn-primary">Login</a>
             </div>
