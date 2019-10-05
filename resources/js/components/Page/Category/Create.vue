@@ -9,24 +9,22 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Edit Kategori
+                            Tambah Kategori
                         </h3>
                     </div>
                 </div>
             </div>
-            <form class="m-form m-form--fit" @submit.prevent="update">
+            <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Section</label>
                     <div class="m-form__control">
-                        <Select2Edit
-                        @input="changeSection"
-                        :options="section"
-                        :initSelected="selectedSection"
-                        :value="$v.forms.section_id.$model"
+                        <Select2
+                        :options="options"
+                        v-model="$v.forms.section_id.$model"
                         class="form-control"
                         @blur="$v.forms.section_id.$touch()"
                         >
-                        </Select2Edit>
+                        </Select2>
                     </div>
                     <template v-if="$v.forms.section_id.$error">
                         <span v-if="!$v.forms.section_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -66,12 +64,11 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
-import Select2Edit from './../Select2Edit'
-import store from './../../../store/store';
+import Select2 from './../Select2'
 export default {
-    name: 'CategoryArticleEdit',
+    name: 'CategoryPageCreate',
     components: {
-        Select2Edit
+        Select2
     },
     data() {
         return {
@@ -80,28 +77,21 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section/article'
+                    path: '/section/page'
                 },
                 {
                     id: 2,
-                    label: 'Edit Kategori',
-                    path: `/category/article/${this.$route.params.id}/edit`
-                }
+                    label: 'Tambah Kategori',
+                    path: '/category/page/create'
+                },
             ],
-            forms: null,
-            section: null,
-            selectedSection: null,
+            forms: {
+                name: null,
+                section_id: null,
+            },
+            options: null,
             statusNameUnique: null
         }
-    },
-    created() {
-        Axios.get(`/admin/category/article/${this.$route.params.id}/edit`)
-        .then(response => {
-            this.section = response.data.data.section;
-            this.forms = response.data.data.data;
-            this.selectedSection = response.data.data.data.section.id;
-
-        });
     },
     validations: {
         forms: {
@@ -111,7 +101,7 @@ export default {
                     // standalone validator ideally should not assume a field is required
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/category/article/${value}/edit/${this.$route.params.id}`)
+                    const response = Axios.get(`/admin/check/category/page/${value}/section/${this.forms.section_id}`)
                     .then(response => {
                         this.statusNameUnique = response.data.isExist;
                     })
@@ -129,28 +119,23 @@ export default {
             }
         }
     },
+    created() {
+        Axios.get('/admin/category/page/create')
+        .then(response => {
+            this.options = response.data.data;
+        });
+    },
     methods: {
-        changeSection(value) {
-            this.forms.section_id = value == '' ? this.selectedSection : value;
-        },
-        update()
-        {
-            Axios.put(`/admin/category/article/${this.$route.params.id}`, this.forms)
-            .then(response => {
-                this.$store.commit('article/notification', response);
-                this.$store.commit('article/updateData', response);
-
-            })
-            .catch(error => {
-                this.$store.commit('article/notification', error);
-            });
-
-            this.$router.push({path: `/list/${this.forms.section_id}/category/article`});
+        store() {
+            this.$v.forms.$touch();
+            if(this.$v.forms.$invalid) {
+                return;
+            } else {
+                this.$store.dispatch('page/storeCategory', this.forms);
+                this.$v.$reset();
+            }
+            this.$router.push({ path: `/list/${this.forms.section_id}/category/page` });
         }
     }
 }
 </script>
-
-<style>
-
-</style>

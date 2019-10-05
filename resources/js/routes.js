@@ -35,6 +35,16 @@ import SectionPageIndex from './components/Page/Section/Index';
 import SectionPageCreate from './components/Page/Section/Create';
 import SectionPageEdit from './components/Page/Section/Edit';
 //End Section
+
+//Category
+import ListSectionCategoryPage from './components/Page/Category/ListSectionCategory';
+import CategoryPageCreate from './components/Page/Category/Create';
+import CategoryPageEdit from './components/Page/Category/Edit';
+//End Category
+
+//Page
+import ListCategoryPage from './components/Page/ListCategoryPage';
+//End Page
 // --- End Page ---/
 
 
@@ -134,7 +144,7 @@ const router = new VueRouter({
                 },
                 //Category Article
                 {
-                    path: '/list/:id/category',
+                    path: '/list/:id/category/article',
                     name: 'ListSectionCategoryArticle',
                     component: ListSectionCategoryArticle,
                     meta: {
@@ -194,6 +204,40 @@ const router = new VueRouter({
                     path: '/section/page/:id/edit',
                     name: 'SectionPageEdit',
                     component: SectionPageEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                // Category page
+                {
+                    path: '/list/:id/category/page',
+                    name: 'ListSectionCategoryPage',
+                    component: ListSectionCategoryPage,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/category/page/create',
+                    name: 'CategoryPageCreate',
+                    component: CategoryPageCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/category/page/:id/edit',
+                    name: 'CategoryPageEdit',
+                    component: CategoryPageEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                // Page
+                {
+                    path: '/category/:id/page',
+                    name: 'ListCategoryPage',
+                    component: ListCategoryPage,
                     meta: {
                         requiresAuth: true,
                     }

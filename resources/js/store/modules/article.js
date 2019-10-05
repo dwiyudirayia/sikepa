@@ -107,7 +107,7 @@ const article = {
             })
         },
         listSectionCategory({ commit }, id) {
-            Axios.get(`/admin/list/section/category/${id}`)
+            Axios.get(`/admin/list/section/category/article/${id}`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataRelation', response.data);

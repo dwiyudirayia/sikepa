@@ -69,7 +69,7 @@ import Axios from 'axios';
 import Select2Edit from './../Select2Edit'
 import store from './../../../store/store';
 export default {
-    name: 'CategoryArticleEdit',
+    name: 'CategoryPageEdit',
     components: {
         Select2Edit
     },
@@ -80,12 +80,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section/article'
+                    path: '/section/page'
                 },
                 {
                     id: 2,
                     label: 'Edit Kategori',
-                    path: `/category/article/${this.$route.params.id}/edit`
+                    path: `/category/page/${this.$route.params.id}/edit`
                 }
             ],
             forms: null,
@@ -95,7 +95,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/category/article/${this.$route.params.id}/edit`)
+        Axios.get(`/admin/category/page/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
             this.forms = response.data.data.data;
@@ -108,21 +108,21 @@ export default {
             name: {
                 required,
                 async isUnique(value) {
-                    // standalone validator ideally should not assume a field is required
-                    if (value === '') return true
+                // standalone validator ideally should not assume a field is required
+                if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/category/article/${value}/edit/${this.$route.params.id}`)
-                    .then(response => {
-                        this.statusNameUnique = response.data.isExist;
-                    })
+                const response = Axios.get(`/admin/check/category/page/${value}/edit/${this.$route.params.id}`)
+                .then(response => {
+                    this.statusNameUnique = response.data.isExist;
+                })
 
-                    // simulate async call, fail for all logins with even length
-                    return new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            resolve(this.statusNameUnique == false)
-                        }, 350 + Math.random() * 300)
-                    })
-                }
+                // simulate async call, fail for all logins with even length
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(this.statusNameUnique == false)
+                    }, 350 + Math.random() * 300)
+                })
+            }
             },
             section_id: {
                 required
@@ -135,17 +135,17 @@ export default {
         },
         update()
         {
-            Axios.put(`/admin/category/article/${this.$route.params.id}`, this.forms)
+            Axios.put(`/admin/category/page/${this.$route.params.id}`, this.forms)
             .then(response => {
-                this.$store.commit('article/notification', response);
-                this.$store.commit('article/updateData', response);
+                this.$store.commit('page/notification', response);
+                this.$store.commit('page/updateData', response);
 
             })
             .catch(error => {
-                this.$store.commit('article/notification', error);
+                this.$store.commit('page/notification', error);
             });
 
-            this.$router.push({path: `/list/${this.forms.section_id}/category/article`});
+            this.$router.push({path: `/list/${this.forms.section_id}/category/page`});
         }
     }
 }

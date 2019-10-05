@@ -20,18 +20,25 @@ Route::prefix('admin')->group(function () {
     Route::resource('category/article', 'CategoryArticleController');
     Route::resource('agency', 'AgencyController');
     Route::resource('section/page', 'SectionPageController');
+    Route::resource('category/page', 'CategoryPageController');
 
-    Route::get('list/section/category/{id}', 'CategoryArticleController@listSectionCategory');
+    Route::get('list/section/category/article/{id}', 'CategoryArticleController@listSectionCategory');
     Route::get('list/category/article/{id}', 'ArticleController@listCategoryArticle');
+
+    Route::get('list/section/category/page/{id}', 'CategoryPageController@listSectionCategory');
+    Route::get('list/category/page/{id}', 'PageController@listCategoryPage');
     //Validation
     Route::get('check/section/article/{name}', 'SectionArticleController@checkNameSection');
     Route::get('check/section/article/{name}/edit/{id}', 'SectionArticleController@checkNameSectionEdit');
 
-    Route::get('check/section/category/article/{name}/section/{section_id}', 'CategoryArticleController@checkNameCategory');
-    Route::get('check/section/category/article/{name}/edit/{id}', 'CategoryArticleController@checkNameCategoryEdit');
+    Route::get('check/category/article/{name}/section/{section_id}', 'CategoryArticleController@checkNameCategory');
+    Route::get('check/category/article/{name}/edit/{id}', 'CategoryArticleController@checkNameCategoryEdit');
 
     Route::get('check/section/page/{name}', 'SectionArticleController@checkNameSection');
     Route::get('check/section/page/{name}/edit/{id}', 'SectionArticleController@checkNameSectionEdit');
+
+    Route::get('check/category/page/{name}/section/{section_id}', 'CategoryPageController@checkNameCategory');
+    Route::get('check/category/page/{name}/edit/{id}', 'CategoryPageController@checkNameCategoryEdit');
 });
 
 Route::get('user-authenticated', 'UserController@getUserLogin');

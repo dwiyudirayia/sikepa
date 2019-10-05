@@ -134,7 +134,7 @@ export default {
                 this.$store.dispatch('article/storeCategory', this.forms);
                 this.$v.$reset();
             }
-            this.$router.push({ path: `/list/${this.forms.section_id}/category` });
+            this.$router.push({ path: `/list/${this.forms.section_id}/category/article` });
         }
     }
 }
