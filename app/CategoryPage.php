@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryPage extends Model
 {
-    //
+    protected $table = 'category_page';
+    protected $fillable = ['created_by', 'updated_by', 'section_id', 'name'];
+
+    public function articles()
+    {
+        return $this->hasMany(Page::class);
+    }
+    public function section()
+    {
+        return $this->belongsTo(SectionPage::class, 'section_id');
+    }
 }

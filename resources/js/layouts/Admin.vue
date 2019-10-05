@@ -157,6 +157,7 @@ export default {
                 localStorage.removeItem('token')
                 resolve()
             }).then(() => {
+                this.$store.dispatch('auth/logout');
                 this.$store.state.token = localStorage.getItem('token')
                 this.$router.push('/login/admin')
             })

@@ -69,7 +69,7 @@ import Axios from 'axios';
 import Select2Edit from './../Select2Edit'
 import store from './../../../store/store';
 export default {
-    name: 'CategoryEdit',
+    name: 'CategoryArticleEdit',
     components: {
         Select2Edit
     },
@@ -80,12 +80,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section'
+                    path: '/section/article'
                 },
                 {
                     id: 2,
                     label: 'Edit Kategori',
-                    path: `/category/${this.$route.params.id}/edit`
+                    path: `/category/article/${this.$route.params.id}/edit`
                 }
             ],
             forms: null,
@@ -107,6 +107,22 @@ export default {
         forms: {
             name: {
                 required,
+                async isUnique(value) {
+                // standalone validator ideally should not assume a field is required
+                if (value === '') return true
+
+                const response = Axios.get(`/admin/check/category/article/${value}/edit/${this.$route.params.id}`)
+                .then(response => {
+                    this.statusNameUnique = response.data.isExist;
+                })
+
+                // simulate async call, fail for all logins with even length
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(this.statusNameUnique == false)
+                    }, 350 + Math.random() * 300)
+                })
+            }
             },
             section_id: {
                 required

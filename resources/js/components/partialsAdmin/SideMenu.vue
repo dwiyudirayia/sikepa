@@ -12,11 +12,21 @@
                     <i class="m-menu__section-icon flaticon-more-v2"></i>
                 </li>
                 <li v-if="$can('Create Article')" class="m-menu__item" aria-haspopup="true">
-                    <router-link class="m-menu__link" to="/section">
+                    <router-link class="m-menu__link" to="/section/article">
                         <i class="m-menu__link-icon la la-file-text"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
                                 <span class="m-menu__link-text">Article</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/section/page">
+                        <i class="m-menu__link-icon la la-tags"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Page</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </router-link>

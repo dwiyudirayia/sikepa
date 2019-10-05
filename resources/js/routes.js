@@ -12,14 +12,14 @@ import UserChangePassword from './components/User/ChangePassword';
 //End User
 // --- Article --- //
 //Section
-import SectionIndex from './components/Article/Section/Index';
-import SectionCreate from './components/Article/Section/Create';
-import SectionEdit from './components/Article/Section/Edit';
+import SectionArticleIndex from './components/Article/Section/Index';
+import SectionArticleCreate from './components/Article/Section/Create';
+import SectionArticleEdit from './components/Article/Section/Edit';
 //End Section
 //Category
-import ListSectionCategory from './components/Article/Category/ListSectionCategory';
-import CategoryCreate from './components/Article/Category/Create';
-import CategoryEdit from './components/Article/Category/Edit';
+import ListSectionCategoryArticle from './components/Article/Category/ListSectionCategory';
+import CategoryArticleCreate from './components/Article/Category/Create';
+import CategoryArticleEdit from './components/Article/Category/Edit';
 //End Category
 
 //Article
@@ -28,11 +28,22 @@ import ArticleCreate from './components/Article/Create';
 import ArticleEdit from './components/Article/Edit';
 //End Article
 // --- End Article --- //
+
+// --- Page --- //
+//Section
+import SectionPageIndex from './components/Page/Section/Index';
+import SectionPageCreate from './components/Page/Section/Create';
+import SectionPageEdit from './components/Page/Section/Edit';
+//End Section
+// --- End Page ---/
+
+
 //Faq
 import FaqIndex from './components/Faq/Index';
 import FaqCreate from './components/Faq/Create';
 import FaqEdit from './components/Faq/Edit'
 //End Faq
+// --- End Admin --//
 
 //Auth
 //Layouts
@@ -67,73 +78,125 @@ const router = new VueRouter({
                 {
                     path: '/user',
                     name: 'UserIndex',
-                    component: UserIndex
-                },
-                {
-                    path: '/user/create',
-                    name: 'UserCreate',
-                    component: UserCreate
-                },
-                {
-                    path: '/user/changepassword',
-                    name: 'UserChangePassword',
-                    component: UserChangePassword
-                },
-                {
-                    path: '/user/:id/edit',
-                    name: 'UserEdit',
-                    component: UserEdit
-                },
-                //Section
-                {
-                    path: '/section',
-                    name: 'SectionIndex',
-                    component: SectionIndex,
+                    component: UserIndex,
                     meta: {
                         requiresAuth: true,
                     }
                 },
                 {
-                    path: '/section/create',
-                    name: 'SectionCreate',
-                    component: SectionCreate
+                    path: '/user/create',
+                    name: 'UserCreate',
+                    component: UserCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
-                    path: '/section/:id/edit',
-                    name: 'SectionEdit',
-                    component: SectionEdit
+                    path: '/user/changepassword',
+                    name: 'UserChangePassword',
+                    component: UserChangePassword,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
-                //Category
+                {
+                    path: '/user/:id/edit',
+                    name: 'UserEdit',
+                    component: UserEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Section Article
+                {
+                    path: '/section/article',
+                    name: 'SectionArticleIndex',
+                    component: SectionArticleIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/section/article/create',
+                    name: 'SectionArticleCreate',
+                    component: SectionArticleCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/section/article/:id/edit',
+                    name: 'SectionArticleEdit',
+                    component: SectionArticleEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Category Article
                 {
                     path: '/list/:id/category',
-                    name: 'ListSectionCategory',
-                    component: ListSectionCategory
+                    name: 'ListSectionCategoryArticle',
+                    component: ListSectionCategoryArticle,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
-                    path: '/category/create',
-                    name: 'CategoryCreate',
-                    component: CategoryCreate,
+                    path: '/category/article/create',
+                    name: 'CategoryArticleCreate',
+                    component: CategoryArticleCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
-                    path: '/category/:id/edit',
-                    name: 'CategoryEdit',
-                    component: CategoryEdit,
+                    path: '/category/article/:id/edit',
+                    name: 'CategoryArticleEdit',
+                    component: CategoryArticleEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 //Article
                 {
                     path: '/category/:id/article',
                     name: 'ListCategoryArticle',
-                    component: ListCategoryArticle
+                    component: ListCategoryArticle,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/article/create',
                     name: 'ArticleCreate',
-                    component: ArticleCreate
+                    component: ArticleCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/article/:id/edit',
                     name: 'ArticleEdit',
                     component: ArticleEdit
+                },
+                //Section Page
+                {
+                    path: '/section/page',
+                    name: 'SectionPageIndex',
+                    component: SectionPageIndex
+                },
+                {
+                    path: '/section/page/create',
+                    name: 'SectionPageCreate',
+                    component: SectionPageCreate
+                },
+                {
+                    path: '/section/page/:id/edit',
+                    name: 'SectionPageEdit',
+                    component: SectionPageEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 //Faq
                 {

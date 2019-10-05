@@ -148,12 +148,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section'
+                    path: '/section/article'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Artikel',
-                    path: '/article/create'
+                    label: 'Edit Artikel',
+                    path: `/article/${this.$route.params.id}/edit`
                 },
             ],
             forms: {

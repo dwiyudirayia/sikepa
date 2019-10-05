@@ -48,7 +48,7 @@ import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
 
 export default {
-    name: 'SectionArticleCreate',
+    name: 'SectionPageCreate',
     data() {
         return {
             breadcrumbTitle: 'FAQ',
@@ -56,12 +56,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section/article'
+                    path: '/section/page'
                 },
                 {
                     id: 2,
                     label: 'Tambah Section',
-                    path: '/section/article/create'
+                    path: '/section/page/create'
                 },
             ],
             forms: {
@@ -78,7 +78,7 @@ export default {
                     // standalone validator ideally should not assume a field is required
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/section/article/${value}`)
+                    const response = Axios.get(`/admin/check/section/page/${value}`)
                     .then(response => {
                         this.statusNameUnique = response.data.isExist;
                     })
@@ -95,7 +95,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('article/clearPage');
+        this.$store.dispatch('page/clearPage');
     },
     methods: {
         store() {
@@ -103,10 +103,10 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/storeSection', this.forms);
+                this.$store.dispatch('page/storeSection', this.forms);
                 this.$v.$reset();
             }
-            this.$router.push({ name: 'SectionArticleIndex' });
+            this.$router.push({ name: 'SectionPageIndex' });
         }
     },
 }

@@ -49,7 +49,7 @@ import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
 
 export default {
-    name: 'SectionArticleEdit',
+    name: 'SectionPageEdit',
     data() {
         return {
             breadcrumbTitle: 'Section',
@@ -57,12 +57,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section/article'
+                    path: '/section/page'
                 },
                 {
                     id: 2,
                     label: 'Edit Section',
-                    path: `/section/article/${this.$route.params.id}/edit`
+                    path: `/section/page/${this.$route.params.id}/edit`
                 },
             ],
             forms: {
@@ -78,7 +78,7 @@ export default {
                 // standalone validator ideally should not assume a field is required
                 if (value === '') return true
 
-                const response = Axios.get(`/admin/check/section/article/${value}/edit/${this.$route.params.id}`)
+                const response = Axios.get(`/admin/check/section/page/${value}/edit/${this.$route.params.id}`)
                 .then(response => {
                     this.statusNameUnique = response.data.isExist;
                 })
@@ -94,23 +94,23 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch('article/editSection', this.$route.params.id);
+        this.$store.dispatch('page/editSection', this.$route.params.id);
     },
     computed: {
         name: {
             get() {
-            return this.$store.state.article.forms.name;
+            return this.$store.state.page.forms.name;
             },
             set(value) {
-                this.$store.commit('article/updateName', value)
+                this.$store.commit('page/updateName', value)
             }
         },
         id: {
             get() {
-                return this.$store.state.article.forms.id;
+                return this.$store.state.page.forms.id;
             },
             set(value) {
-                this.$store.commit('article/updateId', value)
+                this.$store.commit('page/updateId', value)
             }
         }
     },
@@ -120,10 +120,10 @@ export default {
             if(this.$v.name.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/updateSection');
+                this.$store.dispatch('page/updateSection');
                 this.$v.$reset();
             }
-            this.$router.push({ name: 'SectionArticleIndex' });
+            this.$router.push({ name: 'SectionPageIndex' });
         }
     },
 }

@@ -16,10 +16,10 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/category/article/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kategori'">
+                    <router-link to="/page/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Page'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Kategori</span>
+                            <span>Tambah Page</span>
                         </span>
                     </router-link>
                 </div>
@@ -28,12 +28,12 @@
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['article/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['article/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="this.$store.getters['page/getData'].length != 0">
+                            <div class="m-widget5__item" v-for="value in this.$store.getters['page/getData']" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
-                                            {{ value.name }}
+                                            {{ value.title }}
                                         </h4>
                                         <span class="m-widget5__desc">
                                             Tanggal di Buat: {{ value.created_at }}
@@ -42,22 +42,16 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ListCategoryArticle', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Melihat Daftar Artikel'">
-                                            <span>
-                                                <i class="la la-list"></i>
-                                                <span>Daftar Artikel</span>
-                                            </span>
-                                        </router-link>
-                                        <router-link :to="{name: 'CategoryArticleEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Kategori'">
+                                        <router-link :to="{name: 'PageEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Page'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit Kategori</span>
+                                                <span>Edit Page</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kategori'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Page'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus Kategori</span>
+                                                <span>Hapus Page</span>
                                             </span>
                                         </button>
                                     </div>
@@ -77,7 +71,7 @@
 
 <script>
 export default {
-    name: 'ListSectionCategoryArticle',
+    name: 'ListCategoryArticle',
     data() {
         return {
             breadcrumbLink: [
@@ -88,8 +82,8 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Daftar Section Kategori',
-                    path: `/list/${this.$route.params.id}/category`
+                    label: 'Daftar Kategori Page',
+                    path: `/category/${this.$route.params.id}/page`
                 },
             ],
             breadcrumbTitle: 'Kategori'
@@ -98,24 +92,23 @@ export default {
     computed: {
         getMessage()
         {
-            return this.$store.getters['article/getMessage'];
+            return this.$store.getters['page/getMessage'];
         },
         getStatusatusCode()
         {
-            return this.$store.getters['article/getStatusCode'];
+            return this.$store.getters['page/getStatusCode'];
         },
         getShowNotification()
         {
-            return this.$store.getters['article/getShowNotification'];
+            return this.$store.getters['page/getShowNotification'];
         }
     },
-    created()
-    {
-        this.$store.dispatch('article/listSectionCategory', this.$route.params.id);
+    created() {
+        this.$store.dispatch('page/listCategoryPage', this.$route.params.id)
     },
     methods: {
         destroy(id) {
-            this.$store.dispatch('article/destroyCategory', id);
+            this.$store.dispatch('page/destroyPage', id);
         },
         confirmDelete(id) {
             Swal.fire({

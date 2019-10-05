@@ -12,6 +12,7 @@ import Permissions from './mixins/permission';
 //Partial Layout Admin
 import SideMenu from './components/partialsAdmin/SideMenu'
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
+import NotificationSuccessLogin from './components/partialsAdmin/NotificationSuccessLogin';
 import NotificationSuccess from './components/partialsAdmin/NotificationSuccess';
 import NotificationError from './components/partialsAdmin/NotificationError';
 import Breadcrumb from './components/partialsAdmin/Breadcrumb'
@@ -20,6 +21,7 @@ import Breadcrumb from './components/partialsAdmin/Breadcrumb'
 Vue.component('sidemenu', SideMenu);
 Vue.component('breadcrumb', Breadcrumb);
 Vue.component('notification-validation', NotificationValidation);
+Vue.component('notification-success-login', NotificationSuccessLogin);
 Vue.component('notification-success', NotificationSuccess);
 Vue.component('notification-error', NotificationError);
 

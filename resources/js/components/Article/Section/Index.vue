@@ -3,6 +3,7 @@
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
         <notification-success v-show="getShowNotification" :data="getMessage" v-if="getStatusatusCode == 200"></notification-success>
         <notification-error v-show="getShowNotification" :data="getMessage" v-else></notification-error>
+        <notification-success-login v-show="getShowNotificationLoginSuccess"></notification-success-login>
         <div class="m-portlet m-portlet--creative m-portlet--bordered-semi">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -16,7 +17,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/section/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Section'">
+                    <router-link to="/section/article/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Section Artikel'">
                         <span>
                             <i class="la la-plus"></i>
                             <span>Tambah Section</span>
@@ -43,13 +44,13 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ListSectionCategory', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Melihat Daftar Section Kategori'">
+                                        <router-link :to="{name: 'ListSectionCategoryArticle', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Melihat Daftar Section Kategori'">
                                             <span>
                                                 <i class="la la-list"></i>
                                                 <span>Daftar Kategori</span>
                                             </span>
                                         </router-link>
-                                        <router-link :to="{name: 'SectionEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Section'">
+                                        <router-link :to="{name: 'SectionArticleEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Section'">
                                             <span>
                                                 <i class="la la-pencil"></i>
                                                 <span>Edit Section</span>
@@ -77,7 +78,7 @@
 </template>
 <script>
 export default {
-    name: 'SectionIndex',
+    name: 'SectionArticleIndex',
     data() {
         return {
             breadcrumbTitle: 'Section',
@@ -85,7 +86,7 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section'
+                    path: '/section/article'
                 },
             ]
         }
@@ -103,6 +104,10 @@ export default {
         getShowNotification()
         {
             return this.$store.getters['article/getShowNotification'];
+        },
+        getShowNotificationLoginSuccess()
+        {
+            return this.$store.getters['article/getShowNotificationLoginSuccess'];
         }
     },
     created() {

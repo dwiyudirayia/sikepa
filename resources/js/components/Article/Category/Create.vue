@@ -66,7 +66,7 @@ import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
 import Select2 from './../Select2'
 export default {
-    name: 'CategoryCreate',
+    name: 'CategoryArticleCreate',
     components: {
         Select2
     },
@@ -77,12 +77,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section'
+                    path: '/section/article'
                 },
                 {
                     id: 2,
                     label: 'Tambah Kategori',
-                    path: '/category/create'
+                    path: '/category/article/create'
                 },
             ],
             forms: {
@@ -101,7 +101,7 @@ export default {
                     // standalone validator ideally should not assume a field is required
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/section/category/${value}/section/${this.forms.section_id}`)
+                    const response = Axios.get(`/admin/check/section/category/article/${value}/section/${this.forms.section_id}`)
                     .then(response => {
                         this.statusNameUnique = response.data.isExist;
                     })

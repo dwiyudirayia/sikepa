@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Agency;
-use App\Http\Requests\StoreAgencyRequest;
-use App\Http\Requests\UpdateAgencyRequest;
+use App\Http\Requests\StoreSectionPageRequest;
+use App\Http\Requests\UpdateSectionPageRequest;
+use App\SectionPage;
 
-class AgencyController extends Controller
+class SectionPageController extends Controller
 {
     private $notification;
 
@@ -23,7 +24,7 @@ class AgencyController extends Controller
     public function index()
     {
         try {
-            $data = Agency::all();
+            $data = SectionPage::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -37,11 +38,11 @@ class AgencyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAgencyRequest $request)
+    public function store(StoreSectionPageRequest $request)
     {
         try {
-            Agency::create($request->store());
-            $data = Agency::all();
+            SectionPage::create($request->store());
+            $data = SectionPage::all();
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
@@ -57,7 +58,7 @@ class AgencyController extends Controller
     public function show($id)
     {
         try {
-            $data = Agency::findOrFail($id);
+            $data = SectionPage::with('pages.category', 'categories')->findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -74,7 +75,7 @@ class AgencyController extends Controller
     public function edit($id)
     {
         try {
-            $data = Agency::findOrFail($id);
+            $data = SectionPage::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -89,12 +90,12 @@ class AgencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAgencyRequest $request, $id)
+    public function update(UpdateSectionPageRequest $request, $id)
     {
         try {
-            Agency::where('id', $id)->update($request->update());
+            SectionPage::where('id', $id)->update($request->update());
+            $data = SectionPage::all();
 
-            $data = Agency::all();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
 
@@ -111,13 +112,41 @@ class AgencyController extends Controller
     public function destroy($id)
     {
         try {
-            $data = Agency::findOrFail($id);
+            $data = SectionPage::findOrFail($id);
             $data->delete();
 
-            $array = Agency::all();
+            $array = SectionPage::all();
             return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
         }
+    }
+    public function checkNameSection($name)
+    {
+        $data = SectionPage::where('name', $name)->where('deleted_at', null)->get();
+
+        if($data->isNotEmpty())
+        {
+            return response()->json(['isExist'=> true]);
+        }
+
+        return response()->json(['isExist' => false]);
+    }
+    public function checkNameSectionEdit($name, $id)
+    {
+        $checkSameValueOnId = SectionPage::where('id', $id)->where('name', $name)->where('deleted_at', null)->get();
+        if($checkSameValueOnId->count() == 1)
+        {
+            return response()->json(['isExist' => false]);
+        }
+
+        $checkAllData = SectionPage::where('name', $name)->where('deleted_at', null)->get();
+
+        if($checkAllData->count() > 0)
+        {
+            return response()->json(['isExist' => true]);
+        }
+
+        return response()->json(['isExist' => false]);
     }
 }

@@ -9,22 +9,24 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Artikel
+                            Tambah Page
                         </h3>
                     </div>
                 </div>
             </div>
-            <form class="m-form m-form--fit" @submit.prevent="store">
+            <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Section</label>
                     <div class="m-form__control">
-                        <Select2
+                        <Select2Edit
+                        @input="changeSection"
                         :options="section"
+                        :initSelected="selectedSection"
                         v-model="$v.forms.section_id.$model"
                         class="form-control"
                         @blur="$v.forms.section_id.$touch()"
                         >
-                        </Select2>
+                        </Select2Edit>
                     </div>
                     <template v-if="$v.forms.section_id.$error">
                         <span v-if="!$v.forms.section_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -34,13 +36,15 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Kategori</label>
-                    <Select2
+                    <Select2Edit
+                    @input="changeCategory"
                     :options="category"
+                    :initSelected="selectedCategory"
                     v-model="$v.forms.category_id.$model"
                     class="form-control"
                     @blur="$v.forms.category_id.$touch()"
                     >
-                    </Select2>
+                    </Select2Edit>
                     <template v-if="$v.forms.category_id.$error">
                         <span v-if="!$v.forms.category_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -86,7 +90,7 @@
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
-                <div class="form-group m-form__group" v-if="forms.image">
+                <div class="form-group m-form__group" v-show="changeImage">
                     <img :src="forms.image" class="img-responsive" height="70" width="90">
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -97,17 +101,17 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Title</label>
                         <input type="text" v-model="forms.seo_title" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Artikel Terisi</span>
+                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Key</label>
                         <input type="text" v-model="forms.seo_meta_key" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Artikel Terisi</span>
+                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Description</label>
                         <input type="text" v-model="forms.seo_meta_desc" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Artikel Terisi</span>
+                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
@@ -130,33 +134,32 @@
 import { required } from 'vuelidate/lib/validators';
 import { VueEditor } from "vue2-editor";
 import Axios from 'axios';
-import Select2 from './Select2'
+import Select2Edit from './Select2Edit'
 export default {
-    name: 'ArticleCreate',
+    name: 'PageCreate',
     components: {
-        Select2,
+        Select2Edit,
         VueEditor
     },
     data() {
         return {
-            breadcrumbTitle: 'Artikel',
+            breadcrumbTitle: 'Page',
             breadcrumbLink: [
                 {
                     id: 1,
                     label: 'Section',
-                    path: '/section/article'
+                    path: '/section/page'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Artikel',
-                    path: '/article/create'
+                    label: 'Edit Page',
+                    path: `/page/${this.$route.params.id}/edit`
                 },
             ],
             forms: {
                 section_id: null,
                 category_id: null,
                 title: null,
-                short_cotent: null,
                 content: null,
                 image: null,
                 seo_title: null,
@@ -167,6 +170,9 @@ export default {
             },
             section: null,
             category: null,
+            selectedSection: null,
+            selectedCategory: null,
+            changeImage: false
         }
     },
     validations: {
@@ -183,18 +189,28 @@ export default {
         }
     },
     created() {
-        Axios.get('/admin/article/create')
+        Axios.get(`/admin/page/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
+            this.forms = response.data.data.data;
+            this.selectedSection = response.data.data.data.section_id;
+            this.selectedCategory = response.data.data.data.category_id;
         });
     },
     methods: {
+        changeSection(value) {
+            this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
+        },
+        changeCategory(value) {
+            this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
+        },
         onImageChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)
                 return;
             this.createImage(files[0]);
+            this.changeImage = true;
         },
         createImage(file) {
             let reader = new FileReader();
@@ -204,16 +220,16 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        store() {
+        update() {
             this.$v.forms.$touch();
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/storeArticle', this.forms);
+                this.$store.dispatch('page/updatePage', this.forms);
                 this.$v.$reset();
             }
 
-            this.$router.push({ path: `/category/${this.forms.category_id}/article` });
+            this.$router.push({ path: `/category/${this.forms.category_id}/page` });
         }
     }
 }

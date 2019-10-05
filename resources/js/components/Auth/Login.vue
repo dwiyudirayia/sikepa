@@ -15,11 +15,16 @@
 										<h3 class="m-login__title">Sign In To Admin</h3>
 									</div>
 									<form class="m-login__form m-form" @submit.prevent="login">
+                                        <div class="alert alert-danger alert-dismissible" role="alert" v-if="errors.invalid">
+											<strong>Invalid </strong> {{ errors.invalid }}
+                                        </div>
 										<div class="form-group m-form__group">
 											<input class="form-control m-input" type="email" placeholder="Masukan Email Anda" v-model="data.email" autocomplete="off">
+                                            <span class="m--font-danger" v-if="errors.email">{{ errors.email[0] }}</span>
 										</div>
 										<div class="form-group m-form__group">
 											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Masukan Password Anda" v-model="data.password">
+                                            <span class="m--font-danger" v-if="errors.password">{{ errors.password[0] }}</span>
 										</div>
 										<div class="row m-login__form-sub">
 											<div class="col m--align-left">
@@ -51,6 +56,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'Login',
     data() {
@@ -69,6 +75,9 @@ export default {
             this.$router.push({ name: 'SectionIndex' })
         }
     },
+    computed: {
+            ...mapState(['errors'])
+    },
     methods: {
         login() {
             this.$store.dispatch('auth/login', this.data);
@@ -76,6 +85,7 @@ export default {
     },
 	destroyed() {
         this.$store.dispatch('user/getUserLogin');
+        this.$store.state.article.showNotificationLoginSuccess = true;
     }
 }
 </script>

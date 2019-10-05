@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const article = {
+const page = {
     namespaced: true,
     state : {
         data: [],
@@ -66,14 +66,14 @@ const article = {
     },
     actions: {
         indexSection({ commit }) {
-            Axios.get('/admin/section/article')
+            Axios.get('/admin/section/page')
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');
             })
         },
         storeSection({ commit }, data) {
-            Axios.post('/admin/section/article', data)
+            Axios.post('/admin/section/page', data)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -83,7 +83,7 @@ const article = {
             });
         },
         destroySection({ commit }, id) {
-            Axios.delete('/admin/section/article/'+id)
+            Axios.delete('/admin/section/page/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -93,14 +93,14 @@ const article = {
             })
         },
         editSection({ commit }, id) {
-            Axios.get(`/admin/section/article/${id}/edit`)
+            Axios.get(`/admin/section/page/${id}/edit`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataForm', response);
             })
         },
         updateSection({ commit, state }) {
-            Axios.put(`/admin/section/article/${state.forms.id}`, state.forms)
+            Axios.put(`/admin/section/page/${state.forms.id}`, state.forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -114,7 +114,7 @@ const article = {
             })
         },
         storeCategory({ commit }, form) {
-            Axios.post('/admin/category/article', form)
+            Axios.post('/admin/category/page', form)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -124,7 +124,7 @@ const article = {
             });
         },
         destroyCategory({ commit }, id) {
-            Axios.delete('/admin/category/article/'+id)
+            Axios.delete('/admin/category/page/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -133,15 +133,15 @@ const article = {
                 commit('notification', error);
             })
         },
-        listCategoryArticle({ commit }, id) {
-            Axios.get(`/admin/list/category/article/${id}`)
+        listCategoryPage({ commit }, id) {
+            Axios.get(`/admin/list/category/page/${id}`)
             .then(response => {
                 commit('clearPage');
                 commit('updateData', response);
             });
         },
-        storeArticle({ commit }, forms) {
-            Axios.post('/admin/article', forms)
+        storePage({ commit }, forms) {
+            Axios.post('/admin/page', forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -150,8 +150,8 @@ const article = {
                 commit('notification', error);
             });
         },
-        destroyArticle({ commit }, id) {
-            Axios.delete(`/admin/article/${id}`)
+        destroyPage({ commit }, id) {
+            Axios.delete(`/admin/page/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -160,8 +160,8 @@ const article = {
                 commit('notification', error);
             });
         },
-        updateArticle({ commit }, forms) {
-            Axios.put(`/admin/article/${forms.id}`, forms)
+        updatePage({ commit }, forms) {
+            Axios.put(`/admin/page/${forms.id}`, forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -177,4 +177,4 @@ const article = {
     }
 }
 
-export default article;
+export default page;

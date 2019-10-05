@@ -78,12 +78,12 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: `/section`
+                    path: `/section/article`
                 },
                 {
                     id: 2,
                     label: 'Daftar Kategori Artikel',
-                    path: `/list/${this.$route.params.id}/category`
+                    path: `/category/${this.$route.params.id}/article`
                 },
             ],
             breadcrumbTitle: 'Kategori'
