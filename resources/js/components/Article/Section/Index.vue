@@ -3,7 +3,6 @@
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
         <notification-success v-show="getShowNotification" :data="getMessage" v-if="getStatusatusCode == 200"></notification-success>
         <notification-error v-show="getShowNotification" :data="getMessage" v-else></notification-error>
-        <notification-success-login v-show="getShowNotificationLoginSuccess"></notification-success-login>
         <div class="m-portlet m-portlet--creative m-portlet--bordered-semi">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">

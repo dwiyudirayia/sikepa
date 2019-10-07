@@ -21,6 +21,17 @@ Route::prefix('admin')->group(function () {
     Route::resource('agency', 'AgencyController');
     Route::resource('section/page', 'SectionPageController');
     Route::resource('category/page', 'CategoryPageController');
+    Route::resource('page', 'PageController');
+
+    //Change Status Article
+    Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
+    Route::get('change/article/approve/{id}', 'ArticleController@changeApprovedStatus');
+    //End Change Status Article
+
+    //Change Status Page
+    Route::get('change/page/publish/{id}', 'PageController@changePublishStatus');
+    Route::get('change/page/approve/{id}', 'PageController@changeApprovedStatus');
+    //End Change Status Page
 
     Route::get('list/section/category/article/{id}', 'CategoryArticleController@listSectionCategory');
     Route::get('list/category/article/{id}', 'ArticleController@listCategoryArticle');

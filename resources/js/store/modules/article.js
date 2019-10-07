@@ -8,7 +8,6 @@ const article = {
         message: null,
         statusCode: null,
         showNotification: null,
-        showNotificationLoginSuccess: null
     },
     getters: {
         getMessage(state)
@@ -21,9 +20,6 @@ const article = {
         },
         getShowNotification(state) {
             return state.showNotification;
-        },
-        getShowNotificationLoginSuccess(state) {
-            return state.showNotificationLoginSuccess
         },
         getData(state) {
             return state.data;
@@ -162,6 +158,26 @@ const article = {
         },
         updateArticle({ commit }, forms) {
             Axios.put(`/admin/article/${forms.id}`, forms)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
+        },
+        changePublishStatus({ commit }, id) {
+            Axios.get(`/admin/change/article/publish/${id}`)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            })
+        },
+        changeApprovedStatus({ commit }, id) {
+            Axios.get(`/admin/change/article/approve/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);

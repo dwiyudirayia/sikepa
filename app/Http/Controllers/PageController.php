@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\SectionArticle;
-use App\CategoryArticle;
-use App\Article;
+use App\SectionPage;
+use App\CategoryPage;
+use App\Page;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Http\Requests\StoreArticleRequest;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Requests\StorePageRequest;
+use App\Http\Requests\UpdatePageRequest;
 use File;
 
-class ArticleController extends Controller
+
+class PageController extends Controller
 {
     private $notification;
 
@@ -18,10 +19,10 @@ class ArticleController extends Controller
     {
         $this->notification = $notification;
     }
-    public function listCategoryArticle($id)
+    public function listCategoryPage($id)
     {
         try {
-            $data = Article::where('category_id', $id)->get();
+            $data = Page::where('category_id', $id)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -36,7 +37,7 @@ class ArticleController extends Controller
     public function index()
     {
         try {
-            $data = Article::all();
+            $data = Page::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -52,8 +53,8 @@ class ArticleController extends Controller
     public function create()
     {
         try {
-            $data['section'] = SectionArticle::all();
-            $data['category'] = CategoryArticle::all();
+            $data['section'] = SectionPage::all();
+            $data['category'] = CategoryPage::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -67,12 +68,12 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArticleRequest $request)
+    public function store(StorePageRequest $request)
     {
         try {
-            Article::create($request->store());
+            Page::create($request->store());
 
-            $data = Article::where('category_id', $request->category_id)->get();
+            $data = Page::where('category_id', $request->category_id)->get();
 
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
@@ -89,7 +90,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         try {
-            $data = Article::with('category', 'section')->findOrFail($id);
+            $data = Page::with('category', 'section')->findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -106,9 +107,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         try {
-            $data['data'] = Article::findOrFail($id);
-            $data['section'] = SectionArticle::all();
-            $data['category'] = CategoryArticle::all();
+            $data['data'] = Page::findOrFail($id);
+            $data['section'] = SectionPage::all();
+            $data['category'] = CategoryPage::all();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -123,12 +124,12 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArticleRequest $request, $id)
+    public function update(UpdatePageRequest $request, $id)
     {
         try {
-            Article::where('id', $id)->update($request->update());
+            Page::where('id', $id)->update($request->update());
 
-            $data = Article::where('category_id', $request->category_id)->get();
+            $data = Page::where('category_id', $request->category_id)->get();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
@@ -144,12 +145,12 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         try {
-            $data = Article::findOrFail($id);
+            $data = Page::findOrFail($id);
 
-            File::delete("article/".$data->image);
+            File::delete("page/".$data->image);
             $data->delete();
 
-            $array = Article::where('category_id', $data->category_id)->get();
+            $array = Page::where('category_id', $data->category_id)->get();
             return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
@@ -158,11 +159,11 @@ class ArticleController extends Controller
     public function changePublishStatus($id)
     {
         try {
-            $data = Article::findOrFail($id);
+            $data = Page::findOrFail($id);
             $data->publish = !$data->publish;
             $data->save();
 
-            $array = Article::where('category_id', $data->category_id)->get();
+            $array = Page::where('category_id', $data->category_id)->get();
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
@@ -171,11 +172,11 @@ class ArticleController extends Controller
     public function changeApprovedStatus($id)
     {
         try {
-            $data = Article::findOrFail($id);
+            $data = Page::findOrFail($id);
             $data->approved = !$data->approved;
             $data->save();
 
-            $array = Article::where('category_id', $data->category_id)->get();
+            $array = Page::where('category_id', $data->category_id)->get();
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));

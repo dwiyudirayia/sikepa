@@ -21,6 +21,7 @@ class CreatePageTables extends Migration
             $table->mediumInteger('category_id');
             $table->string('title');
             $table->string('url');
+            $table->text('short_content');
             $table->longText('content');
             $table->string('image');
             $table->text('seo_title');
