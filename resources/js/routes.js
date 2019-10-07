@@ -55,6 +55,12 @@ import FaqIndex from './components/Faq/Index';
 import FaqCreate from './components/Faq/Create';
 import FaqEdit from './components/Faq/Edit'
 //End Faq
+
+// Agency
+import AgencyIndex from './components/Agency/Index';
+import AgencyCreate from './components/Agency/Create';
+import AgencyEdit from './components/Agency/Edit';
+// End Agency
 // --- End Admin --//
 
 //Auth
@@ -286,7 +292,29 @@ const router = new VueRouter({
                 {
                     path: '/faq/:id/edit',
                     name: 'FaqEdit',
-                    component: FaqEdit,
+                    component: FaqEdit
+                },
+                //Agency
+                {
+                    path: '/agency',
+                    name: 'AgencyIndex',
+                    component: AgencyIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/agency/create',
+                    name: 'AgencyCreate',
+                    component: AgencyCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/agency/:id/edit',
+                    name: 'AgencyEdit',
+                    component: AgencyEdit,
                     meta: {
                         requiresAuth: true,
                     }
