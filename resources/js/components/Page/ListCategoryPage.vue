@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/page/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Page'">
+                    <router-link to="/page/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Page'">
                         <span>
                             <i class="la la-plus"></i>
                             <span>Tambah Page</span>
@@ -52,6 +52,26 @@
                                             <span>
                                                 <i class="la la-trash"></i>
                                                 <span>Hapus Page</span>
+                                            </span>
+                                        </button>
+                                        <button @click="changePublishStatus(value.id)" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Ganti Status Publish'">
+                                            <span v-if="value.publish == 0">
+                                                <i class="la la-close"></i>
+                                                <span>Ganti Status Publish</span>
+                                            </span>
+                                            <span v-else>
+                                                <i class="la la-check"></i>
+                                                <span>Ganti Status Publish</span>
+                                            </span>
+                                        </button>
+                                        <button @click="changeApprovedStatus(value.id)" class="btn m-btn btn-accent btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Ganti Status Persetujuan'">
+                                            <span v-if="value.approved == 0">
+                                                <i class="la la-close"></i>
+                                                <span>Ganti Status Persetujuan</span>
+                                            </span>
+                                            <span v-else>
+                                                <i class="la la-check"></i>
+                                                <span>Ganti Status Persetujuan</span>
                                             </span>
                                         </button>
                                     </div>
@@ -129,7 +149,13 @@ export default {
                     this.destroy(id);
                 }
             })
-        }
+        },
+        changePublishStatus(id) {
+            this.$store.dispatch('page/changePublishStatus', id);
+        },
+        changeApprovedStatus(id) {
+            this.$store.dispatch('page/changeApprovedStatus', id);
+        },
     }
 }
 </script>

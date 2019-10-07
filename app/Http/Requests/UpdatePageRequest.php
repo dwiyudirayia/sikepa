@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Article;
+use App\Page;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class UpdateArticleRequest extends FormRequest
+class UpdatePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class UpdateArticleRequest extends FormRequest
     }
     public function update()
     {
-        $data = Article::findOrFail($this->id);
+        $data = Page::findOrFail($this->id);
 
         if($this->image == $data->image)
         {
@@ -52,7 +52,7 @@ class UpdateArticleRequest extends FormRequest
         } else {
             $image = $this->image;
             $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            \Image::make($this->image)->save(public_path('article/').$name);
+            \Image::make($this->image)->save(public_path('page/').$name);
 
             return [
                 'created_by' => 1,

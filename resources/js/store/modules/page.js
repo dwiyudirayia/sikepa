@@ -170,6 +170,26 @@ const page = {
                 commit('notification', error);
             });
         },
+        changePublishStatus({ commit }, id) {
+            Axios.get(`/admin/change/page/publish/${id}`)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            })
+        },
+        changeApprovedStatus({ commit }, id) {
+            Axios.get(`/admin/change/page/approve/${id}`)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
+        },
         clearPage({commit})
         {
             commit('clearPage');

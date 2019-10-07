@@ -44,6 +44,8 @@ import CategoryPageEdit from './components/Page/Category/Edit';
 
 //Page
 import ListCategoryPage from './components/Page/ListCategoryPage';
+import PageCreate from './components/Page/Create';
+import PageEdit from './components/Page/Edit';
 //End Page
 // --- End Page ---/
 
@@ -187,13 +189,19 @@ const router = new VueRouter({
                 {
                     path: '/article/:id/edit',
                     name: 'ArticleEdit',
-                    component: ArticleEdit
+                    component: ArticleEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 //Section Page
                 {
                     path: '/section/page',
                     name: 'SectionPageIndex',
-                    component: SectionPageIndex
+                    component: SectionPageIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/section/page/create',
@@ -242,21 +250,46 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
+                {
+                    path: '/page/create',
+                    name: 'PageCreate',
+                    component: PageCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/page/:id/edit',
+                    name: 'PageEdit',
+                    component: PageEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
                 //Faq
                 {
                     path: '/faq',
                     name: 'FaqIndex',
                     component: FaqIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/faq/create',
                     name: 'FaqCreate',
-                    component: FaqCreate
+                    component: FaqCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/faq/:id/edit',
                     name: 'FaqEdit',
-                    component: FaqEdit
+                    component: FaqEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 }
             ]
         }
