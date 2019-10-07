@@ -29,7 +29,6 @@ import ArticleEdit from './components/Article/Edit';
 //End Article
 // --- End Article --- //
 
-// --- Page --- //
 //Section
 import SectionPageIndex from './components/Page/Section/Index';
 import SectionPageCreate from './components/Page/Section/Create';
@@ -292,7 +291,10 @@ const router = new VueRouter({
                 {
                     path: '/faq/:id/edit',
                     name: 'FaqEdit',
-                    component: FaqEdit
+                    component: FaqEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 //Agency
                 {
@@ -314,10 +316,7 @@ const router = new VueRouter({
                 {
                     path: '/agency/:id/edit',
                     name: 'AgencyEdit',
-                    component: AgencyEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
+                    component: AgencyEdit
                 }
             ]
         }
