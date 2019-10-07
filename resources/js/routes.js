@@ -29,7 +29,9 @@ import ArticleEdit from './components/Article/Edit';
 //End Article
 // --- End Article --- //
 
-// --- Page --- //
+// --- 
+
+--- //
 //Section
 import SectionPageIndex from './components/Page/Section/Index';
 import SectionPageCreate from './components/Page/Section/Create';
@@ -55,6 +57,12 @@ import FaqIndex from './components/Faq/Index';
 import FaqCreate from './components/Faq/Create';
 import FaqEdit from './components/Faq/Edit'
 //End Faq
+
+// Agency
+import AgencyIndex from './components/Agency/Index';
+import AgencyCreate from './components/Agency/Create';
+import AgencyEdit from './components/Agency/Edit';
+// End Agency
 // --- End Admin --//
 
 //Auth
@@ -290,6 +298,22 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                     }
+                },
+                //Agency
+                {
+                    path: '/agency',
+                    name: 'AgencyIndex',
+                    component: AgencyIndex,
+                },
+                {
+                    path: '/agency/create',
+                    name: 'AgencyCreate',
+                    component: AgencyCreate,
+                },
+                {
+                    path: '/agency/:id/edit',
+                    name: 'AgencyEdit',
+                    component: AgencyEdit
                 }
             ]
         }
