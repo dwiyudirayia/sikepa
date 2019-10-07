@@ -14,6 +14,7 @@
 
 Route::prefix('admin')->group(function () {
     Route::resource('user', 'UserController');
+    Route::put('user/change/password', 'UserController@changePassword');
     Route::resource('faq', 'FAQController');
     Route::resource('article', 'ArticleController');
     Route::resource('section/article', 'SectionArticleController');
@@ -39,23 +40,33 @@ Route::prefix('admin')->group(function () {
     Route::get('list/section/category/page/{id}', 'CategoryPageController@listSectionCategory');
     Route::get('list/category/page/{id}', 'PageController@listCategoryPage');
     //Validation
+    //Article
     Route::get('check/section/article/{name}', 'SectionArticleController@checkNameSection');
     Route::get('check/section/article/{name}/edit/{id}', 'SectionArticleController@checkNameSectionEdit');
 
     Route::get('check/category/article/{name}/section/{section_id}', 'CategoryArticleController@checkNameCategory');
     Route::get('check/category/article/{name}/edit/{id}', 'CategoryArticleController@checkNameCategoryEdit');
+    //End Article
 
+    //Article
     Route::get('check/section/page/{name}', 'SectionArticleController@checkNameSection');
     Route::get('check/section/page/{name}/edit/{id}', 'SectionArticleController@checkNameSectionEdit');
 
     Route::get('check/category/page/{name}/section/{section_id}', 'CategoryPageController@checkNameCategory');
     Route::get('check/category/page/{name}/edit/{id}', 'CategoryPageController@checkNameCategoryEdit');
+    //End Article
+
+    //User
+    Route::get('check/same/current/password/{current_password}', 'UserController@checkSameCurrentPassword');
+    Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
+    //End User
+    //End Validation
 });
 
 Route::get('user-authenticated', 'UserController@getUserLogin');
 Route::get('user-lists', 'UserController@userLists');
-Route::post('/login', 'LoginController@login');
-Route::post('/logout', 'LoginController@logout');
+Route::post('login', 'LoginController@login');
+Route::post('logout', 'LoginController@logout');
 Route::get('roles', 'RolePermissionsController@getAllRole');
 Route::get('permissions', 'RolePermissionsController@getAllPermission');
 Route::post('role-permission', 'RolePermissionsController@getRolePermission');

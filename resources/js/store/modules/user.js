@@ -124,6 +124,12 @@ const user = {
                     resolve(response.data)
                 })
             })
+        },
+        changePassword({ commit }, forms) {
+            Axios.put(`/admin/user/change/password`, forms)
+            .then(response => {
+
+            })
         }
     }
 }

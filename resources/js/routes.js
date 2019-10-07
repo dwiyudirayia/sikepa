@@ -109,7 +109,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/user/changepassword',
+                    path: '/user/change/password',
                     name: 'UserChangePassword',
                     component: UserChangePassword,
                     meta: {

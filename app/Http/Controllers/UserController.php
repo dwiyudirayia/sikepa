@@ -6,7 +6,9 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Http\Request;
+use Auth;
+use Hash;
 class UserController extends Controller
 {
     private $notification;
@@ -45,5 +47,46 @@ class UserController extends Controller
         $user['permission'] = $permissions; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
         $user['role'] = $role; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
         return response()->json(['status' => 'success', 'data' => $user]);
+    }
+    public function checkSameCurrentPassword($current_password)
+    {
+        if (!(Hash::check($current_password, Auth::user()->password))) {
+            // The passwords matches
+            return response()->json(['isSameCurrentPassword' => true]);
+        } else {
+            return response()->json(['isSameCurrentPassword' => false]);
+        }
+    }
+    public function checkNewPassword($current_password, $new_password) {
+        if(strcmp($current_password, $new_password) == 0){
+            //Current password and new password are same
+            return response()->json(['isSameNewPassword' => true]);
+        } else {
+            return response()->json(['isSameNewPassword' => false]);
+        }
+    }
+    public function changePassword(Request $request)
+    {
+        try {
+            $user = User::findOrFail(Auth::user()->id);
+            $user->password = Hash::make($request->get('new_password'));
+            $user->save();
+
+            Auth::logout();
+
+            $data = [
+                'messages' => 'Password Berhasil di Ubah',
+                'status' => 200
+            ];
+
+            return response()->json($data);
+
+        } catch (\Exception $e) {
+            $data = [
+                'messages' => $e->getMessage(),
+                'status' => $e->getCode()
+            ];
+            return response()->json($data);
+        }
     }
 }
