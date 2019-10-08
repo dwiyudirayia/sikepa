@@ -4187,7 +4187,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.$store.getters['isAuth']) {
       //MAKA DI-DIRECT KE ROUTE DENGAN NAME home
       this.$router.push({
-        name: 'SectionIndex'
+        name: 'SectionArticleIndex'
       });
     }
   },
@@ -7142,6 +7142,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57132,6 +57145,11 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "m-menu__link",
+                        class: {
+                          "router-link-exact-active": _vm.subOpenMenu(
+                            "/section/article"
+                          )
+                        },
                         attrs: { to: "/section/article" }
                       },
                       [
@@ -57188,7 +57206,7 @@ var render = function() {
               "li",
               {
                 staticClass: "m-menu__item m-menu__item--submenu",
-                class: { "m-menu__item--open": _vm.subOpenMenu("/user") },
+                class: { "m-menu__item--open": _vm.subOpenMenu("/proposal") },
                 attrs: {
                   "aria-haspopup": "true",
                   "m-menu-submenu-toggle": "hover"
@@ -57196,6 +57214,102 @@ var render = function() {
               },
               [
                 _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "m-menu__submenu ",
+                    attrs: { "m-hidden-height": "80" }
+                  },
+                  [
+                    _c("span", { staticClass: "m-menu__arrow" }),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "m-menu__subnav" }, [
+                      _c(
+                        "li",
+                        {
+                          staticClass: "m-menu__item m-menu__item--submenu",
+                          attrs: {
+                            "aria-haspopup": "true",
+                            "m-menu-submenu-toggle": "hover"
+                          }
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "m-menu__link m-menu__toggle",
+                              attrs: { to: "/user/change/password" }
+                            },
+                            [
+                              _c(
+                                "i",
+                                {
+                                  staticClass:
+                                    "m-menu__link-bullet m-menu__link-bullet--dot"
+                                },
+                                [_c("span")]
+                              ),
+                              _c("span", { staticClass: "m-menu__link-text" }, [
+                                _vm._v("Ganti Password")
+                              ])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        {
+                          staticClass: "m-menu__item m-menu__item--submenu",
+                          attrs: {
+                            "aria-haspopup": "true",
+                            "m-menu-submenu-toggle": "hover"
+                          }
+                        },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "m-menu__link m-menu__toggle",
+                              attrs: { to: "/user" }
+                            },
+                            [
+                              _c(
+                                "i",
+                                {
+                                  staticClass:
+                                    "m-menu__link-bullet m-menu__link-bullet--dot"
+                                },
+                                [_c("span")]
+                              ),
+                              _c("span", { staticClass: "m-menu__link-text" }, [
+                                _vm._v("Pengolahan User")
+                              ])
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                staticClass: "m-menu__item m-menu__item--submenu",
+                class: { "m-menu__item--open": _vm.subOpenMenu("/user") },
+                attrs: {
+                  "aria-haspopup": "true",
+                  "m-menu-submenu-toggle": "hover"
+                }
+              },
+              [
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -57350,6 +57464,16 @@ var staticRenderFns = [
       _c("h4", { staticClass: "m-menu__section-text" }, [_vm._v("Optional")]),
       _vm._v(" "),
       _c("i", { staticClass: "m-menu__section-icon flaticon-more-v2" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "m-menu__link m-menu__toggle" }, [
+      _c("i", { staticClass: "m-menu__link-icon la la-file-archive-o" }),
+      _c("span", { staticClass: "m-menu__link-text" }, [_vm._v("Proposal")]),
+      _c("i", { staticClass: "m-menu__ver-arrow la la-angle-right" })
     ])
   },
   function() {

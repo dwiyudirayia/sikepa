@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class SectionPage extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'section_page';
     protected $fillable = ['created_by', 'updated_by', 'name'];
 

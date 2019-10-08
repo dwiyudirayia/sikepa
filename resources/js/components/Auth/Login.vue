@@ -72,7 +72,7 @@ export default {
         //KITA MELAKUKAN PENGECEKAN JIKA SUDAH LOGIN DIMANA VALUE isAuth BERNILAI TRUE
         if (this.$store.getters['isAuth']) {
             //MAKA DI-DIRECT KE ROUTE DENGAN NAME home
-            this.$router.push({ name: 'SectionIndex' })
+            this.$router.push({ name: 'SectionArticleIndex' })
         }
     },
     computed: {

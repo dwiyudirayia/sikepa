@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFaqTables extends Migration
+class CreateCategoryProposalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateFaqTables extends Migration
      */
     public function up()
     {
-        Schema::create('faq', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('category_proposal', function (Blueprint $table) {
+            $table->mediumIncrements('id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->text('question');
-            $table->text('answere');
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateFaqTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faq');
+        Schema::dropIfExists('category_proposal');
     }
 }
