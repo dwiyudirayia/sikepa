@@ -3,6 +3,7 @@ body {
     margin: 0;
     font-family: "Open Sans", sans-serif;
     font-size: 13px;
+    background: linear-gradient(90deg, rgba(34,137,195,1) 0%, rgba(241,238,0,1) 100%);
 }
 a {
     color: rgba(0, 0, 0, 0.5);

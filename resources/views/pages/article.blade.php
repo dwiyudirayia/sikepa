@@ -19,15 +19,12 @@
         <!-- Carousel Owl -->
         <link rel="stylesheet" href="{{ asset('assets/OwlCarousel/dist/assets/owl.carousel.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/OwlCarousel/dist/assets/owl.theme.default.min.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
 
         <title>SIKEPA</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow mb-5">
-            <a class="navbar-brand">
-                <img src="{{ asset('assets/images/logo.jpg') }}" height="50">
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -81,7 +78,11 @@
             </div>
         </div>
         <section>
-            <div class="container mb-3">
+            <div 
+                class="container mb-3"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+            >
                 <div class="text-center text-dark">
                     <h4 class="font-weight-bold">
                         SIKEPA
@@ -101,7 +102,11 @@
                             Artikel
                         </h4>
                         @foreach ($article as $item)
-                        <section class="border shadow p-3 rounded mb-3">
+                        <section
+                            class="border bg-white p-3 rounded mb-3"
+                            data-aos="zoom-in-up"
+                            data-aos-duration="1000"
+                        >
                             <h5 class="font-weight-bold">
                                 {{ $item->title }}
                             </h5>
@@ -121,7 +126,7 @@
                         {{ $article->links() }}
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <section class="border shadow rounded p-3 mb-3">
+                        <section class="border bg-white rounded p-3 mb-3">
                             <h5 class="font-weight-bold border-bottom">
                                 Artikel <span class="text-success">Terbaru</span>
                             </h5>
@@ -135,7 +140,11 @@
                             @empty
                             @endforelse
                         </section>
-                        <section class="border shadow rounded p-3 mb-3">
+                        <section
+                            class="border bg-white rounded p-3 mb-3"
+                            data-aos="zoom-in-up"
+                            data-aos-duration="1000"
+                        >
                             <h5 class="font-weight-bold border-bottom">
                                 Topik <span class="text-success">Populer</span>
                             </h5>
@@ -152,7 +161,11 @@
                                 <h6 class="font-weight-bold">4. Pengajuan Kerjasama</h6>
                             </div>
                         </section>
-                        <section class="border shadow rounded p-3 mb-3">
+                        <section
+                            class="border bg-white rounded p-3 mb-3"
+                            data-aos="zoom-in-up"
+                            data-aos-duration="1000"
+                        >
                             <h5 class="font-weight-bold border-bottom">
                                 Info <span class="text-success">Kerjasama</span>
                             </h5>
@@ -224,7 +237,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container mb-3">
+            <div class="bg-white rounded py-3 container mb-3">
                 <div class="owl-two owl-carousel owl-theme w-100" style="height: auto;">
                     <div class="item border p-2">
                         <p>Nama</p>
@@ -288,7 +301,9 @@
         <script src="{{ asset('assets/js/proper.min.js')}}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('assets/OwlCarousel/dist/owl.carousel.min.js')}}"></script>
+        <script src="{{ asset('assets/js/aos.js') }}"></script>
         <script>
+            AOS.init();
             $(document).ready(function(){
                 $('.owl-one').owlCarousel({
                     loop:true,
