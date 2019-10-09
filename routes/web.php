@@ -63,6 +63,7 @@ Route::prefix('admin')->group(function () {
     Route::get('check/same/current/password/{current_password}', 'UserController@checkSameCurrentPassword');
     Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
     //End User
+
     //End Validation
 });
 
@@ -76,6 +77,7 @@ Route::post('role-permission', 'RolePermissionsController@getRolePermission');
 Route::post('set-role-permission', 'RolePermissionsController@setRolePermission');
 Route::post('set-role-user', 'RolePermissionsController@setRoleUser');
 
+Route::post('comment', 'CommentController@store');
 Route::get('/', 'FrontController@home');
 Route::get('/front/article', 'FrontController@article');
 Route::get('/front/article/{id}', 'FrontController@articleDetail');
