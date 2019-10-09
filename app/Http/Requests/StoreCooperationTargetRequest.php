@@ -4,18 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTypeOfCooperation extends FormRequest
+class StoreCooperationTargetRequest extends FormRequest
 {
-    public function rules()
-    {
-        return [
-            'name' => 'required',
-        ];
-    }
     public function attributes()
     {
         return [
-            'name' => 'Nama',
+            'name' => 'Nama Target Kerjasama',
         ];
     }
     public function messages()
@@ -24,8 +18,14 @@ class UpdateTypeOfCooperation extends FormRequest
             'name.required' => ':attribute Harus di Isi',
         ];
     }
+    public function rules()
+    {
+        return [
+            'name' => 'required'
+        ];
+    }
 
-    public function update()
+    public function store()
     {
         return [
             'created_by' => 1,

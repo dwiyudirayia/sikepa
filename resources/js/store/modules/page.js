@@ -8,7 +8,6 @@ const page = {
         message: null,
         statusCode: null,
         showNotification: null,
-        showNotificationLoginSuccess: null
     },
     getters: {
         getMessage(state)
@@ -22,15 +21,8 @@ const page = {
         getShowNotification(state) {
             return state.showNotification;
         },
-        getShowNotificationLoginSuccess(state) {
-            return state.showNotificationLoginSuccess
-        },
         getData(state) {
             return state.data;
-        },
-        getRelationForm(state)
-        {
-            return state.relationForm;
         },
     },
     mutations: {

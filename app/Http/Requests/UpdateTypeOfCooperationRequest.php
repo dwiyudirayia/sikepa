@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCooperationTarget extends FormRequest
+class UpdateTypeOfCooperationRequest extends FormRequest
 {
     public function rules()
     {
@@ -15,7 +15,7 @@ class UpdateCooperationTarget extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Nama Target Kerjasama',
+            'name' => 'Nama',
         ];
     }
     public function messages()

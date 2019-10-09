@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategoryProposal extends FormRequest
+class UpdateCooperationTargetRequest extends FormRequest
 {
     public function rules()
     {
@@ -15,7 +15,7 @@ class UpdateCategoryProposal extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Nama Kategori',
+            'name' => 'Nama Target Kerjasama',
         ];
     }
     public function messages()

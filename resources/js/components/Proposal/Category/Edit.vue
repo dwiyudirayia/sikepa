@@ -9,23 +9,22 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Section
+                            Edit Kategori
                         </h3>
                     </div>
                 </div>
             </div>
-            <form class="m-form m-form--fit" @submit.prevent="store">
+            <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama Section</label>
+                    <label for="Nama Lengkap">Nama Kategori</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
+                        <input type="text" v-model.trim="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
                     <template v-if="$v.forms.name.$error">
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span class="m--font-danger" v-if="!$v.forms.name.isUnique">Nama Section Sudah Terdaftar.</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Kategori Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -48,65 +47,48 @@ import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
 
 export default {
-    name: 'SectionArticleCreate',
+    name: 'CategoryProposalEdit',
     data() {
         return {
-            breadcrumbTitle: 'Section Artikel',
+            breadcrumbTitle: 'Kategori',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Section',
-                    path: '/section/article'
+                    label: 'Kategori',
+                    path: '/proposal/category'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Section',
-                    path: '/section/article/create'
+                    label: 'Edit Kategori',
+                    path: `/proposal/category/${this.$route.params.id}/edit`
                 },
             ],
-            forms: {
-                name: null,
-            },
-            statusNameUnique: null
+            forms: null,
         }
     },
     validations: {
         forms: {
             name: {
                 required,
-                async isUnique(value) {
-                    // standalone validator ideally should not assume a field is required
-                    if (value === '') return true
-
-                    const response = Axios.get(`/admin/check/section/article/${value}`)
-                    .then(response => {
-                        this.statusNameUnique = response.data.isExist;
-                    })
-
-                    // simulate async call, fail for all logins with even length
-                    return new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            resolve(this.statusNameUnique == false)
-                        }, 350 + Math.random() * 300)
-                    })
-                }
-
             },
         }
     },
     created() {
-        this.$store.dispatch('article/clearPage');
+        Axios.get(`/admin/proposal/category/${this.$route.params.id}/edit`)
+        .then(response => {
+            this.forms = response.data.data
+        });
     },
     methods: {
-        store() {
+        update() {
             this.$v.forms.$touch();
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/storeSection', this.forms);
+                this.$store.dispatch('proposal/updateCategory', this.forms);
                 this.$v.$reset();
             }
-            this.$router.push({ name: 'SectionArticleIndex' });
+            this.$router.push({ name: 'ProposalCategoryIndex' });
         }
     },
 }

@@ -24,10 +24,6 @@ const article = {
         getData(state) {
             return state.data;
         },
-        getRelationForm(state)
-        {
-            return state.relationForm;
-        },
     },
     mutations: {
         notification(state, payload)

@@ -4,8 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryProposal extends FormRequest
+class UpdateCategoryProposalRequest extends FormRequest
 {
+    public function rules()
+    {
+        return [
+            'name' => 'required',
+        ];
+    }
     public function attributes()
     {
         return [
@@ -18,14 +24,8 @@ class StoreCategoryProposal extends FormRequest
             'name.required' => ':attribute Harus di Isi',
         ];
     }
-    public function rules()
-    {
-        return [
-            'name' => 'required'
-        ];
-    }
 
-    public function store()
+    public function update()
     {
         return [
             'created_by' => 1,

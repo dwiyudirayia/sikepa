@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSubtanceCooperation extends FormRequest
+class UpdateSubtanceCooperationRequest extends FormRequest
 {
     public function rules()
     {
