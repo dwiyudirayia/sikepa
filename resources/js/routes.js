@@ -46,7 +46,13 @@ import ListCategoryPage from './components/Page/ListCategoryPage';
 import PageCreate from './components/Page/Create';
 import PageEdit from './components/Page/Edit';
 //End Page
-// --- End Page ---/
+// --- End Page ---//
+
+// --- Proposal ---//
+import ProposalCategoryIndex from './components/Proposal/Category/Index';
+import ProposalCategoryCreate from './components/Proposal/Category/Create';
+import ProposalCategoryEdit from './components/Proposal/Category/Edit';
+// --- End Proposal -- /
 
 
 //Faq
@@ -317,6 +323,22 @@ const router = new VueRouter({
                     path: '/agency/:id/edit',
                     name: 'AgencyEdit',
                     component: AgencyEdit
+                },
+                //Category Proposal
+                {
+                    path: '/proposal/category',
+                    name: 'ProposalCategoryIndex',
+                    component: ProposalCategoryIndex
+                },
+                {
+                    path: '/proposal/category/create',
+                    name: 'ProposalCategoryCreate',
+                    component: ProposalCategoryCreate
+                },
+                {
+                    path: '/proposal/category/:id/edit',
+                    name: 'ProposalCategoryEdit',
+                    component: ProposalCategoryEdit
                 }
             ]
         }

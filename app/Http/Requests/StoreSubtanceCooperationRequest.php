@@ -4,12 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCooperationTarget extends FormRequest
+class StoreSubtanceCooperationRequest extends FormRequest
 {
     public function attributes()
     {
         return [
-            'name' => 'Nama Target Kerjasama',
+            'name' => 'Nama',
         ];
     }
     public function messages()

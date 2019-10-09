@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTargetOfOperation extends FormRequest
+class UpdateTargetOfOperationRequest extends FormRequest
 {
     public function rules()
     {

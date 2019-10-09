@@ -19,11 +19,14 @@ Route::prefix('admin')->group(function () {
     Route::resource('article', 'ArticleController');
     Route::resource('section/article', 'SectionArticleController');
     Route::resource('category/article', 'CategoryArticleController');
+
     Route::resource('agency', 'AgencyController');
+
     Route::resource('section/page', 'SectionPageController');
     Route::resource('category/page', 'CategoryPageController');
     Route::resource('page', 'PageController');
 
+    Route::resource('proposal/category', 'CategoryProposalController');
     //Change Status Article
     Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
     Route::get('change/article/approve/{id}', 'ArticleController@changeApprovedStatus');

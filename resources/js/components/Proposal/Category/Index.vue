@@ -11,15 +11,15 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Section</span>
+                            <span>Daftar Kategori</span>
                         </h2>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/section/article/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Section Artikel'">
+                    <router-link to="/proposal/category/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kategori Proposal'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Section</span>
+                            <span>Tambah Kategori</span>
                         </span>
                     </router-link>
                 </div>
@@ -27,10 +27,9 @@
             <div class="m-portlet__body">
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
-
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['article/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['article/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="this.$store.getters['proposal/getData'].length != 0">
+                            <div class="m-widget5__item" v-for="value in this.$store.getters['proposal/getData']" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -43,22 +42,16 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ListSectionCategoryArticle', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Melihat Daftar Section Kategori'">
-                                            <span>
-                                                <i class="la la-list"></i>
-                                                <span>Daftar Kategori</span>
-                                            </span>
-                                        </router-link>
-                                        <router-link :to="{name: 'SectionArticleEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Section'">
+                                        <router-link :to="{name: 'ProposalCategoryEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Kategori'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit Section</span>
+                                                <span>Edit Proposal</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Section'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Kategori Proposal'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus Section</span>
+                                                <span>Hapus Proposal</span>
                                             </span>
                                         </button>
                                     </div>
@@ -75,17 +68,18 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
-    name: 'SectionArticleIndex',
+    name: 'ProposalCategoryIndex',
     data() {
         return {
-            breadcrumbTitle: 'Section',
+            breadcrumbTitle: 'Kategori Proposal',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Section',
-                    path: '/section/article'
+                    label: 'Kategori',
+                    path: '/proposal/category'
                 },
             ]
         }
@@ -93,23 +87,23 @@ export default {
     computed: {
         getMessage()
         {
-            return this.$store.getters['article/getMessage'];
+            return this.$store.getters['proposal/getMessage'];
         },
         getStatusatusCode()
         {
-            return this.$store.getters['article/getStatusCode'];
+            return this.$store.getters['proposal/getStatusCode'];
         },
         getShowNotification()
         {
-            return this.$store.getters['article/getShowNotification'];
+            return this.$store.getters['proposal/getShowNotification'];
         },
     },
     created() {
-        this.$store.dispatch('article/indexSection');
+        this.$store.dispatch('proposal/indexCategory');
     },
     methods: {
         destroy(id) {
-            this.$store.dispatch('article/destroySection', id);
+            this.$store.dispatch('proposal/destroyCategory', id);
         },
         confirmDelete(id)
         {
@@ -135,3 +129,7 @@ export default {
     }
 }
 </script>
+
+<style>
+
+</style>
