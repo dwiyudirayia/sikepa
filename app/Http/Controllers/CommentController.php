@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
 use Illuminate\Http\Request;
 use App\Comment;
 
@@ -80,26 +79,6 @@ class CommentController extends Controller
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->showFailed($th));
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCommentRequest $request, $id)
-    {
-        try {
-            Comment::where('id', $id)->update($request->update());
-            $data = Comment::all();
-
-            return response()->json($this->notification->updateSuccess($data));
-        } catch (\Throwable $th) {
-
-            return response()->json($this->notification->updateSuccess($th));
         }
     }
 
