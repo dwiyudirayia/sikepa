@@ -23,10 +23,7 @@
         <title>SIKEPA</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow mb-5">
-            <a class="navbar-brand">
-                <img src="{{ asset('assets/images/logo.jpg') }}" height="50">
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white mb-5">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -103,7 +100,7 @@
                         Informasi
                     </h4>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -119,7 +116,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -135,7 +132,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -151,7 +148,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -167,7 +164,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -183,7 +180,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -199,7 +196,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -220,7 +217,7 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <section
-                        class="border shadow rounded p-3 mb-3"
+                        class="border bg-white rounded p-3 mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -245,7 +242,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow rounded p-3 mb-3"
+                        class="border bg-white rounded p-3 mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -266,7 +263,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow rounded p-3 mb-3"
+                        class="border bg-white rounded p-3 mb-3"
                         data-aos="zoom-in-up"
                         data-aos-duration="1000"
                     >
@@ -348,7 +345,7 @@
                     <h5 class="text-center font-weight-bold">Luar Negeri</h5>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque architecto explicabo, excepturi eligendi nostrum corrupti eum, voluptatibus, quos ratione illo totam doloremque atque laboriosam debitis illum fugiat nulla ipsa quam.</p>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="flip-down"
                         data-aos-duration="500"
                     >
@@ -365,7 +362,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="flip-down"
                         data-aos-duration="500"
                     >
@@ -382,7 +379,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="flip-down"
                         data-aos-duration="500"
                     >
@@ -399,7 +396,7 @@
                         </div>
                     </section>
                     <section
-                        class="border shadow p-3 rounded mb-3"
+                        class="border bg-white p-3 rounded mb-3"
                         data-aos="flip-down"
                         data-aos-duration="500"
                     >
@@ -435,7 +432,7 @@
             </div>
         </div>
         <div
-            class="container mb-3 py-2"
+            class="bg-white rounded container mb-3 py-2"
             data-aos="fade-down"
             data-aos-easing="linear"
             data-aos-duration="1000"
@@ -513,7 +510,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mb-3">
+        <div class="bg-white rounded py-3 container mb-3">
             <div class="owl-two owl-carousel owl-theme w-100" style="height: auto;">
                 <div class="item border p-2">
                     <p>Nama</p>
