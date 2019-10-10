@@ -47,7 +47,7 @@ import { required } from 'vuelidate/lib/validators';
 import Axios from 'axios';
 
 export default {
-    name: 'CategoryProposalEdit',
+    name: 'ProposalCategoryEdit',
     data() {
         return {
             breadcrumbTitle: 'Kategori',

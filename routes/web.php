@@ -22,11 +22,22 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('agency', 'AgencyController');
 
+    Route::resource('banner/category', 'BannerCategoryController');
+    Route::get('banner/list/{id}/category', 'BannerController@listCategoryBanner');
+    Route::post('banner', 'BannerController@store');
+    Route::get('banner/create', 'BannerController@create');
+    Route::delete('banner/{id}', 'BannerController@destroy');
+    Route::get('banner/{id}/edit', 'BannerController@edit');
+
     Route::resource('section/page', 'SectionPageController');
     Route::resource('category/page', 'CategoryPageController');
     Route::resource('page', 'PageController');
 
     Route::resource('proposal/category', 'CategoryProposalController');
+    Route::resource('proposal/cooperation/target', 'CooperationTargetController');
+    Route::resource('proposal/typeof/cooperation', 'TypeOfCooperationController');
+    Route::resource('proposal/subtance/cooperation', 'SubtanceCooperationController');
+
     //Change Status Article
     Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
     Route::get('change/article/approve/{id}', 'ArticleController@changeApprovedStatus');

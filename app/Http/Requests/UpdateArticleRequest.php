@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Article;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-
+use File;
 class UpdateArticleRequest extends FormRequest
 {
     /**
@@ -36,7 +36,7 @@ class UpdateArticleRequest extends FormRequest
         if($this->image == $data->image)
         {
             return [
-                'created_by' => 1,
+                'updated_by' => 1,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
@@ -54,8 +54,10 @@ class UpdateArticleRequest extends FormRequest
             $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
             \Image::make($this->image)->save(public_path('article/').$name);
 
+            File::delete("article/".$data->image);
+
             return [
-                'created_by' => 1,
+                'updated_by' => 1,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,

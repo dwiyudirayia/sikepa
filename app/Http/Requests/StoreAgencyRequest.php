@@ -50,6 +50,7 @@ class StoreAgencyRequest extends FormRequest
     public function store()
     {
         return [
+            'created_by' => 1,
             'name' => $this->name,
             'address' => $this->address,
             'latitude' => $this->latitude,

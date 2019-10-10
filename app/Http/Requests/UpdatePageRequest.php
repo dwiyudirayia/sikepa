@@ -36,7 +36,7 @@ class UpdatePageRequest extends FormRequest
         if($this->image == $data->image)
         {
             return [
-                'created_by' => 1,
+                'updated_by' => 1,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
@@ -54,8 +54,10 @@ class UpdatePageRequest extends FormRequest
             $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
             \Image::make($this->image)->save(public_path('page/').$name);
 
+            File::delete("page/".$data->image);
+
             return [
-                'created_by' => 1,
+                'updated_by' => 1,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,

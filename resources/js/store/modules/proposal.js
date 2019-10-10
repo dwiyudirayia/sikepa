@@ -93,6 +93,159 @@ const proposal = {
                 })
             })
         },
+        indexCooperationTarget({ commit }) {
+            return new Promise((resolve, reject) => {
+                Axios.get('/admin/proposal/cooperation/target')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeCooperationTarget({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                Axios.post('/admin/proposal/cooperation/target', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroyCooperationTarget({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                Axios.delete('/admin/proposal/cooperation/target/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateCooperationTarget({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                Axios.put(`/admin/proposal/cooperation/target/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        indexTypeOfCooperation({ commit }) {
+            return new Promise((resolve, reject) => {
+                Axios.get('/admin/proposal/typeof/cooperation')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeTypeOfCooperation({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                Axios.post('/admin/proposal/typeof/cooperation', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroyTypeOfCooperation({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                Axios.delete('/admin/proposal/typeof/cooperation/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateTypeOfCooperation({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                Axios.put(`/admin/proposal/typeof/cooperation/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        indexSubtanceCooperation({ commit }) {
+            return new Promise((resolve, reject) => {
+                Axios.get('/admin/proposal/subtance/cooperation')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeSubtanceCooperation({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                Axios.post('/admin/proposal/subtance/cooperation', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroySubtanceCooperation({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                Axios.delete('/admin/proposal/subtance/cooperation/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateSubtanceCooperation({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                Axios.put(`/admin/proposal/subtance/cooperation/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
         clearPage({commit})
         {
             commit('clearPage');

@@ -9,7 +9,7 @@ class StoreTargetOfOperationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Nama',
+            'name' => 'Nama Target Kerjasama',
         ];
     }
     public function messages()

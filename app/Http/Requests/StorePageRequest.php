@@ -25,7 +25,7 @@ class StorePageRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'title' => 'required',
+            'title' => 'required',
         ];
     }
     public function store()

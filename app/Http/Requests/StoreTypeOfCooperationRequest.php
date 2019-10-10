@@ -9,7 +9,7 @@ class StoreTypeOfCooperationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Nama',
+            'name' => 'Nama Jenis Kerjasama',
         ];
     }
     public function messages()

@@ -127,7 +127,7 @@
     <!-- end:: Body -->
 
     <!-- begin::Footer -->
-    <footer class="m-grid__item		m-footer ">
+    <footer class="m-grid__item	m-footer ">
         <div class="m-container m-container--fluid m-container--full-height m-page__container">
             <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
                 <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
@@ -151,6 +151,12 @@
 <script>
 export default {
     name: "Admin",
+    beforeCreate()
+    {
+        $('body').removeClass('m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default');
+
+        $('body').addClass('m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default m-brand--minimize m-aside-left--minimize');
+    },
     methods: {
         logout() {
             return new Promise((resolve, reject) => {
