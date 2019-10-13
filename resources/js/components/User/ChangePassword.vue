@@ -72,7 +72,7 @@
 </template>
 <script>
 import { required, sameAs } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../api';
 export default {
     name: 'UserChangePassword',
     data() {
@@ -102,7 +102,7 @@ export default {
                 async isSameCurrentPassword(value) {
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/same/current/password/${value}`)
+                    const response = $axios.get(`/admin/check/same/current/password/${value}`)
                     .then(response => {
                         this.isSameCurrentPassword = response.data.isSameCurrentPassword;
                     })
@@ -120,7 +120,7 @@ export default {
                 async isSameNewPassword(value) {
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/same/new/password/${this.forms.current_password}/${value}`)
+                    const response = $axios.get(`/admin/check/same/new/password/${this.forms.current_password}/${value}`)
                     .then(response => {
                         this.isSameNewPassword = response.data.isSameNewPassword;
                     })

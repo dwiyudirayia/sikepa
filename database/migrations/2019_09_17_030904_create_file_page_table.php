@@ -17,7 +17,8 @@ class CreateFilePageTable extends Migration
             $table->bigIncrements('id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->string('nama');
+            $table->bigInteger('page_id');
+            $table->string('name');
             $table->string('file');
             $table->timestamps();
         });

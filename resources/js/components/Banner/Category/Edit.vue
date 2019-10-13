@@ -44,7 +44,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../../api';
 
 export default {
     name: 'BannerCategoryEdit',
@@ -74,7 +74,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/banner/category/${this.$route.params.id}/edit`)
+        $axios.get(`/api/admin/banner/category/${this.$route.params.id}/edit`)
         .then(response => {
             this.forms = response.data.data
         });

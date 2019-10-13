@@ -1,4 +1,4 @@
-import Axios from "axios";
+import $axios from './../../api';
 
 const banner = {
     namespaced: true,
@@ -48,7 +48,7 @@ const banner = {
     actions: {
         indexBannerCategory({ commit }) {
             return new Promise((resolve,reject) => {
-                Axios.get('/admin/banner/category')
+                $axios.get('/admin/banner/category')
                 .then(response => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -58,7 +58,7 @@ const banner = {
             });
         },
         storeBannerCategory({ commit }, data) {
-            Axios.post('/admin/banner/category', data)
+            $axios.post('/admin/banner/category', data)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -68,7 +68,7 @@ const banner = {
             });
         },
         destroyBannerCategory({ commit }, id) {
-            Axios.delete('/admin/banner/category/'+id)
+            $axios.delete('/admin/banner/category/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -78,7 +78,7 @@ const banner = {
             })
         },
         updateBannerCategory({ commit }, forms) {
-            Axios.put(`/admin/banner/category/${forms.id}`, forms)
+            $axios.put(`/admin/banner/category/${forms.id}`, forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -86,7 +86,7 @@ const banner = {
         },
         listCategoryBanner({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.get(`/admin/banner/list/${id}/category`)
+                $axios.get(`/admin/banner/list/${id}/category`)
                 .then(response => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -96,7 +96,7 @@ const banner = {
             });
         },
         storeBanner({ commit }, forms) {
-            Axios.post('/admin/banner', forms)
+            $axios.post('/admin/banner', forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -106,7 +106,7 @@ const banner = {
             });
         },
         destroyBanner({ commit }, id) {
-            Axios.delete(`/admin/banner/${id}`)
+            $axios.delete(`/admin/banner/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -114,6 +114,16 @@ const banner = {
             .catch(error => {
                 commit('notification', error);
             })
+        },
+        updateBanner({ commit }, forms) {
+            $axios.put(`/admin/banner/${forms.id}`, forms)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
         },
         clearPage({commit})
         {

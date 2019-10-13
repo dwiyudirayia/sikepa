@@ -73,7 +73,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../api';
 import Select2 from './Select2';
 export default {
     name: 'BannerCreate',
@@ -114,7 +114,7 @@ export default {
         }
     },
     created() {
-        Axios.get('/admin/banner/create')
+        $axios.get('/admin/banner/create')
         .then(response => {
             this.options = response.data.data;
         });

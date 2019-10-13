@@ -64,6 +64,11 @@ import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperati
 import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCooperation/Index';
 import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
 import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
+
+import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
+// import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
+// import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+
 // --- End Proposal --- //
 
 // --- Banner --- //
@@ -451,6 +456,15 @@ const router = new VueRouter({
                     component: ProposalSubtanceCooperationEdit,
                     meta: {
                         requiresAuth: true,
+                    }
+                },
+                //Proposal
+                {
+                    path: '/submission/cooperation',
+                    name: 'ProposalSubmissionCooperationIndex',
+                    component: ProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
                     }
                 },
                 //Banner Category

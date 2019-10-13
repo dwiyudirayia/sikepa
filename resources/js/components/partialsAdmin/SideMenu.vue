@@ -42,7 +42,7 @@
                     </router-link>
                 </li>
                 <li class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/proposal')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-archive-o"></i><span class="m-menu__link-text">Proposal</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-box"></i><span class="m-menu__link-text">Data Master Proposal</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -59,6 +59,16 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
                 </li>
                 <li class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/user')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
                     <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-user"></i><span class="m-menu__link-text">User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>

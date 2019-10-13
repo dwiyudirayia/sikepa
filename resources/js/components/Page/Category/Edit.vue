@@ -65,7 +65,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../../api';
 import Select2Edit from './../Select2Edit'
 import store from './../../../store/store';
 export default {
@@ -95,7 +95,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/category/page/${this.$route.params.id}/edit`)
+        $axios.get(`/admin/category/page/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
             this.forms = response.data.data.data;
@@ -111,7 +111,7 @@ export default {
                 // standalone validator ideally should not assume a field is required
                 if (value === '') return true
 
-                const response = Axios.get(`/admin/check/category/page/${value}/edit/${this.$route.params.id}`)
+                const response = $axios.get(`/admin/check/category/page/${value}/edit/${this.$route.params.id}`)
                 .then(response => {
                     this.statusNameUnique = response.data.isExist;
                 })
@@ -135,7 +135,7 @@ export default {
         },
         update()
         {
-            Axios.put(`/admin/category/page/${this.$route.params.id}`, this.forms)
+            $axios.put(`/admin/category/page/${this.$route.params.id}`, this.forms)
             .then(response => {
                 this.$store.commit('page/notification', response);
                 this.$store.commit('page/updateData', response);

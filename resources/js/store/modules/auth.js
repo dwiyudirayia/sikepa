@@ -1,4 +1,4 @@
-import Axios from "axios";
+import $axios from './../../api';
 import router from '../../routes';
 
 const auth = {
@@ -14,7 +14,7 @@ const auth = {
             return new Promise((resolve, reject) => {
                 //MENGIRIM REQUEST KE SERVER DENGAN URI /login
                 //DAN PAYLOAD ADALAH DATA YANG DIKIRIMKAN DARI COMPONENT LOGIN.VUE
-                Axios.post('/login', payload)
+                $axios.post('/login', payload)
                 .then((response) => {
                     //KEMUDIAN JIKA RESPONNYA SUKSES
                     if (response.data.status == 'success') {
@@ -36,12 +36,6 @@ const auth = {
                 })
             })
         },
-        logout() {
-            return new Promise((resolve, reject) => {
-                Axios.post('/logout')
-                resolve();
-            })
-        }
     }
 }
 

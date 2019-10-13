@@ -1,4 +1,4 @@
-import Axios from "axios"
+import $axios from './../../api';
 
 const proposal = {
     namespaced: true,
@@ -44,7 +44,7 @@ const proposal = {
     actions: {
         indexCategory({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get('/admin/proposal/category')
+                $axios.get('/admin/proposal/category')
                 .then((response) => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -55,7 +55,7 @@ const proposal = {
         },
         storeCategory({ commit }, data) {
             return new Promise((resolve, reject) => {
-                Axios.post('/admin/proposal/category', data)
+                $axios.post('/admin/proposal/category', data)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -67,7 +67,7 @@ const proposal = {
         },
         destroyCategory({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.delete('/admin/proposal/category/'+id)
+                $axios.delete('/admin/proposal/category/'+id)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -81,7 +81,7 @@ const proposal = {
         },
         updateCategory({commit}, forms) {
             return new Promise((resolve, reject) => {
-                Axios.put(`/admin/proposal/category/${forms.id}`, forms)
+                $axios.put(`/admin/proposal/category/${forms.id}`, forms)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -95,7 +95,7 @@ const proposal = {
         },
         indexCooperationTarget({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get('/admin/proposal/cooperation/target')
+                $axios.get('/admin/proposal/cooperation/target')
                 .then((response) => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -106,7 +106,7 @@ const proposal = {
         },
         storeCooperationTarget({ commit }, data) {
             return new Promise((resolve, reject) => {
-                Axios.post('/admin/proposal/cooperation/target', data)
+                $axios.post('/admin/proposal/cooperation/target', data)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -118,7 +118,7 @@ const proposal = {
         },
         destroyCooperationTarget({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.delete('/admin/proposal/cooperation/target/'+id)
+                $axios.delete('/admin/proposal/cooperation/target/'+id)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -132,7 +132,7 @@ const proposal = {
         },
         updateCooperationTarget({commit}, forms) {
             return new Promise((resolve, reject) => {
-                Axios.put(`/admin/proposal/cooperation/target/${forms.id}`, forms)
+                $axios.put(`/admin/proposal/cooperation/target/${forms.id}`, forms)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -146,7 +146,7 @@ const proposal = {
         },
         indexTypeOfCooperation({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get('/admin/proposal/typeof/cooperation')
+                $axios.get('/admin/proposal/typeof/cooperation')
                 .then((response) => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -157,7 +157,7 @@ const proposal = {
         },
         storeTypeOfCooperation({ commit }, data) {
             return new Promise((resolve, reject) => {
-                Axios.post('/admin/proposal/typeof/cooperation', data)
+                $axios.post('/admin/proposal/typeof/cooperation', data)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -169,7 +169,7 @@ const proposal = {
         },
         destroyTypeOfCooperation({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.delete('/admin/proposal/typeof/cooperation/'+id)
+                $axios.delete('/admin/proposal/typeof/cooperation/'+id)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -183,7 +183,7 @@ const proposal = {
         },
         updateTypeOfCooperation({commit}, forms) {
             return new Promise((resolve, reject) => {
-                Axios.put(`/admin/proposal/typeof/cooperation/${forms.id}`, forms)
+                $axios.put(`/admin/proposal/typeof/cooperation/${forms.id}`, forms)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -197,7 +197,7 @@ const proposal = {
         },
         indexSubtanceCooperation({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get('/admin/proposal/subtance/cooperation')
+                $axios.get('/admin/proposal/subtance/cooperation')
                 .then((response) => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -208,7 +208,7 @@ const proposal = {
         },
         storeSubtanceCooperation({ commit }, data) {
             return new Promise((resolve, reject) => {
-                Axios.post('/admin/proposal/subtance/cooperation', data)
+                $axios.post('/admin/proposal/subtance/cooperation', data)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -220,7 +220,7 @@ const proposal = {
         },
         destroySubtanceCooperation({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.delete('/admin/proposal/subtance/cooperation/'+id)
+                $axios.delete('/admin/proposal/subtance/cooperation/'+id)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -234,7 +234,7 @@ const proposal = {
         },
         updateSubtanceCooperation({commit}, forms) {
             return new Promise((resolve, reject) => {
-                Axios.put(`/admin/proposal/subtance/cooperation/${forms.id}`, forms)
+                $axios.put(`/admin/proposal/subtance/cooperation/${forms.id}`, forms)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -245,6 +245,20 @@ const proposal = {
                     reject(error);
                 })
             })
+        },
+        indexProposal({ commit, rootState }) {
+            return new Promise((resolve, reject) => {
+                $axios.get(`/admin/submission/cooperation`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeProposal({ commit, rootState }, forms) {
+            $axios.post(`/admin`)
         },
         clearPage({commit})
         {

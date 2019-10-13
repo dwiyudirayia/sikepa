@@ -73,4 +73,15 @@ class BannerController extends Controller
             return response()->json($this->notification->deleteFailed($th));
         }
     }
+    public function update(UpdateBannerRequest $request, $id)
+    {
+        try {
+            Banner::where('id', $id)->update($request->update());
+
+            $data = Banner::where('category_id', $request->category_id)->get();
+            return response()->json($this->notification->updateSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
 }

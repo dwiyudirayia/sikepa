@@ -111,7 +111,7 @@
         <!-- BEGIN: Left Aside -->
         <button class="m-aside-left-close  m-aside-left-close--skin-light " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
         <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-light ">
-            <sidemenu></sidemenu>
+            <SideMenu></SideMenu>
         </div>
         <!-- END: Left Aside -->
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -149,8 +149,12 @@
 </template>
 
 <script>
+import SideMenu from './../components/partialsAdmin/SideMenu.vue';
 export default {
     name: "Admin",
+    components: {
+        SideMenu
+    },
     beforeCreate()
     {
         $('body').removeClass('m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default');
@@ -163,7 +167,6 @@ export default {
                 localStorage.removeItem('token')
                 resolve()
             }).then(() => {
-                this.$store.dispatch('auth/logout');
                 this.$store.state.token = localStorage.getItem('token')
                 this.$router.push('/login/admin')
             })

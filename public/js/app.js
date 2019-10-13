@@ -2308,8 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Select2 */ "./resources/js/components/Article/Select2.vue");
 
 
@@ -2431,7 +2430,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/section/category/article/".concat(value, "/section/").concat(this.forms.section_id)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/category/article/".concat(value, "/section/").concat(this.forms.section_id)).then(function (response) {
                       _this.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -2464,7 +2463,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/admin/category/article/create').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get('/admin/category/article/create').then(function (response) {
       _this2.options = response.data.data;
     });
   },
@@ -2501,10 +2500,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Select2Edit */ "./resources/js/components/Article/Select2Edit.vue");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../store/store */ "./resources/js/store/store.js");
+/* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../Select2Edit */ "./resources/js/components/Article/Select2Edit.vue");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../store/store */ "./resources/js/store/store.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2583,7 +2581,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'CategoryArticleEdit',
   components: {
-    Select2Edit: _Select2Edit__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Select2Edit: _Select2Edit__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2606,7 +2604,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/category/article/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_4__["default"].get("/admin/category/article/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.section = response.data.data.section;
       _this.forms = response.data.data.data;
       _this.selectedSection = response.data.data.data.section.id;
@@ -2635,7 +2633,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/category/article/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_4__["default"].get("/admin/check/category/article/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
                       _this2.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -2672,7 +2670,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     update: function update() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.put("/admin/category/article/".concat(this.$route.params.id), this.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_4__["default"].put("/admin/category/article/".concat(this.$route.params.id), this.forms).then(function (response) {
         _this3.$store.commit('article/notification', response);
 
         _this3.$store.commit('article/updateData', response);
@@ -2844,9 +2842,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2 */ "./resources/js/components/Article/Select2.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3030,7 +3041,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/admin/article/create').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get('/admin/article/create').then(function (response) {
       _this.section = response.data.data.section;
       _this.category = response.data.data.category;
     });
@@ -3082,9 +3093,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2Edit */ "./resources/js/components/Article/Select2Edit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3251,11 +3276,12 @@ __webpack_require__.r(__webpack_exports__);
         publish: null,
         approved: null
       },
+      previousImage: true,
+      currentlyImage: false,
       section: null,
       category: null,
       selectedSection: null,
-      selectedCategory: null,
-      changeImage: false
+      selectedCategory: null
     };
   },
   validations: {
@@ -3274,7 +3300,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/article/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/article/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.section = response.data.data.section;
       _this.category = response.data.data.category;
       _this.forms = response.data.data.data;
@@ -3293,7 +3319,8 @@ __webpack_require__.r(__webpack_exports__);
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
-      this.changeImage = true;
+      this.previousImage = false;
+      this.currentlyImage = true;
     },
     createImage: function createImage(file) {
       var reader = new FileReader();
@@ -3501,8 +3528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3599,7 +3625,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/section/article/".concat(value)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/section/article/".concat(value)).then(function (response) {
                       _this.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -3662,8 +3688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3760,7 +3785,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return _context.abrupt("return", true);
 
                 case 2:
-                  response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/section/article/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
+                  response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/section/article/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
                     _this.statusNameUnique = response.data.isExist;
                   }); // simulate async call, fail for all logins with even length
 
@@ -4350,8 +4375,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -4397,7 +4420,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BannerCategoryCreate',
@@ -4459,8 +4481,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -4534,7 +4555,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/admin/banner/category/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/banner/category/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.forms = response.data.data;
     });
   },
@@ -4709,8 +4730,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Select2 */ "./resources/js/components/Banner/Select2.vue");
 //
 //
@@ -4826,7 +4846,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/admin/banner/create').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get('/admin/banner/create').then(function (response) {
       _this.options = response.data.data;
     });
   },
@@ -4877,9 +4897,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2Edit */ "./resources/js/components/Banner/Select2Edit.vue");
+//
 //
 //
 //
@@ -4953,7 +4973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ArticleCreate',
+  name: 'BannerCreate',
   components: {
     Select2Edit: _Select2Edit__WEBPACK_IMPORTED_MODULE_3__["default"],
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_1__["VueEditor"]
@@ -4963,12 +4983,12 @@ __webpack_require__.r(__webpack_exports__);
       breadcrumbTitle: 'Banner',
       breadcrumbLink: [{
         id: 1,
-        label: 'Section',
+        label: 'Kategori Banner',
         path: '/section/article'
       }, {
         id: 2,
         label: 'Edit Banner',
-        path: "/article/".concat(this.$route.params.id, "/edit")
+        path: "/banner/".concat(this.$route.params.id, "/edit")
       }],
       forms: {
         category_id: null,
@@ -4978,8 +4998,7 @@ __webpack_require__.r(__webpack_exports__);
       previousImage: true,
       currentlyImage: false,
       category: null,
-      selectedCategory: null,
-      changeImage: false
+      selectedCategory: null
     };
   },
   validations: {
@@ -4995,7 +5014,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/banner/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/banner/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.category = response.data.data.category;
       _this.forms = response.data.data.data;
       _this.selectedCategory = response.data.data.data.category_id;
@@ -5009,14 +5028,15 @@ __webpack_require__.r(__webpack_exports__);
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
-      this.changeImage = true;
+      this.previousImage = false;
+      this.currentlyImage = true;
     },
     createImage: function createImage(file) {
       var reader = new FileReader();
       var vm = this;
 
       reader.onload = function (e) {
-        vm.forms.image = e.target.result;
+        vm.forms.image_path = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -5027,7 +5047,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.$v.forms.$invalid) {
         return;
       } else {
-        this.$store.dispatch('article/updateArticle', this.forms);
+        this.$store.dispatch('banner/updateBanner', this.forms);
         this.$v.$reset();
       }
 
@@ -5575,8 +5595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Select2 */ "./resources/js/components/Page/Select2.vue");
 
 
@@ -5698,7 +5717,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/category/page/".concat(value, "/section/").concat(this.forms.section_id)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/category/page/".concat(value, "/section/").concat(this.forms.section_id)).then(function (response) {
                       _this.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -5731,7 +5750,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/admin/category/page/create').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get('/admin/category/page/create').then(function (response) {
       _this2.options = response.data.data;
     });
   },
@@ -5768,8 +5787,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Select2Edit */ "./resources/js/components/Page/Select2Edit.vue");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../store/store */ "./resources/js/store/store.js");
 
@@ -5873,7 +5891,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/category/page/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/category/page/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.section = response.data.data.section;
       _this.forms = response.data.data.data;
       _this.selectedSection = response.data.data.data.section.id;
@@ -5902,7 +5920,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/category/page/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/category/page/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
                       _this2.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -5939,7 +5957,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     update: function update() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.put("/admin/category/page/".concat(this.$route.params.id), this.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_2__["default"].put("/admin/category/page/".concat(this.$route.params.id), this.forms).then(function (response) {
         _this3.$store.commit('page/notification', response);
 
         _this3.$store.commit('page/updateData', response);
@@ -6111,9 +6129,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2 */ "./resources/js/components/Page/Select2.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6268,7 +6310,7 @@ __webpack_require__.r(__webpack_exports__);
         section_id: null,
         category_id: null,
         title: null,
-        short_cotent: null,
+        short_content: null,
         content: null,
         image: null,
         seo_title: null,
@@ -6277,6 +6319,7 @@ __webpack_require__.r(__webpack_exports__);
         publish: null,
         approved: null
       },
+      files: [],
       section: null,
       category: null
     };
@@ -6297,14 +6340,23 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/admin/page/create').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get('/admin/page/create').then(function (response) {
       _this.section = response.data.data.section;
       _this.category = response.data.data.category;
     });
   },
   methods: {
+    handleExtraFile: function handleExtraFile(e) {
+      var uploadedFiles = this.$refs.files.files;
+      console.log(uploadedFiles);
+
+      for (var i = 0; i < uploadedFiles.length; i++) {
+        this.files.push(uploadedFiles[i]);
+      }
+    },
     onImageChange: function onImageChange(e) {
       var files = e.target.files || e.dataTransfer.files;
+      console.log(files);
       if (!files.length) return;
       this.createImage(files[0]);
     },
@@ -6320,11 +6372,26 @@ __webpack_require__.r(__webpack_exports__);
     },
     store: function store() {
       this.$v.forms.$touch();
+      var formData = new FormData();
+      formData.append('section_id', this.forms.section_id);
+      formData.append('category_id', this.forms.category_id);
+      formData.append('title', this.forms.title);
+      formData.append('short_content', this.forms.short_content);
+      formData.append('content', this.forms.content);
+      formData.append('image', this.forms.image);
+      formData.append('seo_title', this.forms.seo_title);
+      formData.append('seo_meta_key', this.forms.seo_meta_key);
+      formData.append('seo_meta_desc', this.forms.seo_meta_desc);
+      formData.append('publish', this.forms.publish);
+      formData.append('approved', this.forms.approved);
+      $.each(this.files, function (key, value) {
+        formData.append("file[".concat(key, "]"), value);
+      });
 
       if (this.$v.forms.$invalid) {
         return;
       } else {
-        this.$store.dispatch('page/storePage', this.forms);
+        this.$store.dispatch('page/storePage', formData);
         this.$v.$reset();
       }
 
@@ -6349,9 +6416,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _Select2Edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select2Edit */ "./resources/js/components/Page/Select2Edit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6520,9 +6601,10 @@ __webpack_require__.r(__webpack_exports__);
       },
       section: null,
       category: null,
+      previousImage: true,
+      currentlyImage: false,
       selectedSection: null,
-      selectedCategory: null,
-      changeImage: false
+      selectedCategory: null
     };
   },
   validations: {
@@ -6541,7 +6623,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/page/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/page/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.section = response.data.data.section;
       _this.category = response.data.data.category;
       _this.forms = response.data.data.data;
@@ -6560,7 +6642,8 @@ __webpack_require__.r(__webpack_exports__);
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
-      this.changeImage = true;
+      this.previousImage = false;
+      this.currentlyImage = true;
     },
     createImage: function createImage(file) {
       var reader = new FileReader();
@@ -6698,7 +6781,7 @@ __webpack_require__.r(__webpack_exports__);
       breadcrumbLink: [{
         id: 1,
         label: 'Section',
-        path: "/section/article"
+        path: "/section/page"
       }, {
         id: 2,
         label: 'Daftar Kategori Page',
@@ -6768,8 +6851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6866,7 +6948,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/section/page/".concat(value)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/section/page/".concat(value)).then(function (response) {
                       _this.statusNameUnique = response.data.isExist;
                     }); // simulate async call, fail for all logins with even length
 
@@ -6929,8 +7011,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7027,7 +7108,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return _context.abrupt("return", true);
 
                 case 2:
-                  response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/section/page/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
+                  response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/section/page/".concat(value, "/edit/").concat(this.$route.params.id)).then(function (response) {
                     _this.statusNameUnique = response.data.isExist;
                   }); // simulate async call, fail for all logins with even length
 
@@ -7374,8 +7455,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -7420,7 +7499,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProposalCategoryCreate',
@@ -7483,8 +7561,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -7558,7 +7635,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/admin/proposal/category/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get("/admin/proposal/category/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.forms = response.data.data;
     });
   },
@@ -7727,8 +7804,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -7773,7 +7848,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProposalCooperationTargetCreate',
@@ -7836,8 +7910,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -7911,7 +7984,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/admin/proposal/cooperation/target/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get("/admin/proposal/cooperation/target/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.forms = response.data.data;
     });
   },
@@ -8069,6 +8142,104 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ProposalSubmissionCooperationIndex',
+  data: function data() {
+    return {
+      breadcrumbTitle: 'Pengajuan Kerjasama',
+      breadcrumbLink: [{
+        id: 1,
+        label: 'Daftar Pengajuan Kerjasama',
+        path: '/submission/cooperation'
+      }]
+    };
+  },
+  computed: {
+    getMessage: function getMessage() {
+      return this.$store.getters['proposal/getMessage'];
+    },
+    getStatusatusCode: function getStatusatusCode() {
+      return this.$store.getters['proposal/getStatusCode'];
+    },
+    getShowNotification: function getShowNotification() {
+      return this.$store.getters['proposal/getShowNotification'];
+    }
+  },
+  created: function created() {
+    this.$store.dispatch('proposal/indexProposal');
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubtanceCooperation/Create.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Proposal/SubtanceCooperation/Create.vue?vue&type=script&lang=js& ***!
@@ -8080,8 +8251,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -8126,7 +8295,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProposalSubtanceCooperationCreate',
@@ -8189,8 +8357,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -8264,7 +8431,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/admin/proposal/subtance/cooperation/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get("/admin/proposal/subtance/cooperation/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.forms = response.data.data;
     });
   },
@@ -8433,8 +8600,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -8479,7 +8644,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProposalTypeOfCooperationCreate',
@@ -8542,8 +8706,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -8617,7 +8780,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/admin/proposal/typeof/cooperation/".concat(this.$route.params.id, "/edit")).then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_1__["default"].get("/admin/proposal/typeof/cooperation/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.forms = response.data.data;
     });
   },
@@ -8788,8 +8951,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8913,7 +9075,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/same/current/password/".concat(value)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/same/current/password/".concat(value)).then(function (response) {
                       _this.isSameCurrentPassword = response.data.isSameCurrentPassword;
                     }); // simulate async call, fail for all logins with even length
 
@@ -8959,7 +9121,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _context2.abrupt("return", true);
 
                   case 2:
-                    response = axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/admin/check/same/new/password/".concat(this.forms.current_password, "/").concat(value)).then(function (response) {
+                    response = _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/check/same/new/password/".concat(this.forms.current_password, "/").concat(value)).then(function (response) {
                       _this2.isSameNewPassword = response.data.isSameNewPassword;
                     }); // simulate async call, fail for all logins with even length
 
@@ -9187,8 +9349,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ModalEdit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalEdit.vue */ "./resources/js/components/User/ModalEdit.vue");
-//
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 //
 //
 //
@@ -9303,9 +9464,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserIndex',
-  components: {
-    ModalEdit: _ModalEdit_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   data: function data() {
     return {
       data: []
@@ -9314,66 +9472,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/admin/user').then(function (response) {
+    _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/user').then(function (response) {
       return _this.data = response.data.data;
     });
   },
   methods: {
     destroy: function destroy(id) {}
   }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ModalEdit'
 });
 
 /***/ }),
@@ -9615,6 +9720,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SideMenu',
   data: function data() {
@@ -9650,6 +9765,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_partialsAdmin_SideMenu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../components/partialsAdmin/SideMenu.vue */ "./resources/js/components/partialsAdmin/SideMenu.vue");
 //
 //
 //
@@ -9800,8 +9916,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Admin",
+  components: {
+    SideMenu: _components_partialsAdmin_SideMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   beforeCreate: function beforeCreate() {
     $('body').removeClass('m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default');
     $('body').addClass('m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default m-brand--minimize m-aside-left--minimize');
@@ -9814,8 +9934,6 @@ __webpack_require__.r(__webpack_exports__);
         localStorage.removeItem('token');
         resolve();
       }).then(function () {
-        _this.$store.dispatch('auth/logout');
-
         _this.$store.state.token = localStorage.getItem('token');
 
         _this.$router.push('/login/admin');
@@ -51937,32 +52055,26 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group m-form__group" }, [
-              _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                _vm._v("Konten Singkat")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
+            _c(
+              "div",
+              { staticClass: "form-group m-form__group" },
+              [
+                _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                  _vm._v("Konten Singkat")
+                ]),
+                _vm._v(" "),
+                _c("vue-editor", {
+                  model: {
                     value: _vm.forms.short_content,
+                    callback: function($$v) {
+                      _vm.$set(_vm.forms, "short_content", $$v)
+                    },
                     expression: "forms.short_content"
                   }
-                ],
-                staticClass: "form-control",
-                domProps: { value: _vm.forms.short_content },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.forms, "short_content", $event.target.value)
-                  }
-                }
-              })
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -52097,14 +52209,56 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm.forms.image
-              ? _c("div", { staticClass: "form-group m-form__group" }, [
-                  _c("img", {
-                    staticClass: "img-responsive",
-                    attrs: { src: _vm.forms.image, height: "70", width: "90" }
-                  })
-                ])
-              : _vm._e(),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "m-accordion m-accordion--bordered",
+                  attrs: { id: "m_accordion_6", role: "tablist" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "m-accordion__item m-accordion__item--success"
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "m-accordion__item-body collapse show",
+                          attrs: {
+                            id: "m_accordion_6_item_2_body",
+                            role: "tabpanel",
+                            "aria-labelledby": "m_accordion_6_item_2_head",
+                            "data-parent": "#m_accordion_6"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "m-accordion__item-content" },
+                            [
+                              _c("img", {
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", {
               staticClass: "m-form__seperator m-form__seperator--dashed"
@@ -52114,7 +52268,7 @@ var render = function() {
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -52218,7 +52372,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         )
       ])
@@ -52251,6 +52405,35 @@ var staticRenderFns = [
             ])
           ])
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "m-accordion__item-head",
+        attrs: {
+          role: "tab",
+          id: "m_accordion_6_item_2_head",
+          "data-toggle": "collapse",
+          href: "#m_accordion_6_item_2_body",
+          "aria-expanded": "true"
+        }
+      },
+      [
+        _c("span", { staticClass: "m-accordion__item-icon" }, [
+          _c("i", { staticClass: "la la-image" })
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-title" }, [
+          _vm._v("Tampilan Gambar")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-mode" })
       ]
     )
   },
@@ -52499,32 +52682,26 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group m-form__group" }, [
-              _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                _vm._v("Konten Singkat")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
+            _c(
+              "div",
+              { staticClass: "form-group m-form__group" },
+              [
+                _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                  _vm._v("Konten Singkat")
+                ]),
+                _vm._v(" "),
+                _c("vue-editor", {
+                  model: {
                     value: _vm.forms.short_content,
+                    callback: function($$v) {
+                      _vm.$set(_vm.forms, "short_content", $$v)
+                    },
                     expression: "forms.short_content"
                   }
-                ],
-                staticClass: "form-control",
-                domProps: { value: _vm.forms.short_content },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.forms, "short_content", $event.target.value)
-                  }
-                }
-              })
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -52659,26 +52836,81 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.changeImage,
-                    expression: "changeImage"
-                  }
-                ],
-                staticClass: "form-group m-form__group"
-              },
-              [
-                _c("img", {
-                  staticClass: "img-responsive",
-                  attrs: { src: _vm.forms.image, height: "70", width: "90" }
-                })
-              ]
-            ),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "m-accordion m-accordion--bordered",
+                  attrs: { id: "m_accordion_6", role: "tablist" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "m-accordion__item m-accordion__item--success"
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "m-accordion__item-body collapse show",
+                          attrs: {
+                            id: "m_accordion_6_item_2_body",
+                            role: "tabpanel",
+                            "aria-labelledby": "m_accordion_6_item_2_head",
+                            "data-parent": "#m_accordion_6"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "m-accordion__item-content" },
+                            [
+                              _c("img", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.previousImage,
+                                    expression: "previousImage"
+                                  }
+                                ],
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: "/article/" + _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("img", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.currentlyImage,
+                                    expression: "currentlyImage"
+                                  }
+                                ],
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", {
               staticClass: "m-form__seperator m-form__seperator--dashed"
@@ -52688,7 +52920,7 @@ var render = function() {
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -52792,7 +53024,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         )
       ])
@@ -52825,6 +53057,35 @@ var staticRenderFns = [
             ])
           ])
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "m-accordion__item-head",
+        attrs: {
+          role: "tab",
+          id: "m_accordion_6_item_2_head",
+          "data-toggle": "collapse",
+          href: "#m_accordion_6_item_2_body",
+          "aria-expanded": "true"
+        }
+      },
+      [
+        _c("span", { staticClass: "m-accordion__item-icon" }, [
+          _c("i", { staticClass: "la la-image" })
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-title" }, [
+          _vm._v("Tampilan Gambar")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-mode" })
       ]
     )
   },
@@ -55573,9 +55834,8 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c("img", {
                 directives: [
                   {
                     name: "show",
@@ -55584,19 +55844,27 @@ var render = function() {
                     expression: "previousImage"
                   }
                 ],
-                staticClass: "form-group m-form__group"
-              },
-              [
-                _c("img", {
-                  staticClass: "img-responsive",
-                  attrs: {
-                    src: "/banner/" + _vm.forms.image_path,
-                    height: "70",
-                    width: "90"
+                staticClass: "img-responsive",
+                attrs: {
+                  src: "/banner/" + _vm.forms.image_path,
+                  height: "70",
+                  width: "90"
+                }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.currentlyImage,
+                    expression: "currentlyImage"
                   }
-                })
-              ]
-            ),
+                ],
+                staticClass: "img-responsive",
+                attrs: { src: _vm.forms.image_path, height: "70", width: "90" }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -57476,32 +57744,26 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group m-form__group" }, [
-              _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                _vm._v("Konten Singkat")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
+            _c(
+              "div",
+              { staticClass: "form-group m-form__group" },
+              [
+                _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                  _vm._v("Konten Singkat")
+                ]),
+                _vm._v(" "),
+                _c("vue-editor", {
+                  model: {
                     value: _vm.forms.short_content,
+                    callback: function($$v) {
+                      _vm.$set(_vm.forms, "short_content", $$v)
+                    },
                     expression: "forms.short_content"
                   }
-                ],
-                staticClass: "form-control",
-                domProps: { value: _vm.forms.short_content },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.forms, "short_content", $event.target.value)
-                  }
-                }
-              })
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -57636,14 +57898,56 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm.forms.image
-              ? _c("div", { staticClass: "form-group m-form__group" }, [
-                  _c("img", {
-                    staticClass: "img-responsive",
-                    attrs: { src: _vm.forms.image, height: "70", width: "90" }
-                  })
-                ])
-              : _vm._e(),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "m-accordion m-accordion--bordered",
+                  attrs: { id: "m_accordion_6", role: "tablist" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "m-accordion__item m-accordion__item--success"
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "m-accordion__item-body collapse show",
+                          attrs: {
+                            id: "m_accordion_6_item_2_body",
+                            role: "tabpanel",
+                            "aria-labelledby": "m_accordion_6_item_2_head",
+                            "data-parent": "#m_accordion_6"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "m-accordion__item-content" },
+                            [
+                              _c("img", {
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", {
               staticClass: "m-form__seperator m-form__seperator--dashed"
@@ -57653,7 +57957,36 @@ var render = function() {
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(1),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group m-form__group" }, [
+                  _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                    _vm._v("File")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    ref: "files",
+                    staticClass: "form-control",
+                    attrs: { type: "file", multiple: "multiple" },
+                    on: { change: _vm.handleExtraFile }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "m-form__help" }, [
+                    _vm._v("Masukan File Yang di Inginkan")
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "m-form__seperator m-form__seperator--dashed"
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "m-form__section m-form__section--last" },
+              [
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -57757,7 +58090,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(4)
           ]
         )
       ])
@@ -57792,6 +58125,45 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "m-accordion__item-head",
+        attrs: {
+          role: "tab",
+          id: "m_accordion_6_item_2_head",
+          "data-toggle": "collapse",
+          href: "#m_accordion_6_item_2_body",
+          "aria-expanded": "true"
+        }
+      },
+      [
+        _c("span", { staticClass: "m-accordion__item-icon" }, [
+          _c("i", { staticClass: "la la-image" })
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-title" }, [
+          _vm._v("Tampilan Gambar")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-mode" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-form__heading" }, [
+      _c("h3", { staticClass: "m-form__heading-title" }, [
+        _vm._v("Extra File Tambahan")
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -58038,32 +58410,26 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group m-form__group" }, [
-              _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                _vm._v("Konten Singkat")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
+            _c(
+              "div",
+              { staticClass: "form-group m-form__group" },
+              [
+                _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                  _vm._v("Konten Singkat")
+                ]),
+                _vm._v(" "),
+                _c("vue-editor", {
+                  model: {
                     value: _vm.forms.short_content,
+                    callback: function($$v) {
+                      _vm.$set(_vm.forms, "short_content", $$v)
+                    },
                     expression: "forms.short_content"
                   }
-                ],
-                staticClass: "form-control",
-                domProps: { value: _vm.forms.short_content },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.forms, "short_content", $event.target.value)
-                  }
-                }
-              })
-            ]),
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -58198,26 +58564,81 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.changeImage,
-                    expression: "changeImage"
-                  }
-                ],
-                staticClass: "form-group m-form__group"
-              },
-              [
-                _c("img", {
-                  staticClass: "img-responsive",
-                  attrs: { src: _vm.forms.image, height: "70", width: "90" }
-                })
-              ]
-            ),
+            _c("div", { staticClass: "form-group m-form__group" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "m-accordion m-accordion--bordered",
+                  attrs: { id: "m_accordion_6", role: "tablist" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "m-accordion__item m-accordion__item--success"
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "m-accordion__item-body collapse show",
+                          attrs: {
+                            id: "m_accordion_6_item_2_body",
+                            role: "tabpanel",
+                            "aria-labelledby": "m_accordion_6_item_2_head",
+                            "data-parent": "#m_accordion_6"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "m-accordion__item-content" },
+                            [
+                              _c("img", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.previousImage,
+                                    expression: "previousImage"
+                                  }
+                                ],
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: "/page/" + _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("img", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.currentlyImage,
+                                    expression: "currentlyImage"
+                                  }
+                                ],
+                                staticClass: "img-responsive",
+                                attrs: {
+                                  src: _vm.forms.image,
+                                  height: "100%",
+                                  width: "100%"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", {
               staticClass: "m-form__seperator m-form__seperator--dashed"
@@ -58227,7 +58648,7 @@ var render = function() {
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -58331,7 +58752,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         )
       ])
@@ -58364,6 +58785,35 @@ var staticRenderFns = [
             ])
           ])
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "m-accordion__item-head",
+        attrs: {
+          role: "tab",
+          id: "m_accordion_6_item_2_head",
+          "data-toggle": "collapse",
+          href: "#m_accordion_6_item_2_body",
+          "aria-expanded": "true"
+        }
+      },
+      [
+        _c("span", { staticClass: "m-accordion__item-icon" }, [
+          _c("i", { staticClass: "la la-image" })
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-title" }, [
+          _vm._v("Tampilan Gambar")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "m-accordion__item-mode" })
       ]
     )
   },
@@ -60767,6 +61217,139 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("breadcrumb", {
+        attrs: { data: _vm.breadcrumbLink, title: _vm.breadcrumbTitle }
+      }),
+      _vm._v(" "),
+      _vm.getStatusatusCode == 200
+        ? _c("notification-success", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.getShowNotification,
+                expression: "getShowNotification"
+              }
+            ],
+            attrs: { data: _vm.getMessage }
+          })
+        : _c("notification-error", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.getShowNotification,
+                expression: "getShowNotification"
+              }
+            ],
+            attrs: { data: _vm.getMessage }
+          }),
+      _vm._v(" "),
+      _vm._m(0)
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-portlet" }, [
+      _c("div", { staticClass: "m-portlet__head" }, [
+        _c("div", { staticClass: "m-portlet__head-caption" }, [
+          _c("div", { staticClass: "m-portlet__head-title" }, [
+            _c("h3", { staticClass: "m-portlet__head-text" }, [
+              _vm._v(
+                "\n                        Daftar Pengajuan Kerjasama\n                    "
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "m-portlet__body" }, [
+        _c("div", { staticClass: "m-section" }, [
+          _c("div", { staticClass: "m-section__content" }, [
+            _c(
+              "table",
+              { staticClass: "table m-table m-table--head-bg-brand" },
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v("No")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("First Name")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Last Name")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Username")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Jhon")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Stone")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("@jhon")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Lisa")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Nilson")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("@lisa")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Larry")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("the Bird")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("@twitter")])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubtanceCooperation/Create.vue?vue&type=template&id=647db755&":
 /*!**************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Proposal/SubtanceCooperation/Create.vue?vue&type=template&id=647db755& ***!
@@ -62720,89 +63303,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("ModalEdit"),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "m-portlet m-portlet--creative m-portlet--bordered-semi"
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-portlet__body" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-striped- table-bordered table-hover",
-                staticStyle: { width: "100%" }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm.data != undefined
-                  ? _c(
-                      "tbody",
-                      _vm._l(_vm.data, function(item, index) {
-                        return _c("tr", { key: item.id }, [
-                          _c("td", [_vm._v(_vm._s(index + 1))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(item.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(item.jabatan))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass:
-                                    "btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only",
-                                  attrs: {
-                                    to: {
-                                      name: "userEdit",
-                                      params: { id: item.id }
-                                    }
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "m-portlet m-portlet--creative m-portlet--bordered-semi" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-portlet__body" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-striped- table-bordered table-hover",
+              staticStyle: { width: "100%" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm.data != undefined
+                ? _c(
+                    "tbody",
+                    _vm._l(_vm.data, function(item, index) {
+                      return _c("tr", { key: item.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.jabatan))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass:
+                                  "btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only",
+                                attrs: {
+                                  to: {
+                                    name: "userEdit",
+                                    params: { id: item.id }
                                   }
-                                },
-                                [
-                                  _c("span", [
-                                    _c("i", { staticClass: "la la-pencil" }),
-                                    _vm._v(" "),
-                                    _c("span", [_vm._v("Edit User")])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only",
-                                  on: { click: _vm.destroy }
-                                },
-                                [_vm._m(2, true)]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  : _c("tbody", [_vm._m(3)])
-              ]
-            )
-          ])
-        ]
-      )
-    ],
-    1
-  )
+                                }
+                              },
+                              [
+                                _c("span", [
+                                  _c("i", { staticClass: "la la-pencil" }),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("Edit User")])
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only",
+                                on: { click: _vm.destroy }
+                              },
+                              [_vm._m(2, true)]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                : _c("tbody", [_vm._m(3)])
+            ]
+          )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -63028,177 +63603,6 @@ var staticRenderFns = [
         _vm._v("Data Tidak Ada")
       ])
     ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e& ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        staticStyle: { "z-index": "99999 !important" },
-        attrs: {
-          id: "modal-edit-user",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-large",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" }
-                  },
-                  [_vm._v("Edit User")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label",
-                      attrs: { for: "recipient-name" }
-                    },
-                    [_vm._v("Level User")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      staticClass: "form-control",
-                      attrs: { name: "tambah_status_pengurus" }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("--- Pilih ---")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Ketua" } }, [
-                        _vm._v("Ketua")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Wakil Ketua" } }, [
-                        _vm._v("Wakil Ketua")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Sekretaris" } }, [
-                        _vm._v("Sekretaris")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Wakil Sekretaris" } }, [
-                        _vm._v("Wakil Sekretaris")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Bendahara" } }, [
-                        _vm._v("Bendahara")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Wakil Bendahara" } }, [
-                        _vm._v("Wakil Bendahara")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label",
-                      attrs: { for: "message-text" }
-                    },
-                    [_vm._v("Foto")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control",
-                    attrs: { type: "file", name: "tambah_foto_pengurus" }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "m-form__help" }, [
-                    _vm._v("Ukuran Foto Maks 2MB")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Close")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_vm._v("Submit")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -63784,6 +64188,38 @@ var render = function() {
             _c(
               "li",
               {
+                staticClass: "m-menu__item",
+                attrs: { "aria-haspopup": "true" }
+              },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "m-menu__link",
+                    attrs: { to: "/submission/cooperation" }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "m-menu__link-icon la la-file-archive-o"
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "m-menu__link-title" }, [
+                      _c("span", { staticClass: "m-menu__link-wrap" }, [
+                        _c("span", { staticClass: "m-menu__link-text" }, [
+                          _vm._v("Pengajuan Kerjasama")
+                        ]),
+                        _c("span", { staticClass: "m-menu__link-badge" })
+                      ])
+                    ])
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
                 staticClass: "m-menu__item m-menu__item--submenu",
                 class: { "m-menu__item--open": _vm.subOpenMenu("/user") },
                 attrs: {
@@ -63954,8 +64390,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "m-menu__link m-menu__toggle" }, [
-      _c("i", { staticClass: "m-menu__link-icon la la-file-archive-o" }),
-      _c("span", { staticClass: "m-menu__link-text" }, [_vm._v("Proposal")]),
+      _c("i", { staticClass: "m-menu__link-icon flaticon-box" }),
+      _c("span", { staticClass: "m-menu__link-text" }, [
+        _vm._v("Data Master Proposal")
+      ]),
       _c("i", { staticClass: "m-menu__ver-arrow la la-angle-right" })
     ])
   },
@@ -64184,7 +64622,7 @@ var render = function() {
               "m-grid__item\tm-aside-left  m-aside-left--skin-light ",
             attrs: { id: "m_aside_left" }
           },
-          [_c("sidemenu")],
+          [_c("SideMenu")],
           1
         ),
         _vm._v(" "),
@@ -83552,6 +83990,52 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/api.js":
+/*!*****************************!*\
+  !*** ./resources/js/api.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var $axios = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api',
+  headers: {
+    'Authorization': localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') : '',
+    'Content-Type': 'application/json'
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = ($axios);
+
+/***/ }),
+
+/***/ "./resources/js/apiformdata.js":
+/*!*************************************!*\
+  !*** ./resources/js/apiformdata.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var $axiosFormData = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: '/api',
+  headers: {
+    'Authorization': localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') : '',
+    'Content-Type': 'multipart/form-data'
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = ($axiosFormData);
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -83570,11 +84054,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
 /* harmony import */ var _mixins_permission__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mixins/permission */ "./resources/js/mixins/permission.js");
-/* harmony import */ var _components_partialsAdmin_SideMenu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/partialsAdmin/SideMenu */ "./resources/js/components/partialsAdmin/SideMenu.vue");
-/* harmony import */ var _components_partialsAdmin_NotificationValidation__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationValidation */ "./resources/js/components/partialsAdmin/NotificationValidation.vue");
-/* harmony import */ var _components_partialsAdmin_NotificationSuccess__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationSuccess */ "./resources/js/components/partialsAdmin/NotificationSuccess.vue");
-/* harmony import */ var _components_partialsAdmin_NotificationError__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationError */ "./resources/js/components/partialsAdmin/NotificationError.vue");
-/* harmony import */ var _components_partialsAdmin_Breadcrumb__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/partialsAdmin/Breadcrumb */ "./resources/js/components/partialsAdmin/Breadcrumb.vue");
+/* harmony import */ var _components_partialsAdmin_NotificationValidation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationValidation */ "./resources/js/components/partialsAdmin/NotificationValidation.vue");
+/* harmony import */ var _components_partialsAdmin_NotificationSuccess__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationSuccess */ "./resources/js/components/partialsAdmin/NotificationSuccess.vue");
+/* harmony import */ var _components_partialsAdmin_NotificationError__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/partialsAdmin/NotificationError */ "./resources/js/components/partialsAdmin/NotificationError.vue");
+/* harmony import */ var _components_partialsAdmin_Breadcrumb__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/partialsAdmin/Breadcrumb */ "./resources/js/components/partialsAdmin/Breadcrumb.vue");
 //Init Mixing
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //Core Vue
 
@@ -83590,14 +84073,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //Core Vu
 
 
 
-
  //Global Components
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('sidemenu', _components_partialsAdmin_SideMenu__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('breadcrumb', _components_partialsAdmin_Breadcrumb__WEBPACK_IMPORTED_MODULE_11__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-validation', _components_partialsAdmin_NotificationValidation__WEBPACK_IMPORTED_MODULE_8__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-success', _components_partialsAdmin_NotificationSuccess__WEBPACK_IMPORTED_MODULE_9__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-error', _components_partialsAdmin_NotificationError__WEBPACK_IMPORTED_MODULE_10__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('breadcrumb', _components_partialsAdmin_Breadcrumb__WEBPACK_IMPORTED_MODULE_10__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-validation', _components_partialsAdmin_NotificationValidation__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-success', _components_partialsAdmin_NotificationSuccess__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-error', _components_partialsAdmin_NotificationError__WEBPACK_IMPORTED_MODULE_9__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuelidate__WEBPACK_IMPORTED_MODULE_4___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_permission__WEBPACK_IMPORTED_MODULE_6__["default"]);
@@ -83628,20 +84109,10 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-} catch (e) {}
-/**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -86641,6 +87112,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Proposal/SubmissionCooperation/Index.vue ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=797754e0& */ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0&");
+/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Proposal/SubmissionCooperation/Index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0& ***!
+  \*********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=template&id=797754e0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Proposal/SubmissionCooperation/Index.vue?vue&type=template&id=797754e0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_797754e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Proposal/SubtanceCooperation/Create.vue":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/Proposal/SubtanceCooperation/Create.vue ***!
@@ -87331,75 +87871,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/User/ModalEdit.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/User/ModalEdit.vue ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalEdit.vue?vue&type=template&id=7065469e& */ "./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e&");
-/* harmony import */ var _ModalEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ModalEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/User/ModalEdit.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ModalEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ModalEdit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e& ***!
-  \***********************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ModalEdit.vue?vue&type=template&id=7065469e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/User/ModalEdit.vue?vue&type=template&id=7065469e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalEdit_vue_vue_type_template_id_7065469e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/partialsAdmin/Breadcrumb.vue":
 /*!**************************************************************!*\
   !*** ./resources/js/components/partialsAdmin/Breadcrumb.vue ***!
@@ -88023,20 +88494,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Proposal_SubtanceCooperation_Index__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/Proposal/SubtanceCooperation/Index */ "./resources/js/components/Proposal/SubtanceCooperation/Index.vue");
 /* harmony import */ var _components_Proposal_SubtanceCooperation_Create__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/Proposal/SubtanceCooperation/Create */ "./resources/js/components/Proposal/SubtanceCooperation/Create.vue");
 /* harmony import */ var _components_Proposal_SubtanceCooperation_Edit__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/Proposal/SubtanceCooperation/Edit */ "./resources/js/components/Proposal/SubtanceCooperation/Edit.vue");
-/* harmony import */ var _components_Banner_Category_Index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/Banner/Category/Index */ "./resources/js/components/Banner/Category/Index.vue");
-/* harmony import */ var _components_Banner_Category_Create__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/Banner/Category/Create */ "./resources/js/components/Banner/Category/Create.vue");
-/* harmony import */ var _components_Banner_Category_Edit__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/Banner/Category/Edit */ "./resources/js/components/Banner/Category/Edit.vue");
-/* harmony import */ var _components_Banner_BannerListCategory__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/Banner/BannerListCategory */ "./resources/js/components/Banner/BannerListCategory.vue");
-/* harmony import */ var _components_Banner_Create__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/Banner/Create */ "./resources/js/components/Banner/Create.vue");
-/* harmony import */ var _components_Banner_Edit__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/Banner/Edit */ "./resources/js/components/Banner/Edit.vue");
-/* harmony import */ var _components_Faq_Index__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/Faq/Index */ "./resources/js/components/Faq/Index.vue");
-/* harmony import */ var _components_Faq_Create__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/Faq/Create */ "./resources/js/components/Faq/Create.vue");
-/* harmony import */ var _components_Faq_Edit__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/Faq/Edit */ "./resources/js/components/Faq/Edit.vue");
-/* harmony import */ var _components_Agency_Index__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/Agency/Index */ "./resources/js/components/Agency/Index.vue");
-/* harmony import */ var _components_Agency_Create__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/Agency/Create */ "./resources/js/components/Agency/Create.vue");
-/* harmony import */ var _components_Agency_Edit__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/Agency/Edit */ "./resources/js/components/Agency/Edit.vue");
-/* harmony import */ var _layouts_Auth__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./layouts/Auth */ "./resources/js/layouts/Auth.vue");
-/* harmony import */ var _components_Auth_Login__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./components/Auth/Login */ "./resources/js/components/Auth/Login.vue");
+/* harmony import */ var _components_Proposal_SubmissionCooperation_Index__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/Proposal/SubmissionCooperation/Index */ "./resources/js/components/Proposal/SubmissionCooperation/Index.vue");
+/* harmony import */ var _components_Banner_Category_Index__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/Banner/Category/Index */ "./resources/js/components/Banner/Category/Index.vue");
+/* harmony import */ var _components_Banner_Category_Create__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/Banner/Category/Create */ "./resources/js/components/Banner/Category/Create.vue");
+/* harmony import */ var _components_Banner_Category_Edit__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/Banner/Category/Edit */ "./resources/js/components/Banner/Category/Edit.vue");
+/* harmony import */ var _components_Banner_BannerListCategory__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/Banner/BannerListCategory */ "./resources/js/components/Banner/BannerListCategory.vue");
+/* harmony import */ var _components_Banner_Create__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/Banner/Create */ "./resources/js/components/Banner/Create.vue");
+/* harmony import */ var _components_Banner_Edit__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/Banner/Edit */ "./resources/js/components/Banner/Edit.vue");
+/* harmony import */ var _components_Faq_Index__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/Faq/Index */ "./resources/js/components/Faq/Index.vue");
+/* harmony import */ var _components_Faq_Create__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/Faq/Create */ "./resources/js/components/Faq/Create.vue");
+/* harmony import */ var _components_Faq_Edit__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/Faq/Edit */ "./resources/js/components/Faq/Edit.vue");
+/* harmony import */ var _components_Agency_Index__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/Agency/Index */ "./resources/js/components/Agency/Index.vue");
+/* harmony import */ var _components_Agency_Create__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/Agency/Create */ "./resources/js/components/Agency/Create.vue");
+/* harmony import */ var _components_Agency_Edit__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./components/Agency/Edit */ "./resources/js/components/Agency/Edit.vue");
+/* harmony import */ var _layouts_Auth__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./layouts/Auth */ "./resources/js/layouts/Auth.vue");
+/* harmony import */ var _components_Auth_Login__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./components/Auth/Login */ "./resources/js/components/Auth/Login.vue");
 
 
  // --- Admin ---//
@@ -88093,7 +88565,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // --- End Proposal --- //
+
+ // import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
+// import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+// --- End Proposal --- //
 // --- Banner --- //
 //Category
 
@@ -88128,14 +88603,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [//Auth
   {
     path: '/login',
-    component: _layouts_Auth__WEBPACK_IMPORTED_MODULE_50__["default"],
+    component: _layouts_Auth__WEBPACK_IMPORTED_MODULE_51__["default"],
     meta: {
       login: 'login'
     },
     children: [{
       path: 'admin',
       name: 'LoginAdmin',
-      component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_51__["default"]
+      component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_52__["default"]
     }]
   }, {
     path: '/admin',
@@ -88302,21 +88777,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     {
       path: '/faq',
       name: 'FaqIndex',
-      component: _components_Faq_Index__WEBPACK_IMPORTED_MODULE_44__["default"],
+      component: _components_Faq_Index__WEBPACK_IMPORTED_MODULE_45__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/faq/create',
       name: 'FaqCreate',
-      component: _components_Faq_Create__WEBPACK_IMPORTED_MODULE_45__["default"],
+      component: _components_Faq_Create__WEBPACK_IMPORTED_MODULE_46__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/faq/:id/edit',
       name: 'FaqEdit',
-      component: _components_Faq_Edit__WEBPACK_IMPORTED_MODULE_46__["default"],
+      component: _components_Faq_Edit__WEBPACK_IMPORTED_MODULE_47__["default"],
       meta: {
         requiresAuth: true
       }
@@ -88324,21 +88799,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     {
       path: '/agency',
       name: 'AgencyIndex',
-      component: _components_Agency_Index__WEBPACK_IMPORTED_MODULE_47__["default"],
+      component: _components_Agency_Index__WEBPACK_IMPORTED_MODULE_48__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/agency/create',
       name: 'AgencyCreate',
-      component: _components_Agency_Create__WEBPACK_IMPORTED_MODULE_48__["default"],
+      component: _components_Agency_Create__WEBPACK_IMPORTED_MODULE_49__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/agency/:id/edit',
       name: 'AgencyEdit',
-      component: _components_Agency_Edit__WEBPACK_IMPORTED_MODULE_49__["default"],
+      component: _components_Agency_Edit__WEBPACK_IMPORTED_MODULE_50__["default"],
       meta: {
         requiresAuth: true
       }
@@ -88430,46 +88905,54 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       meta: {
         requiresAuth: true
       }
+    }, //Proposal
+    {
+      path: '/submission/cooperation',
+      name: 'ProposalSubmissionCooperationIndex',
+      component: _components_Proposal_SubmissionCooperation_Index__WEBPACK_IMPORTED_MODULE_38__["default"],
+      meta: {
+        requiresAuth: true
+      }
     }, //Banner Category
     {
       path: '/banner/category',
       name: 'BannerCategoryIndex',
-      component: _components_Banner_Category_Index__WEBPACK_IMPORTED_MODULE_38__["default"],
+      component: _components_Banner_Category_Index__WEBPACK_IMPORTED_MODULE_39__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/banner/category/create',
       name: 'BannerCategoryCreate',
-      component: _components_Banner_Category_Create__WEBPACK_IMPORTED_MODULE_39__["default"],
+      component: _components_Banner_Category_Create__WEBPACK_IMPORTED_MODULE_40__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/banner/category/:id/edit',
       name: 'BannerCategoryEdit',
-      component: _components_Banner_Category_Edit__WEBPACK_IMPORTED_MODULE_40__["default"],
+      component: _components_Banner_Category_Edit__WEBPACK_IMPORTED_MODULE_41__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/banner/list/:id/category',
       name: 'BannerListCategory',
-      component: _components_Banner_BannerListCategory__WEBPACK_IMPORTED_MODULE_41__["default"],
+      component: _components_Banner_BannerListCategory__WEBPACK_IMPORTED_MODULE_42__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/banner/create',
       name: 'BannerCreate',
-      component: _components_Banner_Create__WEBPACK_IMPORTED_MODULE_42__["default"],
+      component: _components_Banner_Create__WEBPACK_IMPORTED_MODULE_43__["default"],
       meta: {
         requiresAuth: true
       }
     }, {
       path: '/banner/:id/edit',
       name: 'BannerEdit',
-      component: _components_Banner_Edit__WEBPACK_IMPORTED_MODULE_43__["default"],
+      component: _components_Banner_Edit__WEBPACK_IMPORTED_MODULE_44__["default"],
       meta: {
         requiresAuth: true
       }
@@ -88506,8 +88989,7 @@ router.beforeEach(function (to, from, next) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var agency = {
   namespaced: true,
@@ -88568,14 +89050,14 @@ var agency = {
   actions: {
     index: function index(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/agency').then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/agency').then(function (response) {
         commit('updateData', response);
         commit('clearPage');
       });
     },
     store: function store(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/agency', data).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/agency', data).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88584,7 +89066,7 @@ var agency = {
     },
     destroy: function destroy(_ref3, id) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/agency/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/agency/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88593,7 +89075,7 @@ var agency = {
     },
     edit: function edit(_ref4, id) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/agency/".concat(id, "/edit")).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/agency/".concat(id, "/edit")).then(function (response) {
         commit('clearPage');
         commit('updateDataForm', response);
       })["catch"](function (error) {});
@@ -88601,7 +89083,7 @@ var agency = {
     update: function update(_ref5) {
       var commit = _ref5.commit,
           state = _ref5.state;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/agency/".concat(state.forms.id), state.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/agency/".concat(state.forms.id), state.forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88627,8 +89109,7 @@ var agency = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var article = {
   namespaced: true,
@@ -88682,14 +89163,14 @@ var article = {
   actions: {
     indexSection: function indexSection(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/section/article').then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/section/article').then(function (response) {
         commit('updateData', response);
         commit('clearPage');
       });
     },
     storeSection: function storeSection(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/section/article', data).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/section/article', data).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88698,7 +89179,7 @@ var article = {
     },
     destroySection: function destroySection(_ref3, id) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/section/article/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/section/article/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88707,7 +89188,7 @@ var article = {
     },
     editSection: function editSection(_ref4, id) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/section/article/".concat(id, "/edit")).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/section/article/".concat(id, "/edit")).then(function (response) {
         commit('clearPage');
         commit('updateDataForm', response);
       });
@@ -88715,21 +89196,21 @@ var article = {
     updateSection: function updateSection(_ref5) {
       var commit = _ref5.commit,
           state = _ref5.state;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/section/article/".concat(state.forms.id), state.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/section/article/".concat(state.forms.id), state.forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       });
     },
     listSectionCategory: function listSectionCategory(_ref6, id) {
       var commit = _ref6.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/list/section/category/article/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/list/section/category/article/".concat(id)).then(function (response) {
         commit('clearPage');
         commit('updateDataRelation', response.data);
       });
     },
     storeCategory: function storeCategory(_ref7, form) {
       var commit = _ref7.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/category/article', form).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/category/article', form).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88738,7 +89219,7 @@ var article = {
     },
     destroyCategory: function destroyCategory(_ref8, id) {
       var commit = _ref8.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/category/article/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/category/article/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88747,14 +89228,14 @@ var article = {
     },
     listCategoryArticle: function listCategoryArticle(_ref9, id) {
       var commit = _ref9.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/list/category/article/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/list/category/article/".concat(id)).then(function (response) {
         commit('clearPage');
         commit('updateData', response);
       });
     },
     storeArticle: function storeArticle(_ref10, forms) {
       var commit = _ref10.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/article', forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/article', forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88763,7 +89244,7 @@ var article = {
     },
     destroyArticle: function destroyArticle(_ref11, id) {
       var commit = _ref11.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/admin/article/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/admin/article/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88772,7 +89253,7 @@ var article = {
     },
     updateArticle: function updateArticle(_ref12, forms) {
       var commit = _ref12.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/article/".concat(forms.id), forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/article/".concat(forms.id), forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88781,7 +89262,7 @@ var article = {
     },
     changePublishStatus: function changePublishStatus(_ref13, id) {
       var commit = _ref13.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/change/article/publish/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/change/article/publish/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88790,7 +89271,7 @@ var article = {
     },
     changeApprovedStatus: function changeApprovedStatus(_ref14, id) {
       var commit = _ref14.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/change/article/approve/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/change/article/approve/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88816,8 +89297,7 @@ var article = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 
 
@@ -88838,7 +89318,7 @@ var auth = {
       return new Promise(function (resolve, reject) {
         //MENGIRIM REQUEST KE SERVER DENGAN URI /login
         //DAN PAYLOAD ADALAH DATA YANG DIKIRIMKAN DARI COMPONENT LOGIN.VUE
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/login', payload).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/login', payload).then(function (response) {
           //KEMUDIAN JIKA RESPONNYA SUKSES
           if (response.data.status == 'success') {
             //MAKA LOCAL STORAGE DAN STATE TOKEN AKAN DISET MENGGUNAKAN
@@ -88868,12 +89348,6 @@ var auth = {
           }
         });
       });
-    },
-    logout: function logout() {
-      return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/logout');
-        resolve();
-      });
     }
   }
 };
@@ -88890,8 +89364,7 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var banner = {
   namespaced: true,
@@ -88936,7 +89409,7 @@ var banner = {
     indexBannerCategory: function indexBannerCategory(_ref) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/banner/category').then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/banner/category').then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -88945,7 +89418,7 @@ var banner = {
     },
     storeBannerCategory: function storeBannerCategory(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/banner/category', data).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/banner/category', data).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88954,7 +89427,7 @@ var banner = {
     },
     destroyBannerCategory: function destroyBannerCategory(_ref3, id) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/banner/category/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/banner/category/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88963,7 +89436,7 @@ var banner = {
     },
     updateBannerCategory: function updateBannerCategory(_ref4, forms) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/banner/category/".concat(forms.id), forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/banner/category/".concat(forms.id), forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       });
@@ -88971,7 +89444,7 @@ var banner = {
     listCategoryBanner: function listCategoryBanner(_ref5, id) {
       var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/banner/list/".concat(id, "/category")).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/banner/list/".concat(id, "/category")).then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -88980,7 +89453,7 @@ var banner = {
     },
     storeBanner: function storeBanner(_ref6, forms) {
       var commit = _ref6.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/banner', forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/banner', forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -88989,15 +89462,24 @@ var banner = {
     },
     destroyBanner: function destroyBanner(_ref7, id) {
       var commit = _ref7.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/admin/banner/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/admin/banner/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
         commit('notification', error);
       });
     },
-    clearPage: function clearPage(_ref8) {
+    updateBanner: function updateBanner(_ref8, forms) {
       var commit = _ref8.commit;
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/banner/".concat(forms.id), forms).then(function (response) {
+        commit('notification', response);
+        commit('updateData', response);
+      })["catch"](function (error) {
+        commit('notification', error);
+      });
+    },
+    clearPage: function clearPage(_ref9) {
+      var commit = _ref9.commit;
       commit('clearPage');
     }
   }
@@ -89015,8 +89497,7 @@ var banner = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var faq = {
   namespaced: true,
@@ -89071,14 +89552,14 @@ var faq = {
   actions: {
     index: function index(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/faq').then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/faq').then(function (response) {
         commit('updateData', response);
         commit('clearPage');
       });
     },
     store: function store(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/faq', data).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/faq', data).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89087,7 +89568,7 @@ var faq = {
     },
     destroy: function destroy(_ref3, id) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/faq/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/faq/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89096,7 +89577,7 @@ var faq = {
     },
     edit: function edit(_ref4, id) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/faq/".concat(id, "/edit")).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/faq/".concat(id, "/edit")).then(function (response) {
         commit('clearPage');
         commit('updateDataForm', response);
       })["catch"](function (error) {});
@@ -89104,7 +89585,7 @@ var faq = {
     update: function update(_ref5) {
       var commit = _ref5.commit,
           state = _ref5.state;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/faq/".concat(state.forms.id), state.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/faq/".concat(state.forms.id), state.forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       });
@@ -89128,8 +89609,9 @@ var faq = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
+/* harmony import */ var _apiformdata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../apiformdata */ "./resources/js/apiformdata.js");
+
 
 var page = {
   namespaced: true,
@@ -89183,14 +89665,14 @@ var page = {
   actions: {
     indexSection: function indexSection(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/section/page').then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/section/page').then(function (response) {
         commit('updateData', response);
         commit('clearPage');
       });
     },
     storeSection: function storeSection(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/section/page', data).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/section/page', data).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89199,7 +89681,7 @@ var page = {
     },
     destroySection: function destroySection(_ref3, id) {
       var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/section/page/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/section/page/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89208,7 +89690,7 @@ var page = {
     },
     editSection: function editSection(_ref4, id) {
       var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/section/page/".concat(id, "/edit")).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/section/page/".concat(id, "/edit")).then(function (response) {
         commit('clearPage');
         commit('updateDataForm', response);
       });
@@ -89216,21 +89698,21 @@ var page = {
     updateSection: function updateSection(_ref5) {
       var commit = _ref5.commit,
           state = _ref5.state;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/section/page/".concat(state.forms.id), state.forms).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/section/page/".concat(state.forms.id), state.forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       });
     },
     listSectionCategory: function listSectionCategory(_ref6, id) {
       var commit = _ref6.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/list/section/category/page/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/list/section/category/page/".concat(id)).then(function (response) {
         commit('clearPage');
         commit('updateDataRelation', response.data);
       });
     },
     storeCategory: function storeCategory(_ref7, form) {
       var commit = _ref7.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/category/page', form).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/category/page', form).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89239,7 +89721,7 @@ var page = {
     },
     destroyCategory: function destroyCategory(_ref8, id) {
       var commit = _ref8.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/category/page/' + id).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/category/page/' + id).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89248,14 +89730,14 @@ var page = {
     },
     listCategoryPage: function listCategoryPage(_ref9, id) {
       var commit = _ref9.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/list/category/page/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/list/category/page/".concat(id)).then(function (response) {
         commit('clearPage');
         commit('updateData', response);
       });
     },
     storePage: function storePage(_ref10, forms) {
       var commit = _ref10.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/page', forms).then(function (response) {
+      _apiformdata__WEBPACK_IMPORTED_MODULE_1__["default"].post('/admin/page', forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89264,7 +89746,7 @@ var page = {
     },
     destroyPage: function destroyPage(_ref11, id) {
       var commit = _ref11.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/admin/page/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/admin/page/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89273,7 +89755,7 @@ var page = {
     },
     updatePage: function updatePage(_ref12, forms) {
       var commit = _ref12.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/page/".concat(forms.id), forms).then(function (response) {
+      _apiformdata__WEBPACK_IMPORTED_MODULE_1__["default"].put("/admin/page/".concat(forms.id), forms).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89282,7 +89764,7 @@ var page = {
     },
     changePublishStatus: function changePublishStatus(_ref13, id) {
       var commit = _ref13.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/change/page/publish/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/change/page/publish/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89291,7 +89773,7 @@ var page = {
     },
     changeApprovedStatus: function changeApprovedStatus(_ref14, id) {
       var commit = _ref14.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/admin/change/page/approve/".concat(id)).then(function (response) {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/change/page/approve/".concat(id)).then(function (response) {
         commit('notification', response);
         commit('updateData', response);
       })["catch"](function (error) {
@@ -89317,8 +89799,7 @@ var page = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var proposal = {
   namespaced: true,
@@ -89360,7 +89841,7 @@ var proposal = {
     indexCategory: function indexCategory(_ref) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/proposal/category').then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/proposal/category').then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -89370,7 +89851,7 @@ var proposal = {
     storeCategory: function storeCategory(_ref2, data) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/proposal/category', data).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/proposal/category', data).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
         })["catch"](function (error) {
@@ -89381,7 +89862,7 @@ var proposal = {
     destroyCategory: function destroyCategory(_ref3, id) {
       var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/proposal/category/' + id).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/proposal/category/' + id).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(resolve);
@@ -89393,7 +89874,7 @@ var proposal = {
     updateCategory: function updateCategory(_ref4, forms) {
       var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/proposal/category/".concat(forms.id), forms).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/proposal/category/".concat(forms.id), forms).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(response);
@@ -89405,7 +89886,7 @@ var proposal = {
     indexCooperationTarget: function indexCooperationTarget(_ref5) {
       var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/proposal/cooperation/target').then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/proposal/cooperation/target').then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -89415,7 +89896,7 @@ var proposal = {
     storeCooperationTarget: function storeCooperationTarget(_ref6, data) {
       var commit = _ref6.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/proposal/cooperation/target', data).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/proposal/cooperation/target', data).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
         })["catch"](function (error) {
@@ -89426,7 +89907,7 @@ var proposal = {
     destroyCooperationTarget: function destroyCooperationTarget(_ref7, id) {
       var commit = _ref7.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/proposal/cooperation/target/' + id).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/proposal/cooperation/target/' + id).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(resolve);
@@ -89438,7 +89919,7 @@ var proposal = {
     updateCooperationTarget: function updateCooperationTarget(_ref8, forms) {
       var commit = _ref8.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/proposal/cooperation/target/".concat(forms.id), forms).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/proposal/cooperation/target/".concat(forms.id), forms).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(response);
@@ -89450,7 +89931,7 @@ var proposal = {
     indexTypeOfCooperation: function indexTypeOfCooperation(_ref9) {
       var commit = _ref9.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/proposal/typeof/cooperation').then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/proposal/typeof/cooperation').then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -89460,7 +89941,7 @@ var proposal = {
     storeTypeOfCooperation: function storeTypeOfCooperation(_ref10, data) {
       var commit = _ref10.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/proposal/typeof/cooperation', data).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/proposal/typeof/cooperation', data).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
         })["catch"](function (error) {
@@ -89471,7 +89952,7 @@ var proposal = {
     destroyTypeOfCooperation: function destroyTypeOfCooperation(_ref11, id) {
       var commit = _ref11.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/proposal/typeof/cooperation/' + id).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/proposal/typeof/cooperation/' + id).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(resolve);
@@ -89483,7 +89964,7 @@ var proposal = {
     updateTypeOfCooperation: function updateTypeOfCooperation(_ref12, forms) {
       var commit = _ref12.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/proposal/typeof/cooperation/".concat(forms.id), forms).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/proposal/typeof/cooperation/".concat(forms.id), forms).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(response);
@@ -89495,7 +89976,7 @@ var proposal = {
     indexSubtanceCooperation: function indexSubtanceCooperation(_ref13) {
       var commit = _ref13.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/proposal/subtance/cooperation').then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/admin/proposal/subtance/cooperation').then(function (response) {
           commit('updateData', response);
           commit('clearPage');
           resolve(response);
@@ -89505,7 +89986,7 @@ var proposal = {
     storeSubtanceCooperation: function storeSubtanceCooperation(_ref14, data) {
       var commit = _ref14.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/proposal/subtance/cooperation', data).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/admin/proposal/subtance/cooperation', data).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
         })["catch"](function (error) {
@@ -89516,7 +89997,7 @@ var proposal = {
     destroySubtanceCooperation: function destroySubtanceCooperation(_ref15, id) {
       var commit = _ref15.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/proposal/subtance/cooperation/' + id).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/admin/proposal/subtance/cooperation/' + id).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(resolve);
@@ -89528,7 +90009,7 @@ var proposal = {
     updateSubtanceCooperation: function updateSubtanceCooperation(_ref16, forms) {
       var commit = _ref16.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/proposal/subtance/cooperation/".concat(forms.id), forms).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/proposal/subtance/cooperation/".concat(forms.id), forms).then(function (response) {
           commit('notification', response);
           commit('updateData', response);
           resolve(response);
@@ -89537,8 +90018,24 @@ var proposal = {
         });
       });
     },
-    clearPage: function clearPage(_ref17) {
-      var commit = _ref17.commit;
+    indexProposal: function indexProposal(_ref17) {
+      var commit = _ref17.commit,
+          rootState = _ref17.rootState;
+      return new Promise(function (resolve, reject) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/admin/submission/cooperation").then(function (response) {
+          commit('updateData', response);
+          commit('clearPage');
+          resolve(response);
+        });
+      });
+    },
+    storeProposal: function storeProposal(_ref18, forms) {
+      var commit = _ref18.commit,
+          rootState = _ref18.rootState;
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/admin");
+    },
+    clearPage: function clearPage(_ref19) {
+      var commit = _ref19.commit;
       commit('clearPage');
     }
   }
@@ -89556,8 +90053,7 @@ var proposal = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api */ "./resources/js/api.js");
 
 var user = {
   namespaced: true,
@@ -89599,7 +90095,7 @@ var user = {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
         //KIRIM PERMINTAAN KE BACKEND
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user-lists").then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/user-lists").then(function (response) {
           //SIMPAN DATANYA KE STATE USERS MENGGUNAKAN MUTATIONS
           commit('ASSIGN_USER', response.data.data);
           resolve(response.data);
@@ -89615,7 +90111,7 @@ var user = {
         }); //STATE ERROR DIBERSIHKAN
         //KIRIM PERMINTAAN KE BACKEND
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/set-role-user", payload).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/set-role-user", payload).then(function (response) {
           resolve(response.data);
         })["catch"](function (error) {
           //APABILA TERJADI ERROR VALIDASI, SET ERRONYA AGAR DAPAT DITAMPILKAN
@@ -89632,7 +90128,7 @@ var user = {
       var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
         //KIRIM PERMINTAAN KE BACKEND
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/roles").then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/roles").then(function (response) {
           //SIMPAN DATANYA KE DALAM STATE ROLES
           commit('ASSIGN_ROLES', response.data.data);
           resolve(response.data);
@@ -89644,7 +90140,7 @@ var user = {
       var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
         //KIRIM PERMINTAAN KE BACKEND
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/permissions").then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/permissions").then(function (response) {
           //SIMPAN DATA YANG DITERIMA KE DALAM STATE PERMISSIONS
           commit('ASSIGN_PERMISSION', response.data.data);
           resolve(response.data);
@@ -89660,7 +90156,7 @@ var user = {
         }); //BERSIHKAN STATE ERRORS
         //KIRIM PERMINTAAN KE BACKEND BERDASARKAN ROLE_ID
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/role-permission", {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/role-permission", {
           role_id: payload
         }).then(function (response) {
           //SIMPAN DATANYA DENGAN MUTATIONS
@@ -89677,7 +90173,7 @@ var user = {
           root: true
         }); //KIRIM PERMINTAAN KE BACKEND
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/set-role-permission", payload).then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/set-role-permission", payload).then(function (response) {
           resolve(response.data);
         })["catch"](function (error) {
           //APABILA TERJADI ERROR VALIDASI
@@ -89694,7 +90190,7 @@ var user = {
     getUserLogin: function getUserLogin(_ref7) {
       var commit = _ref7.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user-authenticated").then(function (response) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/user-authenticated").then(function (response) {
           //SIMPAN DATA USER TERSEBUT
           commit('ASSIGN_USER_AUTH', response.data.data);
           resolve(response.data);
@@ -89703,7 +90199,7 @@ var user = {
     },
     changePassword: function changePassword(_ref8, forms) {
       var commit = _ref8.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/admin/user/change/password", forms).then(function (response) {});
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/admin/user/change/password", forms).then(function (response) {});
     }
   }
 };

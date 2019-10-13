@@ -1,4 +1,4 @@
-import Axios from "axios"
+import $axios from './../../api';
 
 const faq = {
     namespaced: true,
@@ -58,14 +58,14 @@ const faq = {
     },
     actions: {
         index({ commit }) {
-            Axios.get('/admin/faq')
+            $axios.get('/admin/faq')
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');
             });
         },
         store({ commit }, data) {
-            Axios.post('/admin/faq', data)
+            $axios.post('/admin/faq', data)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -75,7 +75,7 @@ const faq = {
             });
         },
         destroy({ commit }, id) {
-            Axios.delete('/admin/faq/'+id)
+            $axios.delete('/admin/faq/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -85,7 +85,7 @@ const faq = {
             })
         },
         edit({ commit }, id) {
-            Axios.get(`/admin/faq/${id}/edit`)
+            $axios.get(`/admin/faq/${id}/edit`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataForm', response);
@@ -95,7 +95,7 @@ const faq = {
             });
         },
         update({ commit, state }) {
-            Axios.put(`/admin/faq/${state.forms.id}`, state.forms)
+            $axios.put(`/admin/faq/${state.forms.id}`, state.forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);

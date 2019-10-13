@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Page;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-
+use File;
 class UpdatePageRequest extends FormRequest
 {
     /**
@@ -41,7 +41,7 @@ class UpdatePageRequest extends FormRequest
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
                 'url' => Str::slug($this->title,"-"),
-                'short_content' => $this->short_content,
+                'short_content' => $this['short_content'],
                 'content' => $this['content'],
                 'seo_title' => $this->seo_title,
                 'seo_meta_key' => $this->seo_meta_key,
@@ -62,7 +62,7 @@ class UpdatePageRequest extends FormRequest
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
                 'url' => Str::slug($this->title,"-"),
-                'short_content' => $this->short_content,
+                'short_content' => $this['short_content'],
                 'content' => $this['content'],
                 'image' => $name,
                 'seo_title' => $this->seo_title,

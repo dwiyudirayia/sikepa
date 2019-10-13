@@ -44,7 +44,6 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
 
 export default {
     name: 'ProposalTypeOfCooperationCreate',

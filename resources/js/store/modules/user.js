@@ -1,4 +1,5 @@
-import Axios from 'axios';
+import $axios from './../../api';
+
 const user = {
     namespaced: true,
     state: {
@@ -34,7 +35,7 @@ const user = {
         getUserLists({ commit }) {
             return new Promise((resolve, reject) => {
                 //KIRIM PERMINTAAN KE BACKEND
-                Axios.get(`/user-lists`)
+                $axios.get(`/user-lists`)
                 .then((response) => {
                     //SIMPAN DATANYA KE STATE USERS MENGGUNAKAN MUTATIONS
                     commit('ASSIGN_USER', response.data.data)
@@ -47,7 +48,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 commit('CLEAR_ERRORS', '', {root: true}) //STATE ERROR DIBERSIHKAN
                 //KIRIM PERMINTAAN KE BACKEND
-                Axios.post(`/set-role-user`, payload)
+                $axios.post(`/set-role-user`, payload)
                 .then((response) => {
                     resolve(response.data)
                 })
@@ -63,7 +64,7 @@ const user = {
         getRoles({ commit }) {
             return new Promise((resolve, reject) => {
                 //KIRIM PERMINTAAN KE BACKEND
-                Axios.get(`/roles`)
+                $axios.get(`/roles`)
                 .then((response) => {
                     //SIMPAN DATANYA KE DALAM STATE ROLES
                     commit('ASSIGN_ROLES', response.data.data)
@@ -75,7 +76,7 @@ const user = {
         getAllPermission({ commit }) {
             return new Promise((resolve, reject) => {
                 //KIRIM PERMINTAAN KE BACKEND
-                Axios.get(`/permissions`)
+                $axios.get(`/permissions`)
                 .then((response) => {
                     //SIMPAN DATA YANG DITERIMA KE DALAM STATE PERMISSIONS
                     commit('ASSIGN_PERMISSION', response.data.data)
@@ -88,7 +89,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 commit('CLEAR_ERRORS', '', {root: true}) //BERSIHKAN STATE ERRORS
                 //KIRIM PERMINTAAN KE BACKEND BERDASARKAN ROLE_ID
-                Axios.post(`/role-permission`, {role_id: payload})
+                $axios.post(`/role-permission`, {role_id: payload})
                 .then((response) => {
                     //SIMPAN DATANYA DENGAN MUTATIONS
                     commit('ASSIGN_ROLE_PERMISSION', response.data.data)
@@ -101,7 +102,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 commit('CLEAR_ERRORS', '', {root: true})
                 //KIRIM PERMINTAAN KE BACKEND
-                Axios.post(`/set-role-permission`, payload)
+                $axios.post(`/set-role-permission`, payload)
                 .then((response) => {
                     resolve(response.data)
                 })
@@ -117,7 +118,7 @@ const user = {
         //MENGAMBIL DATA USER YANG SEDANG LOGIN
         getUserLogin({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get(`/user-authenticated`)
+                $axios.get(`/user-authenticated`)
                 .then((response) => {
                     //SIMPAN DATA USER TERSEBUT
                     commit('ASSIGN_USER_AUTH', response.data.data)
@@ -126,7 +127,7 @@ const user = {
             })
         },
         changePassword({ commit }, forms) {
-            Axios.put(`/admin/user/change/password`, forms)
+            $axios.put(`/admin/user/change/password`, forms)
             .then(response => {
 
             })

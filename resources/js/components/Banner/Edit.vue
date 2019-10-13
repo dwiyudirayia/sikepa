@@ -36,8 +36,9 @@
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
-                <div class="form-group m-form__group" v-show="previousImage">
-                    <img :src="`/banner/${forms.image_path}`" class="img-responsive" height="70" width="90">
+                <div class="form-group m-form__group">
+                    <img :src="`/banner/${forms.image_path}`" class="img-responsive" height="70" width="90" v-show="previousImage">
+                    <img :src="forms.image_path" class="img-responsive" height="70" width="90" v-show="currentlyImage">
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Dekripsi Banner</label>
@@ -69,10 +70,10 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { VueEditor } from "vue2-editor";
-import Axios from 'axios';
+import $axios from './../../api';
 import Select2Edit from './Select2Edit'
 export default {
-    name: 'ArticleCreate',
+    name: 'BannerCreate',
     components: {
         Select2Edit,
         VueEditor
@@ -83,13 +84,13 @@ export default {
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Section',
+                    label: 'Kategori Banner',
                     path: '/section/article'
                 },
                 {
                     id: 2,
                     label: 'Edit Banner',
-                    path: `/article/${this.$route.params.id}/edit`
+                    path: `/banner/${this.$route.params.id}/edit`
                 },
             ],
             forms: {
@@ -101,7 +102,6 @@ export default {
             currentlyImage: false,
             category: null,
             selectedCategory: null,
-            changeImage: false
         }
     },
     validations: {
@@ -115,7 +115,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/banner/${this.$route.params.id}/edit`)
+        $axios.get(`/admin/banner/${this.$route.params.id}/edit`)
         .then(response => {
             this.category = response.data.data.category;
             this.forms = response.data.data.data;
@@ -131,13 +131,14 @@ export default {
             if (!files.length)
                 return;
             this.createImage(files[0]);
-            this.changeImage = true;
+            this.previousImage = false;
+            this.currentlyImage = true;
         },
         createImage(file) {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.image = e.target.result;
+                vm.forms.image_path = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -146,7 +147,7 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/updateArticle', this.forms);
+                this.$store.dispatch('banner/updateBanner', this.forms);
                 this.$v.$reset();
             }
 
