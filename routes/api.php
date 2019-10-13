@@ -76,7 +76,9 @@ Route::middleware('auth:api')->group( function () {
         Route::get('check/same/current/password/{current_password}', 'UserController@checkSameCurrentPassword');
         Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
         //End User
+
         //End Validation
+        Route::post('comment', 'CommentController@store');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');
