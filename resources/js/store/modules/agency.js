@@ -1,4 +1,4 @@
-import Axios from "axios"
+import $axios from './../../api';
 
 const agency = {
     namespaced: true,
@@ -64,14 +64,14 @@ const agency = {
     },
     actions: {
         index({ commit }) {
-            Axios.get('/admin/agency')
+            $axios.get('/admin/agency')
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');
             });
         },
         store({ commit }, data) {
-            Axios.post('/admin/agency', data)
+            $axios.post('/admin/agency', data)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -81,7 +81,7 @@ const agency = {
             });
         },
         destroy({ commit }, id) {
-            Axios.delete('/admin/agency/'+id)
+            $axios.delete('/admin/agency/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -91,7 +91,7 @@ const agency = {
             })
         },
         edit({ commit }, id) {
-            Axios.get(`/admin/agency/${id}/edit`)
+            $axios.get(`/admin/agency/${id}/edit`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataForm', response);
@@ -101,14 +101,14 @@ const agency = {
             });
         },
         update({ commit, state }) {
-            Axios.put(`/admin/agency/${state.forms.id}`, state.forms)
+            $axios.put(`/admin/agency/${state.forms.id}`, state.forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
             })
             .catch(error => {
                 console.log('aw');
-                
+
             })
 
         },

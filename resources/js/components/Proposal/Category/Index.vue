@@ -48,7 +48,7 @@
                                                 <span>Edit Proposal</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Kategori Proposal'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kategori Proposal'">
                                             <span>
                                                 <i class="la la-trash"></i>
                                                 <span>Hapus Proposal</span>

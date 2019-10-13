@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::prefix('admin')->group(function () {
     Route::resource('user', 'UserController');
     Route::put('user/change/password', 'UserController@changePassword');

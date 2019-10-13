@@ -1,6 +1,5 @@
 <template>
     <div>
-        <ModalEdit></ModalEdit>
         <div class="m-portlet m-portlet--creative m-portlet--bordered-semi">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -111,19 +110,16 @@
     </div>
 </template>
 <script>
-import ModalEdit from './ModalEdit.vue';
+import $axios from './../../api';
 export default {
     name: 'UserIndex',
-    components: {
-        ModalEdit
-    },
     data: function(){
         return {
             data: [],
         }
     },
     created() {
-        axios.get('/admin/user').then(response => this.data = response.data.data);
+        $axios.get('/admin/user').then(response => this.data = response.data.data);
     },
     methods: {
         destroy(id) {

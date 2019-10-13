@@ -15,7 +15,7 @@ class UpdateTypeOfCooperationRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Nama',
+            'name' => 'Nama Jenis Kerjasama',
         ];
     }
     public function messages()
@@ -28,7 +28,7 @@ class UpdateTypeOfCooperationRequest extends FormRequest
     public function update()
     {
         return [
-            'created_by' => 1,
+            'updated_by' => 1,
             'name' => $this->name,
         ];
     }

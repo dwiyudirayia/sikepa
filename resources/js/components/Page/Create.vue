@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten Singkat</label>
-                    <textarea class="form-control" v-model="forms.short_content"></textarea>
+                    <vue-editor v-model="forms.short_content"></vue-editor>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten</label>
@@ -86,8 +86,33 @@
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
-                <div class="form-group m-form__group" v-if="forms.image">
-                    <img :src="forms.image" class="img-responsive" height="70" width="90">
+                <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                        <!--begin::Item-->
+                        <div class="m-accordion__item m-accordion__item--success">
+                            <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
+                                <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
+                                <span class="m-accordion__item-title">Tampilan Gambar</span>
+                                <span class="m-accordion__item-mode"></span>
+                            </div>
+                            <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
+                                <div class="m-accordion__item-content">
+                                    <img :src="forms.image" class="img-responsive" height="100%" width="100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__seperator m-form__seperator--dashed"></div>
+                <div class="m-form__section m-form__section--last">
+                    <div class="m-form__heading">
+                        <h3 class="m-form__heading-title">Extra File Tambahan</h3>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="Nama Lengkap">File</label>
+                        <input type="file" class="form-control" ref="files" multiple="multiple" v-on:change="handleExtraFile">
+                        <span class="m-form__help">Masukan File Yang di Inginkan</span>
+                    </div>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--last">
@@ -129,7 +154,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { VueEditor } from "vue2-editor";
-import Axios from 'axios';
+import $axios from './../../api';
 import Select2 from './Select2'
 export default {
     name: 'PageCreate',
@@ -156,7 +181,7 @@ export default {
                 section_id: null,
                 category_id: null,
                 title: null,
-                short_cotent: null,
+                short_content: null,
                 content: null,
                 image: null,
                 seo_title: null,
@@ -165,6 +190,7 @@ export default {
                 publish: null,
                 approved: null
             },
+            files: [],
             section: null,
             category: null,
         }
@@ -183,15 +209,23 @@ export default {
         }
     },
     created() {
-        Axios.get('/admin/page/create')
+        $axios.get('/admin/page/create')
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
         });
     },
     methods: {
+        handleExtraFile(e) {
+            let uploadedFiles = this.$refs.files.files;
+            console.log(uploadedFiles);
+            for(var i = 0; i < uploadedFiles.length; i++) {
+                this.files.push(uploadedFiles[i]);
+            }
+        },
         onImageChange(e) {
             let files = e.target.files || e.dataTransfer.files;
+            console.log(files);
             if (!files.length)
                 return;
             this.createImage(files[0]);
@@ -206,10 +240,29 @@ export default {
         },
         store() {
             this.$v.forms.$touch();
+
+            let formData = new FormData();
+
+            formData.append('section_id', this.forms.section_id);
+            formData.append('category_id', this.forms.category_id);
+            formData.append('title', this.forms.title);
+            formData.append('short_content', this.forms.short_content);
+            formData.append('content', this.forms.content);
+            formData.append('image', this.forms.image);
+            formData.append('seo_title', this.forms.seo_title);
+            formData.append('seo_meta_key', this.forms.seo_meta_key);
+            formData.append('seo_meta_desc', this.forms.seo_meta_desc);
+            formData.append('publish', this.forms.publish);
+            formData.append('approved', this.forms.approved);
+
+            $.each(this.files, function(key, value) {
+                formData.append(`file[${key}]`, value);
+            })
+
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('page/storePage', this.forms);
+                this.$store.dispatch('page/storePage', formData);
                 this.$v.$reset();
             }
 

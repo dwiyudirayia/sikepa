@@ -72,8 +72,6 @@ class UserController extends Controller
             $user->password = Hash::make($request->get('new_password'));
             $user->save();
 
-            Auth::logout();
-
             $data = [
                 'messages' => 'Password Berhasil di Ubah',
                 'status' => 200

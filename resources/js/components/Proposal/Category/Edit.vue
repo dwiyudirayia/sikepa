@@ -44,10 +44,10 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../../api';
 
 export default {
-    name: 'CategoryProposalEdit',
+    name: 'ProposalCategoryEdit',
     data() {
         return {
             breadcrumbTitle: 'Kategori',
@@ -74,7 +74,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/proposal/category/${this.$route.params.id}/edit`)
+        $axios.get(`/admin/proposal/category/${this.$route.params.id}/edit`)
         .then(response => {
             this.forms = response.data.data
         });

@@ -50,6 +50,7 @@ class UpdateAgencyRequest extends FormRequest
     public function update()
     {
         return [
+            'updated_by' => 1,
             'name' => $this->name,
             'address' => $this->address,
             'latitude' => $this->latitude,
