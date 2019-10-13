@@ -63,7 +63,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../../api';
 import Select2 from './../Select2'
 export default {
     name: 'CategoryPageCreate',
@@ -101,7 +101,7 @@ export default {
                     // standalone validator ideally should not assume a field is required
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/category/page/${value}/section/${this.forms.section_id}`)
+                    const response = $axios.get(`/admin/check/category/page/${value}/section/${this.forms.section_id}`)
                     .then(response => {
                         this.statusNameUnique = response.data.isExist;
                     })
@@ -120,7 +120,7 @@ export default {
         }
     },
     created() {
-        Axios.get('/admin/category/page/create')
+        $axios.get('/admin/category/page/create')
         .then(response => {
             this.options = response.data.data;
         });

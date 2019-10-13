@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten Singkat</label>
-                    <textarea class="form-control" v-model="forms.short_content"></textarea>
+                    <vue-editor v-model="forms.short_content"></vue-editor>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten</label>
@@ -90,8 +90,23 @@
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
-                <div class="form-group m-form__group" v-show="changeImage">
-                    <img :src="forms.image" class="img-responsive" height="70" width="90">
+                <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                        <!--begin::Item-->
+                        <div class="m-accordion__item m-accordion__item--success">
+                            <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
+                                <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
+                                <span class="m-accordion__item-title">Tampilan Gambar</span>
+                                <span class="m-accordion__item-mode"></span>
+                            </div>
+                            <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
+                                <div class="m-accordion__item-content">
+                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-show="previousImage">
+                                    <img :src="forms.image" class="img-responsive" height="100%" width="100%" v-show="currentlyImage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--last">
@@ -133,7 +148,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { VueEditor } from "vue2-editor";
-import Axios from 'axios';
+import $axios from './../../api';
 import Select2Edit from './Select2Edit'
 export default {
     name: 'PageCreate',
@@ -170,9 +185,10 @@ export default {
             },
             section: null,
             category: null,
+            previousImage: true,
+            currentlyImage: false,
             selectedSection: null,
             selectedCategory: null,
-            changeImage: false
         }
     },
     validations: {
@@ -189,7 +205,7 @@ export default {
         }
     },
     created() {
-        Axios.get(`/admin/page/${this.$route.params.id}/edit`)
+        $axios.get(`/admin/page/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
@@ -210,7 +226,8 @@ export default {
             if (!files.length)
                 return;
             this.createImage(files[0]);
-            this.changeImage = true;
+            this.previousImage = false;
+            this.currentlyImage = true;
         },
         createImage(file) {
             let reader = new FileReader();

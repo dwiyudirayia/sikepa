@@ -52,8 +52,36 @@ import PageEdit from './components/Page/Edit';
 import ProposalCategoryIndex from './components/Proposal/Category/Index';
 import ProposalCategoryCreate from './components/Proposal/Category/Create';
 import ProposalCategoryEdit from './components/Proposal/Category/Edit';
-// --- End Proposal -- /
 
+import ProposalCooperationTargetIndex from './components/Proposal/CooperationTarget/Index';
+import ProposalCooperationTargetCreate from './components/Proposal/CooperationTarget/Create';
+import ProposalCooperationTargetEdit from './components/Proposal/CooperationTarget/Edit';
+
+import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperation/Index';
+import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
+import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperation/Edit';
+
+import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCooperation/Index';
+import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
+import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
+
+import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
+// import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
+// import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+
+// --- End Proposal --- //
+
+// --- Banner --- //
+//Category
+import BannerCategoryIndex from './components/Banner/Category/Index';
+import BannerCategoryCreate from './components/Banner/Category/Create';
+import BannerCategoryEdit from './components/Banner/Category/Edit';
+
+//Banner
+import BannerListCategory from './components/Banner/BannerListCategory';
+import BannerCreate from './components/Banner/Create';
+import BannerEdit from './components/Banner/Edit';
+// --- End Banner //
 
 //Faq
 import FaqIndex from './components/Faq/Index';
@@ -85,6 +113,9 @@ const router = new VueRouter({
         {
             path: '/login',
             component: Auth,
+            meta: {
+                login: 'login',
+            },
             children: [
                 {
                     path: 'admin',
@@ -322,23 +353,168 @@ const router = new VueRouter({
                 {
                     path: '/agency/:id/edit',
                     name: 'AgencyEdit',
-                    component: AgencyEdit
+                    component: AgencyEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
-                //Category Proposal
+                //Proposal Category
                 {
                     path: '/proposal/category',
                     name: 'ProposalCategoryIndex',
-                    component: ProposalCategoryIndex
+                    component: ProposalCategoryIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/proposal/category/create',
                     name: 'ProposalCategoryCreate',
-                    component: ProposalCategoryCreate
+                    component: ProposalCategoryCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/proposal/category/:id/edit',
                     name: 'ProposalCategoryEdit',
-                    component: ProposalCategoryEdit
+                    component: ProposalCategoryEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Proposal Cooperation Target
+                {
+                    path: '/proposal/cooperation/target',
+                    name: 'ProposalCooperationTargetIndex',
+                    component: ProposalCooperationTargetIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/cooperation/target/create',
+                    name: 'ProposalCooperationTargetCreate',
+                    component: ProposalCooperationTargetCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/cooperation/target/:id/edit',
+                    name: 'ProposalCooperationTargetEdit',
+                    component: ProposalCooperationTargetEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Proposal Type of Cooperation
+                {
+                    path: '/proposal/typeof/cooperation',
+                    name: 'ProposalTypeOfCooperationIndex',
+                    component: ProposalTypeOfCooperationIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/create',
+                    name: 'ProposalTypeOfCooperationCreate',
+                    component: ProposalTypeOfCooperationCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/:id/edit',
+                    name: 'ProposalTypeOfCooperationEdit',
+                    component: ProposalTypeOfCooperationEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Proposal Subtance Cooperation
+                {
+                    path: '/proposal/subtance/cooperation',
+                    name: 'ProposalSubtanceCooperationIndex',
+                    component: ProposalSubtanceCooperationIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/subtance/cooperation/create',
+                    name: 'ProposalSubtanceCooperationCreate',
+                    component: ProposalSubtanceCooperationCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/subtance/cooperation/:id/edit',
+                    name: 'ProposalSubtanceCooperationEdit',
+                    component: ProposalSubtanceCooperationEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //Proposal
+                {
+                    path: '/submission/cooperation',
+                    name: 'ProposalSubmissionCooperationIndex',
+                    component: ProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                //Banner Category
+                {
+                    path: '/banner/category',
+                    name: 'BannerCategoryIndex',
+                    component: BannerCategoryIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/banner/category/create',
+                    name: 'BannerCategoryCreate',
+                    component: BannerCategoryCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/banner/category/:id/edit',
+                    name: 'BannerCategoryEdit',
+                    component: BannerCategoryEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/banner/list/:id/category',
+                    name: 'BannerListCategory',
+                    component: BannerListCategory,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/banner/create',
+                    name: 'BannerCreate',
+                    component: BannerCreate,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/banner/:id/edit',
+                    name: 'BannerEdit',
+                    component: BannerEdit,
+                    meta: {
+                        requiresAuth: true
+                    }
                 }
             ]
         }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
 class StorePageRequest extends FormRequest
 {
 /**
@@ -25,7 +25,7 @@ class StorePageRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'title' => 'required',
+            'title' => 'required',
         ];
     }
     public function store()
@@ -42,7 +42,7 @@ class StorePageRequest extends FormRequest
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
                 'url' => Str::slug($this->title,"-"),
-                'short_content' => $this->short_content,
+                'short_content' => $this['short_content'],
                 'content' => $this['content'],
                 'image' => $name,
                 'seo_title' => $this->seo_title,
@@ -58,7 +58,7 @@ class StorePageRequest extends FormRequest
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
                 'url' => Str::slug($this->title,"-"),
-                'short_content' => $this->short_content,
+                'short_content' => $this['short_content'],
                 'content' => $this['content'],
                 'seo_title' => $this->seo_title,
                 'seo_meta_key' => $this->seo_meta_key,

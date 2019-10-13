@@ -28,7 +28,7 @@ class UpdateCategoryArticleRequest extends FormRequest
     public function update()
     {
         return [
-            'created_by' => 1,
+            'updated_by' => 1,
             'section_id' => (int) $this->section_id,
             'name' => $this->name,
         ];

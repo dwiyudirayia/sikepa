@@ -98,7 +98,7 @@ export default {
                 {
                     id: 1,
                     label: 'Section',
-                    path: `/section/article`
+                    path: `/section/page`
                 },
                 {
                     id: 2,

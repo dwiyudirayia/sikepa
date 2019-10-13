@@ -45,7 +45,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
+import $axios from './../../../api';
 
 export default {
     name: 'SectionArticleCreate',
@@ -78,7 +78,7 @@ export default {
                     // standalone validator ideally should not assume a field is required
                     if (value === '') return true
 
-                    const response = Axios.get(`/admin/check/section/article/${value}`)
+                    const response = $axios.get(`/admin/check/section/article/${value}`)
                     .then(response => {
                         this.statusNameUnique = response.data.isExist;
                     })

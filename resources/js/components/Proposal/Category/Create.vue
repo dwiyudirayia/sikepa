@@ -44,10 +44,9 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Axios from 'axios';
 
 export default {
-    name: 'CategoryProposalCreate',
+    name: 'ProposalCategoryCreate',
     data() {
         return {
             breadcrumbTitle: 'Kategori Proposal',

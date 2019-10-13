@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\NotificationServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*

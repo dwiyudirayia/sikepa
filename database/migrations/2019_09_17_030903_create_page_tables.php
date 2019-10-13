@@ -23,10 +23,10 @@ class CreatePageTables extends Migration
             $table->string('url');
             $table->text('short_content');
             $table->longText('content');
-            $table->string('image');
-            $table->text('seo_title');
-            $table->text('seo_meta_key');
-            $table->text('seo_meta_desc');
+            $table->string('image')->nullable();
+            $table->text('seo_title')->nullable();
+            $table->text('seo_meta_key')->nullable();
+            $table->text('seo_meta_desc')->nullable();
             $table->tinyInteger('publish');
             $table->tinyInteger('approved');
             $table->timestamps();

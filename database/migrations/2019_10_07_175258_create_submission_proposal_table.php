@@ -17,6 +17,7 @@ class CreateSubmissionProposalTable extends Migration
             $table->bigIncrements('id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->string('mailing_number');
             $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('substance_cooperation_id');
             $table->mediumInteger('cooperastion_target_id');
@@ -32,7 +33,8 @@ class CreateSubmissionProposalTable extends Migration
             $table->string('email');
             $table->text('purpose_objectives');
             $table->text('background');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status_proposal');
+            $table->tinyInteger('status_disposition');
             $table->date('time_period_of');
             $table->date('time_period_to');
             $table->string('agency_profile');

@@ -1,4 +1,5 @@
-import Axios from "axios";
+import $axios from './../../api';
+import $axiosFormData from './../../apiformdata';
 
 const page = {
     namespaced: true,
@@ -58,14 +59,14 @@ const page = {
     },
     actions: {
         indexSection({ commit }) {
-            Axios.get('/admin/section/page')
+            $axios.get('/admin/section/page')
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');
             })
         },
         storeSection({ commit }, data) {
-            Axios.post('/admin/section/page', data)
+            $axios.post('/admin/section/page', data)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -75,7 +76,7 @@ const page = {
             });
         },
         destroySection({ commit }, id) {
-            Axios.delete('/admin/section/page/'+id)
+            $axios.delete('/admin/section/page/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response)
@@ -85,28 +86,28 @@ const page = {
             })
         },
         editSection({ commit }, id) {
-            Axios.get(`/admin/section/page/${id}/edit`)
+            $axios.get(`/admin/section/page/${id}/edit`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataForm', response);
             })
         },
         updateSection({ commit, state }) {
-            Axios.put(`/admin/section/page/${state.forms.id}`, state.forms)
+            $axios.put(`/admin/section/page/${state.forms.id}`, state.forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
             })
         },
         listSectionCategory({ commit }, id) {
-            Axios.get(`/admin/list/section/category/page/${id}`)
+            $axios.get(`/admin/list/section/category/page/${id}`)
             .then(response => {
                 commit('clearPage');
                 commit('updateDataRelation', response.data);
             })
         },
         storeCategory({ commit }, form) {
-            Axios.post('/admin/category/page', form)
+            $axios.post('/admin/category/page', form)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -116,7 +117,7 @@ const page = {
             });
         },
         destroyCategory({ commit }, id) {
-            Axios.delete('/admin/category/page/'+id)
+            $axios.delete('/admin/category/page/'+id)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -126,14 +127,14 @@ const page = {
             })
         },
         listCategoryPage({ commit }, id) {
-            Axios.get(`/admin/list/category/page/${id}`)
+            $axios.get(`/admin/list/category/page/${id}`)
             .then(response => {
                 commit('clearPage');
                 commit('updateData', response);
             });
         },
         storePage({ commit }, forms) {
-            Axios.post('/admin/page', forms)
+            $axiosFormData.post('/admin/page', forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -143,7 +144,7 @@ const page = {
             });
         },
         destroyPage({ commit }, id) {
-            Axios.delete(`/admin/page/${id}`)
+            $axios.delete(`/admin/page/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -153,7 +154,7 @@ const page = {
             });
         },
         updatePage({ commit }, forms) {
-            Axios.put(`/admin/page/${forms.id}`, forms)
+            $axiosFormData.put(`/admin/page/${forms.id}`, forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -163,7 +164,7 @@ const page = {
             });
         },
         changePublishStatus({ commit }, id) {
-            Axios.get(`/admin/change/page/publish/${id}`)
+            $axios.get(`/admin/change/page/publish/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -173,7 +174,7 @@ const page = {
             })
         },
         changeApprovedStatus({ commit }, id) {
-            Axios.get(`/admin/change/page/approve/${id}`)
+            $axios.get(`/admin/change/page/approve/${id}`)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);

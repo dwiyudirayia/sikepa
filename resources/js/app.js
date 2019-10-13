@@ -10,14 +10,12 @@ import vuevalidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
 import Permissions from './mixins/permission';
 //Partial Layout Admin
-import SideMenu from './components/partialsAdmin/SideMenu'
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
 import NotificationSuccess from './components/partialsAdmin/NotificationSuccess';
 import NotificationError from './components/partialsAdmin/NotificationError';
 import Breadcrumb from './components/partialsAdmin/Breadcrumb'
 
 //Global Components
-Vue.component('sidemenu', SideMenu);
 Vue.component('breadcrumb', Breadcrumb);
 Vue.component('notification-validation', NotificationValidation);
 Vue.component('notification-success', NotificationSuccess);

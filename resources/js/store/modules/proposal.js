@@ -1,4 +1,4 @@
-import Axios from "axios"
+import $axios from './../../api';
 
 const proposal = {
     namespaced: true,
@@ -44,7 +44,7 @@ const proposal = {
     actions: {
         indexCategory({ commit }) {
             return new Promise((resolve, reject) => {
-                Axios.get('/admin/proposal/category')
+                $axios.get('/admin/proposal/category')
                 .then((response) => {
                     commit('updateData', response);
                     commit('clearPage');
@@ -55,7 +55,7 @@ const proposal = {
         },
         storeCategory({ commit }, data) {
             return new Promise((resolve, reject) => {
-                Axios.post('/admin/proposal/category', data)
+                $axios.post('/admin/proposal/category', data)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -67,7 +67,7 @@ const proposal = {
         },
         destroyCategory({ commit }, id) {
             return new Promise((resolve, reject) => {
-                Axios.delete('/admin/proposal/category/'+id)
+                $axios.delete('/admin/proposal/category/'+id)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -81,7 +81,7 @@ const proposal = {
         },
         updateCategory({commit}, forms) {
             return new Promise((resolve, reject) => {
-                Axios.put(`/admin/proposal/category/${forms.id}`, forms)
+                $axios.put(`/admin/proposal/category/${forms.id}`, forms)
                 .then(response => {
                     commit('notification', response);
                     commit('updateData', response);
@@ -92,6 +92,173 @@ const proposal = {
                     reject(error);
                 })
             })
+        },
+        indexCooperationTarget({ commit }) {
+            return new Promise((resolve, reject) => {
+                $axios.get('/admin/proposal/cooperation/target')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeCooperationTarget({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                $axios.post('/admin/proposal/cooperation/target', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroyCooperationTarget({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.delete('/admin/proposal/cooperation/target/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateCooperationTarget({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                $axios.put(`/admin/proposal/cooperation/target/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        indexTypeOfCooperation({ commit }) {
+            return new Promise((resolve, reject) => {
+                $axios.get('/admin/proposal/typeof/cooperation')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeTypeOfCooperation({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                $axios.post('/admin/proposal/typeof/cooperation', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroyTypeOfCooperation({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.delete('/admin/proposal/typeof/cooperation/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateTypeOfCooperation({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                $axios.put(`/admin/proposal/typeof/cooperation/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        indexSubtanceCooperation({ commit }) {
+            return new Promise((resolve, reject) => {
+                $axios.get('/admin/proposal/subtance/cooperation')
+                .then((response) => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeSubtanceCooperation({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                $axios.post('/admin/proposal/subtance/cooperation', data)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                });
+            })
+        },
+        destroySubtanceCooperation({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.delete('/admin/proposal/subtance/cooperation/'+id)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(resolve);
+                })
+                .catch(error => {
+                    commit('notification', error);
+                })
+            })
+        },
+        updateSubtanceCooperation({commit}, forms) {
+            return new Promise((resolve, reject) => {
+                $axios.put(`/admin/proposal/subtance/cooperation/${forms.id}`, forms)
+                .then(response => {
+                    commit('notification', response);
+                    commit('updateData', response);
+
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        indexProposal({ commit, rootState }) {
+            return new Promise((resolve, reject) => {
+                $axios.get(`/admin/submission/cooperation`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            })
+        },
+        storeProposal({ commit, rootState }, forms) {
+            $axios.post(`/admin`)
         },
         clearPage({commit})
         {

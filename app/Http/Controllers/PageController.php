@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
 use File;
-
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -71,10 +71,19 @@ class PageController extends Controller
     public function store(StorePageRequest $request)
     {
         try {
-            Page::create($request->store());
-
+            $page = Page::create($request->store());
+            foreach ($request->file as $key => $value) {
+                $extention = $value->getClientOriginalExtension();
+                $fileName = 'file-page'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $path = $value->storeAs($page->id, $fileName, 'file_page');
+                $page->files()->create([
+                    'updated_by' => request()->user()->id,
+                    'page_id' => $page->id,
+                    'name' => 'Test',
+                    'file' => $path,
+                ]);
+            }
             $data = Page::where('category_id', $request->category_id)->get();
-
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
@@ -145,10 +154,16 @@ class PageController extends Controller
     public function destroy($id)
     {
         try {
-            $data = Page::findOrFail($id);
+            $data = Page::with('files')->findOrFail($id);
+
+            foreach($data->files as $key => $value) {
+                Storage::disk('file_page')->delete($value);
+            }
 
             File::delete("page/".$data->image);
+
             $data->delete();
+
 
             $array = Page::where('category_id', $data->category_id)->get();
             return response()->json($this->notification->deleteSuccess($array));
