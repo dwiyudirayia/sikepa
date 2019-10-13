@@ -79,7 +79,7 @@ class PageController extends Controller
                 $page->files()->create([
                     'updated_by' => request()->user()->id,
                     'page_id' => $page->id,
-                    'name' => 'Test',
+                    'name' => $request->name[$key],
                     'file' => $path,
                 ]);
             }

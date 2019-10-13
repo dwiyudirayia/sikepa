@@ -6284,6 +6284,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6319,7 +6338,8 @@ __webpack_require__.r(__webpack_exports__);
         publish: null,
         approved: null
       },
-      files: [],
+      files: [''],
+      name: [''],
       section: null,
       category: null
     };
@@ -6346,19 +6366,28 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    handleExtraFile: function handleExtraFile(e) {
-      var uploadedFiles = this.$refs.files.files;
-      console.log(uploadedFiles);
-
-      for (var i = 0; i < uploadedFiles.length; i++) {
-        this.files.push(uploadedFiles[i]);
-      }
+    removeExtraFile: function removeExtraFile(index) {
+      this.name.splice(index, 1);
+      this.files.splice(index, 1);
+      this.$refs.files.splice(index, 1);
+    },
+    addExtraFile: function addExtraFile() {
+      this.name.push('');
+      this.files.push('');
+    },
+    handleExtraFile: function handleExtraFile(index) {
+      var uploadedFiles = this.$refs.files[index].files[0];
+      this.files[index] = uploadedFiles;
     },
     onImageChange: function onImageChange(e) {
       var files = e.target.files || e.dataTransfer.files;
-      console.log(files);
-      if (!files.length) return;
-      this.createImage(files[0]);
+
+      if (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png') {
+        if (!files.length) return;
+        this.createImage(files[0]);
+      } else {
+        alert('File Tidak Mendukung');
+      }
     },
     createImage: function createImage(file) {
       var reader = new FileReader();
@@ -6386,6 +6415,9 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('approved', this.forms.approved);
       $.each(this.files, function (key, value) {
         formData.append("file[".concat(key, "]"), value);
+      });
+      $.each(this.name, function (key, value) {
+        formData.append("name[".concat(key, "]"), value);
       });
 
       if (this.$v.forms.$invalid) {
@@ -6909,7 +6941,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: 'SectionPageCreate',
   data: function data() {
     return {
-      breadcrumbTitle: 'FAQ',
+      breadcrumbTitle: 'Section',
       breadcrumbLink: [{
         id: 1,
         label: 'Section',
@@ -57893,7 +57925,7 @@ var render = function() {
               _vm._v(" "),
               _c("input", {
                 staticClass: "form-control",
-                attrs: { type: "file" },
+                attrs: { type: "file", accept: "image/x-png,image/jpeg" },
                 on: { change: _vm.onImageChange }
               })
             ]),
@@ -57953,30 +57985,84 @@ var render = function() {
               staticClass: "m-form__seperator m-form__seperator--dashed"
             }),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "m-form__section m-form__section--last" },
-              [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group m-form__group" }, [
-                  _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                    _vm._v("File")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    ref: "files",
-                    staticClass: "form-control",
-                    attrs: { type: "file", multiple: "multiple" },
-                    on: { change: _vm.handleExtraFile }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "m-form__help" }, [
-                    _vm._v("Masukan File Yang di Inginkan")
-                  ])
-                ])
-              ]
-            ),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._l(_vm.name, function(value, index) {
+              return _c("div", { key: index }, [
+                _c(
+                  "div",
+                  { staticClass: "m-form__section m-form__section--last" },
+                  [
+                    _c("div", { staticClass: "form-group m-form__group" }, [
+                      _c("div", { staticClass: "text-right" }, [
+                        index === _vm.name.length - 1
+                          ? _c("i", {
+                              staticClass: "la la-plus fa-2x",
+                              on: { click: _vm.addExtraFile }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        index === _vm.name.length - 1
+                          ? _c("i", {
+                              staticClass: "la la-minus fa-2x",
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeExtraFile(index)
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                        _vm._v("Nama")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.name[index],
+                            expression: "name[index]"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.name[index] },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.name, index, $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                        _vm._v("File")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        ref: "files",
+                        refInFor: true,
+                        staticClass: "form-control",
+                        attrs: { type: "file" },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleExtraFile(index)
+                          }
+                        }
+                      }),
+                      _c("span", { staticClass: "m-form__help" }, [
+                        _vm._v("Masukan File Yang di Inginkan")
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            }),
             _vm._v(" "),
             _c("div", {
               staticClass: "m-form__seperator m-form__seperator--dashed"
@@ -58091,7 +58177,8 @@ var render = function() {
             ),
             _vm._v(" "),
             _vm._m(4)
-          ]
+          ],
+          2
         )
       ])
     ],
@@ -90294,8 +90381,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\newsikepa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\newsikepa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\sikepa\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\sikepa\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
