@@ -127,11 +127,6 @@
                             </div>
                             <label for="Nama Lengkap">Nama</label>
                             <input type="text" v-model="name[index]" class="form-control">
-<<<<<<< HEAD
-
-=======
-                            
->>>>>>> c7f83ac25f58220912a0c9ba4c0ffb22e2e6a060
                             <label for="Nama Lengkap">File</label>
                             <input type="file" class="form-control" ref="files" v-on:change="handleExtraFile(index)"><span class="m-form__help">Masukan File Yang di Inginkan</span>
                         </div>
@@ -252,7 +247,6 @@ export default {
         },
         handleExtraFile(index) {
             let uploadedFiles = this.$refs.files[index].files[0];
-<<<<<<< HEAD
 
             this.files[index] = uploadedFiles;
         },
@@ -266,19 +260,6 @@ export default {
                     this.createImage(files[0]);
                 }
             } else {
-=======
-            
-            this.files[index] = uploadedFiles;
-        },
-        onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            if (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png' ) {
-                if (!files.length)
-                return;
-                this.createImage(files[0]);
-            } else {
-
->>>>>>> c7f83ac25f58220912a0c9ba4c0ffb22e2e6a060
                 alert('File Tidak Mendukung');
             }
         },
