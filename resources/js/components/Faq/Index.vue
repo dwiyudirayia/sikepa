@@ -85,7 +85,6 @@ export default {
             ]
         }
     },
-    props: ['data', 'title'],
     computed: {
         getMessage()
         {

@@ -85,7 +85,6 @@ export default {
     },
 	destroyed() {
         this.$store.dispatch('user/getUserLogin');
-        this.$store.state.article.showNotificationLoginSuccess = true;
     }
 }
 </script>

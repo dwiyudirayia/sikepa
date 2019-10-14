@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "vesterbro";
+  font-style: normal;
+  font-weight: 900;
+  src: url("vesterbro-900.eot?#iefix") format("embedded-opentype"),
+	   url("vesterbro-900.woff2") format("woff2"),
+	   url("vesterbro-900.otf") format("opentype"),
+	   url("vesterbro-900.svg") format("svg")
+}
+
+@font-face {
+  font-family: "vesterbro";
+  font-style: normal;
+  font-weight: 800;
+  src: url("vesterbro-800.eot?#iefix") format("embedded-opentype"),
+	   url("vesterbro-800.woff2") format("woff2"),
+	   url("vesterbro-800.otf") format("opentype"),
+	   url("vesterbro-800.svg") format("svg")
+}
