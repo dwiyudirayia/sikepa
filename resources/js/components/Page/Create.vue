@@ -196,6 +196,7 @@ export default {
                     path: '/page/create'
                 },
             ],
+
             forms: {
                 section_id: null,
                 category_id: null,
