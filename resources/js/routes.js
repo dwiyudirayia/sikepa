@@ -5,10 +5,11 @@ import store from './store/store';
 // --- Admin ---//
 import Admin from './layouts/Admin';
 //User
-import UserIndex from './components/User/Index';
-import UserCreate from './components/User/Create';
-import UserEdit from './components/User/Edit';
 import UserChangePassword from './components/User/ChangePassword';
+//Admin
+import UserAdminIndex from './components/User/Admin/Index';
+import UserAdminCreate from './components/User/Admin/Create';
+//EndAdmin
 //End User
 // --- Article --- //
 //Section
@@ -130,22 +131,6 @@ const router = new VueRouter({
             children: [
                 //user
                 {
-                    path: '/user',
-                    name: 'UserIndex',
-                    component: UserIndex,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/user/create',
-                    name: 'UserCreate',
-                    component: UserCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
                     path: '/user/change/password',
                     name: 'UserChangePassword',
                     component: UserChangePassword,
@@ -154,11 +139,11 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/user/:id/edit',
-                    name: 'UserEdit',
-                    component: UserEdit,
+                    path: '/user/admin',
+                    name: 'UserAdminIndex',
+                    component: UserAdminIndex,
                     meta: {
-                        requiresAuth: true,
+                        requiresAuth: true
                     }
                 },
                 //Section Article
