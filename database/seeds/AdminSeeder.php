@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $permission = ['Create User', 'Read User', 'Update User', 'Delete User', 'Create Article', 'Read Article', 'Update Article', 'Delete Article', 'Publish / Draft Article'];
+        $permission = ['Create User', 'Read User', 'Update User', 'Delete User', 'Create Article', 'Read Article', 'Update Article', 'Delete Article', 'Publish / Draft Article', 'Create Page', 'Read Page', 'Update Page', 'Delete Page', 'Publish / Draft Page', 'Create Banner','Read Banner','Update Banner','Delete Banner','Create FAQ','Read FAQ','Update FAQ','Delete FAQ','Create Instansi','Read Instansi','Update Instansi','Delete Instansi'];
 
         $user = User::create([
             'name' => 'Admin',

@@ -39,7 +39,58 @@ class PermissionSeeder extends Seeder
             ],
             8 => [
                 'name' => 'Publish / Draft Article',
-            ]
+            ],
+            9 => [
+                'name' => 'Create Page',
+            ],
+            10 => [
+                'name' => 'Read Page',
+            ],
+            11 => [
+                'name' => 'Update Page',
+            ],
+            12 => [
+                'name' => 'Delete Page',
+            ],
+            13 => [
+                'name' => 'Publish / Draft Page',
+            ],
+            14 => [
+                'name' => 'Create Banner',
+            ],
+            15 => [
+                'name' => 'Read Banner',
+            ],
+            16 => [
+                'name' => 'Update Banner',
+            ],
+            17 => [
+                'name' => 'Delete Banner',
+            ],
+            18 => [
+                'name' => 'Create FAQ',
+            ],
+            19 => [
+                'name' => 'Read FAQ',
+            ],
+            20 => [
+                'name' => 'Update FAQ',
+            ],
+            21 => [
+                'name' => 'Delete FAQ',
+            ],
+            22 => [
+                'name' => 'Create Instansi',
+            ],
+            23 => [
+                'name' => 'Read Instansi',
+            ],
+            24 => [
+                'name' => 'Update Instansi',
+            ],
+            25 => [
+                'name' => 'Delete Instansi',
+            ],
         ];
 
         foreach ($arrayPermission as $key => $value) {

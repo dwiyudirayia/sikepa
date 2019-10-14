@@ -85,6 +85,7 @@ export default {
     },
 	destroyed() {
         this.$store.dispatch('user/getUserLogin');
+        window.location.href = '/section/article';
     }
 }
 </script>

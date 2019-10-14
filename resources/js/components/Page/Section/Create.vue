@@ -51,7 +51,7 @@ export default {
     name: 'SectionPageCreate',
     data() {
         return {
-            breadcrumbTitle: 'FAQ',
+            breadcrumbTitle: 'Section',
             breadcrumbLink: [
                 {
                     id: 1,

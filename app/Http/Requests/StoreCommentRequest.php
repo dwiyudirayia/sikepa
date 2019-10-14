@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCommentRequest extends FormRequest
 {
-    
+
     public function messages()
     {
         return [
@@ -15,7 +15,7 @@ class StoreCommentRequest extends FormRequest
             'comment.required' => 'Komentar Harus di Isi',
         ];
     }
-    
+
     public function rules()
     {
         return [
@@ -36,6 +36,6 @@ class StoreCommentRequest extends FormRequest
 
     public function authorize()
     {
-        return false;
+        return true;
     }
 }

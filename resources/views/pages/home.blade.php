@@ -125,6 +125,28 @@
                         </div>
                     </div>
                 </div>
+                @foreach ($bannerArticle as $item)
+                <div class="swiper-slide">
+                    <div class="banner-image" data-swiper-parallax="50%">
+                        <div class="thumb">
+                            <img src="{{ asset('article/'.$item->image)}}">
+                        </div>
+                    </div>
+                    <div class="banner-caption">
+                        <div class="container">
+                            <div class="caption">
+                                <div class="meta">
+                                    <span>{{ $item->created_at->format('d-m-Y') }}</span>
+                                </div>
+                                <div class="main-title">
+                                    <h2 class="title" ellipsis>{{ $item->title }}</h2>
+                                </div>
+                                <a class="link-icon" href="#!">Baca selengkapnya<i class="mdi mdi-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -166,7 +188,7 @@
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="main-title text-center">
                         <div class="subtitle">Sikepa</div>
-                        <h3 class="title">Informasi Deputi<br>atau Sesmen</h3>
+                        <h3 class="title">{{ $informasi->section->name }} {{ $informasi->name }}</h3>
                     </div>
                 </div>
             </div>
@@ -299,6 +321,24 @@
                         </div>
                     </div>
                 </div>
+                @foreach ($informasi->pages as $item)
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="single-article">
+                        <div class="box-media">
+                            <div class="thumb">
+                                <img src="{{ asset('page/'.$item->image)}}">
+                            </div>
+                        </div>
+                        <div class="single-caption">
+                            <div class="meta">
+                                <span>25 Aug, 2018</span>
+                            </div>
+                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Partisipasi Masyarakat</span></h5></a>
+                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
             <div class="caption-btn text-center">
                 <a class="btn btn-default btn-rounded" href="#!">Informasi lainnya</a>
@@ -460,6 +500,25 @@
                             </div>
                         </div>
                     </div>
+                    @foreach ($populerArticle as $item)
+                    <div class="swiper-slide">
+                        <div class="single-article">
+                            <div class="box-media">
+                                <a href="#!">
+                                    <div class="thumb">
+                                        <img src="{{ asset('article/'.$item->image)}}">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-caption">
+                                <div class="meta">
+                                    <span>{{ $item->created_at->format('d-m-Y') }}</span>
+                                </div>
+                                <a href="#!"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="caption-btn text-center">
@@ -526,7 +585,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar01.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar01.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">
@@ -539,7 +598,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar02.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar02.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">
@@ -552,7 +611,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar03.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar03.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">
@@ -565,7 +624,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar04.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar04.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">
@@ -578,7 +637,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar05.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar05.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">
@@ -591,7 +650,7 @@
                                 <div class="testimoni-info">
                                     <div class="box-media">
                                         <div class="thumb">
-                                            <img src="{{ asset('images/avatar06.jpg') }}">
+                                            <img src="{{ asset('assets/images/avatar06.jpg') }}">
                                         </div>
                                     </div>
                                     <div class="testimoni-name">

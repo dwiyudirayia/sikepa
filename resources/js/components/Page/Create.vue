@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Image</label>
-                    <input type="file" v-on:change="onImageChange" class="form-control">
+                    <input type="file" v-on:change="onImageChange" class="form-control" accept="image/x-png,image/jpeg">
                 </div>
                 <div class="form-group m-form__group">
                     <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
@@ -103,15 +103,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="m-form__seperator m-form__seperator--dashed"></div>
-                <div class="m-form__section m-form__section--last">
-                    <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Extra File Tambahan</h3>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">File</label>
-                        <input type="file" class="form-control" ref="files" multiple="multiple" v-on:change="handleExtraFile">
-                        <span class="m-form__help">Masukan File Yang di Inginkan</span>
+                <div class="m-form__seperator m-form__seperator--dashed" />
+                <div class="m-form__heading">
+                    <h3 class="m-form__heading-title">Extra File Tambahan</h3>
+                </div>
+                <div
+                    v-for="(value, index) in name"
+                    :key="index"
+                >
+                    <div class="m-form__section m-form__section--last">
+                        <div class="form-group m-form__group">
+                            <div class="text-right">
+                                <i
+                                    v-if="(index === name.length - 1)"
+                                    class="la la-plus fa-2x"
+                                    @click="addExtraFile"
+                                />
+                                <i
+                                    v-if="(index === name.length - 1)"
+                                    class="la la-minus fa-2x"
+                                    @click="removeExtraFile(index)"
+                                />
+                            </div>
+                            <label for="Nama Lengkap">Nama</label>
+                            <input type="text" v-model="name[index]" class="form-control">
+
+                            <label for="Nama Lengkap">File</label>
+                            <input type="file" class="form-control" ref="files" v-on:change="handleExtraFile(index)"><span class="m-form__help">Masukan File Yang di Inginkan</span>
+                        </div>
                     </div>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -190,7 +209,8 @@ export default {
                 publish: null,
                 approved: null
             },
-            files: [],
+            files: [''],
+            name: [''],
             section: null,
             category: null,
         }
@@ -216,19 +236,28 @@ export default {
         });
     },
     methods: {
-        handleExtraFile(e) {
-            let uploadedFiles = this.$refs.files.files;
-            console.log(uploadedFiles);
-            for(var i = 0; i < uploadedFiles.length; i++) {
-                this.files.push(uploadedFiles[i]);
-            }
+        removeExtraFile(index) {
+            this.name.splice(index, 1);
+            this.files.splice(index, 1);
+            this.$refs.files.splice(index, 1);
+        },
+        addExtraFile() {
+            this.name.push('');
+            this.files.push('');
+        },
+        handleExtraFile(index) {
+            let uploadedFiles = this.$refs.files[index].files[0];
+
+            this.files[index] = uploadedFiles;
         },
         onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            console.log(files);
-            if (!files.length)
+            if (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png' ) {
+                if (!files.length)
                 return;
             this.createImage(files[0]);
+            } else {
+                alert('File Tidak Mendukung');
+            }
         },
         createImage(file) {
             let reader = new FileReader();
@@ -257,6 +286,10 @@ export default {
 
             $.each(this.files, function(key, value) {
                 formData.append(`file[${key}]`, value);
+            })
+
+            $.each(this.name, function(key, value) {
+                formData.append(`name[${key}]`, value);
             })
 
             if(this.$v.forms.$invalid) {

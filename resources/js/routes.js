@@ -2,6 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from './store/store';
 
+//Dashboard
+import DashboardIndex from './components/Dashboard/Index';
+//End Dashboard
 // --- Admin ---//
 import Admin from './layouts/Admin';
 //User
@@ -500,7 +503,16 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true
                     }
-                }
+                },
+                //Dashboard
+                {
+                    path: '/dashboard',
+                    name: 'DashboardIndex',
+                    component: DashboardIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
             ]
         }
     ]

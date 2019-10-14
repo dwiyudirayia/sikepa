@@ -12,9 +12,9 @@ class CategoryPage extends Model
     protected $table = 'category_page';
     protected $fillable = ['created_by', 'updated_by', 'section_id', 'name'];
 
-    public function articles()
+    public function pages()
     {
-        return $this->hasMany(Page::class);
+        return $this->hasMany(Page::class, 'category_id');
     }
     public function section()
     {
