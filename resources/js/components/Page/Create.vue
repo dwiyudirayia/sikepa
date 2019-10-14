@@ -257,10 +257,14 @@ export default {
             this.files[index] = uploadedFiles;
         },
         onImageChange(e) {
-            if (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png' ) {
-                if (!files.length)
-                return;
-            this.createImage(files[0]);
+            let files = e.target.files || e.dataTransfer.files;
+            const checkExtFile = files[0];
+            if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
+                if (!files.length) {
+                    return;
+                } else {
+                    this.createImage(files[0]);
+                }
             } else {
 =======
             
