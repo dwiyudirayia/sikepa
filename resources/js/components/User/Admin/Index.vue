@@ -19,56 +19,12 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <ul class="m-portlet__nav">
-                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl">
-                                <i class="la la-ellipsis-h m--font-brand"></i>
-                            </a>
-                            <div class="m-dropdown__wrapper" style="z-index: 101;">
-                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
-                                <div class="m-dropdown__inner">
-                                    <div class="m-dropdown__body">
-                                        <div class="m-dropdown__content">
-                                            <ul class="m-nav">
-                                                <li class="m-nav__section m-nav__section--first">
-                                                    <span class="m-nav__section-text">Quick Actions</span>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-share"></i>
-                                                        <span class="m-nav__link-text">Activity</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                        <span class="m-nav__link-text">Messages</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-info"></i>
-                                                        <span class="m-nav__link-text">FAQ</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="" class="m-nav__link">
-                                                        <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                        <span class="m-nav__link-text">Support</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__separator m-nav__separator--fit">
-                                                </li>
-                                                <li class="m-nav__item">
-                                                    <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">Cancel</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <router-link to="/user/admin/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Admin'">
+                        <span>
+                            <i class="la la-plus"></i>
+                            <span>Tambah Admin</span>
+                        </span>
+                    </router-link>
                 </div>
             </div>
             <div class="m-portlet__body">
@@ -87,16 +43,16 @@
                             <td>{{ item.name }}</td>
                             <td>{{ item.jabatan }}</td>
                             <td>
-                                <router-link :to="{name: 'userEdit', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only">
+                                <router-link :to="{name: 'UserAdminEdit', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit User'">
                                     <span>
                                         <i class="la la-pencil"></i>
                                         <span>Edit User</span>
                                     </span>
                                 </router-link>
-                                <button @click="destroy" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only">
+                                <button @click="destroy" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'">
                                     <span>
                                         <i class="la la-pencil"></i>
-                                        <span>Edit User</span>
+                                        <span>Delete User</span>
                                     </span>
                                 </button>
                             </td>
@@ -131,19 +87,45 @@ export default {
     computed: {
         getMessage()
         {
-            return this.$store.getters['faq/getMessage'];
+            return this.$store.getters['admin/getMessage'];
         },
         getStatusatusCode()
         {
-            return this.$store.getters['faq/getStatusCode'];
+            return this.$store.getters['admin/getStatusCode'];
         },
         getShowNotification()
         {
-            return this.$store.getters['faq/getShowNotification'];
+            return this.$store.getters['admin/getShowNotification'];
         }
     },
     created() {
-
+        this.$store.dispatch('admin/indexAdmin');
+    },
+    methods: {
+        destroy(id) {
+            this.$store.dispatch('admin/destroyAdmin', id);
+        },
+        confirmDelete(id)
+        {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data yang terhapus tidak bisa di kembalikan",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus!'
+                }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    );
+                    this.destroy(id);
+                }
+            })
+        },
     }
 }
 </script>
