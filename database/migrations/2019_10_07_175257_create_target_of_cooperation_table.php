@@ -18,7 +18,6 @@ class CreateTargetOfCooperationTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
