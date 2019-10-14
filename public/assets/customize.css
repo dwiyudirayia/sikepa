@@ -661,7 +661,16 @@ a:hover {
 .m-login__aside .m-login__logo {
 	position: relative;
 	width: 100%;
-	max-width: 150px;
+	max-width: 300px;
+}
+
+.m-login__aside .m-login__logo a {
+    position: relative;
+    width:100%;
+}
+
+.m-login__aside .m-login__logo img {
+    width: 100%;
 }
 
 .m-login.m-login--1 .m-login__wrapper .m-form {
@@ -761,7 +770,7 @@ a:hover {
 @media screen and (min-width: 1025px) {
 
 		.m-login.m-login--6 .m-login__wrapper {
-			width: 700px;
+			width: 600px;
 		}
 		.m-login.m-login--6 .m-login__wrapper .m-login__account {
 			position: absolute;

@@ -12,6 +12,7 @@ import Page from './modules/page';
 import Agency from './modules/Agency';
 import Proposal from './modules/proposal';
 import Banner from './modules/banner';
+import Admin from './modules/admin';
 //End Module
 
 Vue.use(Vuex);
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
         page: Page,
         agency: Agency,
         proposal: Proposal,
-        banner: Banner
+        banner: Banner,
+        admin: Admin
     },
     state: {
         token: localStorage.getItem('token'),

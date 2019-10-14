@@ -1,0 +1,487 @@
+.main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  transition: transform 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.main-header:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.08);
+  z-index: -1;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.main-header.sticky:before {
+  transform: scaleY(1);
+}
+.main-header .container {
+  display: flex;
+  align-items: center;
+}
+.main-header .top-header {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.main-header .top-header .contact-header,
+.main-header .top-header .social-icon {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+.main-header .top-header .contact-header li,
+.main-header .top-header .social-icon li {
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  vertical-align: middle;
+}
+.main-header .top-header .contact-header li + li,
+.main-header .top-header .social-icon li + li {
+  margin-left: 20px;
+}
+.main-header .top-header .contact-header li i,
+.main-header .top-header .social-icon li i {
+  margin-right: 10px;
+}
+.main-header .top-header .social-icon {
+  margin-left: auto;
+}
+.main-header .top-header .social-icon li a {
+  color: #fff;
+  font-size: 16px;
+}
+.main-header .top-header .social-icon li a:hover, .main-header .top-header .social-icon li a:focus, .main-header .top-header .social-icon li a:focus:active {
+  color: rgba(255, 255, 255, 0.6);
+}
+.main-header .nav-header {
+  padding: 20px 0;
+}
+.main-header .nav-header .logo-header {
+  display: flex;
+  align-items: center;
+  margin-right: 80px;
+}
+.main-header .nav-header .logo-header .logo-icon {
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/sikepa_logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+}
+.main-header .nav-header .logo-header .logo-text {
+  text-transform: uppercase;
+  font-family: "vesterbro", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  color: #fff;
+  transition: color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.main-header .nav-header.sticky .logo-text {
+  color: red;
+}
+.main-header .nav-header .menu {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.main-header .nav-header .menu li + li {
+  margin-left: 40px;
+}
+.main-header .nav-header .menu a {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+.main-header .nav-header .menu a:hover, .main-header .nav-header .menu a:focus, .main-header .nav-header .menu a:focus:active {
+  color: #0EB6DD;
+}
+.main-header .nav-header .user-header {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.main-header .nav-header .user-header a:not(.btn-register) {
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+.main-header .nav-header .user-header a:not(.btn-register) + a {
+  margin-left: 40px;
+}
+.main-header .nav-header .user-header a:not(.btn-register):hover, .main-header .nav-header .user-header a:not(.btn-register):focus, .main-header .nav-header .user-header a:not(.btn-register):focus:active {
+  color: #0EB6DD;
+}
+.main-header .nav-header .user-header .btn-register {
+  position: relative;
+  transform: translateZ(0);
+  background-color: transparent;
+  color: #fff;
+  line-height: 0;
+  padding: 19px 0 19px 50px;
+}
+.main-header .nav-header .user-header .btn-register i {
+  font-size: 16px;
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+  margin-left: 20px;
+}
+.main-header .nav-header .user-header .btn-register:hover, .main-header .nav-header .user-header .btn-register:focus, .main-header .nav-header .user-header .btn-register:focus:active {
+  color: #fff;
+  background-color: transparent;
+}
+.main-header .nav-header .user-header .btn-register:before {
+  content: "";
+  position: absolute;
+  top: -21px;
+  bottom: -20px;
+  width: 3000%;
+  left: 0;
+  background-color: #0EB6DD;
+  z-index: -1;
+  transition: background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.main-header .nav-header .user-header .btn-register:hover::before {
+  background-color: #128DB3;
+}
+.main-header.sticky .logo-header .logo-text {
+  color: #000;
+}
+.main-header.sticky .menu a {
+  color: #000;
+}
+.main-header.sticky .user-header a:not(.btn-register) {
+  color: #000;
+}
+
+.banner-area {
+  position: relative;
+  transform: translateZ(0);
+  overflow: hidden;
+  /*&:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.5);
+      z-index: 1
+  }*/
+}
+.banner-area .swiper-wrapper {
+  transition-delay: 0.4s;
+}
+.banner-area .swiper-slide {
+  height: 100vh;
+  min-height: 768px;
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition-delay: 0.4s;
+}
+.banner-area .banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition-delay: 0.4s;
+  transition-timing-function: cubic-bezier(0.2, 0.4, 0.1, 1) !important;
+}
+.banner-area .banner-caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  padding-top: 100px;
+}
+.banner-area .banner-caption .caption {
+  position: relative;
+  max-width: 680px;
+  transition: transform 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.banner-area .banner-caption .caption .main-title {
+  margin: 40px 0;
+}
+.banner-area .banner-caption .caption .main-title .title {
+  font-size: 4em;
+  color: #fff;
+  height: calc(1.2em * 2);
+  overflow: hidden;
+}
+.banner-area .banner-caption .caption .main-title .title:after {
+  content: "";
+}
+.banner-area .banner-caption .caption .link-icon {
+  color: #fff;
+}
+.banner-area .banner-caption .caption .link-icon:hover {
+  color: #aaa;
+}
+.banner-area .banner-caption.change .caption {
+  opacity: 0;
+  transform: translateX(50px);
+}
+.banner-area .swiper-button-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+.banner-area .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.banner-area .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  width: 20px;
+  background-color: #0EB6DD;
+}
+
+.meta {
+  margin-bottom: 20px;
+}
+.meta span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #0EB6DD;
+}
+
+.single-article {
+  position: relative;
+  margin-bottom: 50px;
+}
+.single-article .single-caption {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  padding: 25px 30px 0 0;
+  margin: -40px 30px 0 0;
+}
+.single-article .single-caption .meta {
+  margin-bottom: 10px;
+}
+.single-article .single-caption .meta span {
+  color: #aaa;
+}
+.single-article .single-caption .title {
+  font-family: "vesterbro", sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin: 0 0 20px;
+  font-size: 20px;
+  height: calc(1.4em * 2);
+  overflow: hidden;
+}
+.single-article:hover .hover-line {
+  background-size: 100% 6px;
+}
+
+#home-info .caption-btn {
+  margin-top: 2em;
+}
+
+#home-article .main-title {
+  margin-bottom: 0;
+}
+#home-article .swiper-button-inline {
+  text-align: right;
+}
+#home-article .main-carousel {
+  margin-top: 5em;
+  overflow: visible;
+}
+#home-article .main-carousel .swiper-slide {
+  max-width: 300px;
+}
+#home-article .main-carousel .single-article {
+  margin-bottom: 0;
+}
+
+#home-testimoni {
+  background-color: #9CCF10;
+}
+#home-testimoni .main-title .subtitle {
+  color: #fff;
+}
+#home-testimoni .main-title .title,
+#home-testimoni .main-title .title:after {
+  color: #fff;
+}
+#home-testimoni .testimoni-content .caption-text {
+  color: #fff;
+}
+#home-testimoni .testimoni-content .caption-text i {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 42px;
+  vertical-align: middle;
+  line-height: 1;
+}
+#home-testimoni .testimoni-content .swiper-slide,
+#home-testimoni .testimoni-content .swiper-slide-prev,
+#home-testimoni .testimoni-content .swiper-slide-next {
+  opacity: 0 !important;
+}
+#home-testimoni .testimoni-content .swiper-slide-active {
+  opacity: 1 !important;
+}
+#home-testimoni .testimoni-user {
+  overflow: visible;
+  margin-top: 30px;
+}
+#home-testimoni .testimoni-user .testimoni-info {
+  cursor: pointer;
+  text-align: center;
+}
+#home-testimoni .testimoni-user .testimoni-info .box-media {
+  width: 120px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+  transform: scale(0.75);
+  opacity: 0.6;
+  transition: transform 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+#home-testimoni .testimoni-user .testimoni-info .testimoni-name {
+  transition: opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+  opacity: 0;
+  transition-delay: 0s;
+  margin-top: 20px;
+}
+#home-testimoni .testimoni-user .testimoni-info .testimoni-name .subtitle {
+  margin: 0;
+  color: #fff;
+}
+#home-testimoni .testimoni-user .testimoni-info .testimoni-name .name {
+  font-family: "vesterbro", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1;
+  color: #fff;
+}
+#home-testimoni .testimoni-user .swiper-slide-active .box-media {
+  transform: scale(1);
+  opacity: 1;
+}
+#home-testimoni .testimoni-user .swiper-slide-active .testimoni-name {
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+.main-footer .main-title {
+  margin-bottom: 2em;
+}
+.main-footer .main-title .title {
+  font-family: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #212121;
+}
+.main-footer .main-title .title:after {
+  display: none;
+}
+.main-footer .logo-footer {
+  display: flex;
+  align-items: center;
+  margin-right: 80px;
+}
+.main-footer .logo-footer .logo-icon {
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/sikepa_logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+}
+.main-footer .logo-footer .logo-text {
+  text-transform: uppercase;
+  font-family: "vesterbro", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  color: #212121;
+}
+.main-footer .footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  padding: 0;
+  list-style: none;
+}
+.main-footer .footer-nav > li {
+  flex: 0 0 50%;
+  margin: 8px 0;
+  padding: 0 10px;
+}
+.main-footer .footer-nav > li a {
+  color: #757575;
+}
+.main-footer .footer-nav > li a:hover, .main-footer .footer-nav > li a:focus, .main-footer .footer-nav > li a:focus:active {
+  color: #121212;
+}
+.main-footer .contact-footer {
+  display: block;
+  margin: 0;
+}
+.main-footer .contact-footer li {
+  padding: 0;
+}
+.main-footer .contact-footer li a {
+  color: #212121;
+  font-weight: 600;
+}
+.main-footer .social-icon {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.main-footer .social-icon li {
+  display: inline-block;
+}
+.main-footer .social-icon li + li {
+  margin-left: 15px;
+}
+.main-footer .social-icon li a {
+  font-size: 20px;
+  color: #0EB6DD;
+}
+.main-footer .social-icon li a:hover, .main-footer .social-icon li a:focus, .main-footer .social-icon li a:focus:active {
+  color: #0271A8;
+  text-decoration: none;
+}
+.main-footer .bottom-footer {
+  padding: 3em 0;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+.main-footer .bottom-footer .copyright {
+  color: #bbb;
+}
+
+/*# sourceMappingURL=main.css.map */
