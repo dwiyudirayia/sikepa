@@ -91,6 +91,15 @@ class PermissionSeeder extends Seeder
             25 => [
                 'name' => 'Delete Instansi',
             ],
+            26 => [
+                'name' => 'Pengajuan'
+            ],
+            27 => [
+                'name' => 'Disposisi Surat'
+            ],
+            28 => [
+                'name' => 'Kepala Bidang'
+            ],
         ];
 
         foreach ($arrayPermission as $key => $value) {
