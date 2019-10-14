@@ -14,6 +14,7 @@
                     </div>
                 </div>
             </div>
+
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Section</label>
