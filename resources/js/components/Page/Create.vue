@@ -152,7 +152,7 @@
                                     @click="addExtraFile"
                                 />
                                 <i
-                                    v-if="(index === name.length - 1)"
+                                    v-if="name.length >= 2 && index === name.length - 1"
                                     class="la la-minus fa-2x"
                                     @click="removeExtraFile(index)"
                                 />

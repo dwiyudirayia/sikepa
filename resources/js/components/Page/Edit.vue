@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Page
+                            Edit Page
                         </h3>
                     </div>
                 </div>
@@ -184,7 +184,7 @@ import $axios from './../../api';
 import Select2Edit from './Select2Edit';
 
 export default {
-    name: 'PageCreate',
+    name: 'PageEdit',
     components: {
         Select2Edit,
         Editor
