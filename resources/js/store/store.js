@@ -13,6 +13,7 @@ import Agency from './modules/Agency';
 import Proposal from './modules/proposal';
 import Banner from './modules/banner';
 import Admin from './modules/admin';
+import Testimoni from './modules/testimoni';
 //End Module
 
 Vue.use(Vuex);
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
         agency: Agency,
         proposal: Proposal,
         banner: Banner,
-        admin: Admin
+        admin: Admin,
+        testimoni: Testimoni,
     },
     state: {
         token: localStorage.getItem('token'),
