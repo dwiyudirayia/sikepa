@@ -181,7 +181,8 @@
 import { required } from 'vuelidate/lib/validators';
 import Editor from '@tinymce/tinymce-vue'
 import $axios from './../../api';
-import Select2Edit from './Select2Edit'
+import Select2Edit from './Select2Edit';
+
 export default {
     name: 'ArticleCreate',
     components: {
@@ -207,6 +208,7 @@ export default {
                 section_id: null,
                 category_id: null,
                 title: null,
+                short_content: null,
                 content: null,
                 image: null,
                 seo_title: null,

@@ -203,14 +203,15 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import Editor from '@tinymce/tinymce-vue'
+import Editor from '@tinymce/tinymce-vue';
 import $axios from './../../api';
 import Select2 from './Select2'
+
 export default {
     name: 'PageCreate',
     components: {
         Select2,
-        VueEditor
+        Editor
     },
     data() {
         return {
