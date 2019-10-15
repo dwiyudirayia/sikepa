@@ -37,22 +37,8 @@
                     <input type="file" v-on:change="onImageChange" class="form-control">
                 </div>
                 <div class="form-group m-form__group">
-                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
-                        <!--begin::Item-->
-                        <div class="m-accordion__item m-accordion__item--success">
-                            <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
-                                <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
-                                <span class="m-accordion__item-title">Tampilan Gambar</span>
-                                <span class="m-accordion__item-mode"></span>
-                            </div>
-                            <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
-                                <div class="m-accordion__item-content">
-                                    <img :src="`/banner/${forms.image_path}`" class="img-responsive" height="100%" width="100%" v-show="previousImage">
-                                    <img :src="forms.image_path" class="img-responsive" height="100%" width="100%" v-show="currentlyImage">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <img :src="`/banner/${forms.image_path}`" class="img-responsive" height="70" width="90" v-show="previousImage">
+                    <img :src="forms.image_path" class="img-responsive" height="70" width="90" v-show="currentlyImage">
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Dekripsi Banner</label>

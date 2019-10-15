@@ -1,5 +1,4 @@
 import $axiosFormData from './../../apiformdata';
-import $axios from './../../api';
 
 const admin = {
     namespaced: true,
@@ -44,20 +43,6 @@ const admin = {
         }
     },
     actions: {
-        indexAdmin({ commit }) {
-            $axios.get('/admin/user/admin')
-            .then(response => {
-                commit('updateData', response);
-                commit('clearPage');
-            });
-        },
-        createAdmin({ commit }) {
-            $axios.get('/admin/user/admin/create')
-            .then(response => {
-                commit('updateData', response);
-                commit('clearPage');
-            })
-        },
         clearPage({commit})
         {
             commit('clearPage');

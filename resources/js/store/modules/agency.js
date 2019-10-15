@@ -107,7 +107,7 @@ const agency = {
                 commit('updateData', response);
             })
             .catch(error => {
-                commit('notification', error);
+                console.log('aw');
 
             })
 

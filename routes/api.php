@@ -75,9 +75,6 @@ Route::middleware('auth:api')->group( function () {
         //User
         Route::get('check/same/current/password/{current_password}', 'UserController@checkSameCurrentPassword');
         Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
-
-        Route::get('user/admin', 'AdminController@index');
-        Route::get('user/admin/create', 'AdminController@create');
         //End User
 
         //End Validation

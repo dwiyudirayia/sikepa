@@ -257,7 +257,7 @@ export default {
                 if (!files.length) {
                     return;
                 } else {
-                    this.createImage(checkExtFile);
+                    this.createImage(files[0]);
                 }
             } else {
                 alert('File Tidak Mendukung');
