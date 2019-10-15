@@ -79,6 +79,9 @@ Route::middleware('auth:api')->group( function () {
 
         //End Validation
         Route::post('comment', 'CommentController@store');
+
+        Route::get('user/admin', 'AdminController@index');
+        Route::get('user/admin/create', 'AdminController@create');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

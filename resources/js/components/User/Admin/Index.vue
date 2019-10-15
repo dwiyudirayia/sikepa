@@ -37,8 +37,8 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody v-if="data != undefined">
-                        <tr v-for="(item, index) in data" :key="item.id">
+                    <tbody v-if="this.$store.getters['admin/getData'].length != 0">
+                        <tr v-for="(item, index) in this.$store.getters['admin/getData']" :key="item.id">
                             <td>{{ index+1 }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.jabatan }}</td>
