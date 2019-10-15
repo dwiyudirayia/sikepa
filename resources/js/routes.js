@@ -149,6 +149,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/user/admin/create',
+                    name: 'UserAdminCreate',
+                    component: UserAdminCreate,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //Section Article
                 {
                     path: '/section/article',
