@@ -17,7 +17,7 @@ class AdminController extends Controller
     {
         try {
             $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
-                $query->whereBetween('id', [1,4]);
+                $query->whereBetween('id', [1,26]);
             })->where('id', '!=', request()->user()->id)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

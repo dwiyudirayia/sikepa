@@ -28,7 +28,7 @@ class StoreCategoryArticleRequest extends FormRequest
     public function store()
     {
         return [
-            'created_by' => 1,
+            'created_by' => request()->user()->id,
             'section_id' => $this->section_id,
             'name' => $this->name,
         ];

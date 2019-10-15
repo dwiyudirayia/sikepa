@@ -42,7 +42,7 @@ class StoreTestimoniRequest extends FormRequest
     public function store()
     {
         return [
-            'user_id' => 1,
+            'user_id' => request()->user()->id,
             'testimoni' => $this->testimoni
         ];
     }

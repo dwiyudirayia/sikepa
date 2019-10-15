@@ -43,7 +43,7 @@
                 </li>
                 <li class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/testimoni">
-                        <i class="m-menu__link-icon la la-image"></i>
+                        <i class="m-menu__link-icon la la-comment"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
                                 <span class="m-menu__link-text">Testimoni</span><span class="m-menu__link-badge"></span>

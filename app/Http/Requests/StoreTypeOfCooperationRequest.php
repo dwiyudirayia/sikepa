@@ -29,7 +29,7 @@ class StoreTypeOfCooperationRequest extends FormRequest
     public function store()
     {
         return [
-            'created_by' => 1,
+            'created_by' => request()->user()->id,
             'name' => $this->name,
         ];
     }

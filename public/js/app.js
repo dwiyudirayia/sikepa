@@ -65870,7 +65870,7 @@ var render = function() {
                   "router-link",
                   { staticClass: "m-menu__link", attrs: { to: "/testimoni" } },
                   [
-                    _c("i", { staticClass: "m-menu__link-icon la la-image" }),
+                    _c("i", { staticClass: "m-menu__link-icon la la-comment" }),
                     _vm._v(" "),
                     _c("span", { staticClass: "m-menu__link-title" }, [
                       _c("span", { staticClass: "m-menu__link-wrap" }, [
