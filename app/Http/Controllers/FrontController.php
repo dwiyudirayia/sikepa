@@ -11,7 +11,7 @@ class FrontController extends Controller
     {
         $bannerArticle = Article::orderBy('created_at', 'desc')->take(3)->get();
         $populerArticle = Article::orderBy('created_at', 'desc')->take(5)->get();
-        $informasi = CategoryPage::with('pages', 'section')->findOrFail(1);
+        $informasi = CategoryPage::with('pages', 'section', 'pages.files')->findOrFail(1);
 
         return view('pages.home', [
             'bannerArticle' => $bannerArticle,

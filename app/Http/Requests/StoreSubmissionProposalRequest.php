@@ -49,9 +49,8 @@ class StoreSubmissionProposalRequest extends FormRequest
     }
     public function store()
     {
-        $user = request()->user();
         return [
-            'created_by' => $user->id,
+            'created_by' => request()->user()->id,
             'mailing_number' => "Surat".strototime(date('d-m-Y')),
             'type_of_cooperation_id' => $this->type_of_cooperation_id,
             'substance_cooperation_id' => $this->substance_cooperation_id,

@@ -72,6 +72,12 @@ Route::middleware('auth:api')->group( function () {
         Route::get('check/category/page/{name}/edit/{id}', 'CategoryPageController@checkNameCategoryEdit');
         //End Article
 
+        // Testimoni
+        Route::get('testimoni', 'TestimoniController@index');
+        Route::post('testimoni', 'TestimoniController@store');
+        Route::delete('testimoni/{id}', 'TestimoniController@destroy');
+        // EndTestimoni
+
         //User
         Route::get('check/same/current/password/{current_password}', 'UserController@checkSameCurrentPassword');
         Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
@@ -79,6 +85,9 @@ Route::middleware('auth:api')->group( function () {
 
         //End Validation
         Route::post('comment', 'CommentController@store');
+
+        Route::get('user/admin', 'AdminController@index');
+        Route::get('user/admin/create', 'AdminController@create');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

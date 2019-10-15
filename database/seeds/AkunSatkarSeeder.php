@@ -74,8 +74,6 @@ class AkunSatkarSeeder extends Seeder
                 'password' => $value['password'],
                 'jabatan' => $value['jabatan']
             ]);
-
-            $user->assignRole($value['name']);
         }
     }
 }

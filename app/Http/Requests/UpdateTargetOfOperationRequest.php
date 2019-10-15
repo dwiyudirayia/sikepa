@@ -28,7 +28,7 @@ class UpdateTargetOfOperationRequest extends FormRequest
     public function update()
     {
         return [
-            'updated_by' => 1,
+            'updated_by' => request()->user()->id,
             'name' => $this->name,
         ];
     }

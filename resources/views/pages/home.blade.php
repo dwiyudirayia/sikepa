@@ -331,10 +331,12 @@
                         </div>
                         <div class="single-caption">
                             <div class="meta">
-                                <span>25 Aug, 2018</span>
+                                <span>{{ $item->created_at->format('d-m-Y') }}</span>
                             </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Partisipasi Masyarakat</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
+                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
+                            @foreach ($item->files as $file)
+                                <a class="link" href="#!"><i class="mdi mdi-download"></i>{{ $file->name }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

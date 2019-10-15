@@ -45,7 +45,7 @@ class StoreFAQRequest extends FormRequest
     public function store()
     {
         return [
-            'created_by' => 1,
+            'created_by' => request()->user()->id,
             'question' => $this->question,
             'answere' => $this->answere
         ];

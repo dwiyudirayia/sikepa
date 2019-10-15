@@ -98,6 +98,11 @@ import AgencyIndex from './components/Agency/Index';
 import AgencyCreate from './components/Agency/Create';
 import AgencyEdit from './components/Agency/Edit';
 // End Agency
+
+// Testimoni
+import TestimoniIndex from './components/Testimoni/Index';
+import TestimoniCreate from './components/Testimoni/Create';
+// EndTestimoni
 // --- End Admin --//
 
 //Auth
@@ -145,6 +150,14 @@ const router = new VueRouter({
                     path: '/user/admin',
                     name: 'UserAdminIndex',
                     component: UserAdminIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/user/admin/create',
+                    name: 'UserAdminCreate',
+                    component: UserAdminCreate,
                     meta: {
                         requiresAuth: true
                     }
@@ -502,6 +515,23 @@ const router = new VueRouter({
                     component: BannerEdit,
                     meta: {
                         requiresAuth: true
+                    }
+                },
+                //Testimoni
+                {
+                    path: '/testimoni',
+                    name: 'TestimoniIndex',
+                    component: TestimoniIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/testimoni/create',
+                    name: 'TestimoniCreate',
+                    component: TestimoniCreate,
+                    meta: {
+                        requiresAuth: true,
                     }
                 },
                 //Dashboard

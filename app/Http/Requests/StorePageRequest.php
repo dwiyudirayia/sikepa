@@ -37,7 +37,7 @@ class StorePageRequest extends FormRequest
             \Image::make($this->image)->save(public_path('page/').$name);
 
             return [
-                'created_by' => 1,
+                'created_by' => request()->user()->id,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
@@ -53,7 +53,7 @@ class StorePageRequest extends FormRequest
             ];
         } else {
             return [
-                'created_by' => 1,
+                'created_by' => request()->user()->id,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
