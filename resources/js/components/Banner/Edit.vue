@@ -83,14 +83,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import { VueEditor } from "vue2-editor";
 import $axios from './../../api';
 import Select2Edit from './Select2Edit'
 export default {
     name: 'BannerCreate',
     components: {
         Select2Edit,
-        VueEditor
     },
     data() {
         return {
