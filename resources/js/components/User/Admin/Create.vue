@@ -45,7 +45,7 @@
                     </div>
                     <template v-if="$v.forms.email.$error">
                         <span v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span class="m--font-danger" v-if="!$v.forms.email.isUnique">Nama Section Sudah Terdaftar.</span>
+                        <span v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</span>
                     </template>
                     <br>
                     <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
@@ -72,7 +72,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>
                     <div class="m-form__control">
-                        <input type="file" @change="onSignatureChange" class="form-control" accept="image/x-png,image/jpeg">
+                        <input type="file" @change="onSignatureChange" ref="signature" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
                     <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="forms.signature" class="img-responsive" height="100%" width="100%">
+                                    <img :src="forms.signaturePreview" class="img-responsive" height="100%" width="100%">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Foto Admin</label>
                     <div class="m-form__control">
-                        <input type="file" @change="onPhotoChange" class="form-control" accept="image/x-png,image/jpeg">
+                        <input type="file" @change="onPhotoChange" ref="photo" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
                     <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="m-accordion__item-body collapse show" id="m_accordion_8_item_3_body" role="tabpanel" aria-labelledby="m_accordion_8_item_3_head" data-parent="#m_accordion_7" style="">
                                     <div class="m-accordion__item-content">
-                                        <img :src="forms.photo" class="img-responsive" height="100%" width="100%">
+                                        <img :src="forms.photoPreview" class="img-responsive" height="100%" width="100%">
                                     </div>
                                 </div>
                             </div>
@@ -128,9 +128,9 @@
                         <label for="Nama Lengkap">Hak Akses</label>
                         <div class="m-checkbox-inline">
                             <div class="row">
-                                <div class="col-lg-3 col-sm-3" v-for="value in this.$store.getters['admin/getData']" :key="value.id">
+                                <div class="col-lg-3 col-sm-3" v-for="value in this.listPermissions" :key="value.id">
                                     <label class="m-checkbox">
-                                        <input type="checkbox" :value="value.name" @click="addPermission(value.name)"> {{ value.name }}
+                                        <input type="checkbox" v-model="forms.permissions" :value="value.name" @click="addPermission(value.name)"> {{ value.name }}
                                         <span></span>
                                     </label>
                                 </div>
@@ -157,6 +157,7 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import $axios from './../../../api';
 export default {
     name: 'UserAdminCreate',
     data() {
@@ -181,9 +182,12 @@ export default {
                 password: null,
                 jabatan: null,
                 signature: null,
+                signaturePreview: null,
                 photo: null,
+                photoPreview: null,
                 permissions: []
             },
+            listPermissions: [],
         }
     },
     validations: {
@@ -205,16 +209,23 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('admin/createAdmin');
+        $axios.get('/admin/user/admin/create')
+        .then(response => {
+            this.listPermissions = response.data.data;
+        })
     },
     methods: {
         onSignatureChange(e) {
             let files = e.target.files || e.dataTransfer.files;
+            let uploadedFiles = this.$refs.signature.files[0];
+            console.log(uploadedFiles);
+
             const checkExtFile = files[0];
             if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
                 if (!files.length) {
                     return;
                 } else {
+                    this.forms.signature = uploadedFiles;
                     this.createSignature(checkExtFile);
                 }
             } else {
@@ -225,17 +236,20 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.signature = e.target.result;
+                vm.forms.signaturePreview = e.target.result;
             };
             reader.readAsDataURL(file);
         },
         onPhotoChange(e) {
             let files = e.target.files || e.dataTransfer.files;
+            let uploadedFiles = this.$refs.photo.files[0];
+
             const checkExtFile = files[0];
             if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
                 if (!files.length) {
                     return;
                 } else {
+                    this.forms.photo = uploadedFiles;
                     this.createPhoto(checkExtFile);
                 }
             } else {
@@ -246,7 +260,7 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.photo = e.target.result;
+                vm.forms.photoPreview = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -256,12 +270,35 @@ export default {
             if (index == -1) {
                 //MAKA TAMBAHKAN KE LIST
                 this.forms.permissions.push(name)
-                console.log(name);
             } else {
                 //JIKA SUDAH ADA, MAKA HAPUS DARI LIST
                 this.forms.permissions.splice(index, 1)
-                console.log(index);
             }
+        },
+        store() {
+            this.$v.forms.$touch();
+
+            let formData = new FormData();
+
+            formData.append('name', this.forms.name);
+            formData.append('username', this.forms.username);
+            formData.append('email', this.forms.email);
+            formData.append('password', this.forms.spassword);
+            formData.append('jabatan', this.forms.jabatan);
+            formData.append('signature', this.forms.signature);
+            formData.append('photo', this.forms.photo);
+
+            $.each(this.forms.permissions, function(key, value) {
+                formData.append(`permissions[]`, value);
+            })
+
+            if(this.$v.forms.$invalid) {
+                return;
+            } else {
+                this.$store.dispatch('admin/storeAdmin', formData);
+                this.$v.$reset();
+            }
+            this.$router.push({ path: `/user/admin` });
         }
     }
 }
