@@ -45,14 +45,14 @@ const admin = {
     },
     actions: {
         indexAdmin({ commit }) {
-            $axios.get('/admin/user/admin')
+            $axios.get('/admin/user/admin/index')
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');
             });
         },
-        createAdmin({ commit }) {
-            $axios.get('/admin/user/admin/create')
+        storeAdmin({ commit }, forms) {
+            $axiosFormData.post(`/admin/user/admin/store`, forms)
             .then(response => {
                 commit('updateData', response);
                 commit('clearPage');

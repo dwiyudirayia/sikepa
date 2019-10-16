@@ -59,6 +59,16 @@ return [
             'root' => storage_path('app/public/file_page'),
             'visibility' => 'public',
         ],
+        'signature_user' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/signature_user'),
+            'visibility' => 'public',
+        ],
+        'photo_user' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_user'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
