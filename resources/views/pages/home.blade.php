@@ -546,37 +546,37 @@
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>Aliquam maximus lacus imperdiet augue cursus, vitae sollicitudin est venenatis. Curabitur luctus, enim ut dapibus interdum, nisl ligula placerat dui, sed porttitor ipsum mi sagittis libero. Maecenas eleifend tortor ac nisl porta, quis feugiat ante sodales.</p>
+                                    <p>Selama Menggunakan Sistem Pengajuan dari kementrian kita tidak perlu untuk membuang waktu dan juga biaya yang terlalu banyak karena semua dilakukan secara online</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>In eleifend consequat magna. Mauris eu turpis a enim lacinia dignissim eget sit amet nisl. Aliquam sed quam pellentesque, cursus risus ac, gravida augue. Nullam id ex pharetra, mattis ligula ac, consectetur odio.</p>
+                                    <p>Kita dapat mengajukan kerjasama dengan mudah dan persyaratannya pun sudah jelas , apalagi penanganan kerjasama sangatlah rama , pelayanan nya terbaik</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>Curabitur sit amet sodales ante. Donec tincidunt, neque at pulvinar cursus, est massa gravida libero, a tempor quam nibh quis justo. Aliquam sed nunc ante. Vestibulum a felis quis purus tempus vestibulum. Etiam ullamcorper sem mi, non efficitur erat congue ac.</p>
+                                    <p>SIKEPA adalah Sistem kerjasama yang baru saya temui dengan sangat User Friendly , Tampilannya sangat mudah dimengerti dan juga proses yang terhitung sangat cepat .</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>Nam blandit gravida mauris ut tempus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In tincidunt lobortis est, vitae porta sapien auctor et. Quisque id risus quis risus malesuada dapibus non at urna.</p>
+                                    <p>Rekomendasi Bagi para perusahaan yang ingin mengajukan kerjasama nih , kita harus bangga Indonesia memiliki Sistem Seperti ini , yaitu dengan mengajak yang lain juga.</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>Aliquam maximus lacus imperdiet augue cursus, vitae sollicitudin est venenatis. Curabitur luctus, enim ut dapibus interdum, nisl ligula placerat dui, sed porttitor ipsum mi sagittis libero. Maecenas eleifend tortor ac nisl porta, quis feugiat ante sodales.</p>
+                                    <p>Dulu susah payah mengajukan kerjasama ,sekarang mudah banget tinggal buka Laptop atau HP terus masukin persyaratannya , udah deh , tunggu waktu panggilan selanjutnya, Sukses terus.</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>In eleifend consequat magna. Mauris eu turpis a enim lacinia dignissim eget sit amet nisl. Aliquam sed quam pellentesque, cursus risus ac, gravida augue. Nullam id ex pharetra, mattis ligula ac, consectetur odio.</p>
+                                    <p>Di Zaman sekarang semua serba mudah apalagi ditambah dengan hadirnya SIKEPA , Mengajukan Kerjasama Mudah banget , tinggal menunggu , dan itu pun prosesnya cepat . Terima kasih SIKEPA</p>
                                 </div>
                             </div>
                         </div>
