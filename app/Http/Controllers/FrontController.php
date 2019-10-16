@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\CategoryPage;
+use App\FilePage;
+use Storage;
 class FrontController extends Controller
 {
     public function home()
@@ -36,5 +38,10 @@ class FrontController extends Controller
             'article' => $article,
             'newArticle' => $newArticle
         ]);
+    }
+    public function downloadPdf($id) {
+        $filePage = FilePage::findOrFail($id);
+
+        return response()->download(public_path('storage/'.$filePage->file));
     }
 }
