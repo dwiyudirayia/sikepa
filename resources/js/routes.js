@@ -219,7 +219,7 @@ const router = new VueRouter({
                     component: ListCategoryArticle,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
                 },
                 {
                     path: '/article/create',
@@ -244,7 +244,12 @@ const router = new VueRouter({
                     component: SectionPageIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        let listPermissions = store.state.user.authenticated;
+                        console.log(listPermissions);
+                        next();
+                    },
                 },
                 {
                     path: '/section/page/create',

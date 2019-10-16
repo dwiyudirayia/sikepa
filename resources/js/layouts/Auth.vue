@@ -1,10 +1,38 @@
 <template>
-    <router-view></router-view>
+    <div class="router-transitions">
+        <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container">
+            <div class="ui-bg-overlay bg-customize" :style="{'background-image' : `url('${image}')`}"></div>
+            <div class="title-inner">
+                <div class="title-app">
+                    <h1>SIKEPA</h1>
+                    <hr>
+                    <h5>SISTEM INFORMASI KERJASAMA KEMENPPPA</h5>
+                </div>
+            </div>
+            <div class="authentication-inner pt-3">
+                <div class="card">
+                    <div class="p-4 p-sm-5">
+                        <div class="d-flex justify-content-center align-items-center pb-4">
+                            <img src="/admin/sikepa.png" alt="">
+                        </div>
+                        <h5 class="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5> <span></span>
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
+import bg from './../assets/background/5.jpg';
 export default {
     name: 'Auth',
+    data() {
+        return {
+            image: bg
+        }
+    },
     beforeCreate()
     {
         $('body').removeClass('m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default m-brand--minimize m-aside-left--minimize');

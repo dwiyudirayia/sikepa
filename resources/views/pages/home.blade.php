@@ -193,136 +193,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img01.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Perlindungan Anak</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img02.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Tumbuh Kembang Anak</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img03.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Pemenuhan Hak Perempuan</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img04.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Partisipasi Masyarakat</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img03.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Perlindungan Anak</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img04.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Tumbuh Kembang Anak</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img02.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Pemenuhan Hak Perempuan</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div class="single-article">
-                        <div class="box-media">
-                            <div class="thumb">
-                                <img src="{{ asset('assets/images/img01.jpg')}}">
-                            </div>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="#!"><h5 class="title" ellipsis><span class="hover-line">Deputi Bidang Partisipasi Masyarakat</span></h5></a>
-                            <a class="link" href="#!"><i class="mdi mdi-download"></i>Download .pdf</a>
-                        </div>
-                    </div>
-                </div>
                 @foreach ($informasi->pages as $item)
-                <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="single-article">
                         <div class="box-media">
                             <div class="thumb">
@@ -335,7 +207,7 @@
                             </div>
                             <a href="#!"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
                             @foreach ($item->files as $file)
-                                <a class="link" href="#!"><i class="mdi mdi-download"></i>{{ $file->name }}</a>
+                                <a class="link" href="{{ url('front/download/pdf/'.$file->id) }}"><i class="mdi mdi-download"></i>Download {{ $file->name }}.PDF</a>
                             @endforeach
                         </div>
                     </div>
@@ -698,7 +570,7 @@
                             <h5 class="title">Kontak Kami</h5>
                         </div>
                         <ul class="footer-nav contact-footer">
-                            <li>Jl. Batu Indah I No.6, Batununggal, Kec. Bandung Kidul, Kota Bandung, Jawa Barat 40266</li>
+                            <li>Hak Cipta Kementerian Pemberdayaan Perempuan Dan Perlindungan Anak Jl. Medan Merdeka Barat No. 15, Jakarta 10110 Telp : (021) 3842638, 3805563</li>
                             <li>0812-3456-7890</li>
                             <li><a href="#!"><span class="hover-line">info@sikepa.id</span></a></li>
                             <li>

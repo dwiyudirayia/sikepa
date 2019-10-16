@@ -13,6 +13,7 @@
 Route::get('/', 'FrontController@home');
 Route::get('/front/article', 'FrontController@article');
 Route::get('/front/article/{id}', 'FrontController@articleDetail');
+Route::get('front/download/pdf/{file}', 'FrontController@downloadPdf');
 
 Route::get('/{any}', function(){
     return view('layouts.app');

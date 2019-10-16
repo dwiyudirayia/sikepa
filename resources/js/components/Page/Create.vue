@@ -328,10 +328,6 @@ export default {
                 formData.append(`name[${key}]`, value);
             })
 
-            $.each(this.name, function(key, value) {
-                formData.append(`name[${key}]`, value);
-            })
-
             if(this.$v.forms.$invalid) {
                 return;
             } else {
