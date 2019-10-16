@@ -160,7 +160,7 @@ export default {
                 this.$v.$reset();
             }
 
-            this.$router.push('/agency')
+            this.$router.push('/proposal/agency')
         }
     },
 }

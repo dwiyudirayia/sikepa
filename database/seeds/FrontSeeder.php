@@ -52,7 +52,7 @@ class FrontSeeder extends Seeder
                 'pdf' => 'DEPUTI BIDANG PERLINDUNGAN ANAK KEMENTERIAN.pdf'
             ],
             3 => [
-                'title' => 'DEPUTI Bidang Perlindungan Hak Perempuan Kementerian PP DAN PA',
+                'title' => 'Deputi Bidang Perlindungan Hak Perempuan Kementerian PP DAN PA',
                 'url' => 'deputi-bidang-perlindungan-hak-perempuan-kementerian-pp-dan-pa',
                 'short_content' => '<p>Deputi Bidang Perlindungan Hak Perempuan adalah Deputi pada Kementerian Pemberdayaan Perempuan dan Perlindungan Anak yang menangani isu‐isu yang berkaitan dengan upaya melindungi dan mewujudkan perlindungan hak perempuan dan mempunyai tugas menyelenggarakan perumusan kebijakan serta koordinasi dan sinkronisasi pelaksanaan kebijakan di bidang perlindungan hak perempuan.</p>',
                 'content' => '<p>Deputi Bidang Perlindungan Hak Perempuan adalah Deputi pada Kementerian Pemberdayaan Perempuan dan Perlindungan Anak yang menangani isu‐isu yang berkaitan dengan upaya melindungi dan mewujudkan perlindungan hak perempuan dan mempunyai tugas menyelenggarakan perumusan kebijakan serta koordinasi dan sinkronisasi pelaksanaan kebijakan di bidang perlindungan hak perempuan.</p>',

@@ -29,6 +29,7 @@
 
 <script>
 import { mapState } from 'vuex';
+
 export default {
     name: 'Login',
     data() {
@@ -62,75 +63,72 @@ export default {
 }
 </script>
 
-<style type="text/css">.authentication-wrapper {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
-    min-height: 100vh;
-    width: 100%;
-}
-
-.authentication-wrapper .authentication-inner {
-    width: 100%;
-}
-
-.authentication-wrapper.authentication-1,
-.authentication-wrapper.authentication-2,
-.authentication-wrapper.authentication-4 {
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-.authentication-wrapper.authentication-1 .authentication-inner {
-    max-width: 300px;
-}
-
-.authentication-wrapper.authentication-2 .authentication-inner {
-    max-width: 380px;
-}
-
-.authentication-wrapper.authentication-3 {
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    -ms-flex-pack: stretch;
-    justify-content: stretch;
-}
-
-.authentication-wrapper.authentication-3 .authentication-inner {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -ms-flex-pack: stretch;
-    justify-content: stretch;
-}
-
-.authentication-wrapper.authentication-4 .authentication-inner {
-    max-width: 800px;
-}
-
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
-    .authentication-wrapper:after {
-        content: '';
-        display: block;
-        -ms-flex: 0 0 0%;
-        flex: 0 0 0%;
-        min-height: inherit;
-        width: 0;
-        font-size: 0;
-    }
-}
-
-</style>
-
 <!--CUSTOME CSS-->
-<style type="text/css">
+<style>
+    .authentication-wrapper {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .authentication-wrapper .authentication-inner {
+        width: 100%;
+    }
+
+    .authentication-wrapper.authentication-1,
+    .authentication-wrapper.authentication-2,
+    .authentication-wrapper.authentication-4 {
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .authentication-wrapper.authentication-1 .authentication-inner {
+        max-width: 300px;
+    }
+
+    .authentication-wrapper.authentication-2 .authentication-inner {
+        max-width: 380px;
+    }
+
+    .authentication-wrapper.authentication-3 {
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .authentication-wrapper.authentication-3 .authentication-inner {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .authentication-wrapper.authentication-4 .authentication-inner {
+        max-width: 800px;
+    }
+
+    @media all and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        .authentication-wrapper:after {
+            content: '';
+            display: block;
+            -ms-flex: 0 0 0%;
+            flex: 0 0 0%;
+            min-height: inherit;
+            width: 0;
+            font-size: 0;
+        }
+    }
 	.authentication-wrapper.authentication-2 {
 		flex-direction: column;
 	}
@@ -263,3 +261,12 @@ export default {
 	}
 
 </style>
+<style scoped src="./../../../sass/admin/dist/vendor/fonts/fontawesome.css"></style>
+<style scoped src="./../../../sass/admin/dist/vendor/fonts/ionicons.css"></style>
+<style scoped src="./../../../sass/admin/dist/vendor/fonts/linearicons.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/bootstrap.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/appwork.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/theme-app.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/colors.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/uikit.css"></style>
+<style scoped src="./../../../sass/admin/dist/css/style.css"></style>

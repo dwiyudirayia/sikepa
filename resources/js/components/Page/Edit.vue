@@ -208,6 +208,7 @@ export default {
                 section_id: null,
                 category_id: null,
                 title: null,
+                short_content: null,
                 content: null,
                 image: null,
                 seo_title: null,

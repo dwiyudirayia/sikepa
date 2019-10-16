@@ -26,7 +26,7 @@
                         <i class="m-menu__link-icon la la-tags"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Halaman</span><span class="m-menu__link-badge"></span>
+                                <span class="m-menu__link-text">Informasi Deputi</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </router-link>
@@ -67,6 +67,9 @@
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                                 <router-link to="/proposal/subtance/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kerjasama Subtansi</span></router-link>
                             </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/proposal/agency" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Instansi</span></router-link>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -102,16 +105,6 @@
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
                                 <span class="m-menu__link-text">FAQ</span><span class="m-menu__link-badge"></span>
-                            </span>
-                        </span>
-                    </router-link>
-                </li>
-                <li class="m-menu__item" aria-haspopup="true">
-                    <router-link class="m-menu__link" to="/agency">
-                        <i class="m-menu__link-icon la la-users"></i>
-                        <span class="m-menu__link-title">
-                            <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Instansi</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </router-link>

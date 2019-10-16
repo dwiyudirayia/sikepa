@@ -341,7 +341,7 @@ const router = new VueRouter({
                 },
                 //Agency
                 {
-                    path: '/agency',
+                    path: '/proposal/agency',
                     name: 'AgencyIndex',
                     component: AgencyIndex,
                     meta: {
@@ -349,7 +349,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/agency/create',
+                    path: '/proposal/agency/create',
                     name: 'AgencyCreate',
                     component: AgencyCreate,
                     meta: {
@@ -357,7 +357,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/agency/:id/edit',
+                    path: '/proposal/agency/:id/edit',
                     name: 'AgencyEdit',
                     component: AgencyEdit,
                     meta: {
