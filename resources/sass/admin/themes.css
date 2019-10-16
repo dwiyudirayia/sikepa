@@ -1,0 +1,29 @@
+.avatar-header-block {
+  background-color: rgba(0,0,0,0.1);
+}
+.sidenav-app-brand {
+    background-color: #5867dd;
+    color: white;
+}
+.sidenav.bg-white .sidenav-app-brand .sidenav-text,
+.sidenav.bg-white .sidenav-app-brand .sidenav-link {
+    color: white;
+}
+.sidenav.bg-white .sidenav-app-brand .sidenav-link:hover {
+    color: #fafafa;
+}
+
+@media screen and (max-width: 990px) {
+    .layout-navbar.navbar.bg-navbar-theme {
+        background-color: #5867dd !important;
+        color: white !important;
+    }
+    .layout-navbar.navbar.bg-navbar-theme .navbar-brand,
+    .layout-navbar.navbar.bg-navbar-theme .nav-link {
+        color: white;
+    }
+}
+
+.bg-navbar-theme .navbar-toggler {
+    border-color: white !important;
+}

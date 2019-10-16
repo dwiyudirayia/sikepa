@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import SideMenu from './../components/partialsAdmin/SideMenu.vue';
+import SideMenu from '@/components/partialsAdmin/SideMenu.vue';
 export default {
     name: "Admin",
     components: {
@@ -168,9 +168,10 @@ export default {
                 resolve()
             }).then(() => {
                 this.$store.state.token = localStorage.getItem('token')
-                this.$router.push('/login/admin')
+                this.$router.push('/login/admin');
+                window.location.href = '/login/admin';
             })
         }
-    }
+    },
 }
 </script>
