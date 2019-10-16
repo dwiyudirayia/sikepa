@@ -9,7 +9,18 @@
 	<link href="{{ asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/customize.css')}}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('assets/custom.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/custom.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('admin/dist/vendor/fonts/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/dist/vendor/fonts/ionicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/dist/vendor/fonts/linearicons.css') }}">
+    <link href="{{ asset('admin/dist/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/appwork.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/theme-app') }}.css" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/colors.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/uikit.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/dist/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{('admin/themes.css') }}">
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<!--end::Page Vendors Styles -->
 	<link rel="shortcut icon" href="{{ asset('simponi-new.png') }}" type="image/x-icon">
