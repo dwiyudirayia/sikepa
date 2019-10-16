@@ -60,11 +60,43 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten Singkat</label>
-                    <vue-editor v-model="forms.short_content"></vue-editor>
+                    <div class="m-form__control">
+                        <editor
+                            api-key="dzzffhe3e7rwi6o0yhr653apjdpwu2uyld4x4xppx02diki8"
+                            v-model="forms.short_content"
+                            :init="{
+                                height: 500,
+                                plugins: [
+                                    'print preview paste searchreplace autolink code visualblocks visualchars image link media table charmap hr anchor insertdatetime advlist lists wordcount imagetools textpattern noneditable charmap quickbars emoticons',
+                                ],
+                                imagetools_cors_hosts: ['picsum.photos'],
+                                menubar: 'file edit view insert format tools table',
+                                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap emoticons | preview save print | insertfile image media link',
+                                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                            }"
+                        >
+                        </editor>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Konten</label>
-                    <vue-editor v-model="forms.content"></vue-editor>
+                    <div class="m-form__control">
+                        <editor
+                            api-key="dzzffhe3e7rwi6o0yhr653apjdpwu2uyld4x4xppx02diki8"
+                            v-model="forms.content"
+                            :init="{
+                                height: 500,
+                                plugins: [
+                                    'print preview paste searchreplace autolink code visualblocks visualchars image link media table charmap hr anchor insertdatetime advlist lists wordcount imagetools textpattern noneditable charmap quickbars emoticons',
+                                ],
+                                imagetools_cors_hosts: ['picsum.photos'],
+                                menubar: 'file edit view insert format tools table',
+                                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap emoticons | preview save print | insertfile image media link',
+                                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                            }"
+                        >
+                        </editor>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Persetujuan</label>
@@ -142,14 +174,15 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import { VueEditor } from "vue2-editor";
+import Editor from '@tinymce/tinymce-vue'
 import $axios from './../../api';
-import Select2 from './Select2'
+import Select2 from './Select2';
+
 export default {
     name: 'ArticleCreate',
     components: {
         Select2,
-        VueEditor
+        Editor
     },
     data() {
         return {
@@ -170,7 +203,7 @@ export default {
                 section_id: null,
                 category_id: null,
                 title: null,
-                short_cotent: null,
+                short_content: null,
                 content: null,
                 image: null,
                 seo_title: null,
