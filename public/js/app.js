@@ -7370,6 +7370,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7392,21 +7422,12 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Edit Page',
         path: "/page/".concat(this.$route.params.id, "/edit")
       }],
-      forms: {
-        section_id: null,
-        category_id: null,
-        title: null,
-        short_content: null,
-        content: null,
-        image: null,
-        seo_title: null,
-        seo_meta_key: null,
-        seo_meta_desc: null,
-        publish: null,
-        approved: null
-      },
+      forms: {},
       section: null,
       category: null,
+      extraFile: null,
+      name: null,
+      files: [],
       previousImage: true,
       currentlyImage: false,
       selectedSection: null,
@@ -7426,18 +7447,32 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     _api__WEBPACK_IMPORTED_MODULE_2__["default"].get("/admin/page/".concat(this.$route.params.id, "/edit")).then(function (response) {
       _this.section = response.data.data.section;
       _this.category = response.data.data.category;
+      _this.extraFile = response.data.data.file_page;
       _this.forms = response.data.data.data;
       _this.selectedSection = response.data.data.data.section_id;
       _this.selectedCategory = response.data.data.data.category_id;
     });
   },
   methods: {
+    handleExtraFile: function handleExtraFile(index) {
+      var uploadedFiles = this.$refs.files[index].files;
+      this.files[index] = uploadedFiles;
+    },
+    removeExtraFile: function removeExtraFile(index) {
+      this.extraFile.splice(index, 1);
+    },
+    addExtraFile: function addExtraFile() {
+      this.extraFile.push({
+        name: this.name,
+        file: this.files
+      });
+    },
     changeSection: function changeSection(value) {
       this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
     },
@@ -47871,11 +47906,95 @@ var render = function() {
               staticClass: "m-form__seperator m-form__seperator--dashed"
             }),
             _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._l(_vm.extraFile, function(value, index) {
+              return _c("div", { key: index }, [
+                _c(
+                  "div",
+                  { staticClass: "m-form__section m-form__section--last" },
+                  [
+                    _c("div", { staticClass: "form-group m-form__group" }, [
+                      _c("div", { staticClass: "text-right" }, [
+                        index === _vm.extraFile.length - 1
+                          ? _c("i", {
+                              staticClass: "la la-plus fa-2x",
+                              on: { click: _vm.addExtraFile }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.extraFile.length >= 2 &&
+                        index === _vm.extraFile.length - 1
+                          ? _c("i", {
+                              staticClass: "la la-minus fa-2x",
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeExtraFile(index)
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                        _vm._v("Nama")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: value.name,
+                            expression: "value.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: value.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(value, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "Nama Lengkap" } }, [
+                        _vm._v("File")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        ref: "files",
+                        refInFor: true,
+                        staticClass: "form-control",
+                        attrs: { type: "file" },
+                        on: {
+                          change: function($event) {
+                            return _vm.handleExtraFile(index)
+                          }
+                        }
+                      }),
+                      _c("span", { staticClass: "m-form__help" }, [
+                        _vm._v("File yang dipilih : " + _vm._s(value.file))
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "m-form__seperator m-form__seperator--dashed"
+            }),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -47979,8 +48098,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(3)
-          ]
+            _vm._m(4)
+          ],
+          2
         )
       ])
     ],
@@ -48043,6 +48163,16 @@ var staticRenderFns = [
         _c("span", { staticClass: "m-accordion__item-mode" })
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-form__heading" }, [
+      _c("h3", { staticClass: "m-form__heading-title" }, [
+        _vm._v("Extra File Tambahan")
+      ])
+    ])
   },
   function() {
     var _vm = this

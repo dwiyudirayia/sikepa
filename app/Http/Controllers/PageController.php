@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SectionPage;
 use App\CategoryPage;
+use App\FilePage;
 use App\Page;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StorePageRequest;
@@ -121,6 +122,7 @@ class PageController extends Controller
             $data['data'] = Page::findOrFail($id);
             $data['section'] = SectionPage::all();
             $data['category'] = CategoryPage::all();
+            $data['file_page'] = FilePage::where('page_id', $id)->get();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
