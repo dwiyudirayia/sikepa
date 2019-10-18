@@ -7040,6 +7040,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7103,6 +7113,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    handleExplore: function handleExplore(index) {
+      this.$refs.files[index].click();
+    },
     removeExtraFile: function removeExtraFile(index) {
       this.name.splice(index, 1);
       this.files.splice(index, 1);
@@ -7114,6 +7127,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleExtraFile: function handleExtraFile(index) {
       var uploadedFiles = this.$refs.files[index].files[0];
+      $("#name-file-".concat(index)).html(uploadedFiles.name);
       this.files[index] = uploadedFiles;
     },
     onImageChange: function onImageChange(e) {
@@ -47153,6 +47167,45 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
+                      _c(
+                        "label",
+                        { staticClass: "d-block", attrs: { for: "File" } },
+                        [_vm._v("File")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "btn btn-primary m-btn m-btn--icon m-btn--pill m-btn--air",
+                          on: {
+                            click: function($event) {
+                              return _vm.handleExplore(index)
+                            }
+                          }
+                        },
+                        [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c("input", {
+                            ref: "files",
+                            refInFor: true,
+                            staticClass: "d-none",
+                            attrs: { type: "file" },
+                            on: {
+                              change: function($event) {
+                                return _vm.handleExtraFile(index)
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("p", {
+                        staticClass: "pt-3",
+                        attrs: { id: "name-file-" + index }
+                      }),
+                      _vm._v(" "),
                       _c("label", { attrs: { for: "Nama Lengkap" } }, [
                         _vm._v("Nama")
                       ]),
@@ -47177,26 +47230,7 @@ var render = function() {
                             _vm.$set(_vm.name, index, $event.target.value)
                           }
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "Nama Lengkap" } }, [
-                        _vm._v("File")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        ref: "files",
-                        refInFor: true,
-                        staticClass: "form-control",
-                        attrs: { type: "file" },
-                        on: {
-                          change: function($event) {
-                            return _vm.handleExtraFile(index)
-                          }
-                        }
-                      }),
-                      _c("span", { staticClass: "m-form__help" }, [
-                        _vm._v("Masukan File Yang di Inginkan")
-                      ])
+                      })
                     ])
                   ]
                 )
@@ -47211,7 +47245,7 @@ var render = function() {
               "div",
               { staticClass: "m-form__section m-form__section--last" },
               [
-                _vm._m(3),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group m-form__group" }, [
                   _c("label", { attrs: { for: "Nama Lengkap" } }, [
@@ -47315,7 +47349,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(5)
           ],
           2
         )
@@ -47389,6 +47423,16 @@ var staticRenderFns = [
       _c("h3", { staticClass: "m-form__heading-title" }, [
         _vm._v("Extra File Tambahan")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("i", { staticClass: "la la-plus" }),
+      _vm._v(" "),
+      _c("span", [_vm._v("Tambah File")])
     ])
   },
   function() {

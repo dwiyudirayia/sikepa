@@ -157,10 +157,20 @@
                                     @click="removeExtraFile(index)"
                                 />
                             </div>
+                            <label class="d-block" for="File">File</label>
+                            <span
+                                class="btn btn-primary m-btn m-btn--icon m-btn--pill m-btn--air"
+                                @click="handleExplore(index)"
+                            >
+                                <span>
+                                    <i class="la la-plus"></i>
+                                    <span>Tambah File</span>
+                                </span>
+                                <input type="file" ref="files" class="d-none" v-on:change="handleExtraFile(index)">
+                            </span>
+                            <p class="pt-3" :id="`name-file-${index}`"></p>
                             <label for="Nama Lengkap">Nama</label>
                             <input type="text" v-model="name[index]" class="form-control">
-                            <label for="Nama Lengkap">File</label>
-                            <input type="file" class="form-control" ref="files" v-on:change="handleExtraFile(index)"><span class="m-form__help">Masukan File Yang di Inginkan</span>
                         </div>
                     </div>
                 </div>
@@ -269,6 +279,9 @@ export default {
         });
     },
     methods: {
+        handleExplore(index) {
+            this.$refs.files[index].click();
+        },
         removeExtraFile(index) {
             this.name.splice(index, 1);
             this.files.splice(index, 1);
@@ -280,6 +293,8 @@ export default {
         },
         handleExtraFile(index) {
             let uploadedFiles = this.$refs.files[index].files[0];
+
+            $(`#name-file-${index}`).html(uploadedFiles.name);
 
             this.files[index] = uploadedFiles;
         },
