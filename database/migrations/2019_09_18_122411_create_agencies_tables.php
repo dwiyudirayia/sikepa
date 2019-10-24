@@ -18,9 +18,6 @@ class CreateAgenciesTables extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');
-            $table->longText('address');
-            $table->double('latitude')->nullable();
-            $table->double('longitude')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

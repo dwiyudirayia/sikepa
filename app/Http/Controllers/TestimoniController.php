@@ -22,6 +22,7 @@ class TestimoniController extends Controller
     public function index()
     {
         try {
+            $getPermissions = request()->user()->getPermissionNames();
             $data = Testimoni::all();
 
             return response()->json($this->notification->generalSuccess($data));

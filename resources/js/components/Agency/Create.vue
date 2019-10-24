@@ -24,33 +24,6 @@
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
-                    <label for="Username">Alamat</label>
-                    <div class="m-form__control">
-                        <textarea type="text" v-model="$v.forms.address.$model" class="form-control" @blur="$v.forms.address.$touch()"></textarea>
-                    </div>
-                    <template v-if="$v.forms.address.$error">
-                        <span v-if="!$v.forms.address.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Username">Latitude</label>
-                    <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.latitude.$model" class="form-control" @blur="$v.forms.latitude.$touch()">
-                    </div>
-                    <template v-if="$v.forms.latitude.$error">
-                        <span v-if="!$v.forms.latitude.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Username">Longitude</label>
-                    <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.longitude.$model" class="form-control" @blur="$v.forms.longitude.$touch()">
-                    </div>
-                    <template v-if="$v.forms.longitude.$error">
-                        <span v-if="!$v.forms.longitude.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -75,9 +48,6 @@ export default {
         return {
             forms: {
                 name: null,
-                address: null,
-                latitude: null,
-                longitude: null,
             },
             breadcrumbTitle: 'Intansi',
             breadcrumbLink: [
@@ -98,15 +68,6 @@ export default {
     validations: {
         forms: {
             name: {
-                required
-            },
-            address: {
-                required
-            },
-            latitude: {
-                required
-            },
-            longitude: {
                 required
             },
         }

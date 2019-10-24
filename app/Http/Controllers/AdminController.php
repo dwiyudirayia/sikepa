@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
         try {
             $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
-                $query->whereBetween('id', [1,26]);
+                $query->whereBetween('id', [5, 8]);
             })->where('id', '!=', request()->user()->id)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -28,7 +28,7 @@ class AdminController extends Controller
     public function create()
     {
         try {
-            $data = Permission::whereBetween('id', [1, 26])->get();
+            $data = Permission::whereBetween('id', [5, 8])->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -41,11 +41,62 @@ class AdminController extends Controller
             $user->givePermissionTo($request->permissions);
 
             $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
-                $query->whereBetween('id', [1,26]);
+                $query->whereBetween('id', [5, 8]);
             })->where('id', '!=', request()->user()->id)->get();
+
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
+        }
+    }
+    public function changeStatus($id) {
+        try {
+            $data = User::findOrFail($id);
+            $data->active = !$data->active;
+            $data->save();
+
+            $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
+                $query->whereBetween('id', [5, 8]);
+            })->where('id', '!=', request()->user()->id)->get();
+            return response()->json($this->notification->updateSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function edit($id) {
+        try {
+            $data = User::with('permissions')->findOrFail($id);
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function destroy($id) {
+        try {
+            $data = User::findOrFail($id);
+            $data->delete();
+
+            $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
+                $query->whereBetween('id', [5, 8]);
+            })->where('id', '!=', request()->user()->id)->get();
+            return response()->json($this->notification->deleteSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->deleteFailed($th));
+        }
+    }
+    public function update(UpdateUserRequest $request, $id) {
+        try {
+            $user = User::where('id', $id)->update($request->update());
+            $user->syncPermissions($request->permissions);
+
+            $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
+                $query->whereBetween('id', [5, 8]);
+            })->where('id', '!=', request()->user()->id)->get();
+
+            return response()->json($this->notification->updateSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
         }
     }
 }

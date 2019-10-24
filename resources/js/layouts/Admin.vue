@@ -10,7 +10,7 @@
                         <div class="m-stack__item m-stack__item--middle m-brand__logo">
                             <a href="#" class="m-brand__logo-wrapper">
                                 <img alt="" src="" />
-                                User
+                                {{ this.$store.state.user.authenticated.name }}
                             </a>
                         </div>
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -55,7 +55,7 @@
                             <ul class="m-topbar__nav m-nav m-nav--inline flex">
                                 <li id="avatar" class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
                                     <a href="#" class="m-nav__link m-dropdown__toggle">
-                                        <span class="m-topbar__username">User</span>
+                                        <span class="m-topbar__username">{{ this.$store.state.user.authenticated.name }}</span>
                                         <span class="m-topbar__userpic">
                                             <img src="" class="m--img-rounded m--marginless" alt="" />
                                         </span>
@@ -171,7 +171,7 @@ export default {
                 this.$router.push('/login/admin');
                 window.location.href = '/login/admin';
             })
-        }
+        },
     },
 }
 </script>

@@ -12,7 +12,9 @@ import UserChangePassword from './components/User/ChangePassword';
 //Admin
 import UserAdminIndex from './components/User/Admin/Index';
 import UserAdminCreate from './components/User/Admin/Create';
+import UserAdminEdit from './components/User/Admin/Edit';
 //EndAdmin
+
 //End User
 // --- Article --- //
 //Section
@@ -65,12 +67,20 @@ import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperat
 import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
 import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperation/Edit';
 
+import ProposalTypeOfCooperationOneDerivativeListOne from './components/Proposal/TypeOfCooperation/TypeOfCooperationOneDerivative/ListTypeOfCooperationOne';
+import ProposalTypeOfCooperationOneDerivativeCreate from './components/Proposal/TypeOfCooperation/TypeOfCooperationOneDerivative/Create';
+import ProposalTypeOfCooperationOneDerivativeEdit from './components/Proposal/TypeOfCooperation/TypeOfCooperationOneDerivative/Edit';
+
+import ProposalTypeOfCooperationTwoDerivativeListTwo from './components/Proposal/TypeOfCooperation/TypeOfCooperationTwoDerivative/ListTypeOfCooperationTwo';
+import ProposalTypeOfCooperationTwoDerivativeCreate from './components/Proposal/TypeOfCooperation/TypeOfCooperationTwoDerivative/Create';
+import ProposalTypeOfCooperationTwoDerivativeEdit from './components/Proposal/TypeOfCooperation/TypeOfCooperationTwoDerivative/Edit';
+
 import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCooperation/Index';
 import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
 import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
 
 import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
-// import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
+import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 // import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
 
 // --- End Proposal --- //
@@ -162,6 +172,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/user/admin/:id/edit',
+                    name: 'UserAdminEdit',
+                    component: UserAdminEdit,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //Section Article
                 {
                     path: '/section/article',
@@ -246,8 +264,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        let listPermissions = store.state.user.authenticated;
-                        console.log(listPermissions);
+                        let listPermissions = store.state.user.authenticated
                         next();
                     },
                 },
@@ -439,6 +456,56 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
+                //TypeOfCooperationOneDerivative
+                {
+                    path: '/proposal/typeof/cooperation/list/:id/one',
+                    name: 'ProposalTypeOfCooperationOneDerivativeListOne',
+                    component: ProposalTypeOfCooperationOneDerivativeListOne,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/one/derivative/create',
+                    name: 'ProposalTypeOfCooperationOneDerivativeCreate',
+                    component: ProposalTypeOfCooperationOneDerivativeCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/one/derivative/:id/edit',
+                    name: 'ProposalTypeOfCooperationOneDerivativeEdit',
+                    component: ProposalTypeOfCooperationOneDerivativeEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                //TypeOfCooperationTwoDerivative
+                {
+                    path: '/proposal/typeof/cooperation/list/:id/two',
+                    name: 'ProposalTypeOfCooperationTwoDerivativeListTwo',
+                    component: ProposalTypeOfCooperationTwoDerivativeListTwo,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/two/derivative/create',
+                    name: 'ProposalTypeOfCooperationTwoDerivativeCreate',
+                    component: ProposalTypeOfCooperationTwoDerivativeCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/typeof/cooperation/two/derivative/:id/edit',
+                    name: 'ProposalTypeOfCooperationTwoDerivativeEdit',
+                    component: ProposalTypeOfCooperationTwoDerivativeEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
                 //Proposal Subtance Cooperation
                 {
                     path: '/proposal/subtance/cooperation',
@@ -469,6 +536,14 @@ const router = new VueRouter({
                     path: '/submission/cooperation',
                     name: 'ProposalSubmissionCooperationIndex',
                     component: ProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/submission/cooperation/create',
+                    name: 'ProposalSubmissionCooperationCreate',
+                    component: ProposalSubmissionCooperationCreate,
                     meta: {
                         requiresAuth: true
                     }

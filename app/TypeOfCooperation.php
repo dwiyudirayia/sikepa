@@ -15,4 +15,8 @@ class TypeOfCooperation extends Model
     {
         return $this->hasMany(SubmissionProposal::class);
     }
+    public function typeOfCooperationOneDerivative()
+    {
+        return $this->hasMany(TypeOfCooperationOneDerivative::class, 'type_of_cooperation_id');
+    }
 }

@@ -43,7 +43,8 @@ class StoreTestimoniRequest extends FormRequest
     {
         return [
             'user_id' => request()->user()->id,
-            'testimoni' => $this->testimoni
+            'testimoni' => $this->testimoni,
+            'active' => 0
         ];
     }
 }
