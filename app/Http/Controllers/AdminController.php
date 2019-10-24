@@ -87,8 +87,10 @@ class AdminController extends Controller
     }
     public function update(UpdateUserRequest $request, $id) {
         try {
-            $user = User::where('id', $id)->update($request->update());
-            $user->syncPermissions($request->permissions);
+            $user = User::whereId($id)->update($request->update());
+
+            $userUpdatePermission = User::findOrFail($id);
+            $userUpdatePermission->syncPermissions($request->permissions);
 
             $data = User::with('permissions')->whereHas('permissions', function(Builder $query) {
                 $query->whereBetween('id', [5, 8]);

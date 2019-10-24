@@ -65,14 +65,6 @@ const admin = {
                 commit('notification', response);
             })
         },
-        updateAdmin({ commit }, forms) {
-            console.log(forms);
-            $axiosFormData.put(`/admin/user/admin/${forms.id}`)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => console.log(error));
-        },
         clearPage({commit})
         {
             commit('clearPage');

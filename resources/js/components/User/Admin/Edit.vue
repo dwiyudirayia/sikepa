@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Admin
+                            Edit Admin
                         </h3>
                     </div>
                 </div>
@@ -76,7 +76,11 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="forms.signaturePreview" class="img-responsive" height="100%" width="100%">
+                                    <div
+                                        :style="[forms.signature && forms.signature.length ? {'background-image': 'url(' + require('../../../../../storage/app/public/signature_user/'+forms.signature) + ')'} : null]" style="height:400px"
+                                        v-show="previousSignature"
+                                    />
+                                    <img :src="signaturePreview" class="img-responsive" height="400px" width="100%" v-show="currentlySignature">
                                 </div>
                             </div>
                         </div>
@@ -99,9 +103,18 @@
                                     <span class="m-accordion__item-title">Tampilan Foto Admin</span>
                                     <span class="m-accordion__item-mode"></span>
                                 </div>
-                                <div class="m-accordion__item-body collapse show" id="m_accordion_8_item_3_body" role="tabpanel" aria-labelledby="m_accordion_8_item_3_head" data-parent="#m_accordion_7" style="">
+                                <div
+                                    class="m-accordion__item-body collapse show"
+                                    id="m_accordion_8_item_3_body" role="tabpanel"
+                                    aria-labelledby="m_accordion_8_item_3_head"
+                                    data-parent="#m_accordion_7"
+                                >
                                     <div class="m-accordion__item-content">
-                                        <img :src="forms.photoPreview" class="img-responsive" height="100%" width="100%">
+                                        <div
+                                            :style="[forms.photo && forms.photo.length ? {'background-image': 'url(' + require('../../../../../storage/app/public/photo_user/'+forms.photo) + ')'} : null]" style="height:400px"
+                                            v-show="previousPhoto"
+                                        />
+                                        <img :src="photoPreview" class="img-responsive" height="400px" width="100%" v-show="currentlyPhoto">
                                     </div>
                                 </div>
                             </div>
@@ -147,10 +160,15 @@
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import $axios from './../../../api';
+import $axiosFormData from '@/apiformdata';
 export default {
     name: 'UserAdminEdit',
     data() {
         return {
+            previousSignature: true,
+            previousPhoto: true,
+            currentlySignature: false,
+            currentlyPhoto: false,
             data_errors: {
                 username: {
                     without_space: false
@@ -165,8 +183,8 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Tambah Admin',
-                    path: '/user/admin/create'
+                    label: 'Edit Admin',
+                    path: `/user/admin/${this.$route.params.id}`
                 },
             ],
             forms: {
@@ -175,13 +193,12 @@ export default {
                 email: null,
                 jabatan: null,
                 signature: null,
-                signaturePreview: null,
                 photo: null,
-                photoPreview: null,
                 permissions: []
             },
+            photoPreview: null,
+            signaturePreview: null,
             listPermissions: [],
-            test: {}
         }
     },
     validations: {
@@ -261,6 +278,8 @@ export default {
                     return;
                 } else {
                     this.forms.signature = uploadedFiles;
+                    this.currentlySignature = true;
+                    this.previousSignature = false;
                     this.createSignature(checkExtFile);
                 }
             } else {
@@ -271,7 +290,7 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.signaturePreview = e.target.result;
+                vm.signaturePreview = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -285,6 +304,8 @@ export default {
                     return;
                 } else {
                     this.forms.photo = uploadedFiles;
+                    this.currentlyPhoto = true;
+                    this.previousPhoto = false;
                     this.createPhoto(checkExtFile);
                 }
             } else {
@@ -295,7 +316,7 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.photoPreview = e.target.result;
+                vm.photoPreview = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -311,6 +332,36 @@ export default {
             }
         },
         update() {
+            this.$v.forms.$touch();
+
+            let formData = new FormData();
+
+            formData.append('name', this.forms.name);
+            formData.append('_method', 'PUT');
+            formData.append('username', this.forms.username);
+            formData.append('email', this.forms.email);
+            formData.append('password', this.forms.password);
+            formData.append('jabatan', this.forms.jabatan);
+            formData.append('signature', this.forms.signature);
+            formData.append('photo', this.forms.photo);
+
+            $.each(this.forms.permissions, function(key, value) {
+                if(value == "true" || value == true) {
+                    formData.append(`permissions[]`, key);
+                }
+            })
+
+            if(this.$v.forms.$invalid) {
+                return;
+            } else {
+                $axiosFormData.post(`/admin/user/admin/${this.$route.params.id}`, formData)
+                .then(response => {
+                    this.$v.$reset();
+                    this.$store.commit('admin/updateData', response);
+                    this.$store.commit('admin/notification', response);
+                    this.$router.push({ path: `/user/admin` });
+                })
+            }
         }
     },
 }

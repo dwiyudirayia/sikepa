@@ -182,17 +182,14 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Title</label>
                         <input type="text" v-model="forms.seo_title" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Key</label>
                         <input type="text" v-model="forms.seo_meta_key" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Description</label>
                         <input type="text" v-model="forms.seo_meta_desc" class="form-control">
-                        <span class="m-form__help">Pastikan Judul Page Terisi</span>
                     </div>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
