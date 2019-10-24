@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/agency/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Intansi'">
+                    <router-link to="/proposal/agency/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Intansi'">
                         <span>
                             <i class="la la-plus"></i>
                             <span>Tambah Intansi</span>
@@ -38,7 +38,7 @@
                                             {{ value.name }}
                                         </h4>
                                         <span class="m-widget5__desc">
-                                            {{ value.address }}
+                                            {{ value.created_at }}
                                         </span>
                                     </div>
                                 </div>

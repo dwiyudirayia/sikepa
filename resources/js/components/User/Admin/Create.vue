@@ -20,61 +20,62 @@
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
+                    <span class="m-form__help">Nama Lengkap Harus di Isi</span>
+                    <br>
                     <template v-if="$v.forms.name.$error">
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Username</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @blur="$v.forms.username.$touch()">
+                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validate" @keyup="inputFunction" @blur="$v.forms.username.$touch()">
                     </div>
+                    <span class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</span>
+                    <br>
                     <template v-if="$v.forms.username.$error">
                         <span v-if="!$v.forms.username.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span class="m--font-danger" v-if="!$v.forms.username.isUnique">Nama Section Sudah Terdaftar.</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
+                    <span v-if="data_errors.username.without_space" class="m--font-danger">Tidak Boleh Ada Spasi</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Email</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.email.$model" class="form-control" @blur="$v.forms.email.$touch()">
                     </div>
+                    <span class="m-form__help">Pastikan Email Terdaftar di Platformnya</span>
+                    <br>
                     <template v-if="$v.forms.email.$error">
                         <span v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</span>
                         <span v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Password</label>
                     <div class="m-form__control">
                         <input type="password" v-model="$v.forms.password.$model" class="form-control" @blur="$v.forms.password.$touch()">
                     </div>
+                    <span class="m-form__help">Password Ini Untuk Masuk ke Halaman Admin</span>
+                    <br>
                     <template v-if="$v.forms.password.$error">
                         <span v-if="!$v.forms.password.required" class="m--font-danger">Field Ini Harus di Isi</span>
                         <span v-if="!$v.forms.password.minLength" class="m--font-danger">Field Ini Harus Lebih Dari 6 Karakter</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jabatan</label>
                     <div class="m-form__control">
                         <input type="text" v-model="forms.jabatan" class="form-control">
                     </div>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Jabatan Saat Ini</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>
                     <div class="m-form__control">
                         <input type="file" @change="onSignatureChange" ref="signature" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan File Yang di Upload .jpg .png .jpeg</span>
                 </div>
                 <div class="form-group m-form__group">
                     <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
@@ -98,7 +99,7 @@
                     <div class="m-form__control">
                         <input type="file" @change="onPhotoChange" ref="photo" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
-                    <span class="m-form__help">Pastikan Nama Section Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan File Yang di Upload .jpg .png .jpeg</span>
                 </div>
                 <div class="form-group m-form__group">
                     <div class="m-accordion m-accordion--bordered" id="m_accordion_7" role="tablist">
@@ -106,7 +107,7 @@
                         <div class="m-accordion__item m-accordion__item--primary">
                             <div class="m-accordion__item m-accordion__item--primary">
                                 <div class="m-accordion__item-head" role="tab" id="m_accordion_8_item_3_head" data-toggle="collapse" href="#m_accordion_8_item_3_body" aria-expanded="true">
-                                    <span class="m-accordion__item-icon"><i class="fa  flaticon-alert-2"></i></span>
+                                    <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
                                     <span class="m-accordion__item-title">Tampilan Foto Admin</span>
                                     <span class="m-accordion__item-mode"></span>
                                 </div>
@@ -162,6 +163,11 @@ export default {
     name: 'UserAdminCreate',
     data() {
         return {
+            data_errors: {
+                username: {
+                    without_space: false
+                }
+            },
             breadcrumbTitle: 'Admin',
             breadcrumbLink: [
                 {
@@ -171,7 +177,7 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Tambah Section',
+                    label: 'Tambah Admin',
                     path: '/user/admin/create'
                 },
             ],
@@ -214,11 +220,30 @@ export default {
             this.listPermissions = response.data.data;
         })
     },
+    watch: {
+        "forms.username": function(value)
+        {
+            this.forms.username = value;
+        }
+    },
     methods: {
+        validate() {
+            const regex = new RegExp(/[^A-Za-z0-9]+/g);
+            const lastVal = this.forms.username.substr(this.forms.username.length - 1);
+            this.forms.username = this.forms.username.replace(/[^A-Za-z0-9]+/g, '');
+
+            if (!regex.test(lastVal)) {
+                this.data_errors.username.without_space = false;
+            } else {
+                this.data_errors.username.without_space = true;
+            }
+        },
+        inputFunction(event) {
+            this.$emit('input', event.target.value);
+        },
         onSignatureChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             let uploadedFiles = this.$refs.signature.files[0];
-            console.log(uploadedFiles);
 
             const checkExtFile = files[0];
             if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
@@ -283,7 +308,7 @@ export default {
             formData.append('name', this.forms.name);
             formData.append('username', this.forms.username);
             formData.append('email', this.forms.email);
-            formData.append('password', this.forms.spassword);
+            formData.append('password', this.forms.password);
             formData.append('jabatan', this.forms.jabatan);
             formData.append('signature', this.forms.signature);
             formData.append('photo', this.forms.photo);
@@ -297,10 +322,10 @@ export default {
             } else {
                 this.$store.dispatch('admin/storeAdmin', formData);
                 this.$v.$reset();
+                this.$router.push({ path: `/user/admin` });
             }
-            this.$router.push({ path: `/user/admin` });
         }
-    }
+    },
 }
 </script>
 

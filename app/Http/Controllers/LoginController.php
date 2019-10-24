@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email|exists:users,email',
+            'username' => 'required|exists:users,username',
             'password' => 'required'
         ]);
         $auth = $request->except(['remember_me']);
@@ -24,7 +24,7 @@ class LoginController extends Controller
 
             return response()->json(['status' => 'success', 'data' => $success['token']], 200);
         } else {
-            return response()->json(['status' => 'Email / Password Salah']);
+            return response()->json(['status' => 'Username / Password Salah']);
         }
     }
 }

@@ -4,10 +4,10 @@
             <strong>Invalid </strong> {{ errors.invalid }}
         </div>
         <fieldset class="form-group position-relative" id="__BVID__38">
-            <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__38__BV_label_">Email</legend>
+            <legend tabindex="-1" class="col-form-label pt-0" id="__BVID__38__BV_label_">Username</legend>
             <div tabindex="-1" role="group">
-                <input type="email" class="form-control" id="__BVID__39" placeholder="Masukan Email Anda" v-model="data.email" autocomplete="off">
-                <span class="m--font-danger" v-if="errors.email">{{ errors.email[0] }}</span>
+                <input type="text" class="form-control" id="__BVID__39" placeholder="Masukan Username Anda" v-model="data.username" autocomplete="off">
+                <span class="m--font-danger" v-if="errors.username">{{ errors.username[0] }}</span>
             </div>
         </fieldset>
         <fieldset class="form-group position-relative" id="__BVID__42">
@@ -17,7 +17,7 @@
                 </div>
             </legend>
             <div tabindex="-1" role="group">
-                <input type="password" class="form-control" id="__BVID__40" placeholder="Masukan Email Anda" v-model="data.password" autocomplete="off">
+                <input type="password" class="form-control" id="__BVID__40" placeholder="Masukan Password Anda" v-model="data.password" autocomplete="off">
                 <span class="m--font-danger" v-if="errors.password">{{ errors.password[0] }}</span>
             </div>
         </fieldset>
@@ -35,7 +35,7 @@ export default {
     data() {
         return {
             data: {
-                email: '',
+                username: '',
                 password: '',
                 remember_me: false
             }

@@ -38,7 +38,16 @@ Route::middleware('auth:api')->group( function () {
         Route::resource('proposal/cooperation/target', 'CooperationTargetController');
         Route::resource('proposal/typeof/cooperation', 'TypeOfCooperationController');
         Route::resource('proposal/subtance/cooperation', 'SubtanceCooperationController');
+        Route::resource('proposal/typeof/cooperation/one', 'TypeOfCooperationOneDerivativeController');
+        Route::get('proposal/typeof/cooperation/one/{id}/list', 'TypeOfCooperationOneDerivativeController@listTypeOfCooperationOne');
+        Route::resource('proposal/typeof/cooperation/two', 'TypeOfCooperationTwoDerivativeController');
+        Route::get('proposal/typeof/cooperation/two/{id}/list', 'TypeOfCooperationTwoDerivativeController@listTypeOfCooperationTwo');
+        Route::get('proposal/typeof/cooperation/two/{id}/select', 'TypeOfCooperationTwoDerivativeController@changeSelectTwo');
         Route::get('submission/cooperation', 'SubmissionProposalController@index');
+        Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
+        Route::get('submission/cooperation/one/{id}/derivative', 'SubmissionProposalController@changeSelectOneDerivative');
+        Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
+        Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
 
         //Change Status Article
         Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
@@ -89,6 +98,10 @@ Route::middleware('auth:api')->group( function () {
         Route::get('user/admin/index', 'AdminController@index');
         Route::get('user/admin/create', 'AdminController@create');
         Route::post('user/admin/store', 'AdminController@store');
+        Route::get('user/change/status/{id}', 'AdminController@changeStatus');
+        Route::get('user/admin/{id}/edit', 'AdminController@edit');
+        Route::delete('user/admin/{id}', 'AdminController@destroy');
+        Route::put('user/admin/{id}', 'AdminController@update');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

@@ -22,7 +22,7 @@
                     <router-link to="/user/admin/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Admin'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Admin</span>
+                        <span>Tambah User</span>
                         </span>
                     </router-link>
                 </div>
@@ -43,16 +43,23 @@
                             <td>{{ item.name }}</td>
                             <td>{{ item.jabatan }}</td>
                             <td>
-                                <router-link :to="{name: 'UserAdminEdit', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit User'">
+                                <router-link v-if="$can('Edit User')" :to="{name: 'UserAdminEdit', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit User'">
                                     <span>
                                         <i class="la la-pencil"></i>
                                         <span>Edit User</span>
                                     </span>
                                 </router-link>
-                                <button @click="destroy" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'">
+                                <button v-if="$can('Hapus User')" @click="confirmDelete" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'">
                                     <span>
-                                        <i class="la la-pencil"></i>
+                                        <i class="la la-trash"></i>
                                         <span>Delete User</span>
+                                    </span>
+                                </button>
+                                <button v-if="$can('Ganti Status User')" @click="changeStatus(item.id)" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Ganti Status User'">
+                                    <span>
+                                        <i v-if="item.active == 1" class="la la-check"></i>
+                                        <i v-else class="la la-close"></i>
+                                        <span>Ganti Status User</span>
                                     </span>
                                 </button>
                             </td>
@@ -70,6 +77,8 @@
 </template>
 
 <script>
+import $axios from '@/api.js';
+
 export default {
     name: "UserAdminIndex",
     data() {
@@ -102,6 +111,12 @@ export default {
         this.$store.dispatch('admin/indexAdmin');
     },
     methods: {
+        changeStatus(id) {
+            $axios.get(`/admin/user/change/status/${id}`).
+            then(response => {
+                this.$store.commit('admin/updateData', response);
+            })
+        },
         destroy(id) {
             this.$store.dispatch('admin/destroyAdmin', id);
         },

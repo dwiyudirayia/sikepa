@@ -29,15 +29,6 @@ const agency = {
         updateName(state, payload) {
             state.forms.name = payload;
         },
-        updateAddress(state, payload) {
-            state.forms.address = payload;
-        },
-        updateLatitude(state, payload) {
-            state.forms.latitude = payload;
-        },
-        updateLongitude(state, payload) {
-            state.forms.longitude = payload;
-        },
         updateId(state, payload) {
             state.forms.id = payload;
         },

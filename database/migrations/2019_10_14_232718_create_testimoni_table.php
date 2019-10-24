@@ -17,6 +17,7 @@ class CreateTestimoniTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->mediumText('testimoni');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
