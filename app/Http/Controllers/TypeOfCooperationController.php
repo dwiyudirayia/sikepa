@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Http\Requests\StoreTargetOfOperationRequest;
-use App\Http\Requests\UpdateTargetOfOperationRequest;
+use App\Http\Requests\StoreTypeOfCooperationRequest;
+use App\Http\Requests\UpdateTypeOfCooperationRequest;
 use App\TypeOfCooperation;
 
 class TypeOfCooperationController extends Controller
@@ -37,7 +37,7 @@ class TypeOfCooperationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTargetOfOperationRequest $request)
+    public function store(StoreTypeOfCooperationRequest $request)
     {
         try {
             TypeOfCooperation::create($request->store());
@@ -57,7 +57,7 @@ class TypeOfCooperationController extends Controller
     public function show($id)
     {
         try {
-            $data = TypeOfCooperation::with('articles.category', 'categories')->findOrFail($id);
+            $data = TypeOfCooperation::findOrFail($id);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -89,7 +89,7 @@ class TypeOfCooperationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTargetOfOperationRequest $request, $id)
+    public function update(UpdateTypeOfCooperationRequest $request, $id)
     {
         try {
             TypeOfCooperation::where('id', $id)->update($request->update());

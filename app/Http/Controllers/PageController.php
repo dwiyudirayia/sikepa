@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SectionPage;
 use App\CategoryPage;
+use App\FilePage;
 use App\Page;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StorePageRequest;
@@ -72,16 +73,18 @@ class PageController extends Controller
     {
         try {
             $page = Page::create($request->store());
-            foreach ($request->file as $key => $value) {
-                $extention = $value->getClientOriginalExtension();
-                $fileName = 'file-page'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-                $path = $value->storeAs($page->id, $fileName, 'file_page');
-                $page->files()->create([
-                    'created_by' => request()->user()->id,
-                    'page_id' => $page->id,
-                    'name' => $request->name[$key] ?? "",
-                    'file' => $path,
-                ]);
+            if($request->hasFile('file')) {
+                foreach ($request->file as $key => $value) {
+                    $extention = $value->getClientOriginalExtension();
+                    $fileName = 'file-page'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                    $path = $value->storeAs($page->id, $fileName, 'file_page');
+                    $page->files()->create([
+                        'created_by' => request()->user()->id,
+                        'page_id' => $page->id,
+                        'name' => $request->name[$key] ?? "",
+                        'file' => $path,
+                    ]);
+                }
             }
             $data = Page::where('category_id', $request->category_id)->get();
             return response()->json($this->notification->storeSuccess($data));
@@ -119,6 +122,7 @@ class PageController extends Controller
             $data['data'] = Page::findOrFail($id);
             $data['section'] = SectionPage::all();
             $data['category'] = CategoryPage::all();
+            $data['file_page'] = FilePage::where('page_id', $id)->get();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {

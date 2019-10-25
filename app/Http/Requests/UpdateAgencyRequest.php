@@ -25,26 +25,18 @@ class UpdateAgencyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            // 'latitude' => 'required|regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/',
-            // 'longitude' => 'required|regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'
         ];
     }
     public function attributes()
     {
         return [
             'name' => 'Nama Instansi',
-            'latitude' => 'Latitude',
-            'longitude' => 'Longitude'
         ];
     }
     public function messages()
     {
         return [
             'name.required' => ':attribute Harus di Isi',
-            'latitude.required' => ':attribute Harus di Isi',
-            'latitude.regex' => ':attribute Tidak Sesuai',
-            'longitude.required' => ':attribute Harus di Isi',
-            'longitude.regex' => ':attribute Tidak Sesuai',
         ];
     }
     public function update()
@@ -52,9 +44,6 @@ class UpdateAgencyRequest extends FormRequest
         return [
             'updated_by' => request()->user()->id,
             'name' => $this->name,
-            'address' => $this->address,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
         ];
     }
 }

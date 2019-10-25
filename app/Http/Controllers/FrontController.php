@@ -44,4 +44,7 @@ class FrontController extends Controller
 
         return response()->download(public_path('storage/'.$filePage->file));
     }
+    public function submission() {
+        return view('pages.submission');
+    }
 }

@@ -14,7 +14,7 @@ class CreateTypeOfCooperationTable extends Migration
     public function up()
     {
         Schema::create('type_of_cooperation', function (Blueprint $table) {
-            $table->mediumIncrements('id');
+            $table->tinyIncrements('id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');

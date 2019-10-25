@@ -9,6 +9,8 @@ import store from './store/store';
 import vuevalidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
 import Permissions from './mixins/permission';
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 //Partial Layout Admin
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
 import NotificationSuccess from './components/partialsAdmin/NotificationSuccess';
@@ -26,6 +28,16 @@ Vue.use(VTooltip);
 Vue.mixin(Permissions)
 
 VTooltip.options.defaultClass = 'tooltip';
+
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyB0CuuQ5YQNoIc91Ser9cbum8gYy0oOf4w',
+        installComponents: true,
+        libraries: 'places',
+        region: 'ID',
+        language: 'id',
+    }
+});
 
 const app = new Vue({
     el: '#app',

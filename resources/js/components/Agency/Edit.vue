@@ -25,33 +25,6 @@
                         <span v-if="!$v.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
-                    <label for="Username">Alamat</label>
-                    <div class="m-form__control">
-                        <textarea type="text" v-model="$v.address.$model" class="form-control" @blur="$v.address.$touch()"></textarea>
-                    </div>
-                    <template v-if="$v.address.$error">
-                        <span v-if="!$v.address.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Latitude</label>
-                    <div class="m-form__control">
-                        <input type="text" v-model="$v.latitude.$model" class="form-control" @blur="$v.latitude.$touch()">
-                    </div>
-                    <template v-if="$v.latitude.$error">
-                        <span v-if="!$v.latitude.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Longitude</label>
-                    <div class="m-form__control">
-                        <input type="text" v-model="$v.longitude.$model" class="form-control" @blur="$v.longitude.$touch()">
-                    </div>
-                    <template v-if="$v.longitude.$error">
-                        <span v-if="!$v.longitude.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -94,15 +67,6 @@ export default {
         name: {
             required
         },
-        address: {
-            required
-        },
-        latitude: {
-            required
-        },
-        longitude: {
-            required
-        },
     },
     created() {
         this.$store.dispatch('agency/edit', this.$route.params.id);
@@ -114,30 +78,6 @@ export default {
             },
             set(value) {
                 this.$store.commit('agency/updateName', value)
-            }
-        },
-        address: {
-            get() {
-                return this.$store.state.agency.forms.address;
-            },
-            set(value) {
-                this.$store.commit('agency/updateAddress', value)
-            }
-        },
-        latitude: {
-            get() {
-                return this.$store.state.agency.forms.latitude;
-            },
-            set(value) {
-                this.$store.commit('agency/updateLatitude', value)
-            }
-        },
-        longitude: {
-            get() {
-                return this.$store.state.agency.forms.longitude;
-            },
-            set(value) {
-                this.$store.commit('agency/updateLongitude', value)
             }
         },
         id: {
@@ -160,7 +100,7 @@ export default {
                 this.$v.$reset();
             }
 
-            this.$router.push('/agency')
+            this.$router.push('/proposal/agency')
         }
     },
 }

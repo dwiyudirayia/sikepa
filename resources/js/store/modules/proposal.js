@@ -1,4 +1,5 @@
 import $axios from './../../api';
+import router from '@/routes.js';
 
 const proposal = {
     namespaced: true,
@@ -192,6 +193,70 @@ const proposal = {
                 })
                 .catch(error => {
                     reject(error);
+                })
+            })
+        },
+        indexListTypeofCooperationListOne({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.get(`/admin/proposal/typeof/cooperation/one/${id}/list`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            });
+        },
+        storeListTypeofCooperationListOne({ commit }, forms) {
+            $axios.post('/admin/proposal/typeof/cooperation/one', forms)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
+        },
+        destroyListTypeofCooperationListOne({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.delete(`/admin/proposal/typeof/cooperation/one/${id}`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('notification', response);
+
+                    resolve(response);
+                })
+            })
+        },
+        indexListTypeofCooperationListTwo({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.get(`/admin/proposal/typeof/cooperation/two/${id}/list`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('clearPage');
+
+                    resolve(response);
+                })
+            });
+        },
+        storeListTypeofCooperationListTwo({ commit }, forms) {
+            $axios.post('/admin/proposal/typeof/cooperation/two', forms)
+            .then(response => {
+                commit('notification', response);
+                commit('updateData', response);
+            })
+            .catch(error => {
+                commit('notification', error);
+            });
+        },
+        destroyListTypeofCooperationListTwo({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                $axios.delete(`/admin/proposal/typeof/cooperation/two/${id}`)
+                .then(response => {
+                    commit('updateData', response);
+                    commit('notification', response);
+
+                    resolve(response);
                 })
             })
         },

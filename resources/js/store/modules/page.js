@@ -154,7 +154,7 @@ const page = {
             });
         },
         updatePage({ commit }, forms) {
-            $axiosFormData.put(`/admin/page/${forms.id}`, forms)
+            $axios.put(`/admin/page/${forms.id}`, forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);

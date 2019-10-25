@@ -42,6 +42,12 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationOneDerivativeListOne', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Lihat Daftar Turunan Jenis Kerjasama'">
+                                            <span>
+                                                <i class="la la-list"></i>
+                                                <span>Daftar Turunan Jenis Kerjasama</span>
+                                            </span>
+                                        </router-link>
                                         <router-link :to="{name: 'ProposalTypeOfCooperationEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Jenis Kerjasama Proposal'">
                                             <span>
                                                 <i class="la la-pencil"></i>

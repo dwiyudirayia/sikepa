@@ -1,5 +1,5 @@
-import $axiosFormData from './../../apiformdata';
-import $axios from './../../api';
+import $axiosFormData from '@/apiformdata.js';
+import $axios from '@/api.js';
 
 const admin = {
     namespaced: true,
@@ -55,7 +55,14 @@ const admin = {
             $axiosFormData.post(`/admin/user/admin/store`, forms)
             .then(response => {
                 commit('updateData', response);
-                commit('clearPage');
+                commit('notification', response);
+            })
+        },
+        destroyAdmin({ commit }, id) {
+            $axios.delete(`/admin/user/admin/${id}`)
+            .then(response => {
+                commit('updateData', response);
+                commit('notification', response);
             })
         },
         clearPage({commit})

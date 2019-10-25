@@ -48,7 +48,7 @@
                 <div class="menu-header">
                     <ul class="menu">
                         <li><a href="#!">Informasi</a></li>
-                        <li><a href="#!">Pengajuan Kerjasama</a></li>
+                        <li><a href="{{ route('submission.cooperation') }}">Pengajuan Kerjasama</a></li>
                         <li><a href="#!">Survei Kepuasan</a></li>
                         <li><a href="#!">FAQ</a></li>
                         <li><a href="#!">Artikel</a></li>

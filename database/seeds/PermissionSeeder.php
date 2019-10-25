@@ -14,92 +14,29 @@ class PermissionSeeder extends Seeder
     {
         $arrayPermission = [
             0 => [
-                'name' => 'Create User',
+                'name' => 'Satker',
             ],
             1 => [
-                'name' => 'Read User',
+                'name' => 'Akun Bagian',
             ],
             2 => [
-                'name' => 'Update User',
+                'name' => 'Biro Hukum'
             ],
             3 => [
-                'name' => 'Delete User',
+                'name' => 'Sesmen',
             ],
             4 => [
-                'name' => 'Create Article',
+                'name' => 'Admin',
             ],
             5 => [
-                'name' => 'Read Article',
+                'name' => 'Hapus User'
             ],
             6 => [
-                'name' => 'Update Article',
+                'name' => 'Edit User'
             ],
             7 => [
-                'name' => 'Delete Article',
-            ],
-            8 => [
-                'name' => 'Publish / Draft Article',
-            ],
-            9 => [
-                'name' => 'Create Page',
-            ],
-            10 => [
-                'name' => 'Read Page',
-            ],
-            11 => [
-                'name' => 'Update Page',
-            ],
-            12 => [
-                'name' => 'Delete Page',
-            ],
-            13 => [
-                'name' => 'Publish / Draft Page',
-            ],
-            14 => [
-                'name' => 'Create Banner',
-            ],
-            15 => [
-                'name' => 'Read Banner',
-            ],
-            16 => [
-                'name' => 'Update Banner',
-            ],
-            17 => [
-                'name' => 'Delete Banner',
-            ],
-            18 => [
-                'name' => 'Create FAQ',
-            ],
-            19 => [
-                'name' => 'Read FAQ',
-            ],
-            20 => [
-                'name' => 'Update FAQ',
-            ],
-            21 => [
-                'name' => 'Delete FAQ',
-            ],
-            22 => [
-                'name' => 'Create Instansi',
-            ],
-            23 => [
-                'name' => 'Read Instansi',
-            ],
-            24 => [
-                'name' => 'Update Instansi',
-            ],
-            25 => [
-                'name' => 'Delete Instansi',
-            ],
-            26 => [
-                'name' => 'Pengajuan'
-            ],
-            27 => [
-                'name' => 'Disposisi Surat'
-            ],
-            28 => [
-                'name' => 'Kepala Bidang'
-            ],
+                'name' => 'Ganti Status User'
+            ]
         ];
 
         foreach ($arrayPermission as $key => $value) {

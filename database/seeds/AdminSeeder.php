@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $permission = ['Create User', 'Read User', 'Update User', 'Delete User', 'Create Article', 'Read Article', 'Update Article', 'Delete Article', 'Publish / Draft Article', 'Create Page', 'Read Page', 'Update Page', 'Delete Page', 'Publish / Draft Page', 'Create Banner','Read Banner','Update Banner','Delete Banner','Create FAQ','Read FAQ','Update FAQ','Delete FAQ','Create Instansi','Read Instansi','Update Instansi','Delete Instansi'];
+        $permission = ['Admin', 'Hapus User', 'Edit User', 'Ganti Status User'];
 
         $user = User::create([
             'name' => 'Admin',
@@ -21,6 +21,7 @@ class AdminSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
             'jabatan' => 'Admin',
+            'active' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
