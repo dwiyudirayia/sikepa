@@ -53,14 +53,14 @@ class StoreSubmissionProposalRequest extends FormRequest
             $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation');
         }
 
-        $getId = request()->user()->permissions[0]->id;
+        $getId = request()->user()->roles[0]->id;
         $statusDisposition = null;
-        if($getId >= 1 && $getId <= 4) {
+        if($getId == 2 && $getId == 5) {
             $statusDisposition = 5;
         } else {
-            $statusDisposition = 6;
+            $statusDisposition = 5;
         }
-        
+
         return [
             'created_by' => request()->user()->id,
             'mailing_number' => "Surat-".strtotime("now"),

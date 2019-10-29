@@ -56,7 +56,7 @@
                 </div>
                 <div v-else>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Turunan Jenis Kerjasama</label>
+                        <label for="Nama Lengkap">Permohonan Kerjasama</label>
                         <div class="m-form__control">
                             <select v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
                                 <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
@@ -65,7 +65,7 @@
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Turunan Jenis Kerjasama</label>
+                        <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
                         <div class="m-form__control">
                             <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
                                 <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
@@ -253,7 +253,7 @@
                             <label for="exampleInputEmail1">Profile Instansi</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileInstansi" ref="fileInstansi" @change="fileProfileInstansi()" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                <input type="file" class="custom-file-input" id="fileInstansi" ref="fileInstansi" @change="fileProfileInstansi()">
                                 <label class="custom-file-label" for="customFile">Pilih file</label>
                             </div>
                         </div>
@@ -459,12 +459,12 @@ export default {
                 formData.append('time_period_to', this.forms.time_period[1]);
                 formData.append('agency_profile', this.forms.agency_profile)
                 formData.append('proposal', this.forms.proposal)
-                
+
                 $axiosFormData.post(`/admin/submission/cooperation`, formData)
                 .then(response => {
                     this.$store.commit('proposal/updateData', response);
                     this.$store.commit('proposal/notification', response);
-    
+
                     this.$router.push({
                         path: '/submission/cooperation'
                     })
@@ -524,7 +524,7 @@ export default {
             const files = this.$refs.fileProposal.files[0];
             const ext = files.name.split('.').pop();
 
-            if(ext=="pdf" || ext=="docx" || ext=="doc"){
+            if(ext == "pdf" || ext == "jpg" || ext == "mp4" || ext == "jpeg"){
                 this.forms.proposal = files;
             } else{
                 alert('File Tidak Mendukung')

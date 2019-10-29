@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\TypeOfCooperation;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
-use App\SubtanceCooperation;
+use Spatie\Permission\Models\Permission;
 use App\CooperationTarget;
 use App\Agency;
 use App\Country;
@@ -26,9 +26,18 @@ class SubmissionProposalController extends Controller
     public function index() {
         try {
             $user = request()->user();
+            $permissions = [];
 
-            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', $user->permissions[0]->id)->get();
+            foreach (Permission::all() as $permission) {
+                if (request()->user()->can($permission->name)) {
+                    $permissions[] = $permission->id;
+                }
+            }
+
+            $user['permission'] = $permission;
+            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $user['permissions'])->get();
             $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
+
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -36,7 +45,7 @@ class SubmissionProposalController extends Controller
     }
     public function create() {
         try {
-            $data['typeof'] = TypeOfCooperation::all();
+            $data['typeof'] = TypeOfCooperation::where('id', 2)->get();
             $data['cooperation'] = CooperationTarget::all();
             $data['agency'] = Agency::all();
             $data['country'] = Country::all();
@@ -52,7 +61,9 @@ class SubmissionProposalController extends Controller
             $user = request()->user();
 
             SubmissionProposal::create($request->store());
-            $data = SubmissionProposal::where('status_disposition', $user->permissions[0]->id)->get();
+
+            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $user['permissions'])->get();
+            $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
 
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {

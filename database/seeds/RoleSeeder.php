@@ -20,10 +20,10 @@ class RoleSeeder extends Seeder
                 'name' => 'Satker'
             ],
             2 => [
-                'name' => 'Biro Perencanaan dan Data',
+                'name' => 'Deputi'
             ],
             3 => [
-                'name' => 'Deputi Terkait'
+                'name' => 'Biro Perencanaan dan Data',
             ],
             4 => [
                 'name' => 'Bagian Kerja Sama',
