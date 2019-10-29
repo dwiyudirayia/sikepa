@@ -18,7 +18,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required',
             'username' => 'required|without_spaces|unique:users,username|regex:/(^[A-Za-z0-9]+$)+/',
             'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|min:6|confirmed'
+            'nip' => 'required',
         ];
     }
     public function attributes()
@@ -27,7 +27,8 @@ class StoreUserRequest extends FormRequest
             'name' => 'Nama',
             'email' => 'Alamat Email',
             'password' => 'Password',
-            'username' => 'Username'
+            'username' => 'Username',
+            'nip' => 'NIP'
         ];
     }
     public function messages()
@@ -39,6 +40,8 @@ class StoreUserRequest extends FormRequest
             'email.email' => 'Format :attribute Tidak Sesuai',
             'password.required' => ':attribute Harus di Isi',
             'password.min' => 'Minimal :attribute :values',
+            'password.confirmed' => ':attribute Tidak Sama Dengan Password Konfirmasi',
+            'nip.required' => ':attribute Harus di Isi',
         ];
     }
 
@@ -61,10 +64,12 @@ class StoreUserRequest extends FormRequest
             $pathPhoto = $this->signature->storeAs($this->username, $filenamePhoto, 'photo_user');
         }
         return [
+            'created_by' => request()->user()->id,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
+            'nip' => $this->nip,
             'jabatan' => $this->jabatan,
             'photo' => $pathPhoto,
             'signature' => $pathSignature,

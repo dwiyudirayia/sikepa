@@ -311,17 +311,6 @@ const proposal = {
                 })
             })
         },
-        indexProposal({ commit, rootState }) {
-            return new Promise((resolve, reject) => {
-                $axios.get(`/admin/submission/cooperation`)
-                .then(response => {
-                    commit('updateData', response);
-                    commit('clearPage');
-
-                    resolve(response);
-                })
-            })
-        },
         storeProposal({ commit, rootState }, forms) {
             $axios.post(`/admin`)
         },

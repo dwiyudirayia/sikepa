@@ -43,8 +43,10 @@ Route::middleware('auth:api')->group( function () {
         Route::resource('proposal/typeof/cooperation/two', 'TypeOfCooperationTwoDerivativeController');
         Route::get('proposal/typeof/cooperation/two/{id}/list', 'TypeOfCooperationTwoDerivativeController@listTypeOfCooperationTwo');
         Route::get('proposal/typeof/cooperation/two/{id}/select', 'TypeOfCooperationTwoDerivativeController@changeSelectTwo');
+
         Route::get('submission/cooperation', 'SubmissionProposalController@index');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
+        Route::post('submission/cooperation', 'SubmissionProposalController@store');
         Route::get('submission/cooperation/one/{id}/derivative', 'SubmissionProposalController@changeSelectOneDerivative');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
@@ -98,16 +100,27 @@ Route::middleware('auth:api')->group( function () {
         Route::get('user/admin/index', 'AdminController@index');
         Route::get('user/admin/create', 'AdminController@create');
         Route::post('user/admin/store', 'AdminController@store');
-        Route::get('user/change/status/{id}', 'AdminController@changeStatus');
+        Route::put('user/change/status/{id}', 'AdminController@changeStatus');
         Route::get('user/admin/{id}/edit', 'AdminController@edit');
         Route::delete('user/admin/{id}', 'AdminController@destroy');
         Route::put('user/admin/{id}', 'AdminController@update');
+
+        Route::get('user/satker/index', 'SatkerController@index');
+        Route::get('user/satker/create', 'SatkerController@create');
+        Route::post('user/satker/store', 'SatkerController@store');
+        Route::get('satker/change/status/{id}', 'SatkerController@changeStatus');
+        Route::get('user/satker/{id}/edit', 'SatkerController@edit');
+        Route::delete('user/satker/{id}', 'SatkerController@destroy');
+        Route::put('user/satker/{id}', 'SatkerController@update');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');
-    Route::get('user-lists', 'UserController@userLists');
-    Route::get('roles', 'RolePermissionsController@getAllRole');
-    Route::get('permissions', 'RolePermissionsController@getAllPermission');
+    Route::get('access/right', 'UserController@accessRight');
+    Route::post('access/right/role', 'UserController@storeRole');
+    Route::delete('access/right/role/{id}', 'UserController@destroyRole');
+    Route::get('access/right/role/{id}/edit', 'UserController@editRole');
+    Route::get('config/user/role', 'UserController@getData');
+
     Route::post('role-permission', 'RolePermissionsController@getRolePermission');
     Route::post('set-role-permission', 'RolePermissionsController@setRolePermission');
     Route::post('set-role-user', 'RolePermissionsController@setRoleUser');

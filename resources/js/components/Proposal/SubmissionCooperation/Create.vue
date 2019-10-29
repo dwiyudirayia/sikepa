@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Turunan Jenis Kerjasama
+                            Tambah Pengajuan Jenis Kerjasama
                         </h3>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
                         </select>
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <br>
                     <template v-if="$v.forms.type_of_cooperation_id.$error">
                         <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -76,13 +77,13 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.countries_id.$model" class="form-control" @change="indonesia()">
+                        <select v-model="$v.forms.country_id.$model" class="form-control" @change="indonesia()">
                             <option v-for="(value, index) in data_select.country_id" :key="index" :value="value.id">{{ value.country_name.toUpperCase() }}</option>
                         </select>
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <template v-if="$v.forms.countries_id.$error">
-                        <span v-if="!$v.forms.countries_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <template v-if="$v.forms.country_id.$error">
+                        <span v-if="!$v.forms.country_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
                 </div>
@@ -157,23 +158,35 @@
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Nama Instansi</label>
                             <div class="m-form__control">
-                                <input type="text" class="form-control" v-model="forms.agency_name">
+                                <input type="text" class="form-control" v-model="$v.forms.agency_name.$model">
                             </div>
                             <span class="m-form__help">Pastikan Nama Instansi Sesuai</span>
+                            <br>
+                            <template v-if="$v.forms.agency_name.$error">
+                                <span v-if="!$v.forms.agency_name.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                            </template>
                         </div>
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Alamat Instansi</label>
                             <div class="m-form__control">
-                                <textarea v-model="forms.address" cols="30" rows="10" class="form-control"></textarea>
+                                <textarea v-model="$v.forms.address.$model" cols="30" rows="10" class="form-control"></textarea>
                             </div>
                             <span class="m-form__help">Pastikan Alamat Instansi Sesuai</span>
+                                <br>
+                                <template v-if="$v.forms.address.$error">
+                                    <span v-if="!$v.forms.address.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                                </template>
                         </div>
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Kode Pos</label>
                             <div class="m-form__control">
-                                <input type="text" v-model="forms.postal_code" class="form-control">
+                                <input type="text" v-model="$v.forms.postal_code.$model" class="form-control">
                             </div>
-                            <span class="m-form__help">Silahkan Isi Kode Pos dan Pastikan Sesuai</span>
+                            <span class="m-form__help">Pastikan Kode Pos Sesuai</span>
+                            <br>
+                            <template v-if="$v.forms.postal_code.$error">
+                                <span v-if="!$v.forms.postal_code.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                            </template>
                         </div>
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Latitude</label>
@@ -197,7 +210,12 @@
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Maksud & Tujuan</label>
                             <div class="m-form__control">
-                                <textarea v-model="forms.purpose_objectives" cols="30" class="form-control"></textarea>
+                                <textarea v-model="$v.forms.purpose_objectives.$model" cols="30" class="form-control"></textarea>
+                                <span class="m-form__help">Pastikan Maksud & Tujuan Sesuai</span>
+                                <br>
+                                <template v-if="$v.forms.purpose_objectives.$error">
+                                    <span v-if="!$v.forms.purpose_objectives.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -205,7 +223,12 @@
                         <div class="form-group m-form__group">
                             <label for="exampleInputEmail1">Dari - Sampai</label>
                             <div class="m-form__control">
-                                <date-picker v-model="forms.time_period" :lang="{pickers: ['7 Hari Selanjutnya', '30 Hari Selanjutnya', '7 Hari Sebelumnya', '30 Hari Sebelumnya']}" :not-before="new Date()" range width="100%" valueType="format" placeholder="Masukan Tanggal Usulan Jangka Waktu"></date-picker>
+                                <date-picker v-model="$v.forms.time_period.$model" :lang="{pickers: ['7 Hari Selanjutnya', '30 Hari Selanjutnya', '7 Hari Sebelumnya', '30 Hari Sebelumnya']}" :not-before="new Date()" range width="100%" valueType="format" placeholder="Masukan Tanggal Usulan Jangka Waktu"></date-picker>
+                                <span class="m-form__help">Pastikan Tanggal Sesuai</span>
+                                <br>
+                                <template v-if="$v.forms.time_period.$error">
+                                    <span v-if="!$v.forms.time_period.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -216,7 +239,12 @@
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Latar Belakang</label>
                             <div class="m-form__control">
-                                <textarea v-model="forms.purpose_objectives" cols="30" class="form-control"></textarea>
+                                <textarea v-model="$v.forms.background.$model" cols="30" class="form-control"></textarea>
+                                <span class="m-form__help">Pastikan Latar Belakang Sesuai</span>
+                                <br>
+                                <template v-if="$v.forms.background.$error">
+                                    <span v-if="!$v.forms.background.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -225,7 +253,7 @@
                             <label for="exampleInputEmail1">Profile Instansi</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" ref="fileInstansi" @change="fileProfileInstansi()">
+                                <input type="file" class="custom-file-input" id="fileInstansi" ref="fileInstansi" @change="fileProfileInstansi()" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                 <label class="custom-file-label" for="customFile">Pilih file</label>
                             </div>
                         </div>
@@ -233,7 +261,7 @@
                             <label for="exampleInputEmail1">Proposal</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" ref="fileProposal" @change="fileProposal()">
+                                <input type="file" class="custom-file-input" id="fileProposal" ref="fileProposal" @change="fileProposal()">
                                 <label class="custom-file-label" for="customFile">Pilih file</label>
                             </div>
                         </div>
@@ -259,6 +287,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
 import DatePicker from 'vue2-datepicker';
 
 export default {
@@ -275,7 +304,7 @@ export default {
                     }
                 },
             ],
-            breadcrumbTitle: 'Tambah Pengajuan Kerjasama',
+            breadcrumbTitle: 'Pengajuan Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
@@ -298,7 +327,7 @@ export default {
                 type_of_cooperation_one_derivative_id: null,
                 type_of_cooperation_two_derivative_id: null,
                 agencies_id: null,
-                countries_id: null,
+                country_id: null,
                 province_id: null,
                 regency_id: null,
                 postal_code: null,
@@ -334,7 +363,7 @@ export default {
             type_of_cooperation_id: {
                 required
             },
-            countries_id: {
+            country_id: {
                 required
             },
             agencies_id: {
@@ -355,9 +384,6 @@ export default {
             longitude: {
                 required
             },
-            nominal: {
-                required
-            },
             purpose_objectives: {
                 required
             },
@@ -367,12 +393,12 @@ export default {
             time_period: {
                 required
             },
-            agency_profile: {
-                required
-            },
-            proposal: {
-                required
-            },
+            // agency_profile: {
+            //     required
+            // },
+            // proposal: {
+            //     required
+            // },
         }
     },
     created() {
@@ -408,14 +434,51 @@ export default {
         }
     },
     methods: {
+        store() {
+            let formData = new FormData();
+            this.$v.forms.$touch();
+            if(this.$v.forms.$invalid) {
+                return;
+            } else {
+                formData.append('type_of_cooperation_id', this.forms.type_of_cooperation_id);
+                formData.append('type_of_cooperation_one_derivative_id', this.forms.type_of_cooperation_one_derivative_id);
+                formData.append('type_of_cooperation_two_derivative_id', this.forms.type_of_cooperation_two_derivative_id);
+                formData.append('agencies_id', this.forms.agencies_id);
+                formData.append('country_id', this.forms.country_id);
+                formData.append('province_id', this.forms.province_id);
+                formData.append('regency_id', this.forms.regency_id);
+                formData.append('postal_code', this.forms.postal_code);
+                formData.append('agency_name', this.forms.agency_name);
+                formData.append('address', this.forms.address);
+                formData.append('latitude', this.forms.latitude);
+                formData.append('longitude', this.forms.longitude);
+                formData.append('nominal', this.forms.nominal);
+                formData.append('purpose_objectives', this.forms.purpose_objectives);
+                formData.append('background', this.forms.background);
+                formData.append('time_period_of', this.forms.time_period[0]);
+                formData.append('time_period_to', this.forms.time_period[1]);
+                formData.append('agency_profile', this.forms.agency_profile)
+                formData.append('proposal', this.forms.proposal)
+                
+                $axiosFormData.post(`/admin/submission/cooperation`, formData)
+                .then(response => {
+                    this.$store.commit('proposal/updateData', response);
+                    this.$store.commit('proposal/notification', response);
+    
+                    this.$router.push({
+                        path: '/submission/cooperation'
+                    })
+                })
+                this.$v.$reset();
+            }
+        },
         setPlace(place) {
             this.place = place;
-            console.log(place);
             this.forms.agency_name = place.name;
             this.forms.latitude = place.geometry.location.lat();
             this.forms.longitude = place.geometry.location.lng();
             this.forms.address = place.formatted_address;
-            this.forms.postal_code = 'test'
+
             this.centerMaps = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
@@ -432,7 +495,7 @@ export default {
             }
         },
         indonesia() {
-            const value = this.forms.countries_id;
+            const value = this.forms.country_id;
 
             if(value == 102) {
                 this.isIndonesian = true;
@@ -447,10 +510,26 @@ export default {
             })
         },
         fileProfileInstansi() {
-            this.forms.agency_profile = this.$refs.fileInstansi.files[0];
+            const files = this.$refs.fileInstansi.files[0];
+            const ext = files.name.split('.').pop();
+
+            if(ext=="pdf" || ext=="docx" || ext=="doc"){
+                this.forms.agency_profile = files;
+            } else{
+                alert('File Tidak Mendukung')
+                document.getElementById("fileInstansi").value = "";
+            }
         },
         fileProposal() {
-            this.forms.proposal =  this.$refs.fileProposal.files[0];
+            const files = this.$refs.fileProposal.files[0];
+            const ext = files.name.split('.').pop();
+
+            if(ext=="pdf" || ext=="docx" || ext=="doc"){
+                this.forms.proposal = files;
+            } else{
+                alert('File Tidak Mendukung')
+                document.getElementById("fileProposal").value = "";
+            }
         },
         updateCoordinates(event) {
             this.forms.latitude = event.latLng.lat();
@@ -496,3 +575,4 @@ export default {
         position: relative;
     }
 </style>
+

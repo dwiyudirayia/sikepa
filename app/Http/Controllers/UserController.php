@@ -17,40 +17,21 @@ class UserController extends Controller
     {
         $this->notification = $notification;
     }
-    public function userLists()
-    {
-        try {
-            $data = User::where('role', '!=', 3)->get();
-            return response()->json($this->notification->generalSuccess($data));
-
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
-    }
     public function getUserLogin()
     {
-        $user = request()->user(); //MENGAMBIL USER YANG SEDANG LOGIN
+        $user = request()->user();
         $permissions = [];
-        $role = [];
         foreach (Permission::all() as $permission) {
-            //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
             if (request()->user()->can($permission->name)) {
-                $permissions[] = $permission->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
+                $permissions[] = $permission->name;
             }
         }
-        foreach (Role::all() as $role) {
-            //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
-            if (request()->user()->can($role->name)) {
-                $role[] = $role->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
-            }
-        }
-        $user['permission'] = $permissions; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
-        $user['role'] = $role; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
+        $user['permission'] = $permissions;
         return response()->json(['status' => 'success', 'data' => $user]);
     }
     public function checkSameCurrentPassword($current_password)
     {
-        if (!(Hash::check($current_password, Auth::user()->password))) {
+        if (!(Hash::check($current_password, request()->user()->password))) {
             // The passwords matches
             return response()->json(['isSameCurrentPassword' => true]);
         } else {
@@ -85,6 +66,66 @@ class UserController extends Controller
                 'status' => $e->getCode()
             ];
             return response()->json($data);
+        }
+    }
+    public function accessRight() {
+        try {
+            $data['roles'] = Role::all();
+            $data['permissions'] = Permission::all();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function storeRole(Request $request) {
+        try {
+            Role::create([
+                'name' => $request->name,
+                'guard_name' => 'web'
+            ]);
+
+            $data['roles'] = Role::all();
+            $data['permissions'] = Permission::all();
+
+            return response()->json($this->notification->storeSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->storeFailed($th));
+        }
+    }
+    public function destroyRole($id) {
+        try {
+            $data = Role::findOrFail($id);
+            $data->delete();
+
+            $currentData['roles'] = Role::all();
+            $currentData['permissions'] = Permission::all();
+
+            return response()->json($this->notification->deleteSuccess($currentData));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->deleteFailed($th));
+        }
+    }
+    public function editRole($id)
+    {
+        try {
+            $data['data'] = Role::findOrFail($id);
+            $data['roles'] = Role::where('id', $id)->get();
+            $data['permissions'] = Permission::all();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function getData() {
+        try {
+            $data['user'] = User::where('id', '!=', request()->user()->id)->get();
+            $data['roles'] = Role::all();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
     }
 }

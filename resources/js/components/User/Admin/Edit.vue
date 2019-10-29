@@ -127,16 +127,13 @@
                         <h3 class="m-form__heading-title">Hak Akses Aplikasi</h3>
                     </div>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Hak Akses</label>
-                        <div class="m-checkbox-inline">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-3" v-for="value in this.listPermissions" :key="value.id">
-                                    <label class="m-checkbox">
-                                        <input type="checkbox" v-model="hasPermission[value.name]" :value="value.name"> {{ value.name }}
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
+                        <label for="Nama Lengkap">Role</label>
+                        <div class="m-form__control">
+                            <select v-model="selectedRole" class="form-control">
+                                <option :value="value.name" v-for="value in listRoles" :key="value.id">
+                                    {{ value.name }}
+                                </option>
+                            </select>
                         </div>
                         <span class="m-form__help">Pastikan Hak Akses Sesuai Yang di Inginkan</span>
                     </div>
@@ -194,11 +191,11 @@ export default {
                 jabatan: null,
                 signature: null,
                 photo: null,
-                permissions: []
             },
             photoPreview: null,
             signaturePreview: null,
-            listPermissions: [],
+            listRoles: [],
+            selectedRole: null
         }
     },
     validations: {
@@ -215,25 +212,8 @@ export default {
             },
         }
     },
-    computed: {
-        hasPermission(){
-            let userPermission = this.forms.permissions;
-            let permissions = this.listPermissions;
-            let ret = {}
-            for(let i = 0; i < userPermission.length; i++){
-                for(let j = 0; j < permissions.length; j++){
-                if(permissions[j].name == userPermission[i].name){
-                    ret[permissions[j].name] = true
-                }
-                }
-            }
-
-            this.forms.permissions = ret;
-            return ret;
-        }
-    },
     created() {
-        this.getPermission();
+        this.getRoles();
         this.getData();
     },
     watch: {
@@ -247,12 +227,13 @@ export default {
             $axios.get(`/admin/user/admin/${this.$route.params.id}/edit`)
             .then(response => {
                 this.forms = response.data.data;
+                this.selectedRole = response.data.data.roles[0].name;
             })
         },
-        getPermission() {
+        getRoles() {
             $axios.get('/admin/user/admin/create')
             .then(response => {
-                this.listPermissions = response.data.data;
+                this.listRoles = response.data.data;
             });
         },
         validate() {
@@ -320,17 +301,6 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        addPermission(name) {
-            let index = this.forms.permissions.findIndex(x => x == name)
-            //APABIL TIDAK TERSEDIA, INDEXNYA -1
-            if (index == -1) {
-                //MAKA TAMBAHKAN KE LIST
-                this.forms.permissions.push(name)
-            } else {
-                //JIKA SUDAH ADA, MAKA HAPUS DARI LIST
-                this.forms.permissions.splice(index, 1)
-            }
-        },
         update() {
             this.$v.forms.$touch();
 
@@ -340,16 +310,11 @@ export default {
             formData.append('_method', 'PUT');
             formData.append('username', this.forms.username);
             formData.append('email', this.forms.email);
-            formData.append('password', this.forms.password);
             formData.append('jabatan', this.forms.jabatan);
             formData.append('signature', this.forms.signature);
             formData.append('photo', this.forms.photo);
-
-            $.each(this.forms.permissions, function(key, value) {
-                if(value == "true" || value == true) {
-                    formData.append(`permissions[]`, key);
-                }
-            })
+            formData.append('nip', this.forms.nip);
+            formData.append('role', this.selectedRole);
 
             if(this.$v.forms.$invalid) {
                 return;

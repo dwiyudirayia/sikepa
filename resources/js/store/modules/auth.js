@@ -27,7 +27,7 @@ const auth = {
                     }
                     //JANGAN LUPA UNTUK MELAKUKAN RESOLVE AGAR DIANGGAP SELESAI
                     resolve(response.data)
-                    router.push({name: 'SectionArticleIndex'})
+                    router.push({name: 'DashboardIndex'})
                 })
                 .catch((error) => {
                     if (error.response.status == 422) {

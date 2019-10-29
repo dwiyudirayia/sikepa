@@ -29,7 +29,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Username</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validate" @keyup="inputFunction" @blur="$v.forms.username.$touch()">
+                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validateUsername" @keyup="inputUsername" @blur="$v.forms.username.$touch()">
                     </div>
                     <span class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</span>
                     <br>
@@ -69,6 +69,22 @@
                         <input type="text" v-model="forms.jabatan" class="form-control">
                     </div>
                     <span class="m-form__help">Jabatan Saat Ini</span>
+                </div>
+                <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">NIP</label>
+                    <div class="m-form__control">
+                        <input type="text" v-model="$v.forms.nip.$model" class="form-control" @input="validateNIP" @keyup="inputNIP" @blur="$v.forms.nip.$touch()
+                        ">
+                    </div>
+                    <span class="m-form__help">Pastikan NIP Sesuai Dengan Yang Ada Inginkan</span>
+                    <br>
+                    <template v-if="$v.forms.nip.$error">
+                        <span v-if="!$v.forms.nip.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <br>
+                        <span v-if="!$v.forms.nip.minLength" class="m--font-danger">Field Ini Harus 18 Angka</span>
+                        <br>
+                    </template>
+                    <span v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>
@@ -126,16 +142,13 @@
                         <h3 class="m-form__heading-title">Hak Akses Aplikasi</h3>
                     </div>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Hak Akses</label>
-                        <div class="m-checkbox-inline">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-3" v-for="value in this.listPermissions" :key="value.id">
-                                    <label class="m-checkbox">
-                                        <input type="checkbox" v-model="forms.permissions" :value="value.name" @click="addPermission(value.name)"> {{ value.name }}
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
+                        <label for="Nama Lengkap">Role</label>
+                        <div class="m-form__control">
+                            <select v-model="forms.role" class="form-control">
+                                <option :value="value.name" v-for="value in listRoles" :key="value.index">
+                                    {{ value.name }}
+                                </option>
+                            </select>
                         </div>
                         <span class="m-form__help">Pastikan Hak Akses Sesuai Yang di Inginkan</span>
                     </div>
@@ -166,6 +179,9 @@ export default {
             data_errors: {
                 username: {
                     without_space: false
+                },
+                nip: {
+                    number_only: false
                 }
             },
             breadcrumbTitle: 'Admin',
@@ -191,9 +207,10 @@ export default {
                 signaturePreview: null,
                 photo: null,
                 photoPreview: null,
-                permissions: []
+                nip: null,
+                role: null
             },
-            listPermissions: [],
+            listRoles: [],
         }
     },
     validations: {
@@ -212,22 +229,41 @@ export default {
                 required,
                 minLength: minLength(6)
             },
+            nip: {
+                required,
+                minLength: minLength(18),
+            }
         }
     },
     created() {
         $axios.get('/admin/user/admin/create')
         .then(response => {
-            this.listPermissions = response.data.data;
+            this.listRoles = response.data.data;
         })
     },
     watch: {
         "forms.username": function(value)
         {
             this.forms.username = value;
+        },
+        "forms.nip": function(value)
+        {
+            this.forms.nip = value;
         }
     },
     methods: {
-        validate() {
+        validateNIP() {
+            const regex = new RegExp("^\\d+$");
+            const isValid = regex.test(this.forms.nip);
+            this.forms.nip = this.forms.nip.replace(/[^0-9]+/g, '');
+
+            if(isValid) {
+                this.data_errors.nip.number_only = false;
+            } else {
+                this.data_errors.nip.number_only = true;
+            }
+        },
+        validateUsername() {
             const regex = new RegExp(/[^A-Za-z0-9]+/g);
             const lastVal = this.forms.username.substr(this.forms.username.length - 1);
             this.forms.username = this.forms.username.replace(/[^A-Za-z0-9]+/g, '');
@@ -238,7 +274,10 @@ export default {
                 this.data_errors.username.without_space = true;
             }
         },
-        inputFunction(event) {
+        inputNIP(event) {
+            this.$emit('input', event.target.value);
+        },
+        inputUsername(event) {
             this.$emit('input', event.target.value);
         },
         onSignatureChange(e) {
@@ -289,17 +328,6 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        addPermission(name) {
-            let index = this.forms.permissions.findIndex(x => x == name)
-            //APABIL TIDAK TERSEDIA, INDEXNYA -1
-            if (index == -1) {
-                //MAKA TAMBAHKAN KE LIST
-                this.forms.permissions.push(name)
-            } else {
-                //JIKA SUDAH ADA, MAKA HAPUS DARI LIST
-                this.forms.permissions.splice(index, 1)
-            }
-        },
         store() {
             this.$v.forms.$touch();
 
@@ -312,10 +340,8 @@ export default {
             formData.append('jabatan', this.forms.jabatan);
             formData.append('signature', this.forms.signature);
             formData.append('photo', this.forms.photo);
-
-            $.each(this.forms.permissions, function(key, value) {
-                formData.append(`permissions[]`, value);
-            })
+            formData.append('nip', this.forms.nip);
+            formData.append('role', this.forms.role);
 
             if(this.$v.forms.$invalid) {
                 return;

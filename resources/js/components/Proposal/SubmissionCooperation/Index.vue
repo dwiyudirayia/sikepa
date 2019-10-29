@@ -8,11 +8,11 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Daftar Pengajuan Kerjasama
+                            Pengajuan Kerjasama
                         </h3>
                     </div>
                 </div>
-                <div class="m-portlet__head-tools">
+                <div class="m-portlet__head-tools" v-if="$can('Pengajuan Kerjasama')">
                     <router-link to="/submission/cooperation/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Pengajuan'">
                         <span>
                             <i class="la la-plus"></i>
@@ -22,9 +22,16 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <!--begin::Section-->
-                <div class="m-section">
-                    <div class="m-section__content">
+                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-file-archive-o"></i> Daftar Pengajuan Kerjasama Anda</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_tabs_8_1" role="tabpanel">
                         <div class="table-responsive">
                             <table class="table m-table m-table--head-bg-brand">
                                 <thead>
@@ -61,16 +68,36 @@
                             </table>
                         </div>
                     </div>
+                    <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table m-table m-table--head-bg-brand">
+                                <thead>
+                                    <tr>
+                                        <th style="vertical-align: middle;">No</th>
+                                        <th style="vertical-align: middle;">Instansi</th>
+                                        <th style="vertical-align: middle;">Jenis Kategori</th>
+                                        <th style="vertical-align: middle;">Tanggal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(value, index) in this.approvalSubmission" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index + 1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.created_at }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
-                <!--end::Section-->
             </div>
-            <!--end::Form-->
         </div>
     </div>
 </template>
 
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'ProposalSubmissionCooperationIndex',
     data() {
@@ -82,7 +109,9 @@ export default {
                     label: 'Daftar Pengajuan Kerjasama',
                     path: '/submission/cooperation'
                 },
-            ]
+            ],
+            approvalSubmission: [],
+            youSubmission: []
         }
     },
     computed: {
@@ -100,7 +129,17 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch('proposal/indexProposal');
+        return new Promise((resolve, reject) => {
+            $axios.get(`/admin/submission/cooperation`)
+            .then(response => {
+                this.approvalSubmission = response.data.data.approval;
+                this.youSubmission = response.data.data.you;
+
+                this.$store.commit('proposal/clearPage');
+
+                resolve(response);
+            })
+        })
     },
 }
 </script>

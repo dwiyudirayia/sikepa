@@ -16,19 +16,32 @@ class UpdateUserRequest extends FormRequest
         });
 
         return [
-
+            'name' => 'required',
+            'username' => 'required|without_spaces|unique:users,username,'.$this->id.'',
+            'email' => 'required|email|unique:users,email,'.$this->id.'',
+            'nip' => 'required',
         ];
     }
     public function attributes()
     {
         return [
-
+            'name' => 'Nama',
+            'email' => 'Alamat Email',
+            'password' => 'Password',
+            'username' => 'Username',
+            'nip' => 'NIP'
         ];
     }
     public function messages()
     {
         return [
-
+            'name.required' => ':attribute Harus di Isi',
+            'username.required' => ':attribute Harus di Isi',
+            'email.required' => ':attribute Harus di Isi',
+            'email.email' => 'Format :attribute Tidak Sesuai',
+            'password.required' => ':attribute Harus di Isi',
+            'password.min' => 'Minimal :attribute :values',
+            'nip.required' => ':attribute Harus di Isi',
         ];
     }
 
@@ -69,6 +82,7 @@ class UpdateUserRequest extends FormRequest
             }
         }
         return [
+            'updated_by' => request()->user()->id,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
@@ -76,7 +90,7 @@ class UpdateUserRequest extends FormRequest
             'jabatan' => $this->jabatan,
             'photo' => $pathPhoto,
             'signature' => $pathSignature,
-            'active' => 1
+            'nip' => $this->nip,
         ];
     }
 }

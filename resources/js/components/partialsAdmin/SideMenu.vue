@@ -8,7 +8,7 @@
                     </router-link>
                 </li>
                 <li class="m-menu__section ">
-                    <h4 class="m-menu__section-text">Optional</h4>
+                    <h4 class="m-menu__section-text">Main Menu</h4>
                     <i class="m-menu__section-icon flaticon-more-v2"></i>
                 </li>
                 <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
@@ -73,7 +73,67 @@
                         </ul>
                     </div>
                 </li>
-                <li v-if="$can('Akun Bagian')" class="m-menu__item" aria-haspopup="true">
+                <li v-if="$can('Biro Perencanaan dan Data')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Menteri')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Sesmen')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Bagian Hukum')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Bagian Ortala')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Bagian Kerja Sama')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/submission/cooperation">
+                        <i class="m-menu__link-icon la la-file-archive-o"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Deputi Terkait')" class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/submission/cooperation">
                         <i class="m-menu__link-icon la la-file-archive-o"></i>
                         <span class="m-menu__link-title">
@@ -93,6 +153,9 @@
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                                 <router-link to="/user/admin" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Admin</span></router-link>
                             </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/user/satker" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Satker & Sesmen</span></router-link>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -105,6 +168,23 @@
                             </span>
                         </span>
                     </router-link>
+                </li>
+                <li class="m-menu__section ">
+                    <h4 class="m-menu__section-text">Konfigurasi</h4>
+                    <i class="m-menu__section-icon flaticon-more-v2"></i>
+                </li>
+                <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/config')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-cogs"></i><span class="m-menu__link-text">Hak Akses</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
+                        <ul class="m-menu__subnav">
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/config/access/rights" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Role & Hak Akses</span></router-link>
+                            </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/config/role/user" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">User</span></router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>

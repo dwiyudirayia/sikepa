@@ -27,8 +27,8 @@ class SubmissionProposalController extends Controller
         try {
             $user = request()->user();
 
-            $data = SubmissionProposal::where('created_by', $user->id)->get();
-
+            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', $user->permissions[0]->id)->get();
+            $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -49,8 +49,11 @@ class SubmissionProposalController extends Controller
     }
     public function store(StoreSubmissionProposalRequest $request) {
         try {
+            $user = request()->user();
+
             SubmissionProposal::create($request->store());
-            $data = SubmissionProposal::all();
+            $data = SubmissionProposal::where('status_disposition', $user->permissions[0]->id)->get();
+
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
