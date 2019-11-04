@@ -24,6 +24,10 @@ import UserSatkerCreate from './components/User/Satker/Create';
 import UserSatkerEdit from './components/User/Satker/Edit';
 //EndAdmin
 
+//monev
+import MonitoringEvaluasiIndex from './components/Monev/index';
+import MonitoringEvaluasiCreate from './components/Monev/Create';
+//end monev
 //End User
 // --- Article --- //
 //Section
@@ -90,7 +94,7 @@ import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCoope
 
 import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
-// import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
 
 // --- End Proposal --- //
 
@@ -615,6 +619,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/submission/cooperation/:id/detail',
+                    name: 'ProposalSubmissionCooperationDetail',
+                    component: ProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //Banner Category
                 {
                     path: '/banner/category',
@@ -677,6 +689,22 @@ const router = new VueRouter({
                     path: '/testimoni/create',
                     name: 'TestimoniCreate',
                     component: TestimoniCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev',
+                    name: 'MonitoringEvaluasiIndex',
+                    component: MonitoringEvaluasiIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/create',
+                    name: 'MonitoringEvaluasiCreate',
+                    component: MonitoringEvaluasiCreate,
                     meta: {
                         requiresAuth: true,
                     }

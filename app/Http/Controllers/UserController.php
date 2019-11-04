@@ -111,7 +111,8 @@ class UserController extends Controller
         try {
             $data['data'] = Role::findOrFail($id);
             $data['roles'] = Role::where('id', $id)->get();
-            $data['permissions'] = Permission::all();
+            $data['admin'] = Permission::whereIn('id', [1, 2, 3, 4, 5, 6, 9, 10])->get();
+            $data['general'] = Permission::whereIn('id', [7, 8, 11])->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

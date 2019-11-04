@@ -30,31 +30,49 @@
                             <option :value="value.id" v-for="value in listRoles" :key="value.id">{{ value.name }}</option>
                         </select>
                     </div>
+                    <span class="m-form__help">Pastikan Nama Role Sesuai Nantinya</span>
                     <template v-if="$v.forms.id.$error">
                         <span v-if="!$v.forms.id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Role Sesuai Nantinya</span>
                 </div>
-                <div class="m-form__group form-group">
-                <label for="">Hak Akses</label>
-                <div class="m-checkbox-inline">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-12" v-for="value in listPermissions" :key="value.id">
-                            <label class="m-checkbox">
-                                <input
-                                    type="checkbox"
-                                    :value="value.name"
-                                    :checked="role_permission.findIndex(x => x == value.name) != -1"
-                                    @click="addPermission(value.name)"
-                                > {{ value.name }}
-                                <span></span>
-                            </label>
+                <div class="m-form__heading">
+                    <h3 class="m-form__heading-title">Hak Akses</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="m-form__group form-group">
+                            <label for="">Admin</label>
+                            <div class="m-checkbox-list">
+                                <label class="m-checkbox" v-for="value in admin" :key="value.id">
+                                    <input
+                                        type="checkbox"
+                                        :value="value.name"
+                                        :checked="role_permission.findIndex(x => x == value.name) != -1"
+                                        @click="addPermission(value.name)"
+                                    > {{ value.name }}
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="m-form__group form-group">
+                            <label for="">Umum</label>
+                            <div class="m-checkbox-list">
+                                <label class="m-checkbox" v-for="value in general" :key="value.id">
+                                    <input
+                                        type="checkbox"
+                                        :value="value.name"
+                                        :checked="role_permission.findIndex(x => x == value.name) != -1"
+                                        @click="addPermission(value.name)"
+                                    > {{ value.name }}
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <span class="m-form__help">Pastikan Hak Hak Akses Sesuai Dengan Nantinya</span>
-            </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -97,7 +115,8 @@ export default {
                 }
             ],
             listRoles: [],
-            listPermissions: [],
+            admin: [],
+            general: [],
             new_permission: []
         }
     },
@@ -123,7 +142,8 @@ export default {
             .then(response => {
                 this.forms = response.data.data.data;
                 this.listRoles = response.data.data.roles;
-                this.listPermissions = response.data.data.permissions;
+                this.admin = response.data.data.admin;
+                this.general = response.data.data.general;
             })
         },
         addPermission(name) {
@@ -158,7 +178,7 @@ export default {
                     this.forms.id = '';
                     this.new_permission = [];
                     this.CLEAR_ROLE_PERMISSION();
-                    this.$router.push({ name: 'ConfigAccessRightRoleIndex' });
+                    window.location = '/config/access/rights';
                     this.$store.commit('accessright/anotherNotification', response);
                 })
             }

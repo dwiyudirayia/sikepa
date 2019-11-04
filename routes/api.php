@@ -50,6 +50,9 @@ Route::middleware('auth:api')->group( function () {
         Route::get('submission/cooperation/one/{id}/derivative', 'SubmissionProposalController@changeSelectOneDerivative');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
+        Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
+        Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
+        Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
 
         //Change Status Article
         Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');

@@ -8,17 +8,41 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Pengajuan Kerjasama
+                            Monitoring Evaluasi
                         </h3>
                     </div>
                 </div>
-                <div class="m-portlet__head-tools" v-if="$can('Pengajuan Kerjasama')">
-                    <router-link to="/submission/cooperation/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Pengajuan'">
-                        <span>
-                            <i class="la la-plus"></i>
-                            <span>Tambah Pengajuan</span>
-                        </span>
-                    </router-link>
+                <div class="m-portlet__head-tools">
+                    <ul class="m-portlet__nav">
+                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                <i class="la la-ellipsis-h m--font-brand"></i>
+                            </a>
+                            <div class="m-dropdown__wrapper">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">
+                                                <li class="m-nav__item">
+                                                    <a class="m-nav__link" v-tooltip.top="'Import MOU Terdahulu'" @click="importMOU">
+                                                        <i class="m-nav__link-icon la la-upload"></i>
+                                                        <span class="m-nav__link-text">Import</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Export Format MOU Terdahulu'">
+                                                        <i class="m-nav__link-icon la la-download"></i>
+                                                        <span class="m-nav__link-text">Download</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="m-portlet__body">
@@ -68,37 +92,6 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
-                        <div class="table-responsive">
-                            <table class="table m-table m-table--head-bg-brand">
-                                <thead>
-                                    <tr>
-                                        <th style="vertical-align: middle;">No</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Jenis Kategori</th>
-                                        <th style="vertical-align: middle;">Tanggal</th>
-                                        <th style="vertical-align: middle;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(value, index) in this.approvalSubmission" :key="value.id">
-                                        <td style="vertical-align: middle;">{{ index + 1 }}</td>
-                                        <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
-                                        <td style="vertical-align: middle;">{{ value.created_at }}</td>
-                                        <td style="vertical-align: middle;">
-                                            <router-link :to="{name: 'ProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                <span>
-                                                    <i class="la la-eye"></i>
-                                                    <span>Detail Pengajuan</span>
-                                                </span>
-                                            </router-link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -108,15 +101,15 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'ProposalSubmissionCooperationIndex',
+    name: 'MonitoringEvaluasiIndex',
     data() {
         return {
-            breadcrumbTitle: 'Pengajuan Kerjasama',
+            breadcrumbTitle: 'Monitoring Evaluasi',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Pengajuan Kerjasama',
-                    path: '/submission/cooperation'
+                    label: 'Monitoring Evaluasi',
+                    path: '/monev'
                 },
             ],
             approvalSubmission: [],
@@ -137,19 +130,20 @@ export default {
             return this.$store.getters['proposal/getShowNotification'];
         },
     },
-    created() {
-        return new Promise((resolve, reject) => {
-            $axios.get(`/admin/submission/cooperation`)
-            .then(response => {
-                this.approvalSubmission = response.data.data.approval;
-                this.youSubmission = response.data.data.you;
-
-                this.$store.commit('proposal/clearPage');
-
-                resolve(response);
+    methods: {
+        importMOU() {
+            $axios.get();
+        },
+        downloadFormatMOU() {
+            $axios.get(`/admin/download/format/mou`)
+            .then(() => {
+                alert('Berhasil Download Format')
             })
-        })
-    },
+            .catch(error => {
+                alert(error);
+            })
+        }
+    }
 }
 </script>
 

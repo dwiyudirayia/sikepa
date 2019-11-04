@@ -20,35 +20,32 @@ class PermissionSeeder extends Seeder
                 'name' => 'Tambah User'
             ],
             2 => [
-                'name' => 'Biro Perencanaan & Data'
-            ],
-            3 => [
-                'name' => 'Deputi'
-            ],
-            4 => [
                 'name' => 'Hapus User'
             ],
-            5 => [
+            3 => [
                 'name' => 'Edit User'
             ],
-            6 => [
+            4 => [
                 'name' => 'Ganti Status User'
             ],
-            7 => [
+            5 => [
                 'name' => 'Admin'
             ],
-            8 => [
-                'name' => 'Sesmen'
+            6 => [
+                'name' => 'Lihat Pengajuan Kerjasama'
             ],
-            9 => [
+            7 => [
                 'name' => 'Pengajuan Kerjasama'
             ],
-            10 => [
+            8 => [
                 'name' => 'Mengatur Role'
             ],
-            11 => [
-                'name' => 'Mengatur Role User'
-            ]
+            9 => [
+                'name' => 'Mengubah Role User'
+            ],
+            10 => [
+                'name' => 'Monev'
+            ],
         ];
 
         foreach ($arrayPermissions as $key => $value) {

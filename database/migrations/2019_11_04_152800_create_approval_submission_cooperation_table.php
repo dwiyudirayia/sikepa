@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReasonSubmissionCooperationTable extends Migration
+class CreateApprovalSubmissionCooperationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateReasonSubmissionCooperationTable extends Migration
      */
     public function up()
     {
-        Schema::create('reason_submission_cooperation', function (Blueprint $table) {
+        Schema::create('approval_submission_cooperation', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('submission_proposal_id');
-            $table->text('reason');
-            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateReasonSubmissionCooperationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reason_submission_cooperation');
+        Schema::dropIfExists('approval_submission_cooperation');
     }
 }

@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $permission = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User'];
+        $permission = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User', 'Mengubah Role User', 'Mengatur Role'];
 
         $role = Role::find(1); //AMBIL ROLE BERDASARKAN ID
         $role->syncPermissions($permission); //SET PERMISSION UNTUK ROLE TERSEBUT

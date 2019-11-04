@@ -80,9 +80,7 @@
                     <br>
                     <template v-if="$v.forms.nip.$error">
                         <span v-if="!$v.forms.nip.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <br>
                         <span v-if="!$v.forms.nip.minLength" class="m--font-danger">Field Ini Harus 18 Angka</span>
-                        <br>
                     </template>
                     <span v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</span>
                 </div>
