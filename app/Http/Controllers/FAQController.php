@@ -92,7 +92,6 @@ class FAQController extends Controller
      */
     public function update(UpdateFAQRequest $request, $id)
     {
-        // dd($request->all());
         try {
             FAQ::where('id', $id)->update($request->update());
             $data = FAQ::all();

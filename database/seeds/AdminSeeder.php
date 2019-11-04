@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
+use Spatie\Permission\Models\Role;
 class AdminSeeder extends Seeder
 {
     /**
@@ -13,9 +13,12 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $permission = ['Admin', 'Hapus User', 'Edit User', 'Ganti Status User'];
+        $permission = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User', 'Mengubah Role User', 'Mengatur Role'];
 
-        $user = User::create([
+        $role = Role::find(1); //AMBIL ROLE BERDASARKAN ID
+        $role->syncPermissions($permission); //SET PERMISSION UNTUK ROLE TERSEBUT
+
+        User::create([
             'name' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
@@ -26,6 +29,7 @@ class AdminSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        $user->givePermissionTo($permission);
+        $assignRole = User::findOrFail(1);
+        $assignRole->assignRole('Admin');
     }
 }

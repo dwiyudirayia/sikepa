@@ -36,6 +36,9 @@ const admin = {
         {
             state.data = payload.data.data;
         },
+        hideNotification(state) {
+            state.showNotification = false;
+        },
         clearPage(state)
         {
             state.message = null;

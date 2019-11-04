@@ -20,7 +20,9 @@ const user = {
             state.permissions = payload
         },
         ASSIGN_ROLE_PERMISSION(state, payload) {
-            state.role_permission = payload
+            let values = payload.map(value => value.name);
+            state.role_permission = values
+
         },
         CLEAR_ROLE_PERMISSION(state, payload) {
             state.role_permission = []
@@ -46,7 +48,6 @@ const user = {
         //FUNGSI INI UNTUK MENGATUR ROLE TIAP USER
         setRoleUser({commit}, payload) {
             return new Promise((resolve, reject) => {
-                commit('CLEAR_ERRORS', '', {root: true}) //STATE ERROR DIBERSIHKAN
                 //KIRIM PERMINTAAN KE BACKEND
                 $axios.post(`/set-role-user`, payload)
                 .then((response) => {
@@ -87,7 +88,6 @@ const user = {
         //MENGAMBIL PERMISSION YANG TELAH DIMILIKI OLEH ROLE TERTENTU
         getRolePermission({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                commit('CLEAR_ERRORS', '', {root: true}) //BERSIHKAN STATE ERRORS
                 //KIRIM PERMINTAAN KE BACKEND BERDASARKAN ROLE_ID
                 $axios.post(`/role-permission`, {role_id: payload})
                 .then((response) => {
@@ -100,7 +100,6 @@ const user = {
         //BERFUNGSI UNTUK MENGATUR PERMISSION SETIAP ROLEH YANG DIPILIH
         setRolePermission({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                commit('CLEAR_ERRORS', '', {root: true})
                 //KIRIM PERMINTAAN KE BACKEND
                 $axios.post(`/set-role-permission`, payload)
                 .then((response) => {

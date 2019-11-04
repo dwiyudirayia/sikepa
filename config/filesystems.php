@@ -69,6 +69,16 @@ return [
             'root' => storage_path('app/public/photo_user'),
             'visibility' => 'public',
         ],
+        'proposal_cooperation' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

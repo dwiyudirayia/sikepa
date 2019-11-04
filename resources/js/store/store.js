@@ -14,6 +14,8 @@ import Proposal from './modules/proposal';
 import Banner from './modules/banner';
 import Admin from './modules/admin';
 import Testimoni from './modules/testimoni';
+import satker from './modules/satker';
+import accessright from './modules/accessright';
 //End Module
 
 Vue.use(Vuex);
@@ -30,6 +32,8 @@ const store = new Vuex.Store({
         banner: Banner,
         admin: Admin,
         testimoni: Testimoni,
+        satker: satker,
+        accessright: accessright
     },
     state: {
         token: localStorage.getItem('token'),

@@ -78,6 +78,7 @@
 
 <script>
 import $axios from '@/api.js';
+import store from '@/store/store.js';
 
 export default {
     name: "UserAdminIndex",
@@ -112,10 +113,15 @@ export default {
     },
     methods: {
         changeStatus(id) {
-            $axios.get(`/admin/user/change/status/${id}`).
+            $axios.put(`/admin/user/change/status/${id}`).
             then(response => {
                 this.$store.commit('admin/updateData', response);
-            })
+                this.$store.commit('admin/notification', response);
+            });
+
+            setTimeout(function(){
+                store.commit('satker/hideNotification');
+            }, 5000);
         },
         destroy(id) {
             this.$store.dispatch('admin/destroyAdmin', id);

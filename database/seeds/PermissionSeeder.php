@@ -12,34 +12,43 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $arrayPermission = [
+        $arrayPermissions = [
             0 => [
-                'name' => 'Satker',
+                'name' => 'Lihat User'
             ],
             1 => [
-                'name' => 'Akun Bagian',
+                'name' => 'Tambah User'
             ],
             2 => [
-                'name' => 'Biro Hukum'
-            ],
-            3 => [
-                'name' => 'Sesmen',
-            ],
-            4 => [
-                'name' => 'Admin',
-            ],
-            5 => [
                 'name' => 'Hapus User'
             ],
-            6 => [
+            3 => [
                 'name' => 'Edit User'
             ],
-            7 => [
+            4 => [
                 'name' => 'Ganti Status User'
-            ]
+            ],
+            5 => [
+                'name' => 'Admin'
+            ],
+            6 => [
+                'name' => 'Lihat Pengajuan Kerjasama'
+            ],
+            7 => [
+                'name' => 'Pengajuan Kerjasama'
+            ],
+            8 => [
+                'name' => 'Mengatur Role'
+            ],
+            9 => [
+                'name' => 'Mengubah Role User'
+            ],
+            10 => [
+                'name' => 'Monev'
+            ],
         ];
 
-        foreach ($arrayPermission as $key => $value) {
+        foreach ($arrayPermissions as $key => $value) {
             Permission::create([
                 'name' => $value['name'],
                 'guard_name' => 'web',

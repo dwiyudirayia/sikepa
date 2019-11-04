@@ -15,7 +15,7 @@ class CreateReasonSubmissionCooperationTable extends Migration
     {
         Schema::create('reason_submission_cooperation', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('submission_proposal');
+            $table->bigInteger('submission_proposal_id');
             $table->text('reason');
             $table->tinyInteger('status');
             $table->timestamps();

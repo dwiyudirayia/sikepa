@@ -9,12 +9,25 @@ import DashboardIndex from './components/Dashboard/Index';
 import Admin from './layouts/Admin';
 //User
 import UserChangePassword from './components/User/ChangePassword';
+
+import ConfigAccessRightRoleIndex from './components/User/ConfigAccessRightRoleIndex';
+import ConfigAccessRightRoleCreate from './components/User/ConfigAccessRightRoleCreate';
+import ConfigAccessRightRoleEdit from './components/User/ConfigAccessRightRoleEdit';
+import ConfigRoleUser from './components/User/ConfigRoleUser';
 //Admin
 import UserAdminIndex from './components/User/Admin/Index';
 import UserAdminCreate from './components/User/Admin/Create';
 import UserAdminEdit from './components/User/Admin/Edit';
+
+import UserSatkerIndex from './components/User/Satker/Index';
+import UserSatkerCreate from './components/User/Satker/Create';
+import UserSatkerEdit from './components/User/Satker/Edit';
 //EndAdmin
 
+//monev
+import MonitoringEvaluasiIndex from './components/Monev/index';
+import MonitoringEvaluasiCreate from './components/Monev/Create';
+//end monev
 //End User
 // --- Article --- //
 //Section
@@ -81,7 +94,7 @@ import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCoope
 
 import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
-// import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
 
 // --- End Proposal --- //
 
@@ -147,6 +160,39 @@ const router = new VueRouter({
             path: '/admin',
             component: Admin,
             children: [
+                //Konfigurasi
+                {
+                    path: '/config/access/rights',
+                    name: 'ConfigAccessRightRoleIndex',
+                    component: ConfigAccessRightRoleIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/config/access/right/role/create',
+                    name: 'ConfigAccessRightRoleCreate',
+                    component: ConfigAccessRightRoleCreate,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/config/access/right/role/:id/edit',
+                    name: 'ConfigAccessRightRoleEdit',
+                    component: ConfigAccessRightRoleEdit,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/config/role/user',
+                    name: 'ConfigRoleUser',
+                    component: ConfigRoleUser,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //user
                 {
                     path: '/user/change/password',
@@ -176,6 +222,31 @@ const router = new VueRouter({
                     path: '/user/admin/:id/edit',
                     name: 'UserAdminEdit',
                     component: UserAdminEdit,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                //satker
+                {
+                    path: '/user/satker',
+                    name: 'UserSatkerIndex',
+                    component: UserSatkerIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/user/satker/create',
+                    name: 'UserSatkerCreate',
+                    component: UserSatkerCreate,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/user/satker/:id/edit',
+                    name: 'UserSatkerEdit',
+                    component: UserSatkerEdit,
                     meta: {
                         requiresAuth: true
                     }
@@ -548,6 +619,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/submission/cooperation/:id/detail',
+                    name: 'ProposalSubmissionCooperationDetail',
+                    component: ProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //Banner Category
                 {
                     path: '/banner/category',
@@ -610,6 +689,22 @@ const router = new VueRouter({
                     path: '/testimoni/create',
                     name: 'TestimoniCreate',
                     component: TestimoniCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev',
+                    name: 'MonitoringEvaluasiIndex',
+                    component: MonitoringEvaluasiIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/create',
+                    name: 'MonitoringEvaluasiCreate',
+                    component: MonitoringEvaluasiCreate,
                     meta: {
                         requiresAuth: true,
                     }
