@@ -115,6 +115,11 @@ Route::middleware('auth:api')->group( function () {
         Route::get('user/satker/{id}/edit', 'SatkerController@edit');
         Route::delete('user/satker/{id}', 'SatkerController@destroy');
         Route::put('user/satker/{id}', 'SatkerController@update');
+
+        //Monev
+        Route::get('monev', 'MonevController@index');
+        Route::get('monev/activity/{id}/create', 'MonevController@createActivity');
+        Route::post('monev/import', 'ImportController@importOldMOU');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

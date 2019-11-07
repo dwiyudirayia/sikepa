@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApprovalOldSubmissionCooperationTable extends Migration
+class CreateNomorApprovalOldSubmissionCooperationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateApprovalOldSubmissionCooperationTable extends Migration
      */
     public function up()
     {
-        Schema::create('approval_old_submission_cooperation', function (Blueprint $table) {
+        Schema::create('nomor_approval_old_submission_cooperation', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('created_by');
-            $table->string('title_of_cooperation');
-            $table->date('tanggal_ttd');
-            $table->text('background');
-            $table->date('end_date');
-            $table->tinyInteger('status');
-            $table->text('description');
+            $table->bigInteger('approval_old_submission_cooperation_id');
+            $table->string('nomor');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateApprovalOldSubmissionCooperationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('approval_old_submission_cooperation');
+        Schema::dropIfExists('nomor_approval_old_submission_cooperation');
     }
 }

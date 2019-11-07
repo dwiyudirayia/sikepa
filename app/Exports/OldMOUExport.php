@@ -76,7 +76,7 @@ class OldMOUExport implements FromView, WithEvents, WithTitle
                     ->getText()->createTextRun("\r\n");
                 $event->sheet
                     ->getComment('C1')
-                    ->getText()->createTextRun('Ketik Simbol "-" Jika Nomor Lebih dari Satu.');
+                    ->getText()->createTextRun('Ketik Simbol "|" Jika Nomor Lebih dari Satu.');
 
                 $event->sheet
                     ->getComment('D1')
@@ -91,7 +91,7 @@ class OldMOUExport implements FromView, WithEvents, WithTitle
                     ->getText()->createTextRun("\r\n");
                 $event->sheet
                     ->getComment('D1')
-                    ->getText()->createTextRun('Ketik Simbol "-" Jika Para Pihak Lebih dari Satu.');
+                    ->getText()->createTextRun('Ketik Simbol "|" Jika Para Pihak Lebih dari Satu.');
 
                 $event->sheet
                     ->getComment('E1')
@@ -106,7 +106,7 @@ class OldMOUExport implements FromView, WithEvents, WithTitle
                     ->getText()->createTextRun("\r\n");
                 $event->sheet
                     ->getComment('E1')
-                    ->getText()->createTextRun('Ketik Tanggal Menggunakan Angka. Contoh: 2019-12-28. Lalu Hiraukan Setelahnya. Sistem akan generate otomatis');
+                    ->getText()->createTextRun('Ketik Tanggal Dengan Format (YYYY-MM-DD). Contoh: 2019-12-28. Lalu Hiraukan Setelahnya. Sistem akan generate otomatis');
 
                 $event->sheet
                     ->getComment('G1')
@@ -121,7 +121,7 @@ class OldMOUExport implements FromView, WithEvents, WithTitle
                     ->getText()->createTextRun("\r\n");
                 $event->sheet
                     ->getComment('G1')
-                    ->getText()->createTextRun('Ketik Tanggal Menggunakan Angka. Contoh: 2019-12-28. Lalu Hiraukan Setelahnya. Sistem akan generate otomatis.');
+                    ->getText()->createTextRun('Ketik Tanggal Dengan Format (YYYY-MM-DD). Contoh: 2019-12-28. Lalu Hiraukan Setelahnya. Sistem akan generate otomatis.');
 
                 $event->sheet
                     ->getComment('H1')
@@ -136,7 +136,7 @@ class OldMOUExport implements FromView, WithEvents, WithTitle
                     ->getText()->createTextRun("\r\n");
                 $event->sheet
                     ->getComment('H1')
-                    ->getText()->createTextRun('Ketik 1 Bila Status Masih Aktif, Ketik 2 Bila Status Sudah Berakhir, Ketik 3 Bila Diperpanjang');
+                    ->getText()->createTextRun('Ketik 1 Bila Status Masih Berlaku & Ketik 2 Bila Status Tidak Berlaku');
                 $event->sheet->freezePaneByColumnAndRow(10,2);
                 $event->sheet->getStyle("$cellHeader")->applyFromArray($headerStyle)->getAlignment()->setWrapText(true);
             },
