@@ -10,7 +10,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', 'LoginController@login');
+Route::post('login', 'LoginController@login')->name('login');
 Route::middleware('auth:api')->group( function () {
     Route::prefix('admin')->group(function () {
         Route::resource('user', 'UserController');
