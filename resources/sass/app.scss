@@ -1,5 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "vue-select/src/scss/vue-select.scss";
+
 .router-link-exact-active span.m-menu__link-text
 {
     color: #5867dd !important;

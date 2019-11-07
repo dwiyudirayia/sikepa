@@ -8,6 +8,7 @@ import App from './layouts/App.vue';
 import store from './store/store';
 import vuevalidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
+import vSelect from 'vue-select';
 import Permissions from './mixins/permission';
 import * as VueGoogleMaps from 'vue2-google-maps'
 
@@ -22,6 +23,7 @@ Vue.component('breadcrumb', Breadcrumb);
 Vue.component('notification-validation', NotificationValidation);
 Vue.component('notification-success', NotificationSuccess);
 Vue.component('notification-error', NotificationError);
+Vue.component('v-select', vSelect)
 
 Vue.use(vuevalidate);
 Vue.use(VTooltip);

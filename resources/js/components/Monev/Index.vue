@@ -25,7 +25,7 @@
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
                                                 <li class="m-nav__item">
-                                                    <a class="m-nav__link" v-tooltip.top="'Import MOU Terdahulu'" @click="importMOU">
+                                                    <a class="m-nav__link" v-tooltip.top="'Import MOU Terdahulu'" @click="showModalImportMonev">
                                                         <i class="m-nav__link-icon la la-upload"></i>
                                                         <span class="m-nav__link-text">Import</span>
                                                     </a>
@@ -46,60 +46,79 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
-                    </li>
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_8_1" role="tabpanel">
-                        <div class="table-responsive">
-                            <table class="table m-table m-table--head-bg-brand">
-                                <thead>
-                                    <tr>
-                                        <th style="vertical-align: middle;">No</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Jenis Kategori</th>
-                                        <th style="vertical-align: middle;">Judul MOU</th>
-                                        <th style="vertical-align: middle;">Tanggal</th>
-                                        <th style="vertical-align: middle;">Jangka Waktu</th>
-                                        <th style="vertical-align: middle;">Ditunjukan Ke</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="vertical-align: middle;">1</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Dalam Negeri</td>
-                                        <td style="vertical-align: middle;">MOU</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Sesmen</td>
-                                        <td style="vertical-align: middle;">2019-11-11 Berakhir 2019-12-12</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Sesmen</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: middle;">2</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Luar Negeri</td>
-                                        <td style="vertical-align: middle;">PKS</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Deputi Tumbuh Kembang Anak</td>
-                                        <td style="vertical-align: middle;">2019-10-10 Berakhir 2019-11-11</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Deputi Tumbuh Kembang Anak</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="table-responsive">
+                    <table class="table m-table m-table--head-bg-brand">
+                        <thead>
+                            <tr>
+                                <th style="vertical-align: middle;">No</th>
+                                <th style="vertical-align: middle;">Judul MOU</th>
+                                <th style="vertical-align: middle;">Latar Belakang</th>
+                                <th style="vertical-align: middle;">Tanggal TTD</th>
+                                <th style="vertical-align: middle;">Tanggal Berakhir</th>
+                                <th style="vertical-align: middle;">Status</th>
+                                <th style="vertical-align: middle;">Keterangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in data" :key="item.id">
+                                <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                <td style="vertical-align: middle;">{{ item.title_of_cooperation }}</td>
+                                <td style="vertical-align: middle;">{{ item.background }}</td>
+                                <td style="vertical-align: middle;">{{ item.tanggal_ttd }}</td>
+                                <td style="vertical-align: middle;">{{ item.end_date }}</td>
+                                <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
+                                <td style="vertical-align: middle;">{{ item.description }}</td>
+                                <td>
+                                    <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit FAQ'">
+                                        <span>
+                                            <i class="la la-plus"></i>
+                                            <span>Tambah Kegiatan</span>
+                                        </span>
+                                    </router-link>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--begin::Modal-->
+        <div class="modal fade" id="modal-import-monev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Import Monev</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Pilih File</label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" @change="onFileChange" ref="files" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <span class="m-form__help">Pastikan Ekstensi File <strong>.xls</strong> atau <strong>.xlsx</strong></span>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="submit" :disabled="disabled" class="btn btn-primary">{{ textButton }}</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--end::Modal-->
     </div>
 </template>
 
 <script>
 import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
+
 export default {
     name: 'MonitoringEvaluasiIndex',
     data() {
@@ -113,7 +132,11 @@ export default {
                 },
             ],
             approvalSubmission: [],
-            youSubmission: []
+            youSubmission: [],
+            file: null,
+            disabled: false,
+            textButton: 'Submit',
+            data: []
         }
     },
     computed: {
@@ -130,9 +153,62 @@ export default {
             return this.$store.getters['proposal/getShowNotification'];
         },
     },
+    created() {
+        this.getData();
+    },
     methods: {
-        importMOU() {
-            $axios.get();
+        getData() {
+            $axios.get(`/admin/monev`)
+            .then(response => {
+                this.data = response.data.data;
+            })
+        },
+        showModalImportMonev() {
+            $('#modal-import-monev').modal('show');
+        },
+        onFileChange() {
+            let uploadedFiles = this.$refs.files.files[0];
+            this.file = uploadedFiles;
+        },
+        submit() {
+            this.disabled = true;
+            this.textButton = 'Loading ....';
+            let formData = new FormData()
+            formData.append('file', this.file);
+
+            $axiosFormData.post(`/admin/monev/import`, formData)
+            .then(response => {
+                this.file = null;
+                this.disabled = false;
+                this.textButton = 'Submit';
+                this.$refs.files.value = null;
+                $('.custom-file-label').html('Choose File');
+                $('#modal-import-monev').modal('hide');
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                if(response.data.status != 200) {
+                    toastr.error(`${response.data.message}`);
+                } else {
+                    toastr.success(`${response.data.message}`);
+                }
+            })
         },
         downloadFormatMOU() {
             $axios.get(`/admin/download/format/mou`)
