@@ -66,7 +66,7 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Keterangan Kunjungan Lapangan</label>
                         <div class="m-form__control">
-                            <input type="number" class="form-control" v-model="forms.field_trip_information">
+                            <textarea v-model="forms.field_trip_information" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div v-for="(value, index) in documentation" :key="index">
@@ -159,40 +159,16 @@ export default {
                 recomendation: null,
             },
             evaluation: [
-                {
-                    code: 1,
-                    label: 'Sangat Tidak Memuaskan',
-                },
-                {
-                    code: 2,
-                    label: 'Tidak Memuaskan',
-                },
-                {
-                    code: 3,
-                    label: 'Sesuai Standar',
-                },
-                {
-                    code: 4,
-                    label: 'Memuaskan',
-                },
-                {
-                    code: 5,
-                    label: 'Sangat Memuaskan',
-                },
+                'Sangat Tidak Memuaskan',
+                'Tidak Memuaskan',
+                'Sesuai Standar',
+                'Memuaskan',
+                'Sangat Memuaskan',
             ],
             recomendation: [
-                {
-                    code: 1,
-                    label: 'Diadendum'
-                },
-                {
-                    code: 2,
-                    label: 'Dihentikan'
-                },
-                {
-                    code: 3,
-                    label: 'Dilanjutkan'
-                }
+                'Diadendum',
+                'Dihentikan',
+                'Dilanjutkan'
             ],
             documentation: [''],
             data: {
@@ -206,6 +182,52 @@ export default {
     },
     methods: {
         store() {
+            let formData = new FormData();
+
+            formData.append('approval_old_submission_cooperation_id',this.forms.id);
+            formData.append('implementation_of_activity_reports',this.forms.implementation_of_activity_reports);
+            formData.append('activity_result',this.forms.activity_result);
+            formData.append('year',this.forms.year);
+            formData.append('budget',this.forms.budget);
+            formData.append('target',this.forms.target);
+            formData.append('achievements',this.forms.achievements);
+            formData.append('field_trip_information',this.forms.field_trip_information);
+            formData.append('evaluation',this.forms.evaluation);
+            formData.append('recomendation',this.forms.recomendation);
+
+            $.each(this.documentation, function(key, value) {
+                formData.append(`documentation[${key}]`, value);
+            });
+
+            $axiosFormData.post(`/admin/monev/activity`, formData)
+            .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                if(response.data.status != 200) {
+                    toastr.error(`${response.data.messages}`);
+                } else {
+                    toastr.success(`${response.data.messages}`);
+
+                    this.$router.push({path: '/monev'});
+                }
+            })
         },
         removeExtraDocumentation(index) {
             this.documentation.splice(index, 1);

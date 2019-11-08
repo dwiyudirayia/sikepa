@@ -79,7 +79,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Kesetaraan Gender
+                                    Monitoring Evaluasi Keseluruhan Berdasarkan Status
                                 </h3>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
 </template>
 
 <script>
-import dataInstansiPertahun from './../../chart/data.instansi.pertahun';
+import DataOldMonevStatus from '@/chart/data.old.monev.status';
 import dataDeputi from './../../chart/data.deputi';
 export default {
     name: "DashboardIndex",
@@ -218,7 +218,7 @@ export default {
                     path: '/dashboard'
                 },
             ],
-            data_instansi_pertahun: dataInstansiPertahun,
+            data_old_monev_status: DataOldMonevStatus,
             data_deputi: dataDeputi
         }
     },
@@ -233,13 +233,13 @@ export default {
         }
     },
     mounted() {
-        this.createChart('chart-data-instansi-pertahun', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-1', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-2', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-3', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-4', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-5', this.data_instansi_pertahun);
-        this.createChart('chart-data-deputi-6', this.data_instansi_pertahun);
+        this.createChart('chart-data-instansi-pertahun', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-1', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-2', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-3', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-4', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-5', this.data_old_monev_status);
+        this.createChart('chart-data-deputi-6', this.data_old_monev_status);
     }
 }
 </script>

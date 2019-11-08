@@ -168,7 +168,6 @@ export default {
                 resolve()
             }).then(() => {
                 this.$store.state.token = localStorage.getItem('token')
-                this.$router.push('/login/admin');
                 window.location.href = '/login/admin';
             })
         },

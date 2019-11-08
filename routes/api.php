@@ -119,7 +119,11 @@ Route::middleware('auth:api')->group( function () {
         //Monev
         Route::get('monev', 'MonevController@index');
         Route::get('monev/activity/{id}/create', 'MonevController@createActivity');
+        Route::post('monev/activity', 'MonevController@storeActivity');
         Route::post('monev/import', 'ImportController@importOldMOU');
+
+        //Dashboard
+        Route::get('/dashboard', 'DashboardController@index');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

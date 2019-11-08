@@ -61,23 +61,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in data" :key="item.id">
-                                <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                <td style="vertical-align: middle;">{{ item.title_of_cooperation }}</td>
-                                <td style="vertical-align: middle;">{{ item.background }}</td>
-                                <td style="vertical-align: middle;">{{ item.tanggal_ttd }}</td>
-                                <td style="vertical-align: middle;">{{ item.end_date }}</td>
-                                <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
-                                <td style="vertical-align: middle;">{{ item.description }}</td>
-                                <td>
-                                    <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit FAQ'">
-                                        <span>
-                                            <i class="la la-plus"></i>
-                                            <span>Tambah Kegiatan</span>
-                                        </span>
-                                    </router-link>
-                                </td>
-                            </tr>
+                            <template v-if="data.length">
+                                <tr v-for="(item, index) in data" :key="item.id">
+                                    <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                    <td style="vertical-align: middle;">{{ item.title_of_cooperation }}</td>
+                                    <td style="vertical-align: middle;">{{ item.background }}</td>
+                                    <td style="vertical-align: middle;">{{ item.tanggal_ttd }}</td>
+                                    <td style="vertical-align: middle;">{{ item.end_date }}</td>
+                                    <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
+                                    <td style="vertical-align: middle;">{{ item.description }}</td>
+                                    <td>
+                                        <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Kegiatan'">
+                                            <span>
+                                                <i class="la la-plus"></i>
+                                                <span>Tambah Kegiatan</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
+                                            <span>
+                                                <i class="la la-eye"></i>
+                                                <span>Detail Monev</span>
+                                            </span>
+                                        </router-link>
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-else>
+                                <tr>
+                                    <td colspan="7" class="text-center">Data Tidak Ada</td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -207,6 +220,7 @@ export default {
                     toastr.error(`${response.data.message}`);
                 } else {
                     toastr.success(`${response.data.message}`);
+                    this.data = response.data.data;
                 }
             })
         },

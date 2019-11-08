@@ -19,15 +19,19 @@ class UserController extends Controller
     }
     public function getUserLogin()
     {
-        $user = request()->user();
-        $permissions = [];
-        foreach (Permission::all() as $permission) {
-            if (request()->user()->can($permission->name)) {
-                $permissions[] = $permission->name;
+        try {
+            $user = request()->user();
+            $permissions = [];
+            foreach (Permission::all() as $permission) {
+                if (request()->user()->can($permission->name)) {
+                    $permissions[] = $permission->name;
+                }
             }
+            $user['permission'] = $permissions;
+            return response()->json(['status' => 'success', 'data' => $user]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => $th->getCode(), 'message' => $th->getMessage()]);
         }
-        $user['permission'] = $permissions;
-        return response()->json(['status' => 'success', 'data' => $user]);
     }
     public function checkSameCurrentPassword($current_password)
     {
