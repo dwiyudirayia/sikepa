@@ -150,6 +150,7 @@
 
 <script>
 import SideMenu from '@/components/partialsAdmin/SideMenu.vue';
+import $axios from '@/api.js';
 export default {
     name: "Admin",
     components: {
@@ -163,10 +164,9 @@ export default {
     },
     methods: {
         logout() {
-            return new Promise((resolve, reject) => {
+            $axios.post(`/admin/logout`)
+            .then(() => {
                 localStorage.removeItem('token')
-                resolve()
-            }).then(() => {
                 this.$store.state.token = localStorage.getItem('token')
                 window.location.href = '/login/admin';
             })

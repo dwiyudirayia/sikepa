@@ -12,6 +12,14 @@
                 </div>
             </div>
             <div class="m-portlet__body">
+                <template v-for="(value, index) in sortTracking">
+                    <template v-if="index + 1 < 15">
+                        <a href="#" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class"/> -
+                    </template>
+                    <template v-else>
+                        <a href="#" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class"/>
+                    </template>
+                </template>
                 <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
                     <li class="nav-item m-tabs__item">
                         <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"><i class="la la-book"></i> Rangkuman</a>
@@ -201,11 +209,29 @@ export default {
             purpose_objectives: null,
             background: null,
             latitude: null,
-            longitude: null
+            longitude: null,
+            tracking: [],
         }
     },
     computed: {
-        google: gmapApi
+        google: gmapApi,
+        sortTracking: function() {
+            const data = this.tracking;
+
+            const value = Object.values(data).splice(2,15);
+            const label = ['Deputi Bidang Partisipasi Masyarakat','Deputi Bidang Kesetaraan Gender','Deputi Bidang Perlindungan Anak','Deputi Bidang Perlindungan Hak Perempuan','Deputi Bidang Tumbuh Kembang Anak','Satker Sesmen','Biro Perencanaan dan Data','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+
+            let finalData = value.map((value, index) => {
+                return {
+                    id: index+1,
+                    label: label[index],
+                    value: value,
+                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : 'btn-metal'
+                }
+            });
+
+            return finalData;
+        }
     },
     created() {
         this.getData();
@@ -228,6 +254,7 @@ export default {
                 this.forms.id = response.data.data.id;
                 this.latitude = parseFloat(response.data.data.latitude);
                 this.longitude = parseFloat(response.data.data.longitude);
+                this.tracking = response.data.data.tracking;
             });
         },
         showModalReject() {

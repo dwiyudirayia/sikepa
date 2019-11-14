@@ -29,7 +29,7 @@ class StoreMonevActivityRequest extends FormRequest
     }
     public function store() {
         return [
-            'created_by' => request()->user()->id,
+            'created_by' => auth()->user()->id,
             'approval_old_submission_cooperation_id' => (int)$this->approval_old_submission_cooperation_id,
             'implementation_of_activity_reports' => $this->implementation_of_activity_reports,
             'activity_result' => $this->activity_result,
@@ -37,6 +37,8 @@ class StoreMonevActivityRequest extends FormRequest
             'budget' => $this->budget,
             'target' => $this->target,
             'achievements' => $this->achievements,
+            'the_problem' => $this->the_problem,
+            'problem_solving_efforts' => $this->problem_solving_efforts,
             'field_trip_information' => $this->field_trip_information,
             'evaluation' => $this->evaluation,
             'recomendation' => $this->recomendation,

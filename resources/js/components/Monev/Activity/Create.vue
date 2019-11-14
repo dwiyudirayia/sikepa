@@ -42,8 +42,9 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Anggaran</label>
                         <div class="m-form__control">
-                            <input type="text" class="form-control" v-model="forms.budget">
+                            <input type="text" class="form-control" v-model="forms.budget" @input="validate">
                         </div>
+                        <span v-show="error" class="m--font-danger">{{ message }}</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Target</label>
@@ -55,6 +56,18 @@
                         <label for="Nama Lengkap">Capaian</label>
                         <div class="m-form__control">
                             <textarea class="form-control" cols="30" rows="10" v-model="forms.achievements"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="Nama Lengkap">Permasalahan</label>
+                        <div class="m-form__control">
+                            <textarea class="form-control" cols="30" rows="10" v-model="forms.the_problem"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="Nama Lengkap">Upaya Penyelesaian Masalah</label>
+                        <div class="m-form__control">
+                            <textarea class="form-control" cols="30" rows="10" v-model="forms.problem_solving_efforts"></textarea>
                         </div>
                     </div>
                 </div>
@@ -154,6 +167,8 @@ export default {
                 budget: null,
                 target: null,
                 achievements: null,
+                the_problem: null,
+                problem_solving_efforts: null,
                 field_trip_information: null,
                 evaluation: null,
                 recomendation: null,
@@ -173,14 +188,51 @@ export default {
             documentation: [''],
             data: {
                 title_of_cooperation: null,
-            }
+            },
+            error: false,
+            message: ''
 
+        }
+    },
+    computed: {
+        plainValue() {
+            let val = 0;
+            if (this.forms.budget) {
+                val = parseInt(this.forms.budget.replace(/\./g, ''));
+                return val;
+            }
+            return null;
+        },
+    },
+    watch: {
+        "forms.budget": function(newValue) {
+            let result = newValue;
+            if (newValue) {
+                result = newValue.toString()
+                .replace(/\D/g, '')
+                .replace(/^[0]/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+            this.forms.budget = result;
+            this.$emit('input', this.plainValue);
         }
     },
     created() {
         this.getData();
     },
     methods: {
+        validate() {
+            const regex = new RegExp(/\D/g);
+            const value = this.forms.budget.toString().replace(/\./g, '');
+
+            if (!regex.test(value)) {
+                this.message = '';
+                this.error = false;
+            } else {
+                this.message = 'Hanya Boleh dengan Angka'
+                this.error = true;
+            }
+        },
         store() {
             let formData = new FormData();
 

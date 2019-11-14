@@ -37,32 +37,42 @@
                                 <thead>
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
+                                        <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Jenis Kategori</th>
-                                        <th style="vertical-align: middle;">Judul MOU</th>
+                                        <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Tanggal</th>
-                                        <th style="vertical-align: middle;">Jangka Waktu</th>
-                                        <th style="vertical-align: middle;">Ditunjukan Ke</th>
+                                        <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="vertical-align: middle;">1</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Dalam Negeri</td>
-                                        <td style="vertical-align: middle;">MOU</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Sesmen</td>
-                                        <td style="vertical-align: middle;">2019-11-11 Berakhir 2019-12-12</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Sesmen</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: middle;">2</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Luar Negeri</td>
-                                        <td style="vertical-align: middle;">PKS</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Deputi Tumbuh Kembang Anak</td>
-                                        <td style="vertical-align: middle;">2019-10-10 Berakhir 2019-11-11</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Deputi Tumbuh Kembang Anak</td>
+                                    <tr v-for="(value, index) in youSubmission" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                        <td style="vertical-align: middle;">
+                                            <span class="m-badge m-badge--success m-badge--wide">
+                                                Dari Tanggal : {{ value.time_period_of }}
+                                            </span>
+                                            <br>
+                                            <span class="m-badge m-badge--danger m-badge--wide">
+                                                Sampai Tanggal : {{ value.time_period_to }}
+                                            </span>
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <router-link class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
+                                                <span>
+                                                    <i class="la la-eye"></i>
+                                                    <span>Detail Pengajuan Kerjasama</span>
+                                                </span>
+                                            </router-link>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,19 +84,35 @@
                                 <thead>
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
+                                        <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Jenis Kategori</th>
+                                        <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Tanggal</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(value, index) in this.approvalSubmission" :key="value.id">
-                                        <td style="vertical-align: middle;">{{ index + 1 }}</td>
-                                        <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                         <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
-                                        <td style="vertical-align: middle;">{{ value.created_at }}</td>
+                                        <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                        <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                         <td style="vertical-align: middle;">
+                                            <span class="m-badge m-badge--success m-badge--wide">
+                                                Dari Tanggal : {{ value.time_period_of }}
+                                            </span>
+                                            <br>
+                                            <span class="m-badge m-badge--danger m-badge--wide">
+                                                Sampai Tanggal : {{ value.time_period_to }}
+                                            </span>
+                                        </td>
+                                        <td>
                                             <router-link :to="{name: 'ProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                 <span>
                                                     <i class="la la-eye"></i>

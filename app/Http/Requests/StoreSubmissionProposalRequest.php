@@ -53,16 +53,8 @@ class StoreSubmissionProposalRequest extends FormRequest
             $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation');
         }
 
-        $getId = request()->user()->roles[0]->id;
-        $statusDisposition = null;
-        if($getId == 2 && $getId == 5) {
-            $statusDisposition = 5;
-        } else {
-            $statusDisposition = 5;
-        }
-
         return [
-            'created_by' => request()->user()->id,
+            'created_by' => auth()->user()->id,
             'mailing_number' => "Surat-".strtotime("now"),
             'type_of_cooperation_id' => $this->type_of_cooperation_id,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id == 'null' ? null : $this->type_of_cooperation_one_derivative_id,
@@ -80,7 +72,7 @@ class StoreSubmissionProposalRequest extends FormRequest
             'purpose_objectives' => $this->purpose_objectives,
             'background' => $this->background,
             'status_proposal' => 1,
-            'status_disposition' => $statusDisposition,
+            'status_disposition' => 2,
             'time_period_of' => $this->time_period_of,
             'time_period_to' => $this->time_period_to,
             'agency_profile' => $pathAgency,

@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-dompdf": "^0.8.5",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
@@ -18,7 +19,8 @@
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^0.17.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
-        "spatie/laravel-permission": "^3.0"
+        "spatie/laravel-permission": "^3.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

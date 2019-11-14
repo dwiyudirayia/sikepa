@@ -28,7 +28,7 @@ class UpdateSectionPageRequest extends FormRequest
     public function update()
     {
         return [
-            'updated_by' => request()->user()->id,
+            'updated_by' => auth()->user()->id,
             'name' => $this->name,
         ];
     }

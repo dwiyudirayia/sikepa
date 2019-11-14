@@ -36,7 +36,7 @@ class UpdateArticleRequest extends FormRequest
         if($this->image == $data->image)
         {
             return [
-                'updated_by' => request()->user()->id,
+                'updated_by' => auth()->user()->id,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,

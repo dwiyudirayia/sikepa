@@ -20,10 +20,10 @@ class UserController extends Controller
     public function getUserLogin()
     {
         try {
-            $user = request()->user();
+            $user = auth()->user();
             $permissions = [];
             foreach (Permission::all() as $permission) {
-                if (request()->user()->can($permission->name)) {
+                if ($user->can($permission->name)) {
                     $permissions[] = $permission->name;
                 }
             }
@@ -35,7 +35,7 @@ class UserController extends Controller
     }
     public function checkSameCurrentPassword($current_password)
     {
-        if (!(Hash::check($current_password, request()->user()->password))) {
+        if (!(Hash::check($current_password, auth()->user()->password))) {
             // The passwords matches
             return response()->json(['isSameCurrentPassword' => true]);
         } else {
@@ -125,7 +125,7 @@ class UserController extends Controller
     }
     public function getData() {
         try {
-            $data['user'] = User::where('id', '!=', request()->user()->id)->get();
+            $data['user'] = User::where('id', '!=', auth()->user()->id)->get();
             $data['roles'] = Role::all();
 
             return response()->json($this->notification->generalSuccess($data));

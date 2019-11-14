@@ -82,7 +82,7 @@ class UpdateUserRequest extends FormRequest
             }
         }
         return [
-            'updated_by' => request()->user()->id,
+            'updated_by' => auth()->user()->id,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,

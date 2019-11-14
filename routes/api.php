@@ -10,9 +10,12 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', 'LoginController@login')->name('login');
-Route::middleware('auth:api')->group( function () {
+Route::post('login', 'LoginController@login');
+Route::get('refresh', 'LoginController@refresh');
+Route::post('me', 'LoginController@me');
+Route::middleware('jwt')->group( function () {
     Route::prefix('admin')->group(function () {
+        Route::post('logout', 'LoginController@logout');
         Route::resource('user', 'UserController');
         Route::put('user/change/password', 'UserController@changePassword');
         Route::resource('faq', 'FAQController');
@@ -119,11 +122,16 @@ Route::middleware('auth:api')->group( function () {
         //Monev
         Route::get('monev', 'MonevController@index');
         Route::get('monev/activity/{id}/create', 'MonevController@createActivity');
+        Route::get('monev/activity/{id}', 'MonevController@showActivity');
         Route::post('monev/activity', 'MonevController@storeActivity');
+        Route::delete('monev/activity/{id}', 'MonevController@deleteActivity');
+        Route::get('monev/list/activity/{id}', 'MonevController@listMonevActivity');
+        Route::delete('monev/list/activity/{id}', 'MonevController@destroyListMonevActivity');
         Route::post('monev/import', 'ImportController@importOldMOU');
 
         //Dashboard
         Route::get('/dashboard', 'DashboardController@index');
+        Route::get('/old/monev/filter/{year}', 'DashboardController@filterOldMonev');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

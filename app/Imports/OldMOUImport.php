@@ -22,7 +22,7 @@ class OldMOUImport implements ToCollection, WithHeadingRow
             DB::beginTransaction();
 
             $approvalOld = ApprovalOldSubmissionCooperation::create([
-                'created_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'title_of_cooperation' => $value['judul_mou'],
                 'tanggal_ttd' => date('Y-m-d', strtotime($value['tanggal_ttd'])),
                 'background' => $value['latar_belakang'],
@@ -34,7 +34,7 @@ class OldMOUImport implements ToCollection, WithHeadingRow
             $splitNomor = explode("|", $value['nomor']);
             foreach ($splitNomor as $key => $valueSplitNomor) {
                 NomorApprovalOldSubmissionCooperation::create([
-                    'created_by' => request()->user()->id,
+                    'created_by' => auth()->user()->id,
                     'approval_old_submission_cooperation_id' => $approvalOld->id,
                     'nomor' => $valueSplitNomor,
                 ]);
@@ -43,7 +43,7 @@ class OldMOUImport implements ToCollection, WithHeadingRow
             $splitParaPihak = explode("|", $value['para_pihak']);
             foreach ($splitParaPihak as $key => $valueSplitParaPihak) {
                 ThePartiesApprovalOldSubmissionCooperation::create([
-                    'created_by' => request()->user()->id,
+                    'created_by' => auth()->user()->id,
                     'approval_old_submission_cooperation_id' => $approvalOld->id,
                     'name' => $valueSplitParaPihak
                 ]);

@@ -28,7 +28,7 @@ class UpdateCategoryPageRequest extends FormRequest
     public function update()
     {
         return [
-            'updated_by' => request()->user()->id,
+            'updated_by' => auth()->user()->id,
             'section_id' => (int) $this->section_id,
             'name' => $this->name,
         ];

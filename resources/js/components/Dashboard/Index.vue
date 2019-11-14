@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -85,7 +85,31 @@
                         </div>
                     </div>
                     <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-1" height="50"></canvas>
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="years"
+                                    v-model="chartData.oldMonev.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" class="btn btn-brand" @click="filterMonev">{{ chartData.oldMonev.textButton }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.oldMonev.all"
+                            :options="options"
+                        />
                     </div>
                 </div>
                 <!--End::Portlet-->
@@ -204,12 +228,35 @@
 </template>
 
 <script>
-import DataOldMonevStatus from '@/chart/data.old.monev.status';
-import dataDeputi from './../../chart/data.deputi';
+import BarChart from '@/components/Chart/BarChart.vue';
+import LineChart from '@/components/Chart/LineChart.vue';
+import Select2 from '@/components/Chart/Select2.vue';
+import axios from 'axios';
+import $axios from '@/api.js';
+
 export default {
     name: "DashboardIndex",
+    components: {
+        BarChart,
+        LineChart,
+        Select2
+    },
     data() {
         return {
+            options: null,
+            chartData: {
+                oldMonev: {
+                    all: null,
+                    valid: null,
+                    not_valid: null,
+                    years: [],
+                    labels: null,
+                    data:[],
+                    selectedYear: null,
+                    yearsText: [],
+                    textButton: 'Filter'
+                }
+            },
             breadcrumbTitle: 'Dashboard',
             breadcrumbLink: [
                 {
@@ -218,28 +265,88 @@ export default {
                     path: '/dashboard'
                 },
             ],
-            data_old_monev_status: DataOldMonevStatus,
-            data_deputi: dataDeputi
         }
     },
-    methods: {
-        createChart(chartId, chartData) {
-            const ctx = document.getElementById(chartId);
-            const myChart = new Chart(ctx, {
-                type: chartData.type,
-                data: chartData.data,
-                options: chartData.options,
-            });
+    computed: {
+        years() {
+            return this.chartData.oldMonev.years;
         }
     },
     mounted() {
-        this.createChart('chart-data-instansi-pertahun', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-1', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-2', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-3', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-4', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-5', this.data_old_monev_status);
-        this.createChart('chart-data-deputi-6', this.data_old_monev_status);
+        $axios.get(`/admin/dashboard`)
+        .then(response => {
+            //monev all
+            this.chartData.oldMonev.data = response.data.data.old_monev_all;
+
+            let objectYearMonev = this.chartData.oldMonev.data.map(value => {
+                return {
+                    id: value.year.toString(),
+                    text: value.year
+                };
+            })
+
+            this.chartData.oldMonev.years = objectYearMonev;
+            this.chartData.oldMonev.yearsText = this.chartData.oldMonev.data.map(map => map.year.toString());
+            this.chartData.oldMonev.valid = this.chartData.oldMonev.data.map(map => map.status_valid);
+            this.chartData.oldMonev.not_valid = this.chartData.oldMonev.data.map(map => map.status_not_valid);
+
+            this.chartData.oldMonev.all = {
+                labels: this.chartData.oldMonev.yearsText,
+                datasets: [
+                    {
+                        label: `Tidak Berlaku`,
+                        backgroundColor: '#f87979',
+                        data: this.chartData.oldMonev.valid
+                    },
+                    {
+                        label: 'Masih Berlaku',
+                        backgroundColor: '#716aca',
+                        data: this.chartData.oldMonev.not_valid
+                    }
+                ]
+            };
+
+        })
+
+        this.options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1
+                    }
+                }]
+            },
+        }
+    },
+    methods: {
+        filterMonev() {
+            $axios.get(`/admin/old/monev/filter/${this.chartData.oldMonev.selectedYear}`)
+            .then(response => {
+                 //monev all
+                this.chartData.oldMonev.data = response.data.data.old_monev_all;
+                this.chartData.oldMonev.yearsText = this.chartData.oldMonev.data.map(map => map.year.toString());
+                this.chartData.oldMonev.valid = this.chartData.oldMonev.data.map(map => map.status_valid);
+                this.chartData.oldMonev.not_valid = this.chartData.oldMonev.data.map(map => map.status_not_valid);
+
+                this.chartData.oldMonev.all = {
+                    labels: this.chartData.oldMonev.yearsText,
+                    datasets: [
+                        {
+                            label: `Tidak Berlaku`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.oldMonev.valid
+                        },
+                        {
+                            label: 'Masih Berlaku',
+                            backgroundColor: '#716aca',
+                            data: this.chartData.oldMonev.not_valid
+                        }
+                    ]
+                };
+            })
+        }
     }
 }
 </script>

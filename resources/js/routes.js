@@ -27,6 +27,8 @@ import UserSatkerEdit from './components/User/Satker/Edit';
 //monev
 import MonitoringEvaluasiIndex from './components/Monev/index';
 import MonevActivityCreate from './components/Monev/Activity/Create';
+import MonevActivityDetail from './components/Monev/Detail';
+import ListMonevActivity from './components/Monev/Activity/List';
 //end monev
 //End User
 // --- Article --- //
@@ -707,6 +709,22 @@ const router = new VueRouter({
                     component: MonevActivityCreate,
                     meta: {
                         requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/activity/:id/detail',
+                    name: 'MonevActivityDetail',
+                    component: MonevActivityDetail,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/list/activity/:id',
+                    name: 'ListMonevActivity',
+                    component: ListMonevActivity,
+                    meta: {
+                        requiresAuth: true
                     }
                 },
                 //Dashboard

@@ -28,7 +28,7 @@ class UpdateTypeOfCooperationOneDerivative extends FormRequest
     public function update()
     {
         return [
-            'updated_by' => request()->user()->id,
+            'updated_by' => auth()->user()->id,
             'type_of_cooperation_id' => $this->type_of_cooperation_id,
             'name' => $this->name,
         ];

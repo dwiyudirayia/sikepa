@@ -23,6 +23,8 @@ class CreateApprovalOldSubmissionCooperationActivityTable extends Migration
             $table->string('budget')->nullable();
             $table->text('target')->nullable();
             $table->text('achievements')->nullable();
+            $table->text('the_problem')->nullable();
+            $table->text('problem_solving_efforts')->nullable();
             $table->text('field_trip_information')->nullable();
             $table->string('evaluation')->nullable();
             $table->string('recomendation')->nullable();

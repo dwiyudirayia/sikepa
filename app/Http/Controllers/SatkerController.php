@@ -20,7 +20,7 @@ class SatkerController extends Controller
         try {
             $data = User::with('roles')->whereHas('roles', function(Builder $query) {
                 $query->whereBetween('id', [2, 9]);
-            })->where('id', '!=', request()->user()->id)->get();
+            })->where('id', '!=', auth()->user()->id)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -44,7 +44,7 @@ class SatkerController extends Controller
 
             $data = User::with('roles')->whereHas('roles', function(Builder $query) {
                 $query->whereBetween('id', [2, 9]);
-            })->where('id', '!=', request()->user()->id)->get();
+            })->where('id', '!=', auth()->user()->id)->get();
 
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
@@ -59,7 +59,7 @@ class SatkerController extends Controller
 
             $data = User::with('roles')->whereHas('roles', function(Builder $query) {
                 $query->whereBetween('id', [2, 9]);
-            })->where('id', '!=', request()->user()->id)->get();
+            })->where('id', '!=', auth()->user()->id)->get();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
@@ -81,7 +81,7 @@ class SatkerController extends Controller
 
             $data = User::with('roles')->whereHas('roles', function(Builder $query) {
                 $query->whereBetween('id', [2, 9]);
-            })->where('id', '!=', request()->user()->id)->get();
+            })->where('id', '!=', auth()->user()->id)->get();
             return response()->json($this->notification->deleteSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
@@ -96,7 +96,7 @@ class SatkerController extends Controller
 
             $data = User::with('roles')->whereHas('roles', function(Builder $query) {
                 $query->whereBetween('id', [2, 9]);
-            })->where('id', '!=', request()->user()->id)->get();
+            })->where('id', '!=', auth()->user()->id)->get();
 
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {

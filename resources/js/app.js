@@ -10,7 +10,7 @@ import vuevalidate from 'vuelidate';
 import VTooltip from 'v-tooltip';
 import vSelect from 'vue-select';
 import Permissions from './mixins/permission';
-import * as VueGoogleMaps from 'vue2-google-maps'
+import * as VueGoogleMaps from 'vue2-google-maps';
 
 //Partial Layout Admin
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
@@ -48,7 +48,7 @@ const app = new Vue({
     render: h => h(App),
     created() {
         if (this.$store.getters['isAuth']) {
-            this.$store.dispatch('user/getUserLogin');
+            this.$store.dispatch('user/getUserLogin')
         }
     }
 });

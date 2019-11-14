@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(FrontSeeder::class);
         $this->call(TypeOfCooperationSeeder::class);
+        $this->call(MasterSeeder::class);
     }
 }

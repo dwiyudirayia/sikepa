@@ -31,9 +31,15 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item">
-                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Export Format MOU Terdahulu'">
+                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Download Format MOU Terdahulu'">
                                                         <i class="m-nav__link-icon la la-download"></i>
-                                                        <span class="m-nav__link-text">Download</span>
+                                                        <span class="m-nav__link-text">Download Format Import</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="/download/data/monev/pdf" class="m-nav__link" v-tooltip.top="'Download Data Berupa PDF'">
+                                                        <i class="m-nav__link-icon la la-file-pdf-o"></i>
+                                                        <span class="m-nav__link-text">Download Data Berupa PDF</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -57,7 +63,7 @@
                                 <th style="vertical-align: middle;">Tanggal Berakhir</th>
                                 <th style="vertical-align: middle;">Status</th>
                                 <th style="vertical-align: middle;">Keterangan</th>
-                                <th>Aksi</th>
+                                <th style="vertical-align: middle;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,19 +76,43 @@
                                     <td style="vertical-align: middle;">{{ item.end_date }}</td>
                                     <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
                                     <td style="vertical-align: middle;">{{ item.description }}</td>
-                                    <td>
+                                    <td style="vertical-align: middle;">
                                         <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Kegiatan'">
                                             <span>
                                                 <i class="la la-plus"></i>
                                                 <span>Tambah Kegiatan</span>
                                             </span>
                                         </router-link>
-                                        <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
+                                        <router-link :to="{name: 'MonevEdit', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
+                                            <span>
+                                                <i class="la la-pencil"></i>
+                                                <span>Edit Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
                                             <span>
                                                 <i class="la la-eye"></i>
                                                 <span>Detail Monev</span>
                                             </span>
                                         </router-link>
+                                        <a :href="`/download/data/monev/detail/pdf/${item.id}`" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Detail PDF'">
+                                            <span>
+                                                <i class="la la-file-pdf-o"></i>
+                                                <span>Download PDF</span>
+                                            </span>
+                                        </a>
+                                        <router-link :to="{name: 'ListMonevActivity', params: {id: item.id}}" class="btn m-btn btn-info btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Daftar Aktivitas Monev'">
+                                            <span>
+                                                <i class="la la-list"></i>
+                                                <span>Daftar Aktivitas Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <button @click="confirmDelete(item.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Monev'">
+                                            <span>
+                                                <i class="la la-trash"></i>
+                                                <span>Hapus Monev</span>
+                                            </span>
+                                        </button>
                                     </td>
                                 </tr>
                             </template>
@@ -183,6 +213,35 @@ export default {
             let uploadedFiles = this.$refs.files.files[0];
             this.file = uploadedFiles;
         },
+        destroy(id) {
+            $axios.delete(`/admin/monev/activity/${id}`)
+            .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`${response.data.messages}`);
+                this.data = response.data.data;
+            })
+            .catch(error => {
+                toastr.error(`${response.data.messages}`);
+            })
+        },
         submit() {
             this.disabled = true;
             this.textButton = 'Loading ....';
@@ -217,22 +276,29 @@ export default {
                     "hideMethod": "fadeOut"
                 };
                 if(response.data.status != 200) {
-                    toastr.error(`${response.data.message}`);
+                    toastr.error(`${response.data.messages}`);
                 } else {
-                    toastr.success(`${response.data.message}`);
+                    toastr.success(`${response.data.messages}`);
                     this.data = response.data.data;
                 }
             })
         },
-        downloadFormatMOU() {
-            $axios.get(`/admin/download/format/mou`)
-            .then(() => {
-                alert('Berhasil Download Format')
+        confirmDelete(id)
+        {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data yang terhapus tidak bisa di kembalikan",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus!'
+                }).then((result) => {
+                if (result.value) {
+                    this.destroy(id);
+                }
             })
-            .catch(error => {
-                alert(error);
-            })
-        }
+        },
     }
 }
 </script>

@@ -33,4 +33,7 @@ class SubmissionProposal extends Model
     public function typeOfCooperationTwo() {
         return $this->belongsTo(TypeOfCooperationTwoDerivative::class, 'type_of_cooperation_two_derivative_id');
     }
+    public function tracking() {
+        return $this->hasOne(TrackingSubmissionProposal::class);
+    }
 }

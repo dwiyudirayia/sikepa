@@ -9,7 +9,8 @@ use App\TypeOfCooperation;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
 use App\User;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use App\CooperationTarget;
 use App\Agency;
 use App\Country;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubmissionCooperationApprove;
 use App\Mail\SubmissionCooperationReject;
+use App\TrackingSubmissionProposal;
 
 class SubmissionProposalController extends Controller
 {
@@ -31,9 +33,27 @@ class SubmissionProposalController extends Controller
     }
     public function index() {
         try {
-            $user = request()->user();
-            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', $user->roles[0]->id)->get();
-            $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
+            $user = auth()->user();
+            $roles = collect($user['roles']);
+
+            $mappingRole = $roles->map(function($item, $key) {
+                return $item['id'];
+            });
+
+            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+                $idRoles = [2];
+                $data['approval'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('tracking', function(Builder $query) use ($convertToSnakeCase) {
+                    $query->whereNull($convertToSnakeCase);
+                })->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            } else {
+                $idRoles = $mappingRole->all();
+
+                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            }
+
+            $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -55,12 +75,19 @@ class SubmissionProposalController extends Controller
     }
     public function store(StoreSubmissionProposalRequest $request) {
         try {
-            $user = request()->user();
+            $user = auth()->user();
+            $roles = collect($user['roles']);
+
+            $mappingRole = $roles->map(function($item, $key) {
+                return $item['id'];
+            });
+
+            $idRoles = $mappingRole->all();
 
             SubmissionProposal::create($request->store());
 
-            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $user['permissions'])->get();
-            $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
+            $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
 
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
@@ -93,7 +120,7 @@ class SubmissionProposalController extends Controller
     }
     public function detail($id) {
         try {
-            $data = SubmissionProposal::with('agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            $data = SubmissionProposal::with('tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->showFailed($th));
@@ -101,25 +128,39 @@ class SubmissionProposalController extends Controller
     }
     public function approve(Request $request) {
         try {
-            $user = request()->user();
+            $user = auth()->user();
+            $roles = collect($user['roles']);
+
+            $mappingRole = $roles->map(function($item, $key) {
+                return $item['id'];
+            });
+
+            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+                $idRoles = [2];
+                $data['approval'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('tracking', function(Builder $query) use ($convertToSnakeCase) {
+                    $query->whereNull($convertToSnakeCase);
+                })->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+
+                $updateDeputiValue = SubmissionProposal::findOrFail($request->id);
+                $updateDeputiValue->tracking()->update([
+                    $convertToSnakeCase => 1
+                ]);
+            } else {
+                $idRoles = $mappingRole->all();
+
+                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            }
+
             ReasonSubmissionCooperation::create([
-                'created_by' => request()->user()->id,
-                'updated_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'submission_proposal_id' => $request->id,
                 'reason' => $request->reason,
-                'status' => request()->user()->roles[0]->id
             ]);
 
-            $updateDisposisi = SubmissionProposal::findOrFail($request->id);
-            $updateDisposisi->status_disposition = (int) $updateDisposisi->status_disposition + 1;
-            $updateDisposisi->save();
 
-            $getEmail = User::findOrFail($updateDisposisi->created_by);
-
-            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', $user->roles[0]->id)->get();
             $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
-
-            Mail::to($getEmail->email)->send(new SubmissionCooperationApprove($updateDisposisi));
 
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
@@ -128,25 +169,42 @@ class SubmissionProposalController extends Controller
     }
     public function reject(Request $request) {
         try {
+            $user = auth()->user();
+            $roles = collect($user['roles']);
+
+            $mappingRole = $roles->map(function($item, $key) {
+                return $item['id'];
+            });
+
+            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+                $rolesName = $user->roles[0]->name;
+
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $idRoles = [2];
+
+                $data['approval'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('tracking', function(Builder $query) use ($convertToSnakeCase) {
+                    $query->whereNull($convertToSnakeCase);
+                })->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+
+                $updateDeputiValue = SubmissionProposal::findOrFail($request->id);
+                $updateDeputiValue->tracking()->update([
+                    $convertToSnakeCase => 0
+                ]);
+            } else {
+                $idRoles = $mappingRole->all();
+
+                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            }
+
             ReasonSubmissionCooperation::create([
-                'created_by' => request()->user()->id,
-                'updated_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'submission_proposal_id' => $request->id,
                 'reason' => $request->reason,
-                'status' => request()->user()->roles[0]->id
             ]);
 
-            $updateDisposisi = SubmissionProposal::findOrFail($request->id);
-            $updateDisposisi->status_proposal = 0;
-            $updateDisposisi->save();
 
-            $getEmail = User::findOrFail($updateDisposisi->created_by);
-
-            $user = request()->user();
-            $data['approval'] = SubmissionProposal::with('typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', $user->roles[0]->id)->get();
             $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
-
-            Mail::to($getEmail)->send(new SubmissionCooperationReject($updateDisposisi));
 
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {

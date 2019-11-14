@@ -17,7 +17,25 @@ class DashboardController extends Controller
     }
     public function index() {
         try {
-            $data['old_monev'] = ApprovalOldSubmissionCooperation::groupBy('status')->select('status', DB::raw('count(*) as total'))->get();
+            $data['old_monev_all'] = ApprovalOldSubmissionCooperation::groupBy('year')
+            ->select(DB::raw('count(IF(status = 1, 1, NULL)) as status_valid, count(IF(status = 0, 1, NULL)) as status_not_valid, year(tanggal_ttd) as year'))
+            ->orderBy('year', 'asc')
+            ->take(5)
+            ->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function filterOldMonev($year) {
+        try {
+            $data['old_monev_all'] = ApprovalOldSubmissionCooperation::groupBy('year')
+            ->select(DB::raw('count(IF(status = 1, 1, NULL)) as status_valid, count(IF(status = 0, 1, NULL)) as status_not_valid, year(tanggal_ttd) as year'))
+            ->whereRaw('year(tanggal_ttd) = ?', $year)
+            ->orderBy('year', 'asc')
+            ->take(5)
+            ->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

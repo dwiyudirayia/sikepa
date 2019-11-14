@@ -36,14 +36,14 @@ class StoreBannerRequest extends FormRequest
             \Image::make($this->image_path)->save(public_path('banner/').$name);
 
             return [
-                'created_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'category_id' => $this->category_id,
                 'description' => $this->description,
                 'image_path' => $name,
             ];
         } else {
             return [
-                'created_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'description' => $this->description,
                 'category_id' => $this->category_id,
             ];

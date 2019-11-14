@@ -43,7 +43,7 @@ class MonevController extends Controller
                     $fileName = 'activity-documentation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
                     $path = $value->storeAs($store->id, $fileName, 'file_page');
                     $store->documentation()->create([
-                        'created_by' => request()->user()->id,
+                        'created_by' => auth()->user()->id,
                         'approval_old_submission_cooperation_activity_id' => $store->id,
                         'name' => $path
                     ]);
@@ -53,6 +53,46 @@ class MonevController extends Controller
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
+        }
+    }
+    public function showActivity($id) {
+        try {
+            $data = ApprovalOldSubmissionCooperation::with('activities', 'activities.documentation', 'nomor', 'parties')->findOrFail($id);
+
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function deleteActivity($id) {
+        try {
+            $delete = ApprovalOldSubmissionCooperation::findOrFail($id);
+            $delete->delete();
+
+            $data = ApprovalOldSubmissionCooperation::all();
+            return response()->json($this->notification->deleteSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->deleteFailed($th));
+        }
+    }
+    public function listMonevActivity($id) {
+        try {
+            $data = ApprovalOldSubmissionCooperationActivity::where('approval_old_submission_cooperation_id', $id)->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function destroyListMonevActivity($id) {
+        try {
+            $delete = ApprovalOldSubmissionCooperationActivity::findOrFail($id);
+            $delete->delete();
+
+            $data = ApprovalOldSubmissionCooperationActivity::all();
+            return response()->json($this->notification->deleteSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->deleteFailed($th));
         }
     }
 }
