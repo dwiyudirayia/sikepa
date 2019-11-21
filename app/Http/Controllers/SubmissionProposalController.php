@@ -18,9 +18,12 @@ use App\Province;
 use App\ReasonSubmissionCooperation;
 use App\Regency;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SubmissionCooperationApprove;
-use App\Mail\SubmissionCooperationReject;
+use DB;
+// use Illuminate\Support\Facades\Mail;
+// use App\Mail\SubmissionCooperationApprove;
+// use App\Mail\SubmissionCooperationReject;
+use App\Notifications\DispositionNotification;
+use Illuminate\Support\Facades\Notification;
 use App\TrackingSubmissionProposal;
 
 class SubmissionProposalController extends Controller
@@ -84,7 +87,8 @@ class SubmissionProposalController extends Controller
 
             $idRoles = $mappingRole->all();
 
-            SubmissionProposal::create($request->store());
+            $proposal = SubmissionProposal::create($request->store());
+            $proposal->tracking()->create([]);
 
             $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
@@ -128,6 +132,7 @@ class SubmissionProposalController extends Controller
     }
     public function approve(Request $request) {
         try {
+            DB::beginTransaction();
             $user = auth()->user();
             $roles = collect($user['roles']);
 
@@ -152,7 +157,25 @@ class SubmissionProposalController extends Controller
 
                 $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             }
+            $tracking = SubmissionProposal::with('tracking')->whereHas('tracking', function(Builder $query) {
+                $query->whereNotNull('deputi_bidang_partisipasi_masyarakat');
+                $query->whereNotNull('deputi_bidang_kesetaraan_gender');
+                $query->whereNotNull('deputi_bidang_perlindungan_anak');
+                $query->whereNotNull('deputi_bidang_perlindungan_hak_perempuan');
+                $query->whereNotNull('deputi_bidang_tumbuh_kembang_anak');
+            })->get();
 
+            if($tracking->count() > 0) {
+                foreach ($tracking as $key => $value) {
+                    $track = SubmissionProposal::where('id', $value->id)->update([
+                        'status_disposition' => 9
+                    ]);
+                    $users = User::role('Bagian Kerja Sama')->get();
+                    $user = auth()->user(); //GET USER YANG SEDANG LOGIN
+                    //KIRIM NOTIFIKASINYA MENGGUNAKAN FACADE NOTIFICATION
+                    Notification::send($users, new DispositionNotification($track, $user));
+                }
+            }
             ReasonSubmissionCooperation::create([
                 'created_by' => auth()->user()->id,
                 'submission_proposal_id' => $request->id,
@@ -161,14 +184,16 @@ class SubmissionProposalController extends Controller
 
 
             $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
-
+            DB::commit();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json($this->notification->updateFailed($th));
         }
     }
     public function reject(Request $request) {
         try {
+            DB::beginTransaction();
             $user = auth()->user();
             $roles = collect($user['roles']);
 
@@ -197,6 +222,26 @@ class SubmissionProposalController extends Controller
                 $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             }
 
+            $tracking = SubmissionProposal::with('tracking')->whereHas('tracking', function(Builder $query) {
+                $query->whereNotNull('deputi_bidang_partisipasi_masyarakat');
+                $query->whereNotNull('deputi_bidang_kesetaraan_gender');
+                $query->whereNotNull('deputi_bidang_perlindungan_anak');
+                $query->whereNotNull('deputi_bidang_perlindungan_hak_perempuan');
+                $query->whereNotNull('deputi_bidang_tumbuh_kembang_anak');
+            })->get();
+
+            if($tracking->count() > 0) {
+                foreach ($tracking as $key => $value) {
+                    $track = SubmissionProposal::where('id', $value->id)->update([
+                        'status_disposition' => 9
+                    ]);
+                    $users = User::role('Bagian Kerja Sama')->get();
+                    $user = auth()->user(); //GET USER YANG SEDANG LOGIN
+                    //KIRIM NOTIFIKASINYA MENGGUNAKAN FACADE NOTIFICATION
+                    Notification::send($users, new DispositionNotification($track, $user));
+                }
+            }
+
             ReasonSubmissionCooperation::create([
                 'created_by' => auth()->user()->id,
                 'submission_proposal_id' => $request->id,
@@ -205,9 +250,10 @@ class SubmissionProposalController extends Controller
 
 
             $data['you'] = SubmissionProposal::where('created_by', $user->id)->get();
-
+            DB::commit();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json($this->notification->updateFailed($th));
         }
     }

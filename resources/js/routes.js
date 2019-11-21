@@ -97,6 +97,7 @@ import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCoope
 import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+import ProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/YourDetail';
 
 // --- End Proposal --- //
 
@@ -625,6 +626,14 @@ const router = new VueRouter({
                     path: '/submission/cooperation/:id/detail',
                     name: 'ProposalSubmissionCooperationDetail',
                     component: ProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/submission/cooperation/:id/your/detail',
+                    name: 'ProposalSubmissionCooperationYourDetail',
+                    component: ProposalSubmissionCooperationYourDetail,
                     meta: {
                         requiresAuth: true
                     }

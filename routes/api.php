@@ -15,6 +15,10 @@ Route::get('refresh', 'LoginController@refresh');
 Route::post('me', 'LoginController@me');
 Route::middleware('jwt')->group( function () {
     Route::prefix('admin')->group(function () {
+        //Barcode
+        Route::get('generate/barcode/{id}', 'BarcodeController@generate');
+
+        Route::resource('notification', 'NotificationController')->except(['create', 'destroy']);
         Route::post('logout', 'LoginController@logout');
         Route::resource('user', 'UserController');
         Route::put('user/change/password', 'UserController@changePassword');

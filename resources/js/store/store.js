@@ -16,6 +16,8 @@ import Admin from './modules/admin';
 import Testimoni from './modules/testimoni';
 import satker from './modules/satker';
 import accessright from './modules/accessright';
+import Notification from './modules/notification';
+
 //End Module
 
 Vue.use(Vuex);
@@ -33,7 +35,8 @@ const store = new Vuex.Store({
         admin: Admin,
         testimoni: Testimoni,
         satker: satker,
-        accessright: accessright
+        accessright: accessright,
+        notification: Notification
     },
     state: {
         token: localStorage.getItem('token'),

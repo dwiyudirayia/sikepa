@@ -12,17 +12,25 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <template v-for="(value, index) in sortTracking">
-                    <template v-if="index + 1 < 15">
-                        <a href="#" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class"/> -
+                <div class="text-center">
+                    <template v-for="(value, index) in sortTracking">
+                        <template v-if="index + 1 < 15">
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
+                        </template>
+                        <template v-else>
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />
+                        </template>
                     </template>
-                    <template v-else>
-                        <a href="#" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class"/>
-                    </template>
-                </template>
+                </div>
                 <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"><i class="la la-book"></i> Rangkuman</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Final</a>
                     </li>
                     <!-- <li class="nav-item dropdown m-tabs__item">
                         <a class="nav-link m-tabs__link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="flaticon-placeholder-2"></i> Settings</a>
@@ -40,6 +48,10 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                        <div class="form-group m-form__group">
+                            <label>Judul Kerjasama</label>
+                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="title_cooperation">
+                        </div>
                         <div class="form-group m-form__group">
                             <label>Pemohonan Kerjasama</label>
                             <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation">
@@ -114,6 +126,32 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Generate Barcode</label>
+                            <div class="col-lg-6">
+                                <button :class="statusBarcode" @click="generateBarcode" :disabled="disableBarcode
+                                ">
+                                    <span>
+                                        <i class="la la-close" v-if="status_barcode == 0"></i>
+                                        <i class="la la-check" v-else></i>
+                                        <span>Generate</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Download Format Word</label>
+                            <div class="col-lg-6">
+                                <button class="" @click="downloadFormatWord">
+                                    <span>
+                                        <i class="la la-word-o"></i>
+                                        <span>Download Format</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,7 +174,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="approve" :disabled="disabled == true" class="btn btn-primary">{{ text_button }}</button>
+                        <button type="button" @click="approve" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
                     </div>
                 </div>
             </div>
@@ -161,7 +199,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="reject" :disabled="disabled == true" class="btn btn-primary">{{ text_button }}</button>
+                        <button type="button" @click="reject" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
                     </div>
                 </div>
             </div>
@@ -172,7 +210,7 @@
 
 <script>
 import $axios from '@/api.js';
-import {gmapApi} from 'vue2-google-maps'
+import {gmapApi} from 'vue2-google-maps';
 
 export default {
     name: 'ProposalSubmissionCooperationDetail',
@@ -197,6 +235,7 @@ export default {
                     path: `/submission/cooperation/${this.$route.params.id}/detail`
                 },
             ],
+            title_cooperation: null,
             type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
@@ -210,7 +249,9 @@ export default {
             background: null,
             latitude: null,
             longitude: null,
+            status_disposition: null,
             tracking: [],
+            status_barcode: null,
         }
     },
     computed: {
@@ -231,6 +272,20 @@ export default {
             });
 
             return finalData;
+        },
+        disableBarcode() {
+            if(this.status_barcode == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        statusBarcode() {
+            if(this.status_barcode == 0) {
+                return "btn btn-danger m-btn m-btn--icon";
+            } else {
+                return "btn btn-success m-btn m-btn--icon";
+            }
         }
     },
     created() {
@@ -240,6 +295,7 @@ export default {
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
+                this.title_cooperation = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
@@ -255,6 +311,8 @@ export default {
                 this.latitude = parseFloat(response.data.data.latitude);
                 this.longitude = parseFloat(response.data.data.longitude);
                 this.tracking = response.data.data.tracking;
+                this.status_disposition = response.data.data.status_disposition;
+                this.status_barcode = response.data.data.status_barcode;
             });
         },
         showModalReject() {
@@ -268,11 +326,11 @@ export default {
             $('#modal-approve').modal('show');
         },
         approve() {
-            this.text_button = 'Loading ...';
-            this.disabled = true;
 
             $axios.post(`/admin/submission/reason/approve`, this.forms)
             .then(response => {
+                this.disabled = true;
+                this.text_button = 'Loading ...';
                 $('#modal-approve').modal('hide');
 
                 this.$store.commit('proposal/notification', response);
@@ -287,11 +345,10 @@ export default {
             this.disabled = false;
         },
         reject() {
-            this.text_button = 'Loading ...';
-            this.disabled = true;
-            console.log(this.disabled);
             $axios.post(`/admin/submission/reason/reject`, this.forms)
             .then(response => {
+                this.disabled = true;
+                this.text_button = 'Loading ...';
                 $('#modal-reject').modal('hide');
 
                 this.$store.commit('proposal/notification', response);
@@ -305,6 +362,34 @@ export default {
             this.text_button = 'Submit';
             this.disabled = false;
         },
+        generateBarcode(id) {
+            $axios.get(`/admin/generate/barcode/${this.$route.params.id}`)
+            .then(response => {
+                this.getData();
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.success(`Barcode Berhasil di Generate`);
+            })
+            .catch(error => {
+                toastr.error(`Barcode Gagal di Generate`);
+            })
+        }
     }
 }
 </script>

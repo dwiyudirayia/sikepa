@@ -142,12 +142,23 @@
                         </span>
                     </router-link>
                 </li>
+                <li class="m-menu__item" aria-haspopup="true">
+                    <a class="m-menu__link" @click="logout">
+                        <i class="m-menu__link-icon la la-sign-out"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Keluar</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'SideMenu',
     data: function(){
@@ -166,7 +177,15 @@ export default {
             return paths.some(path => {
                 return this.$route.path.indexOf(path) === 0 // current path starts with this path string
             })
-        }
+        },
+        logout() {
+            $axios.post(`/admin/logout`)
+            .then(() => {
+                localStorage.removeItem('token')
+                this.$store.state.token = localStorage.getItem('token')
+                window.location.href = '/login/admin';
+            })
+        },
     }
 }
 </script>

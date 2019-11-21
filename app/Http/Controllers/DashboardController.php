@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ApprovalOldSubmissionCooperation;
-use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
+use App\SubmissionProposalOld;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -19,6 +19,12 @@ class DashboardController extends Controller
         try {
             $data['old_monev_all'] = ApprovalOldSubmissionCooperation::groupBy('year')
             ->select(DB::raw('count(IF(status = 1, 1, NULL)) as status_valid, count(IF(status = 0, 1, NULL)) as status_not_valid, year(tanggal_ttd) as year'))
+            ->orderBy('year', 'asc')
+            ->take(5)
+            ->get();
+
+            $data['submission_proposal_old'] = SubmissionProposalOld::groupBy('year')
+            ->select(DB::raw('count(IF(status =1, 1, NULL)) as status_valid, count(IF(status = 0, 1, NULL)) as status_not_valid, year'))
             ->orderBy('year', 'asc')
             ->take(5)
             ->get();

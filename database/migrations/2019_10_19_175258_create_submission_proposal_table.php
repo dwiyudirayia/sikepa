@@ -18,6 +18,7 @@ class CreateSubmissionProposalTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('mailing_number')->unique();
+            $table->string('title_cooperation');
             $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
             $table->mediumInteger('type_of_cooperation_two_derivative_id')->nullable();
@@ -39,6 +40,7 @@ class CreateSubmissionProposalTable extends Migration
             $table->date('time_period_to');
             $table->string('agency_profile');
             $table->string('proposal');
+            $table->tinyInteger('status_barcode')->default(0);
             $table->timestamps();
         });
     }

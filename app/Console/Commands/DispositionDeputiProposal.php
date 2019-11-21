@@ -40,7 +40,5 @@ class DispositionDeputiProposal extends Command
     {
         $data = TrackingSubmissionProposal::query();
         $data->whereNotNull('deputi_bidang_partisipasi_masyarakat')->whereNotNull('deputi_bidang_kesetaraan_gender')->whereNotNull('deputi_bidang_perlindungan_anak')->whereNotNull('deputi_bidang_perlindungan_hak_perempuan')->whereNotNull('deputi_bidang_tumbuh_kembang_anak')->get();
-
-        dd($data->count());
     }
 }

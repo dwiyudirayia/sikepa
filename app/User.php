@@ -32,6 +32,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -58,4 +62,5 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

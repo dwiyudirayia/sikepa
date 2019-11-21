@@ -16,6 +16,17 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Judul Kerjasama</label>
+                    <div class="m-form__control">
+                        <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
+                    </div>
+                    <span class="m-form__help">Pastikan Judul Kerjasama Sesuai</span>
+                    <br>
+                    <template v-if="$v.forms.title_cooperation.$error">
+                        <span v-if="!$v.forms.title_cooperation.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    </template>
+                </div>
+                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
                         <select
@@ -323,6 +334,7 @@ export default {
             },
             isIndonesian: false,
             forms: {
+                title_cooperation: null,
                 type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
                 type_of_cooperation_two_derivative_id: null,
@@ -360,6 +372,9 @@ export default {
     },
     validations: {
         forms: {
+            title_cooperation: {
+                required
+            },
             type_of_cooperation_id: {
                 required
             },
@@ -440,6 +455,7 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
+                formData.append('title_cooperation', this.forms.title_cooperation);
                 formData.append('type_of_cooperation_id', this.forms.type_of_cooperation_id);
                 formData.append('type_of_cooperation_one_derivative_id', this.forms.type_of_cooperation_one_derivative_id);
                 formData.append('type_of_cooperation_two_derivative_id', this.forms.type_of_cooperation_two_derivative_id);

@@ -89,7 +89,7 @@
                             <label for="Nama Lengkap">Tahun</label>
                             <div class="m-form__control">
                                 <Select2
-                                    :options="years"
+                                    :options="yearsMonev"
                                     v-model="chartData.oldMonev.selectedYear"
                                     class="form-control"
                                 />
@@ -108,6 +108,48 @@
                         <br>
                         <bar-chart
                             :chartData="chartData.oldMonev.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
+            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Pengajuan Kerjasama Terdahulu Keseluruhan Berdasarkan Status
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSubmissionProposalOld"
+                                    v-model="chartData.submissionProposalOld.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" class="btn btn-brand">{{ chartData.submissionProposalOld.textButton }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.submissionProposalOld.all"
                             :options="options"
                         />
                     </div>
@@ -255,6 +297,16 @@ export default {
                     selectedYear: null,
                     yearsText: [],
                     textButton: 'Filter'
+                },
+                submissionProposalOld: {
+                    all: null,
+                    valid: null,
+                    years: [],
+                    labels: null,
+                    data: [],
+                    selectedYear: null,
+                    yearsText: [],
+                    textButton: 'Filter'
                 }
             },
             breadcrumbTitle: 'Dashboard',
@@ -268,46 +320,15 @@ export default {
         }
     },
     computed: {
-        years() {
+        yearsMonev() {
             return this.chartData.oldMonev.years;
-        }
+        },
+        yearsSubmissionProposalOld() {
+            return this.chartData.submissionProposalOld.years;
+        },
     },
     mounted() {
-        $axios.get(`/admin/dashboard`)
-        .then(response => {
-            //monev all
-            this.chartData.oldMonev.data = response.data.data.old_monev_all;
-
-            let objectYearMonev = this.chartData.oldMonev.data.map(value => {
-                return {
-                    id: value.year.toString(),
-                    text: value.year
-                };
-            })
-
-            this.chartData.oldMonev.years = objectYearMonev;
-            this.chartData.oldMonev.yearsText = this.chartData.oldMonev.data.map(map => map.year.toString());
-            this.chartData.oldMonev.valid = this.chartData.oldMonev.data.map(map => map.status_valid);
-            this.chartData.oldMonev.not_valid = this.chartData.oldMonev.data.map(map => map.status_not_valid);
-
-            this.chartData.oldMonev.all = {
-                labels: this.chartData.oldMonev.yearsText,
-                datasets: [
-                    {
-                        label: `Tidak Berlaku`,
-                        backgroundColor: '#f87979',
-                        data: this.chartData.oldMonev.valid
-                    },
-                    {
-                        label: 'Masih Berlaku',
-                        backgroundColor: '#716aca',
-                        data: this.chartData.oldMonev.not_valid
-                    }
-                ]
-            };
-
-        })
-
+        this.getData();
         this.options = {
             responsive: true,
             maintainAspectRatio: false,
@@ -321,6 +342,66 @@ export default {
         }
     },
     methods: {
+        getData() {
+            $axios.get(`/admin/dashboard`)
+            .then(response => {
+                //monev all
+                this.chartData.oldMonev.data = response.data.data.old_monev_all;
+                this.chartData.submissionProposalOld.data = response.data.data.submission_proposal_old;
+
+                let objectYearMonev = this.chartData.oldMonev.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                let objectSubmissionProposalOld = this.chartData.submissionProposalOld.data.map(value => {
+                    return {
+                        id: value.year,
+                        text: value.year
+                    };
+                })
+
+
+                this.chartData.oldMonev.years = objectYearMonev;
+                this.chartData.oldMonev.yearsText = this.chartData.oldMonev.data.map(map => map.year.toString());
+                this.chartData.oldMonev.valid = this.chartData.oldMonev.data.map(map => map.status_valid);
+                this.chartData.oldMonev.not_valid = this.chartData.oldMonev.data.map(map => map.status_not_valid);
+
+                this.chartData.submissionProposalOld.years = objectSubmissionProposalOld;
+                this.chartData.submissionProposalOld.yearsText = this.chartData.submissionProposalOld.data.map(map => map.year);
+                this.chartData.submissionProposalOld.valid = this.chartData.submissionProposalOld.data.map(map => map.status_valid);
+
+                this.chartData.oldMonev.all = {
+                    labels: this.chartData.oldMonev.yearsText,
+                    datasets: [
+                        {
+                            label: `Tidak Berlaku`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.oldMonev.valid
+                        },
+                        {
+                            label: 'Masih Berlaku',
+                            backgroundColor: '#716aca',
+                            data: this.chartData.oldMonev.not_valid
+                        }
+                    ]
+                };
+
+                this.chartData.submissionProposalOld.all = {
+                    labels: this.chartData.submissionProposalOld.yearsText,
+                    datasets: [
+                        {
+                            label: `Selesai`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submissionProposalOld.valid
+                        },
+                    ]
+                };
+
+            })
+        },
         filterMonev() {
             $axios.get(`/admin/old/monev/filter/${this.chartData.oldMonev.selectedYear}`)
             .then(response => {
