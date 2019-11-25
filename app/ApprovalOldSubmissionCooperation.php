@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApprovalOldSubmissionCooperation extends Model
 {
     protected $table = 'approval_old_submission_cooperation';
-    protected $fillable = ['created_by','title_of_cooperation','tanggal_ttd','background','end_date','status','description'];
+    protected $fillable = ['created_by', 'updated_by', 'title_of_cooperation','tanggal_ttd','background','end_date','status','description','role_id','latitude','longitude','file'];
 
     public function activities() {
         return $this->hasMany(ApprovalOldSubmissionCooperationActivity::class, 'approval_old_submission_cooperation_id');

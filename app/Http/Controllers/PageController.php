@@ -161,7 +161,7 @@ class PageController extends Controller
             $data = Page::with('files')->findOrFail($id);
 
             foreach($data->files as $key => $value) {
-                Storage::disk('file_page')->delete($value);
+                Storage::disk('file_page')->delete($value->file);
             }
 
             File::delete("page/".$data->image);

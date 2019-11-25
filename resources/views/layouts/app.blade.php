@@ -141,7 +141,6 @@
     <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
 	<script src="{{ asset('assets/fill.box.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/customize.js') }}" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
 </body>
 
 <!-- end::Body -->

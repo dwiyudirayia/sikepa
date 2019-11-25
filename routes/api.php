@@ -10,6 +10,9 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+use Illuminate\Http\Request;
+
 Route::post('login', 'LoginController@login');
 Route::get('refresh', 'LoginController@refresh');
 Route::post('me', 'LoginController@me');
@@ -60,6 +63,9 @@ Route::middleware('jwt')->group( function () {
         Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
+        Route::post('upload/notulen/{id}', 'SubmissionProposalController@uploadNotulen');
+        Route::post('upload/draft/{id}', 'SubmissionProposalController@uploadDraft');
+        Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
 
         //Change Status Article
         Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
@@ -97,6 +103,9 @@ Route::middleware('jwt')->group( function () {
         Route::get('testimoni', 'TestimoniController@index');
         Route::post('testimoni', 'TestimoniController@store');
         Route::delete('testimoni/{id}', 'TestimoniController@destroy');
+        Route::get('testimoni/{id}/edit', 'TestimoniController@edit');
+        Route::put('testimoni/{id}', 'TestimoniController@update');
+        Route::put('testimoni/change/status/{id}', 'TestimoniController@changeStatus');
         // EndTestimoni
 
         //User
@@ -125,6 +134,11 @@ Route::middleware('jwt')->group( function () {
 
         //Monev
         Route::get('monev', 'MonevController@index');
+        Route::post('monev', 'MonevController@store');
+        Route::get('monev/{id}/edit', 'MonevController@edit');
+        Route::put('monev/{id}', 'MonevController@update');
+        Route::delete('monev/{id}/nomor/{nomor}', 'MonevController@destroyNomor');
+        Route::delete('monev/{id}/parties/{parties}', 'MonevController@destroyParties');
         Route::get('monev/activity/{id}/create', 'MonevController@createActivity');
         Route::get('monev/activity/{id}', 'MonevController@showActivity');
         Route::post('monev/activity', 'MonevController@storeActivity');
@@ -132,6 +146,7 @@ Route::middleware('jwt')->group( function () {
         Route::get('monev/list/activity/{id}', 'MonevController@listMonevActivity');
         Route::delete('monev/list/activity/{id}', 'MonevController@destroyListMonevActivity');
         Route::post('monev/import', 'ImportController@importOldMOU');
+        Route::post('monev/old/file/mou/{id}', 'MonevController@uploadOldMOU');
 
         //Dashboard
         Route::get('/dashboard', 'DashboardController@index');

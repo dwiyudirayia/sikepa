@@ -25,13 +25,13 @@
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
                                                 <li class="m-nav__item">
-                                                    <a class="m-nav__link" v-tooltip.top="'Import MOU Terdahulu'" @click="showModalImportMonev">
+                                                    <a class="m-nav__link" v-tooltip.top="'Import Monev Terdahulu'" @click="showModalImportMonev">
                                                         <i class="m-nav__link-icon la la-upload"></i>
                                                         <span class="m-nav__link-text">Import</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item">
-                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Download Format MOU Terdahulu'">
+                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Download Format Monev Terdahulu'">
                                                         <i class="m-nav__link-icon la la-download"></i>
                                                         <span class="m-nav__link-text">Download Format Import</span>
                                                     </a>
@@ -39,8 +39,14 @@
                                                 <li class="m-nav__item">
                                                     <a href="/download/data/monev/pdf" class="m-nav__link" v-tooltip.top="'Download Data Berupa PDF'">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
-                                                        <span class="m-nav__link-text">Download Data Berupa PDF</span>
+                                                        <span class="m-nav__link-text">Download Data</span>
                                                     </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <router-link class="m-nav__link" to="/monev/create">
+                                                        <i class="m-nav__link-icon la la-plus"></i>
+                                                        <span class="m-nav__link-text">Tambah Monev</span>
+                                                    </router-link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -83,10 +89,16 @@
                                                 <span>Tambah Kegiatan</span>
                                             </span>
                                         </router-link>
-                                        <router-link :to="{name: 'MonevEdit', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
+                                        <router-link :to="{name: 'MonitoringEvaluasiEdit', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
                                             <span>
                                                 <i class="la la-pencil"></i>
                                                 <span>Edit Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonitoringEvaluasiEditFile', params: { id: item.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
+                                            <span>
+                                                <i class="la la-file-o"></i>
+                                                <span>Edit File</span>
                                             </span>
                                         </router-link>
                                         <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
@@ -174,8 +186,7 @@ export default {
                     path: '/monev'
                 },
             ],
-            approvalSubmission: [],
-            youSubmission: [],
+
             file: null,
             disabled: false,
             textButton: 'Submit',

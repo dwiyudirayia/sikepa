@@ -36,4 +36,10 @@ class SubmissionProposal extends Model
     public function tracking() {
         return $this->hasOne(TrackingSubmissionProposal::class);
     }
+    public function law() {
+        return $this->hasOne(LawFileSubmissionProposal::class);
+    }
+    public function nomor() {
+        return $this->hasMany(NomorApprovalSubmissionCooperation::class);
+    }
 }

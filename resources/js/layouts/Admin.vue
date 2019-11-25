@@ -53,7 +53,7 @@
                             <ul class="m-topbar__nav m-nav m-nav--inline">
                                 <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
                                     <a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
-                                        <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
+                                        <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger" v-if="notifications.length > 0"></span>
                                         <span class="m-nav__link-icon"><i class="flaticon-alarm"></i></span>
                                     </a>
                                     <div class="m-dropdown__wrapper" style="z-index: 101;">

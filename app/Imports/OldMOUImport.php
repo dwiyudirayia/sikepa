@@ -22,6 +22,7 @@ class OldMOUImport implements ToCollection, WithHeadingRow
             DB::beginTransaction();
 
             $approvalOld = ApprovalOldSubmissionCooperation::create([
+                'role_id' => auth()->user()->roles[0]->id,
                 'created_by' => auth()->user()->id,
                 'title_of_cooperation' => $value['judul_mou'],
                 'tanggal_ttd' => date('Y-m-d', strtotime($value['tanggal_ttd'])),

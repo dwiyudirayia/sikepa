@@ -14,7 +14,7 @@
             <div class="m-portlet__body">
                 <div class="text-center">
                     <template v-for="(value, index) in sortTracking">
-                        <template v-if="index + 1 < 15">
+                        <template v-if="index + 1 < 13">
                             <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
                         </template>
                         <template v-else>
@@ -30,7 +30,10 @@
                         <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Final</a>
+                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                     <!-- <li class="nav-item dropdown m-tabs__item">
                         <a class="nav-link m-tabs__link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="flaticon-placeholder-2"></i> Settings</a>
@@ -152,6 +155,85 @@
                             </div>
                         </div> -->
                     </div>
+                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel">
+                        <div class="form-group m-form__group">
+                            <label>Notulen Rapat Terakhir</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="notulen">
+                                <div class="input-group-append">
+                                    <button :class="disableFileDraft.style" :disabled="disableFileNotulen.disable" type="button" @click="handleExploreNotulen">Browse</button>
+                                </div>
+                            </div>
+                            <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
+                        </div>
+                        <div class="form-group m-form__group">
+                            <label>Draft Final MOU/PKS</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="draft">
+                                <div class="input-group-append">
+                                    <button :class="disableFileDraft.style" type="button" :disabled="disableFileDraft.disable" @click="handleExploreDraft">Browse</button>
+                                </div>
+                            </div>
+                            <input type="file" class="custom-file-input" style="display:none;" ref="draft" id="customFile" @change="uploadDraft">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel">
+                        <form @submit.prevent="final">
+                            <div class="m-form__section m-form__section--first">
+                                <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">Nomer MOU</h3>
+                                </div>
+                                <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
+                                    <div class="text-right">
+                                        <i
+                                            v-if="(index === nomor.length - 1)"
+                                            class="la la-plus fa-2x"
+                                            @click="addExtraNomor"
+                                        />
+                                        <i
+                                            v-if="nomor.length > 1"
+                                            class="la la-minus fa-2x"
+                                            @click="removeExtraNomor(index)"
+                                        />
+                                    </div>
+                                    <label for="">Nomor</label>
+                                    <input type="text" class="form-control" v-model="nomor[index]">
+                                </div>
+                            </div>
+                            <div class="m-form__seperator m-form__seperator--dashed"></div>
+                            <div class="form-group m-form__group">
+                                <label>Revisi Notulen Rapat Terakhir</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Pilih File" :value="notulenLabel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button" @click="handleExploreNotulenFinal">Browse</button>
+                                    </div>
+                                </div>
+                                <input type="file" class="custom-file-input" style="display:none;" ref="notulenFinal" id="customFile" @change="handleNotulen">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label>Draft Final MOU/PKS</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button" @click="handleExploreDraftFinal">Browse</button>
+                                    </div>
+                                </div>
+                                <input type="file" class="custom-file-input" style="display:none;" ref="draftFinal" id="customFile" @change="handleDraft">
+                            </div>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" class="btn btn-secondary">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -210,6 +292,7 @@
 
 <script>
 import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
 import {gmapApi} from 'vue2-google-maps';
 
 export default {
@@ -217,6 +300,10 @@ export default {
     data() {
         return {
             text_button: 'Submit',
+            notulen: null,
+            notulenLabel: null,
+            draft: null,
+            draftLabel: null,
             disabled: false,
             forms: {
                 reason: null,
@@ -235,6 +322,7 @@ export default {
                     path: `/submission/cooperation/${this.$route.params.id}/detail`
                 },
             ],
+            nomor: [''],
             title_cooperation: null,
             type_of_cooperation: null,
             type_of_cooperation_one: null,
@@ -252,6 +340,7 @@ export default {
             status_disposition: null,
             tracking: [],
             status_barcode: null,
+            law: null,
         }
     },
     computed: {
@@ -259,8 +348,8 @@ export default {
         sortTracking: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(2,15);
-            const label = ['Deputi Bidang Partisipasi Masyarakat','Deputi Bidang Kesetaraan Gender','Deputi Bidang Perlindungan Anak','Deputi Bidang Perlindungan Hak Perempuan','Deputi Bidang Tumbuh Kembang Anak','Satker Sesmen','Biro Perencanaan dan Data','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+            const value = Object.values(data).splice(2,13);
+            const label = ['Deputi Bidang Partisipasi Masyarakat','Deputi Bidang Kesetaraan Gender','Deputi Bidang Perlindungan Anak','Deputi Bidang Perlindungan Hak Perempuan','Deputi Bidang Tumbuh Kembang Anak','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
 
             let finalData = value.map((value, index) => {
                 return {
@@ -286,12 +375,120 @@ export default {
             } else {
                 return "btn btn-success m-btn m-btn--icon";
             }
+        },
+        disableFileNotulen() {
+            if(this.notulen == null || this.notulen == "") {
+                return {
+                    disable: false,
+                    style: 'btn btn-danger'
+                };
+            } else {
+                return {
+                    disable: true,
+                    style: 'btn btn-success'
+                };
+            }
+        },
+        disableFileDraft() {
+            if(this.draft == null || this.draft == "") {
+                return {
+                    disable: false,
+                    style: 'btn btn-danger'
+                };
+            } else {
+                return {
+                    disable: true,
+                    style: 'btn btn-success'
+                };
+            }
         }
     },
     created() {
         this.getData();
     },
     methods: {
+        final() {
+            let formData = new FormData();
+            $.each(this.nomor, function(key, value) {
+                formData.append(`nomor[${key}]`, value);
+            });
+            formData.append('notulen', this.notulenFinal);
+            formData.append('draft', this.draftFinal);
+
+            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        handleExploreNotulenFinal() {
+            this.$refs.notulenFinal.click();
+        },
+        handleExploreDraftFinal() {
+            this.$refs.draftFinal.click();
+        },
+        handleNotulen(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            this.notulen = files[0];
+
+            this.notulenLabel = this.$refs.notulenFinal.value;
+        },
+        handleDraft(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            this.draft = files[0];
+
+            this.draftLabel = this.$refs.draftFinal.value;
+        },
+        addExtraNomor() {
+            this.nomor.push('');
+        },
+        removeExtraNomor(index) {
+            if(index == 0) {
+                this.nomor = [''];
+            } else {
+                this.nomor.splice(index, 1);
+            }
+        },
+        handleExploreNotulen() {
+            this.$refs.notulen.click();
+        },
+        handleExploreDraft() {
+            this.$refs.draft.click();
+        },
+        uploadNotulen(e) {
+            let files = e.target.files || e.dataTransfer.files;
+
+            let formData = new FormData();
+            formData.append('file', files[0]);
+
+            $axiosFormData.post(`/admin/upload/notulen/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            this.notulen = this.$refs.notulen.value;
+        },
+        uploadDraft(e) {
+            let files = e.target.files || e.dataTransfer.files;
+
+            let formData = new FormData();
+            formData.append('file', files[0]);
+
+            $axiosFormData.post(`/admin/upload/draft/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            this.draft = this.$refs.draft.value;
+        },
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
@@ -313,6 +510,10 @@ export default {
                 this.tracking = response.data.data.tracking;
                 this.status_disposition = response.data.data.status_disposition;
                 this.status_barcode = response.data.data.status_barcode;
+                this.draft = response.data.data.law.draft;
+                this.draftLabel = response.data.data.law.draft;
+                this.notulen = response.data.data.law.notulen;
+                this.notulenLabel = response.data.data.law.notulen;
             });
         },
         showModalReject() {
@@ -326,7 +527,6 @@ export default {
             $('#modal-approve').modal('show');
         },
         approve() {
-
             $axios.post(`/admin/submission/reason/approve`, this.forms)
             .then(response => {
                 this.disabled = true;

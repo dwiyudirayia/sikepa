@@ -11,6 +11,9 @@ body {
     font-size: 14px;
     color: #757575;
     line-height: 1.714;
+    background-image: url(../images/bg-pattern.svg);
+    background-size: 540px;
+    background-position: center;
     overflow-x: hidden;
     opacity: 0;
     transition: opacity .4s $easing;
@@ -36,7 +39,7 @@ body {
 .content-wrap {
     transform: translateZ(0);
     position: relative;
-    padding: 8em 0;
+    padding: 7em 0;
 }
 
 hr {
@@ -79,7 +82,7 @@ a {
     letter-spacing: .08em;
     font-weight: 600;
     vertical-align: middle;
-    color: #000;
+    color: #212121;
     i {
         display: inline-block;
         vertical-align: middle;
@@ -96,7 +99,7 @@ a {
                     box-shadow .4s $easing;
     }
     &:hover,&:focus,&:focus:active {
-        color: #000;
+        color: #212121;
         i {
             background-color: #128DB3;
             box-shadow: 0 0 0 8px rgba(17,141,179,.2);
@@ -112,6 +115,12 @@ a {
     margin: 0 -30px;
     > [class^="col-"] {
         padding: 0 30px;
+    }
+}
+.no-guuter {
+    margin: 0;
+    > [class^="col-"] {
+        padding: 0;
     }
 }
 
@@ -145,8 +154,8 @@ a {
 h1, h2, h3, h4, h5 {
     font-weight: 500;
     line-height: 1.4;
-    margin: 20px 0 30px;
-    color: #000
+    margin: 30px 0 20px;
+    color: #212121
 }
 
 h1 {
@@ -171,7 +180,7 @@ h5 {
 
 /*==========*/
 .thumb {
-    position: absolute;
+    position: absolute !important;
     top: 0;
     left: 0;
     width: 100%;
@@ -226,7 +235,7 @@ h5 {
     }
     
     &.btn-lg {
-        padding: 24px 0 22px;
+        padding: 24px 30px 22px;
     }
 }
 
@@ -303,11 +312,10 @@ h5 {
 /*==========*/
 .block-media-text {
     position: relative;
-    padding: 5em 0;
+    //padding: 5em 0;
     display: flex;
-    min-height: 560px;
     + .block-media-text {
-        margin-top: 8em;
+        margin-top: 7em;
     }
     &:nth-child(even) {
         flex-direction: row-reverse;
@@ -348,32 +356,36 @@ h5 {
         }
     }
     .caption-media {
-        .box-media {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        transform: translateZ(0);
+        &:before {
+            content: "";
+            padding: 0;
             position: absolute;
-            top: -5em;
-            bottom: -5em;
+            top: -7em;
+            bottom: -7em;
+            right: 50%;
+            width: 2000%;
+            background-color: #0EB6DD;
+            border-radius: 0 0 40px 0;
+            z-index: -1;
+        }
+        &.no-bg {
+            &:before {
+                display: none;
+            }
+        }
+        .box-media {
             width: 100%;
             left: 0;
-            &.no-bg {
-                &:before {
-                    display: none;
-                }
-            }
             &:after {
-                padding: 0
+                padding-top: 75%;
             }
-            &:before {
-                content: "";
-                padding: 0;
-                position: absolute;
-                top: -8em;
-                bottom: -8em;
-                right: 50%;
-                width: 2000%;
-                //transform: skewX(10deg);
-                background-color: #0EB6DD;
-                border-radius: 0 0 40px 0;
-                z-index: auto;
+            .thumb {
+                border-radius: 40px;
             }
         }
         
@@ -422,15 +434,34 @@ h5 {
     &.flex-base {
         align-items: baseline
     }
+    .flex-1 {
+        flex: 1
+    }
+    .wrapper + .wrapper {
+        margin-left: 30px;
+    }
 }
 
 /*==========*/
+.m0 {
+    margin: 0 !important
+}
+
 .pt0 {
     padding-top: 0 !important
 }
 
+.p0 {
+    padding: 0 !important
+}
+
 .mb3 {
     margin-bottom: 3em !important
+}
+
+.fancy {
+    font-family: $vesterbro;
+    font-weight: 800;
 }
 
 /*==========*/
@@ -451,7 +482,7 @@ h5 {
     text-transform: uppercase;
     letter-spacing: .08em;
     font-weight: 600;
-    color: #aaa;
+    color: #757575;
 }
 
 .text-sm {
@@ -495,7 +526,7 @@ h5 {
     .form-control {
         border-radius: 0;
         border-width: 0 0 1px;
-        padding: 30px 0 14px;
+        padding: 30px 0 14px !important;
         font-size: 14px;
         min-height: 62px;
         &:focus,&:valid {
@@ -538,7 +569,7 @@ select.form-control {
 
 .control-group {
     + .control-group {
-       margin-top: 4em 
+       margin-top: 5em 
     } 
 }
 
@@ -671,7 +702,7 @@ select.form-control {
                             background-color .4s $easing;
                 &:hover {
                     background-color: #ddd;
-                    color: #000;
+                    color: #212121;
                 }
             }
             &.next {
@@ -695,8 +726,19 @@ select.form-control {
 /*==========*/
 .panel {
     border: none;
-    border-radius: 12px;
+    border-radius: 20px;
     box-shadow: 0 10px 60px rgba(0,0,0,.05);
+    .panel-heading {
+        padding: 40px 50px 0;
+        display: flex;
+        align-items: center;
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #aaa;
+            margin: 0 auto 0 0;
+        }
+    }
     .panel-body {
         padding: 40px 50px
     }
@@ -706,14 +748,28 @@ select.form-control {
     transition-timing-function: $easing !important
 }
 
+.list-inline-divider {
+    [class^="col-"] + [class^="col-"] {
+        border-left: 1px solid #ddd
+    }
+}
+
 /*==========*/
-.dropdown-hover {
+.dropdown-hover,
+.dropdown-menu {
+    display: block;
     position: absolute;
     top: 100%;
     left: 0;
     z-index: 2;
     min-width: 240px;
-    padding: 15px 0 0;
+    padding: 10px 0 0;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    border: none;
+    line-height: inherit;
     opacity: 0;
     visibility: hidden;
     transition: opacity .4s $easing,
@@ -727,10 +783,10 @@ select.form-control {
         box-shadow: 0 8px 40px rgba(0,0,0,.08);
         border-radius: 12px;
         > li {
-            line-height: 1.4;
+            line-height: inherit;
             + li {
-                margin-top: 10px;
-                padding-top: 10px;
+                margin-top: 15px;
+                padding-top: 15px;
                 border-top: 1px solid #eee;
             }
             > a {
@@ -744,11 +800,222 @@ select.form-control {
             }
         }
     }
+    .dropdown-header {
+        padding: 0;
+    }
 }
 
-.dropdown:hover {
-    .dropdown-hover {
+.open {
+    .dropdown-menu {
         opacity: 1;
         visibility: visible
     }
+}
+
+.dropdown {
+    position: relative;
+    > a:after {
+        content: "";
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background-color: #0EB6DD;
+        border-radius: 50%;
+        margin-left: 7px;
+        vertical-align: middle;
+    }
+    &:hover {
+        .dropdown-hover {
+            opacity: 1;
+            visibility: visible
+        }
+    }
+}
+
+.dropdown-menu-right {
+    left: auto;
+    border-right: 0;
+}
+
+.breadcrumb {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    li {
+        vertical-align: middle;
+        + li:before {
+            padding: 0;
+            margin-left: 8px;
+            margin-right: 10px;
+        }
+        &:last-child {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        a {
+            color: #0EB6DD;
+        }
+        i {
+            font-size: 16px;
+        }
+    }
+}
+
+/*==========*/
+.table {
+    thead tr th {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+        color: #757575;
+        border-bottom: none; 
+    }
+    thead tr th,
+    tbody tr td {
+        padding: 20px 30px;
+        line-height: inherit;
+    }
+    thead tr th:first-child,
+    tbody tr td:first-child {
+        padding-left: 0;
+        text-align: left;
+    }
+    thead tr th:last-child,
+    tbody tr td:last-child {
+        padding-right: 0;
+        text-align: right;
+    }
+    tbody tr td {
+        border-top: 1px solid #eee;
+    }
+    &.table-striped {
+        tbody tr:nth-child(odd) {
+            background-color: rgba(0,0,0,.03);
+        }
+        tbody tr td {
+            border-top: none;
+        }
+        thead tr th:first-child,
+        tbody tr td:first-child {
+            padding-left: 30px;
+        }
+        thead tr th:last-child,
+        tbody tr td:last-child {
+            padding-right: 30px;
+        }
+    }
+}
+
+/*==========*/
+.modal-open,
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-backdrop.in {
+	opacity: .5;
+}
+
+.modal {
+    overflow: auto;
+    .modal-dialog {
+        display: table;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        transform: none !important;
+        opacity: 1;
+    }
+    .modal-content {
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        position: relative;
+        //transform: translateZ(0)
+    }
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .panel {
+        margin: 5em 0;
+        position: relative;
+        z-index: 2;
+    } 
+    .close {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        width: 34px;
+        line-height: 34px;
+        height: 34px;
+        margin-left: auto;
+        text-align: center;
+        color: #212121;
+        opacity: 1;
+        text-shadow: none;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0,0,0,.2);
+        transition: color .4s $easing,
+                    border-color .4s $easing,
+                    background-color .4s $easing;
+        &:hover,&:focus,&:focus:active {
+            opacity: 1;
+            color: #fff;
+            border-color: transparent;
+            background-color: #212121;
+        }
+        i {
+            font-size: 16px;
+            line-height: 1;
+            //display: inline-block;
+            //vertical-align: middle;
+            //margin-top: -6px
+        }
+    }
+    .fix-close {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 40;
+        width: 50px;
+        line-height: 48px;
+        height: 50px;
+        border-radius: 0 0 0 4em;
+        border: none;
+        background-color: #212121;
+        color: #fff;
+        i {
+            display: inline-block;
+            font-size: 18px;
+            margin-top: -12px;
+            margin-left: 10px;
+        }
+    }
+    .fade {
+        transition: opacity .4s $easing;
+    }
+}
+
+.dropdown-menu {
+    
 }
