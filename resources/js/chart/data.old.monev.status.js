@@ -1,10 +1,19 @@
-export const dataInstansiPertahun = {
+import $axios from '@/api.js';
+
+const getData = async () => {
+    let res = await $axios.get('/admin/dashboard');
+    let { data } = res.data;
+}
+
+console.log(getData());
+
+export const dataOldMonevStatus = {
     type: 'bar',
     data: {
         labels: ['2014', '2015', '2016', '2017', '2018', '2019'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: getData.setObject,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -101,4 +110,4 @@ export const dataInstansiPertahun = {
     // }
 }
 
-export default dataInstansiPertahun;
+export default dataOldMonevStatus;

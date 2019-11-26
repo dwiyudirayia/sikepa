@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    protected function guard()
+    public function __construct()
     {
-        return Auth::guard();
+        $this->middleware('jwt.refresh')->only('refresh');
+        // $this->middleware('auth:api', ['except' => ['login', 'refresh']]);
     }
     public function login(Request $request)
     {
@@ -22,14 +23,59 @@ class LoginController extends Controller
             'username.exists' => 'Username Anda Sudah di Nonaktifkan Silahkan Hubungi Super Admin'
         ])->validate();
 
-        $auth = $request->except(['remember_me']);
-        if (auth()->attempt($auth, $request->remember_me)) {
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('AppName')->accessToken;
+        $credentials = request(['username', 'password']);
 
-            return response()->json(['status' => 'success', 'data' => $success['token']], 200);
-        } else {
-            return response()->json(['status' => 'Username / Password Salah']);
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        return $this->respondWithToken($token);
+    }
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        $this->guard()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => 60*60*24*365*10,
+            'status' => 'success'
+        ]);
+    }
+    public function guard()
+    {
+        return Auth::guard();
     }
 }

@@ -28,7 +28,7 @@
 
 .lightpick__months {
     display: grid;
-    background-color: #EEE;
+    *background-color: #EEE;
     grid-template-columns: auto;
     grid-gap: 1px;
 }
@@ -107,7 +107,7 @@
     height: 32px;
     outline: none;
     border: none;
-    border-radius: 50%;
+    border-radius: 50px;
     background-color: #DDD;
     justify-content: center;
     align-items: center;
@@ -209,10 +209,10 @@
 
 .lightpick__day.is-start-date.is-in-range,
 .lightpick__day.is-end-date.is-in-range.is-flipped {
-    border-top-left-radius: 50%;
+    border-top-left-radius: 50px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom-left-radius: 50%;
+    border-bottom-left-radius: 50px;
     background-color: #0EB6DD;
     background-image: none;
 }
@@ -220,8 +220,8 @@
 .lightpick__day.is-end-date.is-in-range,
 .lightpick__day.is-start-date.is-in-range.is-flipped {
     border-top-left-radius: 0;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
     border-bottom-left-radius: 0;
     background-color: #0EB6DD;
     background-image: none;

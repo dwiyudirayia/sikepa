@@ -37,7 +37,7 @@ class StoreArticleRequest extends FormRequest
             \Image::make($this->image)->save(public_path('article/').$name);
 
             return [
-                'created_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,
@@ -53,7 +53,7 @@ class StoreArticleRequest extends FormRequest
             ];
         } else {
             return [
-                'created_by' => request()->user()->id,
+                'created_by' => auth()->user()->id,
                 'section_id' => (int)$this->section_id,
                 'category_id' => (int)$this->category_id,
                 'title' => $this->title,

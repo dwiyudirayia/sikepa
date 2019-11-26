@@ -28,7 +28,7 @@ class StoreCooperationTargetRequest extends FormRequest
     public function store()
     {
         return [
-            'created_by' => request()->user()->id,
+            'created_by' => auth()->user()->id,
             'name' => $this->name,
         ];
     }

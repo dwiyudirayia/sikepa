@@ -12,9 +12,28 @@
                 </div>
             </div>
             <div class="m-portlet__body">
+                <div class="text-center">
+                    <template v-for="(value, index) in sortTracking">
+                        <template v-if="index + 1 < 13">
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
+                        </template>
+                        <template v-else>
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />
+                        </template>
+                    </template>
+                </div>
                 <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"><i class="la la-book"></i> Rangkuman</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                     <!-- <li class="nav-item dropdown m-tabs__item">
                         <a class="nav-link m-tabs__link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="flaticon-placeholder-2"></i> Settings</a>
@@ -32,6 +51,10 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                        <div class="form-group m-form__group">
+                            <label>Judul Kerjasama</label>
+                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="title_cooperation">
+                        </div>
                         <div class="form-group m-form__group">
                             <label>Pemohonan Kerjasama</label>
                             <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation">
@@ -106,6 +129,111 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Generate Barcode</label>
+                            <div class="col-lg-6">
+                                <button :class="statusBarcode" @click="generateBarcode" :disabled="disableBarcode
+                                ">
+                                    <span>
+                                        <i class="la la-close" v-if="status_barcode == 0"></i>
+                                        <i class="la la-check" v-else></i>
+                                        <span>Generate</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Download Format Word</label>
+                            <div class="col-lg-6">
+                                <button class="" @click="downloadFormatWord">
+                                    <span>
+                                        <i class="la la-word-o"></i>
+                                        <span>Download Format</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel">
+                        <div class="form-group m-form__group">
+                            <label>Notulen Rapat Terakhir</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="notulen">
+                                <div class="input-group-append">
+                                    <button :class="disableFileDraft.style" :disabled="disableFileNotulen.disable" type="button" @click="handleExploreNotulen">Browse</button>
+                                </div>
+                            </div>
+                            <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
+                        </div>
+                        <div class="form-group m-form__group">
+                            <label>Draft Final MOU/PKS</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="draft">
+                                <div class="input-group-append">
+                                    <button :class="disableFileDraft.style" type="button" :disabled="disableFileDraft.disable" @click="handleExploreDraft">Browse</button>
+                                </div>
+                            </div>
+                            <input type="file" class="custom-file-input" style="display:none;" ref="draft" id="customFile" @change="uploadDraft">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel">
+                        <form @submit.prevent="final">
+                            <div class="m-form__section m-form__section--first">
+                                <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">Nomer MOU</h3>
+                                </div>
+                                <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
+                                    <div class="text-right">
+                                        <i
+                                            v-if="(index === nomor.length - 1)"
+                                            class="la la-plus fa-2x"
+                                            @click="addExtraNomor"
+                                        />
+                                        <i
+                                            v-if="nomor.length > 1"
+                                            class="la la-minus fa-2x"
+                                            @click="removeExtraNomor(index)"
+                                        />
+                                    </div>
+                                    <label for="">Nomor</label>
+                                    <input type="text" class="form-control" v-model="nomor[index]">
+                                </div>
+                            </div>
+                            <div class="m-form__seperator m-form__seperator--dashed"></div>
+                            <div class="form-group m-form__group">
+                                <label>Revisi Notulen Rapat Terakhir</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Pilih File" :value="notulenLabel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button" @click="handleExploreNotulenFinal">Browse</button>
+                                    </div>
+                                </div>
+                                <input type="file" class="custom-file-input" style="display:none;" ref="notulenFinal" id="customFile" @change="handleNotulen">
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label>Draft Final MOU/PKS</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button" @click="handleExploreDraftFinal">Browse</button>
+                                    </div>
+                                </div>
+                                <input type="file" class="custom-file-input" style="display:none;" ref="draftFinal" id="customFile" @change="handleDraft">
+                            </div>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" class="btn btn-secondary">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,7 +256,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="approve" :disabled="disabled == true" class="btn btn-primary">{{ text_button }}</button>
+                        <button type="button" @click="approve" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
                     </div>
                 </div>
             </div>
@@ -153,7 +281,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="reject" :disabled="disabled == true" class="btn btn-primary">{{ text_button }}</button>
+                        <button type="button" @click="reject" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
                     </div>
                 </div>
             </div>
@@ -164,13 +292,18 @@
 
 <script>
 import $axios from '@/api.js';
-import {gmapApi} from 'vue2-google-maps'
+import $axiosFormData from '@/apiformdata.js';
+import {gmapApi} from 'vue2-google-maps';
 
 export default {
     name: 'ProposalSubmissionCooperationDetail',
     data() {
         return {
             text_button: 'Submit',
+            notulen: null,
+            notulenLabel: null,
+            draft: null,
+            draftLabel: null,
             disabled: false,
             forms: {
                 reason: null,
@@ -189,6 +322,8 @@ export default {
                     path: `/submission/cooperation/${this.$route.params.id}/detail`
                 },
             ],
+            nomor: [''],
+            title_cooperation: null,
             type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
@@ -201,19 +336,163 @@ export default {
             purpose_objectives: null,
             background: null,
             latitude: null,
-            longitude: null
+            longitude: null,
+            status_disposition: null,
+            tracking: [],
+            status_barcode: null,
+            law: null,
         }
     },
     computed: {
-        google: gmapApi
+        google: gmapApi,
+        sortTracking: function() {
+            const data = this.tracking;
+
+            const value = Object.values(data).splice(2,13);
+            const label = ['Deputi Bidang Partisipasi Masyarakat','Deputi Bidang Kesetaraan Gender','Deputi Bidang Perlindungan Anak','Deputi Bidang Perlindungan Hak Perempuan','Deputi Bidang Tumbuh Kembang Anak','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+
+            let finalData = value.map((value, index) => {
+                return {
+                    id: index+1,
+                    label: label[index],
+                    value: value,
+                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : 'btn-metal'
+                }
+            });
+
+            return finalData;
+        },
+        disableBarcode() {
+            if(this.status_barcode == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        statusBarcode() {
+            if(this.status_barcode == 0) {
+                return "btn btn-danger m-btn m-btn--icon";
+            } else {
+                return "btn btn-success m-btn m-btn--icon";
+            }
+        },
+        disableFileNotulen() {
+            if(this.notulen == null || this.notulen == "") {
+                return {
+                    disable: false,
+                    style: 'btn btn-danger'
+                };
+            } else {
+                return {
+                    disable: true,
+                    style: 'btn btn-success'
+                };
+            }
+        },
+        disableFileDraft() {
+            if(this.draft == null || this.draft == "") {
+                return {
+                    disable: false,
+                    style: 'btn btn-danger'
+                };
+            } else {
+                return {
+                    disable: true,
+                    style: 'btn btn-success'
+                };
+            }
+        }
     },
     created() {
         this.getData();
     },
     methods: {
+        final() {
+            let formData = new FormData();
+            $.each(this.nomor, function(key, value) {
+                formData.append(`nomor[${key}]`, value);
+            });
+            formData.append('notulen', this.notulenFinal);
+            formData.append('draft', this.draftFinal);
+
+            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        handleExploreNotulenFinal() {
+            this.$refs.notulenFinal.click();
+        },
+        handleExploreDraftFinal() {
+            this.$refs.draftFinal.click();
+        },
+        handleNotulen(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            this.notulen = files[0];
+
+            this.notulenLabel = this.$refs.notulenFinal.value;
+        },
+        handleDraft(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            this.draft = files[0];
+
+            this.draftLabel = this.$refs.draftFinal.value;
+        },
+        addExtraNomor() {
+            this.nomor.push('');
+        },
+        removeExtraNomor(index) {
+            if(index == 0) {
+                this.nomor = [''];
+            } else {
+                this.nomor.splice(index, 1);
+            }
+        },
+        handleExploreNotulen() {
+            this.$refs.notulen.click();
+        },
+        handleExploreDraft() {
+            this.$refs.draft.click();
+        },
+        uploadNotulen(e) {
+            let files = e.target.files || e.dataTransfer.files;
+
+            let formData = new FormData();
+            formData.append('file', files[0]);
+
+            $axiosFormData.post(`/admin/upload/notulen/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            this.notulen = this.$refs.notulen.value;
+        },
+        uploadDraft(e) {
+            let files = e.target.files || e.dataTransfer.files;
+
+            let formData = new FormData();
+            formData.append('file', files[0]);
+
+            $axiosFormData.post(`/admin/upload/draft/${this.$route.params.id}`, formData)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            this.draft = this.$refs.draft.value;
+        },
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
+                this.title_cooperation = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
@@ -228,6 +507,13 @@ export default {
                 this.forms.id = response.data.data.id;
                 this.latitude = parseFloat(response.data.data.latitude);
                 this.longitude = parseFloat(response.data.data.longitude);
+                this.tracking = response.data.data.tracking;
+                this.status_disposition = response.data.data.status_disposition;
+                this.status_barcode = response.data.data.status_barcode;
+                this.draft = response.data.data.law.draft;
+                this.draftLabel = response.data.data.law.draft;
+                this.notulen = response.data.data.law.notulen;
+                this.notulenLabel = response.data.data.law.notulen;
             });
         },
         showModalReject() {
@@ -241,11 +527,10 @@ export default {
             $('#modal-approve').modal('show');
         },
         approve() {
-            this.text_button = 'Loading ...';
-            this.disabled = true;
-
             $axios.post(`/admin/submission/reason/approve`, this.forms)
             .then(response => {
+                this.disabled = true;
+                this.text_button = 'Loading ...';
                 $('#modal-approve').modal('hide');
 
                 this.$store.commit('proposal/notification', response);
@@ -260,11 +545,10 @@ export default {
             this.disabled = false;
         },
         reject() {
-            this.text_button = 'Loading ...';
-            this.disabled = true;
-            console.log(this.disabled);
             $axios.post(`/admin/submission/reason/reject`, this.forms)
             .then(response => {
+                this.disabled = true;
+                this.text_button = 'Loading ...';
                 $('#modal-reject').modal('hide');
 
                 this.$store.commit('proposal/notification', response);
@@ -278,6 +562,34 @@ export default {
             this.text_button = 'Submit';
             this.disabled = false;
         },
+        generateBarcode(id) {
+            $axios.get(`/admin/generate/barcode/${this.$route.params.id}`)
+            .then(response => {
+                this.getData();
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.success(`Barcode Berhasil di Generate`);
+            })
+            .catch(error => {
+                toastr.error(`Barcode Gagal di Generate`);
+            })
+        }
     }
 }
 </script>

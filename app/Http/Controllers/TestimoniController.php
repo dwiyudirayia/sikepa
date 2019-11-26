@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Testimoni;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreTestimoniRequest;
+use File;
+use Illuminate\Http\Request;
 
 class TestimoniController extends Controller
 {
@@ -22,7 +24,7 @@ class TestimoniController extends Controller
     public function index()
     {
         try {
-            $getPermissions = request()->user()->getPermissionNames();
+            $getPermissions = auth()->user()->getPermissionNames();
             $data = Testimoni::all();
 
             return response()->json($this->notification->generalSuccess($data));
@@ -59,7 +61,61 @@ class TestimoniController extends Controller
     {
         try {
             $data = Testimoni::findOrFail($id);
+            File::delete('testimoni/'.$data->photo);
             $data->delete();
+
+            $currentData = Testimoni::all();
+            return response()->json($this->notification->deleteSuccess($currentData));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->deleteFailed($th));
+        }
+    }
+    public function edit($id) {
+        try {
+            $data = Testimoni::findOrFail($id);
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function update(Request $request, $id) {
+        try {
+            $check = Testimoni::findOrFail($id);
+            if($request->photo == "" || $check->photo == $request->photo ) {
+
+                Testimoni::where('id', $id)->update([
+                    'testimoni' => $request->testimoni,
+                    'name' => $request->name,
+                    'job' => $request->job,
+                ]);
+            } else {
+                $photo = $request->photo;
+                $name = time().'.' . explode('/', explode(':', substr($photo, 0, strpos($photo, ';')))[1])[1];
+                \Image::make($request->photo)->save(public_path('testimoni/').$name);
+
+                $find = Testimoni::findOrFail($id);
+                File::delete('testimoni/'.$find->photo);
+
+                Testimoni::where('id', $id)->update([
+                    'testimoni' => $request->testimoni,
+                    'name' => $request->name,
+                    'job' => $request->job,
+                    'photo' => $name
+                ]);
+            }
+
+            $data = Testimoni::all();
+            return response()->json($this->notification->updateSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function changeStatus($id) {
+        try {
+            $data = Testimoni::findOrFail($id);
+            $data->active = !$data->active;
+            $data->save();
 
             $currentData = Testimoni::all();
             return response()->json($this->notification->deleteSuccess($currentData));

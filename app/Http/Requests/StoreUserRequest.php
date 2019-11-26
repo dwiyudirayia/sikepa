@@ -64,7 +64,7 @@ class StoreUserRequest extends FormRequest
             $pathPhoto = $this->signature->storeAs($this->username, $filenamePhoto, 'photo_user');
         }
         return [
-            'created_by' => request()->user()->id,
+            'created_by' => auth()->user()->id,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,

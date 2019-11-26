@@ -79,7 +79,7 @@ class PageController extends Controller
                     $fileName = 'file-page'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
                     $path = $value->storeAs($page->id, $fileName, 'file_page');
                     $page->files()->create([
-                        'created_by' => request()->user()->id,
+                        'created_by' => auth()->user()->id,
                         'page_id' => $page->id,
                         'name' => $request->name[$key] ?? "",
                         'file' => $path,
@@ -161,7 +161,7 @@ class PageController extends Controller
             $data = Page::with('files')->findOrFail($id);
 
             foreach($data->files as $key => $value) {
-                Storage::disk('file_page')->delete($value);
+                Storage::disk('file_page')->delete($value->file);
             }
 
             File::delete("page/".$data->image);

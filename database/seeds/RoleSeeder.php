@@ -17,29 +17,50 @@ class RoleSeeder extends Seeder
                 'name' => 'Admin'
             ],
             1 => [
-                'name' => 'Satker'
+                'name' => 'Deputi Bidang Partisipasi Masyarakat'
             ],
             2 => [
-                'name' => 'Deputi'
+                'name' => 'Deputi Bidang Kesetaraan Gender'
             ],
             3 => [
-                'name' => 'Biro Perencanaan dan Data',
+                'name' => 'Deputi Bidang Perlindungan Anak',
             ],
             4 => [
-                'name' => 'Bagian Kerja Sama',
+                'name' => 'Deputi Bidang Perlindungan Hak Perempuan'
             ],
             5 => [
-                'name' => 'Bagian Ortala'
+                'name' => 'Deputi Bidang Tumbuh Kembang Anak'
             ],
             6 => [
-                'name' => 'Sesmen',
+                'name' => 'Satker Sesmen'
             ],
             7 => [
-                'name' => 'Menteri'
+                'name' => 'Biro Perencanaan dan Data',
             ],
             8 => [
+                'name' => 'Bagian Kerja Sama',
+            ],
+            9 => [
+                'name' => 'Bagian Ortala'
+            ],
+            10 => [
+                'name' => 'Sesmen',
+            ],
+            11 => [
+                'name' => 'Menteri'
+            ],
+            12 => [
                 'name' => 'Hukum'
             ],
+            13 => [
+                'name' => 'Sesmen Final',
+            ],
+            14 => [
+                'name' => 'Menteri Final'
+            ],
+            15 => [
+                'name' => 'Bagian Kerja Sama Final'
+            ]
         ];
 
         foreach ($arrayRoles as $key => $value) {

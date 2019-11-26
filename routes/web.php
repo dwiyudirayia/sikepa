@@ -16,6 +16,9 @@ Route::get('/front/article/{id}', 'FrontController@articleDetail');
 Route::get('/front/download/pdf/{file}', 'FrontController@downloadPdf');
 Route::get('/front/submission', 'FrontController@submission')->name('submission.cooperation');
 Route::get('download/format/mou', 'ExportController@formatOldMOU');
+Route::get('download/data/monev/pdf', 'ExportController@downloadDataMonevPDF');
+Route::get('download/data/monev/detail/pdf/{id}', 'ExportController@downloadDataMonevDetailPDF');
+Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
 
 Route::get('/{any}', function(){
     return view('layouts.app');

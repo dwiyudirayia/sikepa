@@ -25,16 +25,28 @@
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
                                                 <li class="m-nav__item">
-                                                    <a class="m-nav__link" v-tooltip.top="'Import MOU Terdahulu'" @click="importMOU">
+                                                    <a class="m-nav__link" v-tooltip.top="'Import Monev Terdahulu'" @click="showModalImportMonev">
                                                         <i class="m-nav__link-icon la la-upload"></i>
                                                         <span class="m-nav__link-text">Import</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item">
-                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Export Format MOU Terdahulu'">
+                                                    <a href="/download/format/mou" class="m-nav__link" v-tooltip.top="'Download Format Monev Terdahulu'">
                                                         <i class="m-nav__link-icon la la-download"></i>
-                                                        <span class="m-nav__link-text">Download</span>
+                                                        <span class="m-nav__link-text">Download Format Import</span>
                                                     </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a href="/download/data/monev/pdf" class="m-nav__link" v-tooltip.top="'Download Data Berupa PDF'">
+                                                        <i class="m-nav__link-icon la la-file-pdf-o"></i>
+                                                        <span class="m-nav__link-text">Download Data</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <router-link class="m-nav__link" to="/monev/create">
+                                                        <i class="m-nav__link-icon la la-plus"></i>
+                                                        <span class="m-nav__link-text">Tambah Monev</span>
+                                                    </router-link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -46,60 +58,122 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
-                    </li>
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_8_1" role="tabpanel">
-                        <div class="table-responsive">
-                            <table class="table m-table m-table--head-bg-brand">
-                                <thead>
-                                    <tr>
-                                        <th style="vertical-align: middle;">No</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Jenis Kategori</th>
-                                        <th style="vertical-align: middle;">Judul MOU</th>
-                                        <th style="vertical-align: middle;">Tanggal</th>
-                                        <th style="vertical-align: middle;">Jangka Waktu</th>
-                                        <th style="vertical-align: middle;">Ditunjukan Ke</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="vertical-align: middle;">1</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Dalam Negeri</td>
-                                        <td style="vertical-align: middle;">MOU</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Sesmen</td>
-                                        <td style="vertical-align: middle;">2019-11-11 Berakhir 2019-12-12</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Sesmen</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: middle;">2</td>
-                                        <td style="vertical-align: middle;">Nama Instansi Luar Negeri</td>
-                                        <td style="vertical-align: middle;">PKS</td>
-                                        <td style="vertical-align: middle;">Kerjasama Antar Pihak Deputi Tumbuh Kembang Anak</td>
-                                        <td style="vertical-align: middle;">2019-10-10 Berakhir 2019-11-11</td>
-                                        <td style="vertical-align: middle;">1 Bulan</td>
-                                        <td style="vertical-align: middle;">Deputi Tumbuh Kembang Anak</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="table-responsive">
+                    <table class="table m-table m-table--head-bg-brand">
+                        <thead>
+                            <tr>
+                                <th style="vertical-align: middle;">No</th>
+                                <th style="vertical-align: middle;">Judul MOU</th>
+                                <th style="vertical-align: middle;">Latar Belakang</th>
+                                <th style="vertical-align: middle;">Tanggal TTD</th>
+                                <th style="vertical-align: middle;">Tanggal Berakhir</th>
+                                <th style="vertical-align: middle;">Status</th>
+                                <th style="vertical-align: middle;">Keterangan</th>
+                                <th style="vertical-align: middle;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-if="data.length">
+                                <tr v-for="(item, index) in data" :key="item.id">
+                                    <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                    <td style="vertical-align: middle;">{{ item.title_of_cooperation }}</td>
+                                    <td style="vertical-align: middle;">{{ item.background }}</td>
+                                    <td style="vertical-align: middle;">{{ item.tanggal_ttd }}</td>
+                                    <td style="vertical-align: middle;">{{ item.end_date }}</td>
+                                    <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
+                                    <td style="vertical-align: middle;">{{ item.description }}</td>
+                                    <td style="vertical-align: middle;">
+                                        <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Kegiatan'">
+                                            <span>
+                                                <i class="la la-plus"></i>
+                                                <span>Tambah Kegiatan</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonitoringEvaluasiEdit', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
+                                            <span>
+                                                <i class="la la-pencil"></i>
+                                                <span>Edit Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonitoringEvaluasiEditFile', params: { id: item.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
+                                            <span>
+                                                <i class="la la-file-o"></i>
+                                                <span>Edit File</span>
+                                            </span>
+                                        </router-link>
+                                        <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
+                                            <span>
+                                                <i class="la la-eye"></i>
+                                                <span>Detail Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <a :href="`/download/data/monev/detail/pdf/${item.id}`" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Detail PDF'">
+                                            <span>
+                                                <i class="la la-file-pdf-o"></i>
+                                                <span>Download PDF</span>
+                                            </span>
+                                        </a>
+                                        <router-link :to="{name: 'ListMonevActivity', params: {id: item.id}}" class="btn m-btn btn-info btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Daftar Aktivitas Monev'">
+                                            <span>
+                                                <i class="la la-list"></i>
+                                                <span>Daftar Aktivitas Monev</span>
+                                            </span>
+                                        </router-link>
+                                        <button @click="confirmDelete(item.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Monev'">
+                                            <span>
+                                                <i class="la la-trash"></i>
+                                                <span>Hapus Monev</span>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-else>
+                                <tr>
+                                    <td colspan="7" class="text-center">Data Tidak Ada</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--begin::Modal-->
+        <div class="modal fade" id="modal-import-monev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Import Monev</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Pilih File</label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" @change="onFileChange" ref="files" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <span class="m-form__help">Pastikan Ekstensi File <strong>.xls</strong> atau <strong>.xlsx</strong></span>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="submit" :disabled="disabled" class="btn btn-primary">{{ textButton }}</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--end::Modal-->
     </div>
 </template>
 
 <script>
 import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
+
 export default {
     name: 'MonitoringEvaluasiIndex',
     data() {
@@ -112,8 +186,11 @@ export default {
                     path: '/monev'
                 },
             ],
-            approvalSubmission: [],
-            youSubmission: []
+
+            file: null,
+            disabled: false,
+            textButton: 'Submit',
+            data: []
         }
     },
     computed: {
@@ -130,19 +207,109 @@ export default {
             return this.$store.getters['proposal/getShowNotification'];
         },
     },
+    created() {
+        this.getData();
+    },
     methods: {
-        importMOU() {
-            $axios.get();
+        getData() {
+            $axios.get(`/admin/monev`)
+            .then(response => {
+                this.data = response.data.data;
+            })
         },
-        downloadFormatMOU() {
-            $axios.get(`/admin/download/format/mou`)
-            .then(() => {
-                alert('Berhasil Download Format')
+        showModalImportMonev() {
+            $('#modal-import-monev').modal('show');
+        },
+        onFileChange() {
+            let uploadedFiles = this.$refs.files.files[0];
+            this.file = uploadedFiles;
+        },
+        destroy(id) {
+            $axios.delete(`/admin/monev/activity/${id}`)
+            .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`${response.data.messages}`);
+                this.data = response.data.data;
             })
             .catch(error => {
-                alert(error);
+                toastr.error(`${response.data.messages}`);
             })
-        }
+        },
+        submit() {
+            this.disabled = true;
+            this.textButton = 'Loading ....';
+            let formData = new FormData()
+            formData.append('file', this.file);
+
+            $axiosFormData.post(`/admin/monev/import`, formData)
+            .then(response => {
+                this.file = null;
+                this.disabled = false;
+                this.textButton = 'Submit';
+                this.$refs.files.value = null;
+                $('.custom-file-label').html('Choose File');
+                $('#modal-import-monev').modal('hide');
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                if(response.data.status != 200) {
+                    toastr.error(`${response.data.messages}`);
+                } else {
+                    toastr.success(`${response.data.messages}`);
+                    this.data = response.data.data;
+                }
+            })
+        },
+        confirmDelete(id)
+        {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data yang terhapus tidak bisa di kembalikan",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Hapus!'
+                }).then((result) => {
+                if (result.value) {
+                    this.destroy(id);
+                }
+            })
+        },
     }
 }
 </script>

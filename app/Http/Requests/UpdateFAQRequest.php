@@ -45,7 +45,7 @@ class UpdateFAQRequest extends FormRequest
     public function update()
     {
         return [
-            'updated_by' => request()->user()->id,
+            'updated_by' => auth()->user()->id,
             'question' => $this->question,
             'answere' => $this->answere
         ];

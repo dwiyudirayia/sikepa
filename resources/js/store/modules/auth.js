@@ -20,10 +20,8 @@ const auth = {
                     if (response.data.status == 'success') {
                         //MAKA LOCAL STORAGE DAN STATE TOKEN AKAN DISET MENGGUNAKAN
                         //API DARI SERVER RESPONSE
-                        localStorage.setItem('token', response.data.data)
-                        commit('setAuth', response.data.data, { root: true })
-                    } else {
-                        commit('setError', { invalid: 'Email/Password Salah' }, { root: true })
+                        localStorage.setItem('token', response.data.access_token)
+                        commit('setAuth', response.data.access_token, { root: true })
                     }
                     //JANGAN LUPA UNTUK MELAKUKAN RESOLVE AGAR DIANGGAP SELESAI
                     resolve(response.data)
@@ -32,6 +30,8 @@ const auth = {
                 .catch((error) => {
                     if (error.response.status == 422) {
                         commit('setError', error.response.data.errors, { root: true })
+                    } else {
+                        commit('setError', { invalid: 'Email/Password Salah' }, { root: true })
                     }
                 })
             })

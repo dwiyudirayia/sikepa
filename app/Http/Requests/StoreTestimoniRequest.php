@@ -41,10 +41,26 @@ class StoreTestimoniRequest extends FormRequest
     }
     public function store()
     {
-        return [
-            'user_id' => request()->user()->id,
-            'testimoni' => $this->testimoni,
-            'active' => 0
-        ];
+        if($this->photo != "")
+        {
+            $photo = $this->photo;
+            $name = time().'.' . explode('/', explode(':', substr($photo, 0, strpos($photo, ';')))[1])[1];
+            \Image::make($this->photo)->save(public_path('testimoni/').$name);
+
+            return [
+                'created_by' => auth()->user()->id,
+                'name' => $this->name,
+                'job' => $this->job,
+                'testimoni' => $this->testimoni,
+                'active' => 0,
+                'photo' => $name
+            ];
+        } else {
+            return [
+                'created_by' => auth()->user()->id,
+                'testimoni' => $this->testimoni,
+                'active' => 0,
+            ];
+        }
     }
 }

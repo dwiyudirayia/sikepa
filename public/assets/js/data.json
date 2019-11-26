@@ -1,0 +1,8 @@
+var data = { 
+    "locs": [
+        {"longitude": -6.2297419, "latitude": 106.759478},
+        {"longitude": -6.9034482, "latitude": 107.6081381},
+        {"longitude": -6.9034482, "latitude": 107.6081381}
+    ]
+}
+

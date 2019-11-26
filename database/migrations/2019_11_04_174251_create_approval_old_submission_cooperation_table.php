@@ -15,6 +15,18 @@ class CreateApprovalOldSubmissionCooperationTable extends Migration
     {
         Schema::create('approval_old_submission_cooperation', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->string('title_of_cooperation');
+            $table->date('tanggal_ttd');
+            $table->text('background');
+            $table->date('end_date');
+            $table->tinyInteger('status');
+            $table->text('description');
+            $table->integer('role_id');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->string('file');
             $table->timestamps();
         });
     }

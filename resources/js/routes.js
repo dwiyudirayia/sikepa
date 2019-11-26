@@ -25,8 +25,13 @@ import UserSatkerEdit from './components/User/Satker/Edit';
 //EndAdmin
 
 //monev
-import MonitoringEvaluasiIndex from './components/Monev/index';
+import MonitoringEvaluasiIndex from './components/Monev/Index';
 import MonitoringEvaluasiCreate from './components/Monev/Create';
+import MonitoringEvaluasiEdit from './components/Monev/Edit';
+import MonevActivityCreate from './components/Monev/Activity/Create';
+import MonevActivityDetail from './components/Monev/Detail';
+import ListMonevActivity from './components/Monev/Activity/List';
+import MonitoringEvaluasiEditFile from './components/Monev/EditFile';
 //end monev
 //End User
 // --- Article --- //
@@ -95,6 +100,7 @@ import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCoope
 import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
+import ProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/YourDetail';
 
 // --- End Proposal --- //
 
@@ -125,6 +131,7 @@ import AgencyEdit from './components/Agency/Edit';
 // Testimoni
 import TestimoniIndex from './components/Testimoni/Index';
 import TestimoniCreate from './components/Testimoni/Create';
+import TestimoniEdit from './components/Testimoni/Edit';
 // EndTestimoni
 // --- End Admin --//
 
@@ -627,6 +634,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/submission/cooperation/:id/your/detail',
+                    name: 'ProposalSubmissionCooperationYourDetail',
+                    component: ProposalSubmissionCooperationYourDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //Banner Category
                 {
                     path: '/banner/category',
@@ -694,6 +709,14 @@ const router = new VueRouter({
                     }
                 },
                 {
+                    path: '/testimoni/:id/edit',
+                    name: 'TestimoniEdit',
+                    component: TestimoniEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
                     path: '/monev',
                     name: 'MonitoringEvaluasiIndex',
                     component: MonitoringEvaluasiIndex,
@@ -707,6 +730,46 @@ const router = new VueRouter({
                     component: MonitoringEvaluasiCreate,
                     meta: {
                         requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/:id/edit',
+                    name: 'MonitoringEvaluasiEdit',
+                    component: MonitoringEvaluasiEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/:id/edit/file',
+                    name: 'MonitoringEvaluasiEditFile',
+                    component: MonitoringEvaluasiEditFile,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/activity/:id/create',
+                    name: 'MonevActivityCreate',
+                    component: MonevActivityCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/activity/:id/detail',
+                    name: 'MonevActivityDetail',
+                    component: MonevActivityDetail,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/list/activity/:id',
+                    name: 'ListMonevActivity',
+                    component: ListMonevActivity,
+                    meta: {
+                        requiresAuth: true
                     }
                 },
                 //Dashboard

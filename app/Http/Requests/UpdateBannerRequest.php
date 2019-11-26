@@ -35,7 +35,7 @@ class UpdateBannerRequest extends FormRequest
         if($this->image_path == $data->image_path)
         {
             return [
-                'updated_by' => request()->user()->id,
+                'updated_by' => auth()->user()->id,
                 'description' => $this->description,
                 'category_id' => $this->category_id,
             ];
