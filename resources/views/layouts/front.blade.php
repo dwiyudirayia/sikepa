@@ -95,7 +95,7 @@
                             <div class="container">
                                 <div class="caption">
                                     <div class="meta">
-                                        <span>{{ $item->created_at->format('d') }}</span>
+                                        <span>{{ $item->created_at->format('d') }}, {{ $item->created_at->format('M') }} {{ $item->created_at->format('Y') }}</span>
                                     </div>
                                     <div class="main-title">
                                         <h2 class="title" ellipsis>{{ $item->title }}</h2>
@@ -255,108 +255,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel01.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
+                @foreach ($bannerArticle as $item)
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-article sr-btm">
+                            <div class="box-media">
+                                <a href="single-article.html">
+                                    <div class="thumb">
+                                        <img src="images/artikel01.jpg">
+                                    </div>
+                                </a>
                             </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">KEMEN PPPA Komitmen Berikan Layanan Perlindungan Terstandar dan Berkualitas Bagi Perempuan dan Anak Korban Kekerasan</span></h5></a>
+                            <div class="single-caption">
+                                <div class="meta">
+                                    <span>{{ $item->created_at->format('d') }}, {{ $item->created_at->format('M') }} {{ $item->created_at->format('Y') }}</span>
+                                </div>
+                                <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel02.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">4x lebih Rentan Kekerasan, Kaum Perempuan Harus Dilindungi</span></h5></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel03.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">Membangun Masa Depan Anak Berkebutuhan Khusus</span></h5></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel04.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">Perempuan dan Pilkada</span></h5></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel05.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">Sinergisitas Partisipasi Publik dalam Pencegahan dan Penanganan Masalah Perempuan dan Anak</span></h5></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="single-article sr-btm">
-                        <div class="box-media">
-                            <a href="single-article.html">
-                                <div class="thumb">
-                                    <img src="images/artikel06.jpg">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="single-caption">
-                            <div class="meta">
-                                <span>25 Aug, 2018</span>
-                            </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">Partisipasi Publik Untuk Kesejahteraan Perempuan dan Anak Indunesia</span></h5></a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="caption-btn text-center sr-btm">
                 <a class="btn btn-default btn-rounded" href="artikel.html">Artikel lainnya</a>

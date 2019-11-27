@@ -66,6 +66,8 @@ Route::middleware('jwt')->group( function () {
         Route::post('upload/notulen/{id}', 'SubmissionProposalController@uploadNotulen');
         Route::post('upload/draft/{id}', 'SubmissionProposalController@uploadDraft');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
+        Route::get('submission/cooperation/approve', 'SubmissionProposalController@proposalApprove');
+        Route::get('submission/cooperation/reject', 'SubmissionProposalController@proposalReject');
 
         //Change Status Article
         Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');

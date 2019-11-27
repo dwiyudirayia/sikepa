@@ -477,5 +477,22 @@ class SubmissionProposalController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
+    public function proposalApprove() {
+        try {
+            $data = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', 17)->get();
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalReject() {
+        try {
+            $data = SubmissionProposal::where('status_proposal', 0)->get();
+            
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
 }
 

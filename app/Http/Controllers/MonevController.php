@@ -21,7 +21,7 @@ class MonevController extends Controller
     }
     public function index() {
         try {
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -61,7 +61,7 @@ class MonevController extends Controller
                 ]);
             }
 
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
 
             DB::commit();
             return response()->json($this->notification->storeSuccess($data));
@@ -116,7 +116,7 @@ class MonevController extends Controller
                 }
             }
 
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
 
             DB::commit();
             return response()->json($this->notification->updateSuccess($data));
@@ -180,7 +180,7 @@ class MonevController extends Controller
                     ]);
                 }
             }
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
@@ -197,10 +197,10 @@ class MonevController extends Controller
     }
     public function deleteActivity($id) {
         try {
-            $delete = ApprovalOldSubmissionCooperation::findOrFail($id);
+            $delete = ApprovalOldSubmissionCooperationActivity::findOrFail($id);
             $delete->delete();
 
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
             return response()->json($this->notification->deleteSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
@@ -236,7 +236,7 @@ class MonevController extends Controller
                 'file' => $path
             ]);
 
-            $data = ApprovalOldSubmissionCooperation::all();
+            $data = ApprovalOldSubmissionCooperation::where('role_id', auth()->user()->roles[0]->id)->get();
 
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {

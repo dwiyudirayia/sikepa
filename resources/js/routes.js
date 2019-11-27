@@ -101,6 +101,8 @@ import ProposalSubmissionCooperationIndex from './components/Proposal/Submission
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
 import ProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/YourDetail';
+import ProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/Approve';
+import ProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/Reject';
 
 // --- End Proposal --- //
 
@@ -614,6 +616,22 @@ const router = new VueRouter({
                     path: '/submission/cooperation',
                     name: 'ProposalSubmissionCooperationIndex',
                     component: ProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/submission/cooperation/approve',
+                    name: 'ProposalSubmissionCooperationApprove',
+                    component: ProposalSubmissionCooperationApprove,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/submission/cooperation/reject',
+                    name: 'ProposalSubmissionCooperationReject',
+                    component: ProposalSubmissionCooperationReject,
                     meta: {
                         requiresAuth: true
                     }
