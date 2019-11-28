@@ -10,7 +10,6 @@
                         <div class="m-stack__item m-stack__item--middle m-brand__logo">
                             <a href="#" class="m-brand__logo-wrapper">
                                 <img alt="" src="" />
-                                {{ this.$store.state.user.authenticated.name }}
                             </a>
                         </div>
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">

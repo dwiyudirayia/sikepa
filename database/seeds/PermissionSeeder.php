@@ -46,6 +46,9 @@ class PermissionSeeder extends Seeder
             10 => [
                 'name' => 'Monev'
             ],
+            11 => [
+                'name' => 'Satker Sesmen'
+            ]
         ];
 
         foreach ($arrayPermissions as $key => $value) {

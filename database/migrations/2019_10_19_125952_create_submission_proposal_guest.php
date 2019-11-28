@@ -43,8 +43,9 @@ class CreateSubmissionProposalGuest extends Migration
             $table->text('background');
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');
-            $table->date('time_period_of');
-            $table->date('time_period_to');
+            $table->tinyInteger('time_period');
+            // $table->date('time_period_of');
+            // $table->date('time_period_to');
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);

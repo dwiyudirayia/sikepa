@@ -16,7 +16,8 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
 import NotificationSuccess from './components/partialsAdmin/NotificationSuccess';
 import NotificationError from './components/partialsAdmin/NotificationError';
-import Breadcrumb from './components/partialsAdmin/Breadcrumb'
+import Breadcrumb from './components/partialsAdmin/Breadcrumb';
+import Select2 from './components/partialsAdmin/Select2';
 
 //Vuex
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -29,6 +30,7 @@ Vue.component('breadcrumb', Breadcrumb);
 Vue.component('notification-validation', NotificationValidation);
 Vue.component('notification-success', NotificationSuccess);
 Vue.component('notification-error', NotificationError);
+Vue.component('select2', Select2);
 Vue.component('v-select', vSelect)
 
 Vue.use(vuevalidate);

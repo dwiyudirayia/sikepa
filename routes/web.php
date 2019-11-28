@@ -18,7 +18,6 @@ Route::get('/front/submission', 'FrontController@submission')->name('submission.
 Route::get('download/format/mou', 'ExportController@formatOldMOU');
 Route::get('download/data/monev/pdf', 'ExportController@downloadDataMonevPDF');
 Route::get('download/data/monev/detail/pdf/{id}', 'ExportController@downloadDataMonevDetailPDF');
-Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
 
 Route::get('/{any}', function(){
     return view('layouts.app');

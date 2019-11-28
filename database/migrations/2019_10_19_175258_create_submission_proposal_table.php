@@ -15,6 +15,7 @@ class CreateSubmissionProposalTable extends Migration
     {
         Schema::create('submission_proposal', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyInteger('type_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('mailing_number')->unique();
@@ -36,8 +37,9 @@ class CreateSubmissionProposalTable extends Migration
             $table->text('background');
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');
-            $table->date('time_period_of');
-            $table->date('time_period_to');
+            $table->tinyInteger('time_period');
+            // $table->date('time_period_of');
+            // $table->date('time_period_to');
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);

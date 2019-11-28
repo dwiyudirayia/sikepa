@@ -1,18 +1,29 @@
 <template>
     <div>
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
-        <div class="m-portlet">
-            <div class="m-portlet__body  m-portlet__body--no-padding">
+        <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="flaticon-statistics"></i>
+                        </span>
+                        <h2 class="m-portlet__head-label m-portlet__head-label--info">
+                            <span>MOU</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
                 <div class="row m-row--no-padding m-row--col-separator-xl">
                     <div class="col-md-12 col-lg-6 col-xl-3">
-
                         <!--begin::Total Profit-->
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Total Pengajuan
+                                    Pengajuan Ditolak
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-brand" style="padding-bottom:30px;">
+                                <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
                                     3201
                                 </span>
                             </div>
@@ -22,19 +33,83 @@
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-3">
 
-                        <!--begin::New Feedbacks-->
+                        <!--begin::New Orders-->
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Total Pengajuan Baru
+                                    Total Pengajuan Diterima
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-info">
-                                    5
+                                <span class="m-widget24__stats m--font-success">
+                                    12
+                                </span>
+                            </div>
+                        </div>
+                        <!--end::New Orders-->
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <!--begin::New Users-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Pengajuan Diproses
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-brand">
+                                    29
                                 </span>
                             </div>
                         </div>
 
-                        <!--end::New Feedbacks-->
+                        <!--end::New Users-->
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <!--begin::New Users-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Pengajuan Diproses
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-primary">
+                                    29
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--end::New Users-->
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="flaticon-statistics"></i>
+                        </span>
+                        <h2 class="m-portlet__head-label m-portlet__head-label--success">
+                            <span>PKS</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="row m-row--no-padding m-row--col-separator-xl">
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+                        <!--begin::Total Profit-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Pengajuan Ditolak
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
+                                    3201
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--end::Total Profit-->
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-3">
 
@@ -44,12 +119,11 @@
                                 <h4 class="m-widget24__title">
                                     Total Pengajuan Diterima
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-danger">
+                                <span class="m-widget24__stats m--font-success">
                                     12
                                 </span>
                             </div>
                         </div>
-
                         <!--end::New Orders-->
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-3">
@@ -58,9 +132,25 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Total Pengajual Total
+                                    Pengajuan Diproses
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-success">
+                                <span class="m-widget24__stats m--font-brand">
+                                    29
+                                </span>
+                            </div>
+                        </div>
+
+                        <!--end::New Users-->
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <!--begin::New Users-->
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Pengajuan Diproses
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-primary">
                                     29
                                 </span>
                             </div>

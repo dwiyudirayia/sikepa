@@ -26,7 +26,7 @@
                         <i class="m-menu__link-icon la la-tags"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Informasi Deputi</span><span class="m-menu__link-badge"></span>
+                                <span class="m-menu__link-text">Halaman</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </router-link>
@@ -73,21 +73,47 @@
                         </ul>
                     </div>
                 </li>
-                <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/submission')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-handshake"></i><span class="m-menu__link-text">Pengajuan Kerjasama</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/mou')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-file-alt"></i><span class="m-menu__link-text">MOU</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/submission/cooperation/approve" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">PKS di Terima</span></router-link>
+                                <router-link to="/mou/submission/cooperation/approve" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Terima</span></router-link>
                             </li>
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/submission/cooperation/reject" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">PKS di Tolak</span></router-link>
+                                <router-link to="/mou/submission/cooperation/reject" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tolak</span></router-link>
                             </li>
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/submission/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">PKS di Proses</span></router-link>
+                                <router-link to="/mou/submission/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Proses</span></router-link>
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/pks')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-o"></i><span class="m-menu__link-text">PKS</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
+                        <ul class="m-menu__subnav">
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/pks/submission/cooperation/approve" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Terima</span></router-link>
+                            </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/pks/submission/cooperation/reject" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tolak</span></router-link>
+                            </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/pks/submission/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Proses</span></router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="m-menu__item" aria-haspopup="true">
+                    <router-link to="/submission/cooperation/create" class="m-menu__link">
+                        <i class="m-menu__link-icon fa fa-handshake"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Pengajuan Kerjasama</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
                 </li>
                 <li class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/user')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
                     <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-user"></i><span class="m-menu__link-text">User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>

@@ -54,21 +54,22 @@ Route::middleware('jwt')->group( function () {
         Route::get('proposal/typeof/cooperation/two/{id}/list', 'TypeOfCooperationTwoDerivativeController@listTypeOfCooperationTwo');
         Route::get('proposal/typeof/cooperation/two/{id}/select', 'TypeOfCooperationTwoDerivativeController@changeSelectTwo');
 
-        Route::get('submission/cooperation', 'SubmissionProposalController@index');
+        //MOU
+        Route::get('mou/submission/cooperation', 'SubmissionProposalController@indexMOU');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
-        Route::post('submission/cooperation', 'SubmissionProposalController@store');
-        Route::get('submission/cooperation/one/{id}/derivative', 'SubmissionProposalController@changeSelectOneDerivative');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
-        Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
+        Route::get('mou/submission/cooperation/{id}/detail','SubmissionProposalController@detailMOU');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
         Route::post('upload/notulen/{id}', 'SubmissionProposalController@uploadNotulen');
         Route::post('upload/draft/{id}', 'SubmissionProposalController@uploadDraft');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
-        Route::get('submission/cooperation/approve', 'SubmissionProposalController@proposalApprove');
-        Route::get('submission/cooperation/reject', 'SubmissionProposalController@proposalReject');
+        Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
+        Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
+        Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
 
+        Route::post('submission/cooperation', 'SubmissionProposalController@store');
         //Change Status Article
         Route::get('change/article/publish/{id}', 'ArticleController@changePublishStatus');
         Route::get('change/article/approve/{id}', 'ArticleController@changeApprovedStatus');

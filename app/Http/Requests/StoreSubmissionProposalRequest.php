@@ -34,8 +34,7 @@ class StoreSubmissionProposalRequest extends FormRequest
             'nominal' => 'required',
             'purpose_objectives' => 'required',
             'background' => 'required',
-            'time_period_of' => 'required',
-            'time_period_to' => 'required',
+            'time_period' => 'required',
             'agency_profile' => 'required',
             'proposal' => 'required',
         ];
@@ -54,6 +53,7 @@ class StoreSubmissionProposalRequest extends FormRequest
         }
 
         return [
+            'type_id' => $this->type_id,
             'created_by' => auth()->user()->id,
             'mailing_number' => "Surat-".strtotime("now"),
             'title_cooperation' => $this->title_cooperation,
@@ -74,8 +74,9 @@ class StoreSubmissionProposalRequest extends FormRequest
             'background' => $this->background,
             'status_proposal' => 1,
             'status_disposition' => 2,
-            'time_period_of' => $this->time_period_of,
-            'time_period_to' => $this->time_period_to,
+            'time_period' => $this->time_period,
+            // 'time_period_of' => $this->time_period_of,
+            // 'time_period_to' => $this->time_period_to,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
         ];

@@ -1,4 +1,6 @@
-<?php
+
+
+ <?php
 
 use Illuminate\Database\Seeder;
 use App\TypeOfCooperation;
@@ -29,7 +31,7 @@ class TypeOfCooperationSeeder extends Seeder
         $typeOfCoopOneDerivative1 = $typOfCoop2->typeOfCooperationOneDerivative()->create([
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Dalam Negeri'
+            'name' => 'Luar Negeri'
         ]);
 
         TypeOfCooperationTwoDerivative::create([
@@ -43,7 +45,7 @@ class TypeOfCooperationSeeder extends Seeder
         $typeOfCoopOneDerivative2 =  $typOfCoop2->typeOfCooperationOneDerivative()->create([
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Luar Negeri'
+            'name' => 'Dalam Negeri'
         ]);
 
         TypeOfCooperationTwoDerivative::create([

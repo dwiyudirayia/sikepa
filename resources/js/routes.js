@@ -97,12 +97,12 @@ import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCoop
 import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
 import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
 
-import ProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Index';
+import MOUProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/MOU/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
-import ProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Detail';
-import ProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/YourDetail';
-import ProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/Approve';
-import ProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/Reject';
+import MOUProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/MOU/Detail';
+import MOUProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/MOU/YourDetail';
+import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
+import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
 
 // --- End Proposal --- //
 
@@ -613,25 +613,25 @@ const router = new VueRouter({
                 },
                 //Proposal
                 {
-                    path: '/submission/cooperation',
-                    name: 'ProposalSubmissionCooperationIndex',
-                    component: ProposalSubmissionCooperationIndex,
+                    path: '/mou/submission/cooperation',
+                    name: 'MOUProposalSubmissionCooperationIndex',
+                    component: MOUProposalSubmissionCooperationIndex,
                     meta: {
                         requiresAuth: true
                     }
                 },
                 {
-                    path: '/submission/cooperation/approve',
-                    name: 'ProposalSubmissionCooperationApprove',
-                    component: ProposalSubmissionCooperationApprove,
+                    path: '/mou/submission/cooperation/approve',
+                    name: 'MOUProposalSubmissionCooperationApprove',
+                    component: MOUProposalSubmissionCooperationApprove,
                     meta: {
                         requiresAuth: true
                     }
                 },
                 {
-                    path: '/submission/cooperation/reject',
-                    name: 'ProposalSubmissionCooperationReject',
-                    component: ProposalSubmissionCooperationReject,
+                    path: '/mou/submission/cooperation/reject',
+                    name: 'MOUProposalSubmissionCooperationReject',
+                    component: MOUProposalSubmissionCooperationReject,
                     meta: {
                         requiresAuth: true
                     }
@@ -645,17 +645,17 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/submission/cooperation/:id/detail',
-                    name: 'ProposalSubmissionCooperationDetail',
-                    component: ProposalSubmissionCooperationDetail,
+                    path: '/mou/submission/cooperation/:id/detail',
+                    name: 'MOUProposalSubmissionCooperationDetail',
+                    component: MOUProposalSubmissionCooperationDetail,
                     meta: {
                         requiresAuth: true
                     }
                 },
                 {
-                    path: '/submission/cooperation/:id/your/detail',
-                    name: 'ProposalSubmissionCooperationYourDetail',
-                    component: ProposalSubmissionCooperationYourDetail,
+                    path: '/mou/submission/cooperation/:id/your/detail',
+                    name: 'MOUProposalSubmissionCooperationYourDetail',
+                    component: MOUProposalSubmissionCooperationYourDetail,
                     meta: {
                         requiresAuth: true
                     }
