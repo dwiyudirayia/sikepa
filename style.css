@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @import url(../fonts/maison-neue/fonts.css);
 @import url(../fonts/vesterbro/fonts.css);
 body {
@@ -12,7 +12,8 @@ body {
   transition: opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
 }
 body.loaded {
-  opacity: 1;
+  opacity: 1;'
+ display: block;
 }
 
 /*==========*/
