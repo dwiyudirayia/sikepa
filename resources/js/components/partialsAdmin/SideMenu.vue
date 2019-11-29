@@ -105,7 +105,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="m-menu__item" aria-haspopup="true">
+                <li class="m-menu__item" aria-haspopup="true" v-if="$can('Pengajuan Kerjasama')">
                     <router-link to="/submission/cooperation/create" class="m-menu__link">
                         <i class="m-menu__link-icon fa fa-handshake"></i>
                         <span class="m-menu__link-title">

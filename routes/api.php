@@ -11,8 +11,6 @@
 |
 */
 
-use Illuminate\Http\Request;
-
 Route::post('login', 'LoginController@login');
 Route::get('refresh', 'LoginController@refresh');
 Route::post('me', 'LoginController@me');
@@ -56,10 +54,11 @@ Route::middleware('jwt')->group( function () {
 
         //MOU
         Route::get('mou/submission/cooperation', 'SubmissionProposalController@indexMOU');
+        Route::get('pks/submission/cooperation', 'SubmissionProposalController@indexPKS');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
-        Route::get('mou/submission/cooperation/{id}/detail','SubmissionProposalController@detailMOU');
+        Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
         Route::post('upload/notulen/{id}', 'SubmissionProposalController@uploadNotulen');
@@ -67,6 +66,8 @@ Route::middleware('jwt')->group( function () {
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
+        Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
+        Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
 
         Route::post('submission/cooperation', 'SubmissionProposalController@store');

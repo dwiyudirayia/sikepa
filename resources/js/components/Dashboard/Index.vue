@@ -21,7 +21,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Ditolak
+                                    Diterima
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
                                     3201
@@ -37,7 +37,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Total Pengajuan Diterima
+                                    Ditolak
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-success">
                                     12
@@ -52,7 +52,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Diproses
+                                    Diproses
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-brand">
                                     29
@@ -68,7 +68,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Diproses
+                                    Total
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-primary">
                                     29
@@ -101,7 +101,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Ditolak
+                                    Diterima
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
                                     3201
@@ -117,7 +117,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Total Pengajuan Diterima
+                                    Ditolak
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-success">
                                     12
@@ -132,7 +132,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Diproses
+                                    Diproses
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-brand">
                                     29
@@ -148,7 +148,7 @@
                         <div class="m-widget24">
                             <div class="m-widget24__item">
                                 <h4 class="m-widget24__title">
-                                    Pengajuan Diproses
+                                    Total
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-primary">
                                     29

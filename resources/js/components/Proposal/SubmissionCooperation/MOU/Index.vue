@@ -221,7 +221,7 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/submission/cooperation'
+                    path: '/mou/submission/cooperation'
                 },
             ],
             approvalSubmission: [],

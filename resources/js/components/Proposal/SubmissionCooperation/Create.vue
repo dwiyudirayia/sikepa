@@ -375,11 +375,6 @@ export default {
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Pengajuan Kerjasama',
-                    path: '/submission/cooperation'
-                },
-                {
-                    id: 2,
                     label: 'Tambah Pengajuan Kerjasama',
                     path: '/submission/cooperation/create'
                 },
@@ -475,6 +470,7 @@ export default {
         $axios.get(`/admin/submission/cooperation/create`)
         .then(response => {
             this.data_select.type_of_cooperation_id = response.data.data.typeof;
+            this.data_select.agencies_id = response.data.data.agency;
             this.data_select.type_of_cooperation_one_derivative_id = response.data.data.typeof_one;
         });
     },

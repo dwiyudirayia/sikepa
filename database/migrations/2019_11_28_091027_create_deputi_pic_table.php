@@ -18,6 +18,7 @@ class CreateDeputiPicTable extends Migration
             $table->bigInteger('submission_proposal_id');
             $table->integer('role_id');
             $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('approval')->nullable();
             $table->timestamps();
         });
     }

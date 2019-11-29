@@ -71,7 +71,7 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Penolakan Pengajuan Kerjasama',
-                    path: '/submission/cooperation/reject'
+                    path: '/mou/submission/cooperation/reject'
                 },
             ],
             submission: [],

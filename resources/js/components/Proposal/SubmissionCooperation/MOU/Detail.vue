@@ -319,12 +319,12 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/submission/cooperation'
+                    path: '/mou/submission/cooperation'
                 },
                 {
                     id: 2,
                     label: 'Detail Pengajuan Kerjasama',
-                    path: `/submission/cooperation/${this.$route.params.id}/detail`
+                    path: `/mou/submission/cooperation/${this.$route.params.id}/detail`
                 },
             ],
             deputi: [],
@@ -544,7 +544,7 @@ export default {
             this.draft = this.$refs.draft.value;
         },
         getData() {
-            $axios.get(`/admin/mou/submission/cooperation/${this.$route.params.id}/detail`)
+            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;

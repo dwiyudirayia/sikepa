@@ -104,6 +104,12 @@ import MOUProposalSubmissionCooperationYourDetail from './components/Proposal/Su
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
 
+import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
+import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
+import PKSProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/PKS/YourDetail';
+import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
+import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
+
 // --- End Proposal --- //
 
 // --- Banner --- //
@@ -656,6 +662,47 @@ const router = new VueRouter({
                     path: '/mou/submission/cooperation/:id/your/detail',
                     name: 'MOUProposalSubmissionCooperationYourDetail',
                     component: MOUProposalSubmissionCooperationYourDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                //PKS
+                {
+                    path: '/pks/submission/cooperation',
+                    name: 'PKSProposalSubmissionCooperationIndex',
+                    component: PKSProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/approve',
+                    name: 'PKSProposalSubmissionCooperationApprove',
+                    component: PKSProposalSubmissionCooperationApprove,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/reject',
+                    name: 'PKSProposalSubmissionCooperationReject',
+                    component: PKSProposalSubmissionCooperationReject,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/:id/detail',
+                    name: 'PKSProposalSubmissionCooperationDetail',
+                    component: PKSProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/:id/your/detail',
+                    name: 'PKSProposalSubmissionCooperationYourDetail',
+                    component: PKSProposalSubmissionCooperationYourDetail,
                     meta: {
                         requiresAuth: true
                     }

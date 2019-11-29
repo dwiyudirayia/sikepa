@@ -48,7 +48,7 @@ class DispositionNotification extends Notification implements ShouldQueue
         return [
             'sender_id' => $this->user->id,
             'sender_name' => $this->user->name,
-            'message' => 'Ada Pengajuan Baru',
+            'message' => 'Mohon Untuk di Tindak dilanjuti',
             'disposition' => $this->disposition,
         ];
      }
@@ -59,7 +59,7 @@ class DispositionNotification extends Notification implements ShouldQueue
         return new BroadcastMessage([
             'sender_id' => $this->user->id,
             'sender_name' => $this->user->name,
-            'message' => 'Ada Pengajuan Baru',
+            'message' => 'Mohon Untuk di Tindak dilanjuti',
             'disposition' => $this->disposition
         ]);
      }
