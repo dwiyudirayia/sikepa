@@ -194,7 +194,7 @@ export default {
         readNotif(row) {
             //MENGIRIMKAN REQUEST KE SERVER UNTUK MENANDAI BAHWA NOTIFIKASI TELAH DI BACA
             //KEMUDIAN SELANJUTNYA KITA REDIRECT KE HALAMAN VIEW EXPENSES
-            this.readNotification({ id: row.id}).then(() => this.$router.push({ name: 'ProposalSubmissionCooperationIndex'}))
+            this.readNotification({ id: row.id}).then(() => this.$router.push({ name: row.data.path}))
         },
     },
 }

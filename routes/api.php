@@ -61,14 +61,16 @@ Route::middleware('jwt')->group( function () {
         Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
-        Route::post('upload/notulen/{id}', 'SubmissionProposalController@uploadNotulen');
-        Route::post('upload/draft/{id}', 'SubmissionProposalController@uploadDraft');
+        Route::post('submission/cooperation/law/{id}', 'SubmissionProposalController@law');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
         Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
         Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
+        Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
+
+        Route::get('download/summary/cooperation/{id}', 'ExportController@downloadSummary');
 
         Route::post('submission/cooperation', 'SubmissionProposalController@store');
         //Change Status Article

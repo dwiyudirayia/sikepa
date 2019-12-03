@@ -133,44 +133,14 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-show="previousImage">
+                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-if="forms.image != null">
                                     <img :src="forms.image" class="img-responsive" height="100%" width="100%" v-show="currentlyImage">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="m-form__seperator m-form__seperator--dashed"></div>
-                <div class="m-form__heading">
-                    <h3 class="m-form__heading-title">Extra File Tambahan</h3>
-                </div>
-                <div
-                    v-for="(value, index) in extraFile"
-                    :key="index"
-                >
-                    <div class="m-form__section m-form__section--last">
-                        <div class="form-group m-form__group">
-                            <div class="text-right">
-                                <i
-                                    v-if="(index === extraFile.length - 1)"
-                                    class="la la-plus fa-2x"
-                                    @click="addExtraFile"
-
-                                />
-                                <i
-                                    v-if="extraFile.length >= 2 && index === extraFile.length - 1"
-                                    class="la la-minus fa-2x"
-                                    @click="removeExtraFile(index)"
-                                />
-                            </div>
-                            <label for="Nama Lengkap">Nama</label>
-                            <input type="text" v-model="value.name" class="form-control">
-                            <label for="Nama Lengkap">File</label>
-                            <input type="file" class="form-control" ref="files" v-on:change="handleExtraFile(index)"><span class="m-form__help">File yang dipilih : {{ value.file }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="m-form__seperator m-form__seperator--dashed"></div>
+                <div class="m-form__seperator m-form__seperator--first"></div>
                 <div class="m-form__section m-form__section--last">
                     <div class="m-form__heading">
                         <h3 class="m-form__heading-title">Meta</h3>
@@ -264,15 +234,18 @@ export default {
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
-            this.extraFile = response.data.data.file_page;
+            this.extraFile = response.data.data.file_page.length == 0 ? [''] : response.data.data.file_page;
             this.forms = response.data.data.data;
             this.selectedSection = response.data.data.data.section_id;
             this.selectedCategory = response.data.data.data.category_id;
         });
     },
     methods: {
+        handleExploreFile() {
+            this.$refs.filePage.click();
+        },
         handleExtraFile(index) {
-            
+
             let uploadedFiles = this.$refs.files[index].files;
 
             this.files[index] = uploadedFiles;

@@ -161,7 +161,7 @@
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
-                                            <th style="vertical-align: middle;">Tanggal</th>
+                                            <th style="vertical-align: middle;">Lama Pengajuan</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -175,15 +175,7 @@
                                                 <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">
-                                                    <span class="m-badge m-badge--success m-badge--wide">
-                                                        Dari Tanggal : {{ value.time_period_of }}
-                                                    </span>
-                                                    <br>
-                                                    <span class="m-badge m-badge--danger m-badge--wide">
-                                                        Sampai Tanggal : {{ value.time_period_to }}
-                                                    </span>
-                                                </td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
                                                     <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>

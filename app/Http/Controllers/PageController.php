@@ -10,6 +10,7 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
 use File;
+use DB;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -72,6 +73,7 @@ class PageController extends Controller
     public function store(StorePageRequest $request)
     {
         try {
+            DB::beginTransaction();
             $page = Page::create($request->store());
             if($request->hasFile('file')) {
                 foreach ($request->file as $key => $value) {
@@ -87,8 +89,11 @@ class PageController extends Controller
                 }
             }
             $data = Page::where('category_id', $request->category_id)->get();
+
+            DB::commit();
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json($this->notification->storeFailed($th));
         }
     }

@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Artikel
+                            Edit Artikel
                         </h3>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="`/article/${forms.image}`" class="img-responsive" height="100%" width="100%" v-show="previousImage">
+                                    <img :src="`/article/${forms.image}`" class="img-responsive" height="100%" width="100%" v-if="forms.image != null">
                                     <img :src="forms.image" class="img-responsive" height="100%" width="100%" v-show="currentlyImage">
                                 </div>
                             </div>

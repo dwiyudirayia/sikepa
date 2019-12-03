@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 class StorePageRequest extends FormRequest
 {
 /**
@@ -30,7 +29,7 @@ class StorePageRequest extends FormRequest
     }
     public function store()
     {
-        if($this->image != "")
+        if($this->image != "null")
         {
             $image = $this->image;
             $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];

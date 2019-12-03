@@ -30,7 +30,7 @@ class StoreArticleRequest extends FormRequest
     }
     public function store()
     {
-        if($this->image != "")
+        if($this->image != "null")
         {
             $image = $this->image;
             $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];

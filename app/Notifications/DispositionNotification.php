@@ -17,13 +17,11 @@ class DispositionNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    protected $disposition;
-    protected $user;
-    public function __construct($disposition, $user)
+    protected $sender, $path;
+    public function __construct($sender, $path)
     {
-        //ASSIGN DATA YANG DITERIMA KE DALAM GLOBAL VARIABLE
-        $this->disposition = $disposition;
-        $this->user = $user;
+        $this->sender = $sender;
+        $this->path = $path;
     }
     /**
      * Get the notification's delivery channels.
@@ -46,10 +44,10 @@ class DispositionNotification extends Notification implements ShouldQueue
      public function toDatabase($notifiable)
      {
         return [
-            'sender_id' => $this->user->id,
-            'sender_name' => $this->user->name,
-            'message' => 'Mohon Untuk di Tindak dilanjuti',
-            'disposition' => $this->disposition,
+            'sender_id' => $this->sender->id,
+            'sender_name' => $this->sender->name,
+            'message' => 'Mohon Untuk di Tidak Lanjuti',
+            'path' => $this->path,
         ];
      }
 
@@ -57,10 +55,10 @@ class DispositionNotification extends Notification implements ShouldQueue
      public function toBroadcast($notifiable)
      {
         return new BroadcastMessage([
-            'sender_id' => $this->user->id,
-            'sender_name' => $this->user->name,
-            'message' => 'Mohon Untuk di Tindak dilanjuti',
-            'disposition' => $this->disposition
+            'sender_id' => $this->sender->id,
+            'sender_name' => $this->sender->name,
+            'message' => 'Mohon Untuk di Tidak Lanjuti',
+            'path' => $this->path,
         ]);
      }
 }

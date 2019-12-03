@@ -84,7 +84,7 @@
             <td width="250"><span class="text-table">{{ $data->title_of_cooperation }}</span></td>
             <td><span class="text-table">Latar Belakang</span></td>
             <td><span class="text-table"> : </span></td>
-            <td><span class="text-table">{{ $data->background }} Ha</span></td>
+            <td><span class="text-table">{{ $data->background }}</span></td>
         </tr>
         <tr>
             <td><span class="text-table">Keterangan</span></td>

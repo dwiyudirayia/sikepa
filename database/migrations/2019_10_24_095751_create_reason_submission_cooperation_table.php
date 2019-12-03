@@ -18,6 +18,7 @@ class CreateReasonSubmissionCooperationTable extends Migration
             $table->integer('created_by');
             $table->bigInteger('submission_proposal_id');
             $table->text('reason');
+            $table->tinyInteger('approval');
             $table->timestamps();
         });
     }

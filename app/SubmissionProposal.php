@@ -45,4 +45,7 @@ class SubmissionProposal extends Model
     public function deputi() {
         return $this->hasMany(DeputiPIC::class);
     }
+    public function reason() {
+        return $this->hasMany(ReasonSubmissionCooperation::class);
+    }
 }

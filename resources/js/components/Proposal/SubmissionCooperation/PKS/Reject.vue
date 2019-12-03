@@ -31,7 +31,6 @@
                                 <th style="vertical-align: middle;">Negara</th>
                                 <th style="vertical-align: middle;">Instansi</th>
                                 <th style="vertical-align: middle;">Nama Kantor</th>
-                                <th style="vertical-align: middle;">Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,7 +62,7 @@
 import $axios from '@/api.js';
 
 export default {
-    name: 'MOUProposalSubmissionCooperationReject',
+    name: 'PKSProposalSubmissionCooperationReject',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',

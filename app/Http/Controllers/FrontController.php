@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
-use App\CategoryPage;
-use App\FilePage;
+use App\FAQ;
 use App\Testimoni;
-use Storage;
+use App\Page;
 class FrontController extends Controller
 {
     public function home()
     {
         $bannerArticle = Article::orderBy('created_at', 'desc')->take(3)->get();
+        $article = Article::orderBy('created_at', 'desc')->take(8)->get();
         $testimoni = Testimoni::all();
         // $informasi = CategoryPage::with('pages', 'section', 'pages.files')->findOrFail(1);
 
-        return view('layouts.front', compact('bannerArticle', 'testimoni'));
+        return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
+    }
+    public function about($slug) {
+        $about = Page::where('url', $slug)->firstOrFail();
+
+        return view('pages.about', compact('about'));
     }
     // public function article() {
     //     $article = Article::paginate(5);
@@ -44,4 +49,14 @@ class FrontController extends Controller
     // public function submission() {
     //     return view('pages.submission');
     // }
+    public function faq() {
+        $faq = FAQ::all();
+
+        return view('pages.faq', compact('faq'));
+    }
+    public function article() {
+        $article = Article::paginate(1);
+
+        return view('pages.article', compact('article'));
+    }
 }

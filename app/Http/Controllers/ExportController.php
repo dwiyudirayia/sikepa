@@ -61,6 +61,10 @@ class ExportController extends Controller
                 'messages' => $e->getMessage()
             ]);
         }
-
+    }
+    public function downloadSummary($id) {
+        $data = SubmissionProposal::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->findOrFail($id);
+        $pdf = PDF::loadView('export.summary-proposal', compact('data'));
+        return $pdf->download('Rangkuman Jenis Kerjasama '.date('Y-m-d_H-i-s').'.pdf');
     }
 }

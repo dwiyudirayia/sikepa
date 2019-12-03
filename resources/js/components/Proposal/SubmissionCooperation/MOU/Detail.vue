@@ -40,89 +40,82 @@
                     <li class="nav-item m-tabs__item">
                         <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
-                    <!-- <li class="nav-item dropdown m-tabs__item">
-                        <a class="nav-link m-tabs__link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="flaticon-placeholder-2"></i> Settings</a>
-                        <div class="dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 1px, 0px);">
-                            <a class="dropdown-item" data-toggle="tab" href="#m_tabs_9_2">Action</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#m_tabs_9_2">Another action</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#m_tabs_9_2">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" data-toggle="tab" href="#m_tabs_9_2">Separated link</a>
-                        </div>
-                    </li>
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"><i class="flaticon-multimedia"></i> Logs</a>
-                    </li> -->
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
-                        <div class="form-group m-form__group">
-                            <label>Judul Kerjasama</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="title_cooperation">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Pemohonan Kerjasama</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Jenis Kerjasama</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation_one">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Kesepahaman Jenis Kerjasama</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation_two">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Negara</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="country">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Provinsi</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="province">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Kabupaten / Kota</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="regency">
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label>Kategori Instansi</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="agency_category">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group m-form__group">
-                                    <gmap-map
-                                        :center="{lat:+latitude, lng:+longitude}"
-                                        :zoom="5"
-                                        style="width:100%;  height: 300px;"
-                                    >
-                                        <GmapMarker
-                                            ref="myMarker"
-                                            :position="google && new google.maps.LatLng(latitude, longitude)"
-                                        />
-                                    </gmap-map>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group m-form__group">
-                                    <label>Nama Instansi</label>
-                                    <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="agency_name">
-                                </div>
-                                <div class="form-group m-form__group">
-                                    <label>Alamat Instansi</label>
-                                    <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="agency_address"></textarea>
-                                </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="title_cooperation">
                             </div>
                         </div>
-                        <div class="form-group m-form__group">
-                            <label>Latar Belakang</label>
-                            <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="background"></textarea>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Permohonan Kerjasama:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation">
+                            </div>
                         </div>
-                        <div class="form-group m-form__group">
-                            <label>Maksud & Tujuan</label>
-                            <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjasama:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_one">
+                            </div>
                         </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Kesepahaman Jenis Kerjasama:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_two">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Negara:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="country">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Provinsi:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="province">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Kabupaten / Kota:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="regency">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Kategori Instansi:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="agency_category">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Nama Instansi:</label>
+                            <div class="col-10">
+                                <input class="form-control m-input" disabled="disabled" :value="agency_name">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Alamat Instansi:</label>
+                            <div class="col-10">
+                                <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="agency_address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Latar Belakang:</label>
+                            <div class="col-10">
+                                <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="background"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Maksud & Tujuan:</label>
+                            <div class="col-10">
+                                <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
                             <div class="m-form__actions m-form__actions--solid">
                                 <div class="row">
                                     <div class="col-lg-5"></div>
@@ -134,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel">
+                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Generate Barcode</label>
                             <div class="col-lg-6">
@@ -160,13 +153,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel">
+                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Pilih File" :value="notulen">
                                 <div class="input-group-append">
-                                    <button :class="disableFileDraft.style" :disabled="disableFileNotulen.disable" type="button" @click="handleExploreNotulen">Browse</button>
+                                    <button class="btn btn-primary" type="button" @click="handleExploreNotulen">Browse</button>
                                 </div>
                             </div>
                             <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
@@ -176,13 +169,23 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Pilih File" :value="draft">
                                 <div class="input-group-append">
-                                    <button :class="disableFileDraft.style" type="button" :disabled="disableFileDraft.disable" @click="handleExploreDraft">Browse</button>
+                                    <button class="btn btn-primary" type="button" @click="handleExploreDraft">Browse</button>
                                 </div>
                             </div>
                             <input type="file" class="custom-file-input" style="display:none;" ref="draft" id="customFile" @change="uploadDraft">
                         </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="hukum" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel">
+                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" v-if="status_disposition == 16">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -306,8 +309,10 @@ export default {
         return {
             text_button: 'Submit',
             notulen: null,
+            notulenFile: null,
             notulenLabel: null,
             draft: null,
+            draftFile: null,
             draftLabel: null,
             disabled: false,
             forms: {
@@ -347,10 +352,20 @@ export default {
             tracking: [],
             status_barcode: null,
             law: null,
+            roles: this.$store.state.user,
         }
     },
     computed: {
         google: gmapApi,
+        checkRoles: function() {
+            const roles = this.roles.authenticated.roles;
+
+            let filterRoles = roles.filter(value => {
+                return value.id == 13;
+            })
+
+            return filterRoles.length;
+        },
         sortDeputi: function() {
             const data = this.deputi;
 
@@ -358,7 +373,7 @@ export default {
                 return {
                     id: value.id,
                     label: value.role.name,
-                    class: value.status == 0 ? 'btn-danger' : value.status == 1 ? 'btn-success' : 'btn-metal'
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : 'btn-metal'
                 }
             });
             return finalData;
@@ -374,7 +389,7 @@ export default {
                     id: index+1,
                     label: label[index],
                     value: value,
-                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : 'btn-metal'
+                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : value == 2 ? 'btn-primary' : 'btn-metal'
                 }
             });
 
@@ -425,6 +440,22 @@ export default {
         this.getData();
     },
     methods: {
+        hukum() {
+            let formData = new FormData();
+
+            formData.append('draft', this.draftFile);
+            formData.append('notulen', this.notulenFile);
+
+            $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}`, formData)
+            .then(response => {
+                this.$router.push({
+                    name: 'MOUProposalSubmissionCooperationIndex'
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
         downloadFormatWord() {
             axios.get(`/api/admin/download/format/word/${this.$route.params.id}`, {
                 responseType: 'arraybuffer',
@@ -434,10 +465,10 @@ export default {
                 }
             })
             .then(response => {
-                this.downloadFile(response, 'Download Format Excel')
+                this.downloadFileWord(response, 'Download Format Excel')
             })
         },
-        downloadFile(response, filename) {
+        downloadFileWord(response, filename) {
             // It is necessary to create a new blob object with mime-type explicitly set
             // otherwise only Chrome works like it should
             var newBlob = new Blob([response.data], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
@@ -466,12 +497,14 @@ export default {
             $.each(this.nomor, function(key, value) {
                 formData.append(`nomor[${key}]`, value);
             });
-            formData.append('notulen', this.notulenFinal);
-            formData.append('draft', this.draftFinal);
+            formData.append('notulen', this.notulenFile);
+            formData.append('draft', this.draftFile);
 
             $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
             .then(response => {
-                console.log(response);
+                this.$router.push({
+                    name: 'MOUProposalSubmissionCooperationIndex'
+                });
             })
             .catch(error => {
                 console.log(error);
@@ -485,13 +518,13 @@ export default {
         },
         handleNotulen(e) {
             let files = e.target.files || e.dataTransfer.files;
-            this.notulen = files[0];
+            this.notulenFile = files[0];
 
             this.notulenLabel = this.$refs.notulenFinal.value;
         },
         handleDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
-            this.draft = files[0];
+            this.draftFile = files[0];
 
             this.draftLabel = this.$refs.draftFinal.value;
         },
@@ -514,34 +547,17 @@ export default {
         uploadNotulen(e) {
             let files = e.target.files || e.dataTransfer.files;
 
-            let formData = new FormData();
-            formData.append('file', files[0]);
-
-            $axiosFormData.post(`/admin/upload/notulen/${this.$route.params.id}`, formData)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            this.notulenFile = files[0];
 
             this.notulen = this.$refs.notulen.value;
         },
         uploadDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
 
-            let formData = new FormData();
-            formData.append('file', files[0]);
-
-            $axiosFormData.post(`/admin/upload/draft/${this.$route.params.id}`, formData)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            this.draftFile = files[0];
 
             this.draft = this.$refs.draft.value;
+
         },
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
@@ -572,14 +588,22 @@ export default {
             });
         },
         showModalReject() {
-            this.forms.reason = '';
+            if(this.status_disposition == 12 && this.status_barcode == 0) {
+                alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
+            } else {
+                this.forms.reason = '';
 
-            $('#modal-reject').modal('show');
+                $('#modal-reject').modal('show');
+            }
         },
         showModalApprove() {
-            this.forms.reason = '';
+            if(this.status_disposition == 12 && this.status_barcode == 0) {
+                alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
+            } else {
+                this.forms.reason = '';
 
-            $('#modal-approve').modal('show');
+                $('#modal-approve').modal('show');
+            }
         },
         approve() {
             $axios.post(`/admin/submission/reason/approve`, this.forms)
@@ -610,7 +634,7 @@ export default {
                 this.$store.commit('proposal/updateData', response);
 
                 this.$router.push({
-                    name: 'ProposalSubmissionCooperationIndex'
+                    name: 'MOUProposalSubmissionCooperationIndex'
                 });
             })
 

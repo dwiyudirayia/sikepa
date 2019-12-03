@@ -108,11 +108,11 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
-                        <select2
-                            v-model="$v.forms.country_id.$model"
-                            :options="data_select.country_id"
-                            @input="setSelectedCountry"
-                        />
+                        <select class="form-control" v-model="$v.forms.country_id.$model">
+                            <option :value="value.id" v-for="(value, index) in data_select.country_id" :key="index">
+                                {{ value.country_name }}
+                            </option>
+                        </select>
                     </div>
                     <template v-if="$v.forms.country_id.$error">
                         <span v-if="!$v.forms.country_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -255,8 +255,10 @@
                         <div class="form-group m-form__group">
                             <label for="exampleInputEmail1">Lama Pengajuan</label>
                             <div class="m-form__control">
-                                <!-- <date-picker v-model="$v.forms.time_period.$model" :lang="{pickers: ['7 Hari Selanjutnya', '30 Hari Selanjutnya', '7 Hari Sebelumnya', '30 Hari Sebelumnya']}" :not-before="new Date()" range width="100%" valueType="format" placeholder="Masukan Tanggal Usulan Jangka Waktu"></date-picker> -->
-                                <input type="number" v-model="$v.forms.time_period.$model" class="form-control">
+                                <select2
+                                    v-model="$v.forms.time_period.$model"
+                                    :options="data_select.time_period"
+                                />
                                 <span class="m-form__help">Pastikan Tanggal Sesuai</span>
                                 <br>
                                 <template v-if="$v.forms.time_period.$error">
@@ -408,6 +410,28 @@ export default {
                 proposal: null,
             },
             data_select: {
+                time_period: [
+                    {
+                        id: 1,
+                        name: '1 Tahun',
+                    },
+                    {
+                        id: 2,
+                        name: '2 Tahun',
+                    },
+                    {
+                        id: 3,
+                        name: '3 Tahun',
+                    },
+                    {
+                        id: 4,
+                        name: '4 Tahun',
+                    },
+                    {
+                        id: 5,
+                        name: '5 Tahun',
+                    }
+                ],
                 type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: [],
                 type_of_cooperation_two_derivative_id: [],
@@ -504,17 +528,6 @@ export default {
                 this.forms.deputi.splice(indexVal, 1);
             } else {
                 this.forms.deputi.push(id);
-            }
-        },
-        setSelectedCountry() {
-            this.forms.country_id = $("#select").val();
-            this.$emit('update:country_id', this.forms.country_id)
-
-            if(this.forms.country_id == 102) {
-                this.isIndonesian = true;
-                $axios.get(`/`)
-            } else {
-                this.isIndonesian = false;
             }
         },
         store() {
@@ -621,32 +634,24 @@ export default {
             this.forms.longitude = event.latLng.lng();
         },
         onChangeTypeOfCooperationTwoDerivative() {
-            const value = this.forms.type_of_cooperation_one_derivative_id;
-            if(value == 1) {
-                $axios.get(`/admin/submission/cooperation/two/${value}/derivative`)
+
+            if(this.forms.type_of_cooperation_one_derivative_id == 1) {
+                $axios.get(`/admin/submission/cooperation/two/${this.forms.type_of_cooperation_one_derivative_id}/derivative`)
                 .then(response => {
                     this.data_select.type_of_cooperation_two_derivative_id = response.data.data.data;
                     this.data_select.country_id = response.data.data.country;
-                    this.forms.country_id = null;
-                    this.forms.province_id = null;
-                    this.forms.regency_id = null;
                     this.isIndonesian = false;
                 });
             } else {
                 this.isNominal = false;
-                $axios.get(`/admin/submission/cooperation/two/${value}/derivative`)
+                $axios.get(`/admin/submission/cooperation/two/${this.forms.type_of_cooperation_one_derivative_id}/derivative`)
                 .then(response => {
                     this.data_select.type_of_cooperation_two_derivative_id = response.data.data.data;
                     this.data_select.country_id = response.data.data.country;
                     this.data_select.province_id = response.data.data.province;
-                    this.forms.country_id = null;
-                    this.forms.province_id = null;
-                    this.forms.regency_id = null;
                     this.isIndonesian = true;
                 });
             }
-
-
         }
     }
 }

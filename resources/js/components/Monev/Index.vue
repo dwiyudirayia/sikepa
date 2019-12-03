@@ -211,6 +211,7 @@ export default {
         this.getData();
     },
     methods: {
+
         getData() {
             $axios.get(`/admin/monev`)
             .then(response => {

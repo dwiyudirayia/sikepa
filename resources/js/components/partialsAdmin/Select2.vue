@@ -1,20 +1,7 @@
 <template>
-    <div>
-        <select
-            ref="select2"
-            id="select"
-            class="form-control"
-            v-model="selectedValue"
-        >
-            <option
-                v-for="option in options"
-                :key="option.id"
-                :value="option.id"
-            >
-                {{ option.name == null ?  option.country_name : option.name}}
-            </option>
-        </select>
-    </div>
+    <select class="form-control">
+        <slot></slot>
+    </select>
 </template>
 
 <script>
@@ -30,35 +17,48 @@ export default {
             default: null,
         }
     },
-    data() {
-        return {
-            selectedValue: null,
-        }
-    },
-    mounted() {
-        setTimeout(() => {
-            this.select2Initial();
-        }, 200);
-    },
-    methods: {
-        select2Initial() {
-            const select = $(this.$refs.select2);
-            select.select2({
-                placeholder: 'Pilih dan Sesuaikan',
-            })
+    mounted: function () {
+        var data = $.map(this.options, function (obj) {
+            obj.id = obj.id;
+            obj.text = obj.name || obj.country_name;
+
+            return obj;
+        });
+        var vm = this
+        $(this.$el)
             .val(this.value)
-            .trigger('change')
-            .on('change', () => {
-                this.$emit('input', this.value);
+            // init select2
+            .select2({
+                placeholder: 'Pilih dan Sesuaikan',
+                data: data
             })
+            // emit event on change.
+            .on('change', function () {
+                vm.$emit('input', this.value)
+            })
+    },
+    watch: {
+        value: function (value) {
+            // update value
+            $(this.$el).val(value)
         },
-        onChange(event) {
-            console.log(event.target.value);
+        options: function (newVal, oldVal) {
+            // update options
+            var data = $.map(newVal, function (obj) {
+                obj.id = obj.id;
+                obj.text = obj.name || obj.country_name;
+
+                return obj;
+            });
+
+            $(this.$el).select2({
+                placeholder: 'Pilih dan Sesuaikan',
+                data: data
+            })
         }
     },
+    destroyed: function () {
+        $(this.$el).off().select2('destroy')
+    }
 }
 </script>
-
-<style>
-
-</style>

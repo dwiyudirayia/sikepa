@@ -14,6 +14,6 @@ class DeputiPIC extends Model
         return $this->belongsTo(SubmissionProposal::class);
     }
     public function role() {
-        return $this->hasOne(Role::class, 'id');
+        return $this->belongsTo(Role::class);
     }
 }
