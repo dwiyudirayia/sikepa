@@ -28,9 +28,9 @@
                             </div>
                             <div class="single-caption">
                                 <div class="meta">
-                                    <span>{{ $item->created_at->format('d') }}, {{ $item->created_at->format('M') }} {{ $item->created_at->format('Y') }}</span>
+                                    <span>{{ $item->created_at->format('d') }} {{ $item->created_at->format('M') }}, {{ $item->created_at->format('Y') }}</span>
                                 </div>
-                                <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
+                                <a href="{{ route('article.detail', ['slug' => $item->url]) }}"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
                             </div>
                         </div>
                     </div>

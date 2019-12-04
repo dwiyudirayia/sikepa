@@ -21,7 +21,7 @@
             </a>
             <div class="menu-header">
                 <ul class="menu">
-                    <li class="dropdown"><a href="#!">Informasi</a>
+                    <li class="dropdown {{ request()->is('informasi/*') ? 'active' : '' }}"><a href="#!">Informasi</a>
                         <div class="dropdown-hover">
                             <ul>
                                 <li><a href="informasi.html">Deputi Bidang Kesetaraan Gender</a></li>
@@ -33,10 +33,10 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a href="{{ route('about', ['slug' => 'tentang-sikepa']) }}">Tentang Sikepa</a></li>
-                    <li><a href="pengajuan-kerjasama.html">Pengajuan Kerjasama</a></li>
-                    <li><a href="{{ route('faq') }}">FAQ</a></li>
-                    <li><a href="{{ route('article') }}">Artikel</a></li>
+                    <li class="{{ request()->is('about/*') ? 'active' : '' }}"><a href="{{ route('about', ['slug' => 'tentang-sikepa']) }}">Tentang Sikepa</a></li>
+                    <li><a href="{{ route('cooperation.submission') }}">Pengajuan Kerjasama</a></li>
+                    <li class="{{ request()->is('page/faq') ? 'active' : '' }}"><a href="{{ route('faq') }}">FAQ</a></li>
+                    <li class="{{ request()->is('page/article') || request()->is('page/article/*') ? 'active' : '' }}"><a href="{{ route('article') }}">Artikel</a></li>
                 </ul>
                 <div class="btn-login">
                     <a class="btn btn-lg btn-block btn-primary btn-rounded" href="/login/admin">Login</a>

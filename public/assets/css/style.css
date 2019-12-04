@@ -10,7 +10,7 @@ body {
   background-image: url(../images/bg-pattern.svg);
   background-size: 540px;
   background-position: center;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
 }
@@ -43,7 +43,8 @@ hr {
   border-top: 1px dashed #eee;
 }
 
-b, strong {
+b, strong,
+.text-bold {
   font-weight: 600;
   color: #212121;
 }
@@ -149,7 +150,7 @@ a:hover, a:focus, a:focus:active {
 h1, h2, h3, h4, h5 {
   font-weight: 500;
   line-height: 1.4;
-  margin: 30px 0 20px;
+  margin: 36px 0 18px;
   color: #212121;
 }
 
@@ -420,6 +421,10 @@ h5 {
   padding-top: 0 !important;
 }
 
+.pb0 {
+  padding-bottom: 0 !important;
+}
+
 .p0 {
   padding: 0 !important;
 }
@@ -428,9 +433,25 @@ h5 {
   margin-bottom: 3em !important;
 }
 
+.mb1 {
+  margin-bottom: 1em !important;
+}
+
+.mb20 {
+  margin-bottom: 20px !important;
+}
+
 .fancy {
   font-family: "vesterbro", sans-serif;
   font-weight: 800;
+}
+
+.mra {
+  margin-right: auto;
+}
+
+.mla {
+  margin-left: auto;
 }
 
 /*==========*/
@@ -457,6 +478,23 @@ h5 {
 .text-sm {
   font-size: 12px;
   line-height: 1.714;
+}
+
+.label {
+  margin: 0;
+  line-height: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  vertical-align: middle;
+  padding: 13px 13px 11px;
+  display: inline-block;
+  border-radius: 15px;
+}
+.label.label-primary {
+  background-color: #06C2FC;
+  color: #fff;
 }
 
 .form-group {
@@ -488,6 +526,18 @@ h5 {
   resize: none;
   line-height: 1.5;
   padding: 27px 0 13px;
+}
+.form-control.border-bottom {
+  border-radius: 0;
+  border-width: 0 0 1px;
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.input-value {
+  padding: 0 0 14px;
+  border-bottom: 1px solid #ddd;
 }
 
 .form-input {
@@ -533,7 +583,7 @@ select.form-control option {
 }
 
 .control-group + .control-group {
-  margin-top: 5em;
+  margin-top: 6em;
 }
 
 .input-file {
@@ -547,13 +597,15 @@ select.form-control option {
   padding: 31px 36px 13px 0;
 }
 .input-file .form-control .input-upload {
+  margin: 0;
   height: 17px;
   line-height: 1;
-  cursor: text;
+  cursor: pointer;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: normal;
 }
 .input-file .remove-file {
   position: absolute;
@@ -605,6 +657,7 @@ select.form-control option {
   margin-right: 10px;
   text-align: left;
   line-height: 1.4;
+  direction: inherit;
 }
 .lightpick .lightpick__month-title-bar .lightpick__month-title .lightpick__select.lightpick__select-years {
   font-weight: normal;
@@ -613,6 +666,7 @@ select.form-control option {
 }
 .lightpick .lightpick__month-title-bar .lightpick__month-title .lightpick__select option {
   font-size: 12px;
+  text-align: left;
 }
 .lightpick .lightpick__month-title-bar .lightpick__toolbar .lightpick__previous-action,
 .lightpick .lightpick__month-title-bar .lightpick__toolbar .lightpick__next-action {
@@ -964,6 +1018,153 @@ select.form-control option {
 }
 .modal .fade {
   transition: opacity 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+
+.wizard {
+  overflow: visible;
+}
+.wizard > .steps {
+  overflow: auto;
+  margin-bottom: 4em;
+}
+.wizard > .steps > ul {
+  display: flex;
+  padding: 20px 0;
+}
+.wizard > .steps > ul > li {
+  float: none;
+  width: auto;
+  position: relative;
+  transform: translateZ(0);
+  min-width: 120px;
+  flex: 1;
+  text-align: center;
+}
+.wizard > .steps > ul > li:before, .wizard > .steps > ul > li:after {
+  content: "";
+  position: absolute;
+  top: 19px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-color: #ddd;
+  z-index: -1;
+  transition: background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.wizard > .steps > ul > li:after {
+  left: auto;
+  right: 0;
+}
+.wizard > .steps > ul > li:first-child::before, .wizard > .steps > ul > li:last-child::after {
+  display: none;
+}
+.wizard > .steps a {
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  border-width: 2px !important;
+  border-style: solid;
+  border-color: #ddd;
+  color: #aaa;
+  font-weight: 600;
+  border-radius: 50%;
+  background-color: transparent;
+  margin: 0 auto;
+  transition: background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.wizard > .steps a:hover, .wizard > .steps a:active {
+  padding: 0;
+  margin: 0 auto;
+  width: 40px;
+  border-radius: 50%;
+}
+.wizard > .steps a .number {
+  font-size: 14px;
+}
+.wizard > .steps .disabled a,
+.wizard > .steps .disabled a:hover,
+.wizard > .steps .disabled a:active {
+  background-color: #fff;
+}
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover,
+.wizard > .steps .done a:active {
+  border-color: #9CCF10;
+  background-color: #9CCF10;
+}
+.wizard > .steps .done a {
+  background-color: #fff;
+  border-color: #9CCF10;
+  color: #212121;
+}
+.wizard > .steps .current a {
+  animation: pulse 0.8s cubic-bezier(0.2, 0.4, 0.1, 1) infinite;
+}
+.wizard .content {
+  background: none;
+  display: block;
+  margin: 0;
+  min-height: auto;
+  overflow: visible;
+  position: relative;
+  width: auto;
+  border-radius: 0;
+}
+.wizard .content .body {
+  position: static;
+  float: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 0;
+  background-color: transparent;
+}
+.wizard .actions {
+  margin-top: 4em;
+}
+.wizard .actions ul {
+  display: flex;
+  text-align: inherit;
+  justify-content: space-between;
+}
+.wizard .actions ul li {
+  margin: 0;
+}
+.wizard .actions a,
+.wizard .actions a:hover,
+.wizard .actions a:active {
+  line-height: 0;
+  display: inline-block;
+  padding: 19px 25px 17px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  border-radius: 30px;
+  border: 2px solid transparent;
+  box-shadow: none;
+  background-color: #0EB6DD;
+  color: #fff;
+  transition: background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), border-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(156, 207, 16, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(156, 207, 16, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(156, 207, 16, 0);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

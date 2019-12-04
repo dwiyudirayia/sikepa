@@ -15,8 +15,8 @@ class CreateTestimoniTable extends Migration
     {
         Schema::create('testimoni', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('created_by');
-            $table->integer('updated_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->string('name');
             $table->string('job');
             $table->mediumText('testimoni');

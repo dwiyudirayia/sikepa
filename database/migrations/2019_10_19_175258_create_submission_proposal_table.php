@@ -24,7 +24,7 @@ class CreateSubmissionProposalTable extends Migration
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
             $table->mediumInteger('type_of_cooperation_two_derivative_id')->nullable();
             $table->integer('agencies_id');
-            $table->text('countries_id');
+            $table->tinyInteger('countries_id');
             $table->mediumInteger('province_id')->nullable();
             $table->integer('regency_id')->nullable();
             $table->string('postal_code')->nullable();
@@ -38,8 +38,6 @@ class CreateSubmissionProposalTable extends Migration
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');
             $table->tinyInteger('time_period');
-            // $table->date('time_period_of');
-            // $table->date('time_period_to');
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);

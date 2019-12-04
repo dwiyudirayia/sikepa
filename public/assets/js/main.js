@@ -48,12 +48,7 @@ $(".btn-top").click(function(){
 });
 
 //upload
-$(".input-upload").each(function(){
-    $(this).click(function(){
-        $(this).parents().eq(2).find(".upload").trigger("click");
-        getFile();
-    });
-});
+
 
 function getFile(){
     $(".upload").change(function(e){

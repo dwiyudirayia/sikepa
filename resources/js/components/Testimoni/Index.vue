@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/testimoni/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Testimoni'">
+                    <router-link to="/testimoni/create" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Testimoni'">
                         <span>
                             <i class="la la-plus"></i>
                             <span>Tambah Testimoni</span>
@@ -52,7 +52,7 @@
                                         <span>Hapus Testimoni</span>
                                     </span>
                                 </button>
-                                <router-link :to="{name: 'TestimoniEdit', params: {id: value.id}}" class="btn m-btn btn-danger btn-sm m-btn--icon m-btn--pill m-btn--air icon-only">
+                                <router-link :to="{name: 'TestimoniEdit', params: {id: value.id}}" class="btn m-btn btn-success btn-sm m-btn--icon m-btn--pill m-btn--air icon-only">
                                     <span>
                                         <i class="la la-pencil"></i>
                                         <span>Edit Testimoni</span>

@@ -59,16 +59,35 @@
 <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/fill.box.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.scrollify.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.ellipsis.min.js') }}"></script>
 <script src="{{ asset('assets/js/scrollreveal.min.js') }}"></script>
 <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
 <script>
+    //scrollify
+    var nHeader = $(".nav-header").outerHeight();
+    var cWrap = $(".content-wrap").css("padding-top");
+    var pTop = parseInt(nHeader)+parseInt(cWrap);
+    $(".content-wrap").css("padding-top",""+pTop+"px");
+    $.scrollify({
+        section : ".content-page",
+        offset : 0,
+        setHeights: false,
+        updateHash: false,
+        scrollSpeed: 800,
+    });
+    if ($(window).width() < 991) {
+        $.scrollify.disable();
+        $(".content-wrap").css("padding-top","5em");
+    } else {
+        $.scrollify.enable();
+    }
 
     //banner area
     var banner = new Swiper($(".banner-area .swiper-container"), {
-		speed: 1000,
+        speed: 1000,
         navigation: {
             nextEl: $(this).parent().find(".swiper-button-next"),
             prevEl: $(this).parent().find(".swiper-button-prev"),
@@ -78,11 +97,11 @@
             clickable: true
         },
         autoplay: {
-		    delay: 6000,
+            delay: 6000,
             disableOnInteraction: false,
-		},
+        },
         parallax: true,
-		simulateTouch: false,
+        simulateTouch: false,
     });
     banner.on("slideChange",function() {
         $(".banner-caption").addClass("change");
@@ -98,13 +117,13 @@
             slidesPerView: "auto",
             spaceBetween: emSize*3,
             navigation: {
-               nextEl: $(this).parent().find(".swiper-button-next"),
-               prevEl: $(this).parent().find(".swiper-button-prev"),
+                nextEl: $(this).parent().find(".swiper-button-next"),
+                prevEl: $(this).parent().find(".swiper-button-prev"),
             },
             breakpoints: {
                 768: {
-                  slidesPerView: 1,
-                  spaceBetween: emSize*2,
+                    slidesPerView: 1,
+                    spaceBetween: emSize*2,
                 },
             }
         });

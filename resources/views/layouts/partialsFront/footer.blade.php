@@ -15,8 +15,8 @@
                     <ul class="footer-nav">
                         <li><a href="{{ route('home') }}">Home</a></li>
                         <li><a href="pengajuan-kerjasama.html">Pengajuan Kerjasama</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="artikel.html">Artikel</a></li>
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
+                        <li><a href="{{ route('article') }}">Artikel</a></li>
                         <li><a href="syarat-kerjasama.html">Syarat Kerjasama</a></li>
                         <li><a href="kontak-kami.html">Kontak Kami</a></li>
                     </ul>

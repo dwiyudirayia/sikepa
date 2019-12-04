@@ -14,11 +14,12 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/material-icons/fonts.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/swiper.min.css') }}">
+@yield('styles1')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+@yield('styles2')
 </head>
 
 <body class="single-page">
@@ -32,6 +33,7 @@
 <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/fill.box.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.ellipsis.min.js') }}"></script>
 <script src="{{ asset('assets/js/scrollreveal.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 @yield('scripts')

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Agency;
 use Illuminate\Http\Request;
 use App\Article;
 use App\FAQ;
 use App\Testimoni;
 use App\Page;
+use App\TypeOfCooperation;
+use App\Country;
+
 class FrontController extends Controller
 {
     public function home()
@@ -55,8 +59,23 @@ class FrontController extends Controller
         return view('pages.faq', compact('faq'));
     }
     public function article() {
-        $article = Article::paginate(1);
+        $article = Article::paginate(9);
 
         return view('pages.article', compact('article'));
+    }
+    public function articleDetail($slug) {
+        $article = Article::where('url', $slug)->firstOrFail();
+
+        return view('pages.single-article', compact('article'));
+    }
+    public function submissionProposal() {
+        $data['country'] = Country::all();
+        $data['type'] = TypeOfCooperation::all();
+        $data['agency'] = Agency::all();
+
+        return view('pages.pengajuan-kerjasama', compact('data'));
+    }
+    public function submissionProposalsStore() {
+
     }
 }

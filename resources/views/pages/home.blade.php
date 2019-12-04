@@ -14,12 +14,12 @@
                         <div class="container">
                             <div class="caption">
                                 <div class="meta">
-                                    <span>{{ $item->created_at->format('d') }}, {{ $item->created_at->format('M') }} {{ $item->created_at->format('Y') }}</span>
+                                    <span>{{ $item->created_at->format('d') }} {{ $item->created_at->format('M') }}, {{ $item->created_at->format('Y') }}</span>
                                 </div>
                                 <div class="main-title">
                                     <h2 class="title" ellipsis>{{ $item->title }}</h2>
                                 </div>
-                                <a class="link-icon" href="#!">Baca selengkapnya<i class="mdi mdi-play"></i></a>
+                                <a class="link-icon" href="{{ route('article.detail', ['slug' => $item->url]) }}">Baca selengkapnya<i class="mdi mdi-play"></i></a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <p>Ajukan Kerjasama dengan kami dan tunggu proses, rasakan kemudahan dengan menggunakan SIKEPA.</p>
                     </article>
                     <div class="caption-btn sr-btm">
-                        <a class="link-icon" href="#!">Ajukan kerjasama<i class="mdi mdi-play"></i></a>
+                        <a class="link-icon" href="{{ route('cooperation.submission') }}">Ajukan kerjasama<i class="mdi mdi-play"></i></a>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="artikel.html" class="sr-btm">
+                <a href="{{ route('article') }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">
@@ -148,7 +148,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="faq.html" class="sr-btm">
+                <a href="{{ route('faq') }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">
@@ -178,9 +178,9 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="single-article sr-btm">
                         <div class="box-media">
-                            <a href="single-article.html">
+                            <a href="{{ route('article.detail', ['slug' => $item->url]) }}">
                                 <div class="thumb">
-                                    <img src="images/artikel01.jpg">
+                                    <img src="{{ asset('article/'.$item->image) }}">
                                 </div>
                             </a>
                         </div>
@@ -188,14 +188,14 @@
                             <div class="meta">
                                 <span>{{ $item->created_at->format('d') }}, {{ $item->created_at->format('M') }} {{ $item->created_at->format('Y') }}</span>
                             </div>
-                            <a href="single-article.html"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
+                            <a href="{{ route('article.detail', ['slug' => $item->url]) }}"><h5 class="title" ellipsis><span class="hover-line">{{ $item->title }}</span></h5></a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
         <div class="caption-btn text-center sr-btm">
-            <a class="btn btn-default btn-rounded" href="artikel.html">Artikel lainnya</a>
+            <a class="btn btn-default btn-rounded" href="{{ route('article') }}">Artikel lainnya</a>
         </div>
     </div>
 </section>

@@ -14,6 +14,8 @@ class CreateSubmissionProposalGuest extends Migration
     public function up()
     {
         Schema::create('submission_proposal_guest', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->tinyInteger('type_guest_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('mailing_number')->unique();
@@ -21,11 +23,8 @@ class CreateSubmissionProposalGuest extends Migration
             $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
             $table->mediumInteger('type_of_cooperation_two_derivative_id')->nullable();
-            $table->mediumInteger('substance_cooperation_id');
-            $table->mediumInteger('cooperastion_target_id');
-            $table->mediumInteger('target_of_cooperation_id');
             $table->integer('agencies_id');
-            $table->text('countries_id');
+            $table->tinyInteger('countries_id');
             $table->mediumInteger('province_id')->nullable();
             $table->integer('regency_id')->nullable();
             $table->string('postal_code')->nullable();
@@ -34,18 +33,19 @@ class CreateSubmissionProposalGuest extends Migration
             $table->double('longitude');
             $table->string('nominal')->nullable();
             $table->string('name');
+            $table->string('department');
             $table->string('ktp');
             $table->string('npwp');
             $table->string('siup');
             $table->string('no_telp');
+            $table->string('agency_name');
+            $table->text('address');
             $table->string('email');
             $table->text('purpose_objectives');
             $table->text('background');
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');
             $table->tinyInteger('time_period');
-            // $table->date('time_period_of');
-            // $table->date('time_period_to');
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);
