@@ -534,6 +534,11 @@ h5 {
   padding-left: 0;
   padding-right: 0;
 }
+.form-control.error {
+  background-color: transparent !important;
+  border-color: #DB1F1F;
+  color: #DB1F1F;
+}
 
 .input-value {
   padding: 0 0 14px;
@@ -550,8 +555,11 @@ h5 {
   font-size: 14px;
   min-height: 62px;
 }
-.form-input .form-control:focus + .text-label, .form-input .form-control:valid + .text-label {
+.form-input .form-control:focus ~ .text-label, .form-input .form-control:valid ~ .text-label {
   top: 0;
+}
+.form-input .form-control.error ~ .text-label {
+  color: #DB1F1F;
 }
 .form-input .text-label {
   position: absolute;
@@ -1127,6 +1135,9 @@ select.form-control option {
   padding: 0;
   background-color: transparent;
 }
+.wizard .content .body label.error {
+  display: none;
+}
 .wizard .actions {
   margin-top: 4em;
 }
@@ -1155,6 +1166,7 @@ select.form-control option {
   color: #fff;
   transition: background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), border-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
 }
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(156, 207, 16, 0);

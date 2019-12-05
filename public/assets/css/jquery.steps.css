@@ -129,6 +129,7 @@
     color: #fff;
 }
 
+/*
 .wizard > .steps .error a,
 .wizard > .steps .error a:hover,
 .wizard > .steps .error a:active
@@ -136,6 +137,7 @@
     background: #ff3111;
     color: #fff;
 }
+*/
 
 .wizard > .content
 {
@@ -199,12 +201,14 @@
 }
 */
 
+/*
 .wizard > .content > .body input.error
 {
     background: rgb(251, 227, 228);
     border: 1px solid #fbc2c4;
     color: #8a1f11;
 }
+*/
 
 /*
 .wizard > .content > .body label
@@ -214,12 +218,14 @@
 }
 */
 
+/*
 .wizard > .content > .body label.error
 {
     color: #8a1f11;
     display: inline-block;
     margin-left: 1.5em;
 }
+*/
 
 .wizard > .actions
 {
