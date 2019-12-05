@@ -15,8 +15,8 @@ class CreateTrackingSubmissionProposalGuestTable extends Migration
     {
         Schema::create('tracking_submission_proposal_guest', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('submission_proposal_id');
-            $table->tinyInteger('biro_perencanaan_dan_data');
+            $table->bigInteger('submission_proposal_guest_id');
+            $table->tinyInteger('biro_perencanaan_dan_data')->nullable();
             $table->tinyInteger('bagian_kerja_sama')->nullable();
             $table->tinyInteger('bagian_ortala')->nullable();
             $table->tinyInteger('sesmen')->nullable();

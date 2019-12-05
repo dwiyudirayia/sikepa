@@ -27,7 +27,6 @@ use DB;
 // use App\Mail\SubmissionCooperationReject;
 use App\Notifications\DispositionNotification;
 use Illuminate\Support\Facades\Notification;
-use Spatie\Permission\Models\Role;
 
 class SubmissionProposalController extends Controller
 {

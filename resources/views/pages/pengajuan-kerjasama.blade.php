@@ -3,6 +3,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.steps.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lightpick.css') }}">
 @endsection
+@section('styles2')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/select2.min.css') }}">
+@endsection
 @section('content')
     <section class="page-header">
         <div class="container">
@@ -36,7 +39,8 @@
                         </ul>
                     </div>
                     -->
-                    <form id="submission-cooperation">
+                    <form id="submission-cooperation" action="{{ route('cooperation.submission.store') }}" enctype="multipart/form-data" method="POST">
+                        @csrf
                         <div class="tab-content" id="step-pengajuan">
                             <div class="step-btn">1</div>
                             <div id="step1" class="tab-pane">
@@ -48,19 +52,17 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" class="form-control" name="title_cooperation">
+                                                    <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation">
                                                     <label class="text-label">Usulan Judul Kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2 required" name="type_of_cooperation_id" required>
-                                                        <option></option>
-                                                        @foreach ($data['type'] as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
+                                                    <select class="form-control required" id="type_guest_id" name="type_guest_id">
+                                                        <option value="1">PKS</option>
+                                                        <option value="2">MOU</option>
                                                     </select>
                                                     <label class="text-label">Usulan jenis kerjasama</label>
                                                 </div>
@@ -69,27 +71,37 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="type_of_cooperation_one_derivative_id">
+                                                    <select class="form-control required" id="type_of_cooperation_id" name="type_of_cooperation_id">
                                                         <option></option>
-                                                        <option>Kerjasama dalam negri</option>
-                                                        <option>Kerjasama luar negri</option>
+                                                        @foreach ($data['type'] as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <label class="text-label">Usulan jenis kerjasama</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6" id="is-typeof-one">
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <select class="form-control" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
                                                     </select>
                                                     <label class="text-label">Permohonan kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-nominal">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="nominal" type="text">
+                                                    <input class="form-control" name="nominal" id="nominal" type="text">
                                                     <label class="text-label">Nominal</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-typeof-two">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="type_of_cooperation_two_derivative_id">
+                                                    <select class="form-control select2" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
                                                         <option></option>
                                                         <option>Perjanjian kerjasama</option>
                                                         <option>Perpanjangan MOU/PKS</option>
@@ -99,13 +111,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="agencies_id">
+                                                    <select class="form-control select2 required" id="agencies_id" name="agencies_id">
                                                         <option></option>
                                                         @foreach ($data['agency'] as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
                                                     <label class="text-label">Instansi</label>
@@ -117,33 +129,30 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="countries_id">
+                                                    <select class="form-control select2 required" id="countries_id" name="countries_id">
                                                         <option value=""></option>
                                                         @foreach ($data['country'] as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->country_name }}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->country_name }}</option>
                                                         @endforeach
                                                     </select>
                                                     <label class="text-label">Negara</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6 is-indonesian">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="province_id">
+                                                    <select class="form-control select2" id="province_id" name="province_id">
                                                         <option value=""></option>
                                                     </select>
                                                     <label class="text-label">Provinsi</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6 is-indonesian">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="regency_id">
-                                                        <option></option>
-                                                        <option>Kabupaten</option>
-                                                        <option>Kota</option>
+                                                    <select class="form-control select2" id="regency_id" name="regency_id">
                                                     </select>
                                                     <label class="text-label">Kab./Kota</label>
                                                 </div>
@@ -152,7 +161,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="postal_code" type="text">
+                                                    <input class="form-control" name="postal_code" id="postal_code" type="text">
                                                     <label class="text-label">Kode pos</label>
                                                 </div>
                                             </div>
@@ -165,16 +174,32 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" id="loc-search" name="agency_name" placeholder="">
-                                                    <label class="text-label">Masukan alamat instansi</label>
+                                                    <input class="form-control required" id="loc-search" name="agency_name" type="text">
+                                                    <label class="text-label">Masukan nama instansi</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="address">
+                                                    <textarea name="address" id="address" class="form-control required" cols="30" rows="10"></textarea>
                                                     <label class="text-label">Alamat lengkap instansi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <input type="text" id="latitude" name="latitude" class="form-control required">
+                                                    <label class="text-label">Latitude</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <input type="text" id="longitude" name="longitude" class="form-control requried">
+                                                    <label class="text-label">Longitude</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +216,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="nama">
+                                                    <input class="form-control required" name="nama" id="nama" type="text">
                                                     <label class="text-label">Nama pemohon</label>
                                                 </div>
                                             </div>
@@ -199,7 +224,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="department">
+                                                    <input class="form-control required" name="department" id="department" type="text">
                                                     <label class="text-label">Jabatan pemohon</label>
                                                 </div>
                                             </div>
@@ -207,7 +232,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload" id="ktp" type="file" name="ktp">
+                                                    <input class="upload required" id="ktp" type="file" name="ktp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="ktp" onclick="getFile()"></label>
                                                     </div>
@@ -219,7 +244,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload" type="file" id="npwp" name="npwp">
+                                                    <input class="upload required" type="file" id="npwp" name="npwp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="npwp" onclick="getFile()"></label>
                                                     </div>
@@ -231,7 +256,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload" type="file" name="siup" id="siup">
+                                                    <input class="upload required" type="file" name="siup" id="siup">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="siup" onclick="getFile()"></label>
                                                     </div>
@@ -243,7 +268,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="no_telp" name="text">
+                                                    <input class="form-control required" id="no_telp" name="no_telp" type="text">
                                                     <label class="text-label">Nomor telepon</label>
                                                 </div>
                                             </div>
@@ -251,7 +276,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="email">
+                                                    <input class="form-control required" id="email" name="email" type="email">
                                                     <label class="text-label">Alamat email</label>
                                                 </div>
                                             </div>
@@ -261,21 +286,21 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <textarea class="form-control" name="purpose_objectives" id="" cols="30" rows="10"></textarea>
+                                                    <textarea class="form-control required" name="purpose_objectives" id="" cols="30" rows="10"></textarea>
                                                     <label class="text-label">Maksud dan tujuan</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" name="time_period">
+                                                    <select class="form-control select2 required" name="time_period">
                                                         <option></option>
-                                                        <option>1 tahun</option>
-                                                        <option>2 tahun</option>
-                                                        <option>3 tahun</option>
-                                                        <option>4 tahun</option>
-                                                        <option>5 tahun</option>
+                                                        <option value="1">1 tahun</option>
+                                                        <option value="2">2 tahun</option>
+                                                        <option value="3">3 tahun</option>
+                                                        <option value="4">4 tahun</option>
+                                                        <option value="5">5 tahun</option>
                                                     </select>
                                                     <label class="text-label">Usulan jangka waktu</label>
                                                 </div>
@@ -284,7 +309,7 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control" name="background">
+                                                    <textarea name="background" id="background" cols="30" rows="10" class="form-control required"></textarea>
                                                     <label class="text-label">Latar belakang</label>
                                                 </div>
                                             </div>
@@ -292,7 +317,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload" type="file" id="agency_profile" name="agency_profile">
+                                                    <input class="upload required" type="file" id="agency_profile" name="agency_profile">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="agency_profile" onclick="getFile()"></label>
                                                     </div>
@@ -304,7 +329,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload" type="file" id="proposal" name="proposal">
+                                                    <input class="upload required" type="file" id="proposal" name="proposal">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="proposal" onclick="getFile()"></label>
                                                     </div>
@@ -323,22 +348,19 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="row">
-                                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-                                                <div class="form-group">
-                                                    <div class="form-input">
-                                                        <select class="form-control select2-multiple" name="type_guest_id" multiple>
-                                                            <option></option>
-                                                            <option>Deputi Bidang Kesetaraan Gender</option>
-                                                            <option>Deputi Bidang Hak Perempuan</option>
-                                                            <option>Deputi Bidang Perlindungan Perempuan</option>
-                                                            <option>Deputi Bidang Tumbuh Kembang Anak</option>
-                                                            <option>Deputi Bidang Partisipasi Masyarakat</option>
-                                                            <option>SESMEN</option>
-                                                        </select>
-                                                        <label class="text-label">Sasaran kerjasama</label>
-                                                    </div>
+                                        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <select class="form-control select2" name="deputi[]" multiple="multiple">
+                                                        <option value=""></option>
+                                                        @foreach ($data['deputi'] as $item)
+                                                        <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
+                                                <label class="text-label">Sasaran kerjasama</label>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -350,67 +372,292 @@
     </section>
 @endsection
 @section('scripts')
+    <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places&callback=initAutocomplete"
+    async defer></script>
     <script>
-    const form = $('#submission-cooperation').show();
-    $("#step-pengajuan").steps({
-    headerTag: ".step-btn",
-    bodyTag: ".tab-pane",
-    titleTemplate: "#title#",
-    transitionEffect: "slideLeft",
-    onStepChanging: function (event, currentIndex, newIndex)
-    {
-        // Allways allow previous action even if the current form is not valid!
-        if (currentIndex > newIndex)
+        function initAutocomplete() {
+            var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
+            var map = new google.maps.Map(document.getElementById('loc-result'), {
+                center: {lat:  -1.514896, lng: 120.3647036},
+                zoom: 4,
+                styles: mapstyles,
+            });
+            var input = document.getElementById('loc-search');
+            var searchBox = new google.maps.places.SearchBox(input);
+
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+            var markers = [];
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+
+                for (var i = 0; i < places[0].address_components.length; i++) {
+                    for (var j = 0; j < places[0].address_components[i].types.length; j++) {
+                        if (places[0].address_components[i].types[j] == "postal_code") {
+                            $('#postal_code').val(`${places[0].address_components[i].long_name}`);
+                        }
+                    }
+                }
+
+                $('#address').val(`${places[0].formatted_address}`);
+                $('#latitude').val(`${places[0].geometry.location.lat()}`);
+                $('#longitude').val(`${places[0].geometry.location.lng()}`);
+                if (places.length == 0) {
+                    return;
+                }
+                markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+                    var markerIcon = '/assets/images/marker-icon.svg';
+                    /*
+                    var icon = {
+                        url: markerIcon,
+                        size: new google.maps.Size(100, 100),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+                    */
+
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: markerIcon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+                    if (place.geometry.viewport) {
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+        }
+        const form = $('#submission-cooperation').show();
+        $("#step-pengajuan").steps({
+        headerTag: ".step-btn",
+        bodyTag: ".tab-pane",
+        titleTemplate: "#title#",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex)
         {
-            return true;
-        }
-        // Forbid next action on "Warning" step if the user is to young
-        if (newIndex === 3 && Number($("#age-2").val()) < 18)
+            // Allways allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex)
+            {
+                return true;
+            }
+            // Forbid next action on "Warning" step if the user is to young
+            if (newIndex === 3 && Number($("#age-2").val()) < 18)
+            {
+                return false;
+            }
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex)
+            {
+                // To remove error styles
+                form.find(".body:eq(" + newIndex + ") label.error").remove();
+                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex)
         {
-            return false;
-        }
-        // Needed in some cases if the user went back (clean up)
-        if (currentIndex < newIndex)
+            // Used to skip the "Warning" step if the user is old enough.
+            if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
+            {
+                form.steps("next");
+            }
+            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            if (currentIndex === 2 && priorIndex === 3)
+            {
+                form.steps("previous");
+            }
+        },
+        onFinishing: function (event, currentIndex)
         {
-            // To remove error styles
-            form.find(".body:eq(" + newIndex + ") label.error").remove();
-            form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
-        }
-        form.validate().settings.ignore = ":disabled,:hidden";
-        return form.valid();
-    },
-    onStepChanged: function (event, currentIndex, priorIndex)
-    {
-        // Used to skip the "Warning" step if the user is old enough.
-        if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex)
         {
-            form.steps("next");
+            $('#submission-cooperation').submit();
         }
-        // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-        if (currentIndex === 2 && priorIndex === 3)
-        {
-            form.steps("previous");
-        }
-    },
-    onFinishing: function (event, currentIndex)
-    {
-        form.validate().settings.ignore = ":disabled";
-        return form.valid();
-    },
-    onFinished: function (event, currentIndex)
-    {
-        alert("Submitted!");
-    }
-}).validate({
-    errorPlacement: function errorPlacement(error, element) { element.before(error); },
-    rules: {
-        confirm: {
-            equalTo: "#password-2"
-        }
-    }
-});
-</script>
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#type_of_cooperation_id').change(function() {
+                const value = $(this).val();
+
+                if(value != 1) {
+                    $('#is-nominal').hide();
+                    $('#is-typeof-one').show();
+                    $('#is-typeof-two').show();
+                    $('#is-typeof-two').attr('class', 'col-lg-12 col-md-12');
+                    $('#nominal').val('');
+                    $('#type_of_cooperation_one_derivative_id').val('');
+                    $('#type_of_cooperation_one_derivative_id').html('');
+                    $('#type_of_cooperation_two_derivative_id').val('');
+                    $('#type_of_cooperation_two_derivative_id').html('');
+                } else {
+                    $('#is-nominal').show();
+                    $('#is-typeof-one').hide();
+                    $('#is-typeof-two').hide();
+                    $('#type_of_cooperation_one_derivative_id').val('');
+                    $('#type_of_cooperation_one_derivative_id').html('');
+                    $('#type_of_cooperation_two_derivative_id').val('');
+                    $('#type_of_cooperation_two_derivative_id').html('');
+                }
+
+                $.ajax({
+                    url: `/ajax/typeone/${value}`,
+                    method: 'GET',
+                    success: function(response) {
+                        let typeOne = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                        const data = response.data;
+
+                        $.map(data, function (value, index) {
+                            typeOne += `<option value="${value.id}">${value.name}</option>`;
+                        });
+
+                        $('#type_of_cooperation_one_derivative_id').html(typeOne);
+                    }
+                })
+            });
+
+            $('#type_of_cooperation_one_derivative_id').change(function(e) {
+                const value = $(this).val();
+
+                if(value == 2) {
+                    $('.is-indonesian').show();
+                    $('#countries_id').val('');
+                    $('#province_id').val('');
+                    $('#regency_id').val('');
+                    $('#countries_id').html('');
+                    $('#province_id').html('');
+                    $('#regency_id').html('');
+
+                    $.ajax({
+                        url: `/ajax/typetwo/${value}`,
+                        method: `GET`,
+                        success: function(response) {
+                            let typeTwo = `<option value="">- Pilih dan Sesuaikan -</option>`;
+                            let countryTwo = `<option value="">- Pilih dan Sesuaikan -</option>`;
+                            let provinceTwo = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                            const type = response.data.type;
+                            const country = response.data.country;
+                            const province = response.data.province;
+
+                            $.map(type, function (value, index) {
+                                typeTwo += `<option value="${value.id}">${value.name}</option>`;
+                            });
+
+                            $.map(country, function (value, index) {
+                                countryTwo += `<option value="${value.id}">${value.country_name}</option>`;
+                            });
+
+                            $.map(province, function (value, index) {
+                                provinceTwo += `<option value="${value.id}">${value.name}</option>`;
+                            });
+
+                            $('#countries_id').html(countryTwo);
+                            $('#province_id').html(provinceTwo);
+                            $('#type_of_cooperation_two_derivative_id').html(typeTwo);
+                        }
+                    })
+                } else {
+                    $('.is-indonesian').hide();
+                    $('#province_id').val('');
+                    $('#regency_id').val('');
+                    $('#countries_id').val('');
+                    $('#countries_id').html('');
+                    $('#province_id').html('');
+                    $('#regency_id').html('');
+
+                    $.ajax({
+                        url: `/ajax/typetwo/${value}`,
+                        method: `GET`,
+                        success: function(response) {
+                            let typeTwo = `<option value="">- Pilih dan Sesuaikan -</option>`;
+                            let countryTwo = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                            const type = response.data.type;
+                            const country = response.data.country;
+
+                            $.map(type, function (value, index) {
+                                typeTwo += `<option value="${value.id}">${value.name}</option>`;
+                            });
+
+                            $.map(country, function (value, index) {
+                                countryTwo += `<option value="${value.id}">${value.country_name}</option>`;
+                            });
+
+                            $('#countries_id').html(countryTwo);
+                            $('#type_of_cooperation_two_derivative_id').html(typeTwo);
+                        }
+                    })
+                }
+            })
+            $('#countries_id').change(function(e) {
+                const value = $(this).val();
+
+                if(value == 102) {
+                    $('.is-indonesian').show();
+                    $.ajax({
+                        url: `/ajax/province/${value}`,
+                        method: 'GET',
+                        success: function(response) {
+                            let province = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                            const data = response.data;
+
+                            $.map(data, function (value, index) {
+                                province += `<option value="${value.id}">${value.name}</option>`;
+                            });
+
+                            $('#province_id').html(province);
+                        }
+                    })
+                } else {
+                    $('.is-indonesian').hide();
+                    $('#province_id').html('');
+                    $('#province_id').html('');
+                }
+            });
+            $('#province_id').change(function(e) {
+                const value = $(this).val();
+
+                $.ajax({
+                    url: `/ajax/regency/${value}`,
+                    method: `GET`,
+                    success: function(response) {
+                        let regency = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                        const data = response.data;
+
+                        $.map(data, function (value, index) {
+                            regency += `<option value="${value.id}">${value.name}</option>`;
+                        });
+
+                        $('#regency_id').html(regency);
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

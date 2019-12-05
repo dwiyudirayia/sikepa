@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Role;
 class DeputiPIC extends Model
 {
     protected $table = 'deputi_pic';
-    protected $fillable = ['submission_proposal_id','role_id','status'];
+    protected $fillable = ['submission_proposal_id','role_id','status', 'approval'];
 
     public function proposal() {
         return $this->belongsTo(SubmissionProposal::class);

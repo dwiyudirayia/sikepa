@@ -79,6 +79,16 @@ return [
             'root' => storage_path('app/public/agency_profile_cooperation'),
             'visibility' => 'public',
         ],
+        'proposal_cooperation_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_guest'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_guest'),
+            'visibility' => 'public',
+        ],
         'activity_documentation' => [
             'driver' => 'local',
             'root' => storage_path('app/public/activity_documentation'),
@@ -102,6 +112,21 @@ return [
         'old_mou' => [
             'driver' => 'local',
             'root' => storage_path('app/public/old_mou'),
+            'visibility' => 'public',
+        ],
+        'ktp_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ktp_guest'),
+            'visibility' => 'public',
+        ],
+        'npwp_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/npwp_guest'),
+            'visibility' => 'public',
+        ],
+        'siup_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/siup_guest'),
             'visibility' => 'public',
         ],
         's3' => [

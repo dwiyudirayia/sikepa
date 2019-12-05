@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css') }}">
 </head>
 
 <body>
@@ -64,7 +65,7 @@
 <script src="{{ asset('assets/js/scrollreveal.min.js') }}"></script>
 <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
-
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 <script>
     //scrollify
     var nHeader = $(".nav-header").outerHeight();
@@ -155,6 +156,7 @@
     tUser.controller.control = tContent;
 
 </script>
+@include('partialsFront.alert')
 
 </body>
 </html>
