@@ -26,6 +26,7 @@ use DB;
 // use App\Mail\SubmissionCooperationApprove;
 // use App\Mail\SubmissionCooperationReject;
 use App\Notifications\DispositionNotification;
+use App\SubmissionProposalGuest;
 use Illuminate\Support\Facades\Notification;
 
 class SubmissionProposalController extends Controller
@@ -55,6 +56,7 @@ class SubmissionProposalController extends Controller
             $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
         }
         $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('created_by', $user->id)->get();
+        $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -82,6 +84,7 @@ class SubmissionProposalController extends Controller
             }
 
             $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('created_by', $user->id)->get();
+            $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

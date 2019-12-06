@@ -46,6 +46,7 @@ class CreateSubmissionProposalGuest extends Migration
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);
+            $table->string('reject_dana')->nullable();
             $table->timestamps();
         });
     }

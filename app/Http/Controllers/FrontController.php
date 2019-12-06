@@ -20,6 +20,7 @@ use App\TypeOfCooperationTwoDerivative;
 use Illuminate\Support\Facades\Notification;
 use DB;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class FrontController extends Controller
@@ -137,6 +138,7 @@ class FrontController extends Controller
             return back()->with('success', 'Data Berhasil di Simpan');
         } catch (\Throwable $th) {
             DB::rollback();
+            dd($th);
             return back()->with('error', 'Data Berhasil di Simpan');
         }
     }

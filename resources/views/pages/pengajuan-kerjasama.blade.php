@@ -182,7 +182,8 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <textarea name="address" id="address" class="form-control required" cols="30" rows="10"></textarea>
+                                                    <input type="text" id="addressLabel" class="form-control required" disabled>
+                                                    <input type="hidden" id="address" name="address" class="form-control required">
                                                     <label class="text-label">Alamat lengkap instansi</label>
                                                 </div>
                                             </div>
@@ -190,7 +191,8 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" id="latitude" name="latitude" class="form-control required">
+                                                    <input type="text" id="latitudeLabel" class="form-control required" disabled>
+                                                    <input type="hidden" id="latitude" name="latitude" class="form-control required">
                                                     <label class="text-label">Latitude</label>
                                                 </div>
                                             </div>
@@ -198,7 +200,8 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input type="text" id="longitude" name="longitude" class="form-control requried">
+                                                    <input type="text" id="longitudeLabel" class="form-control requried" disabled>
+                                                    <input type="hidden" id="longitude" name="longitude" class="form-control required">
                                                     <label class="text-label">Longitude</label>
                                                 </div>
                                             </div>
@@ -403,6 +406,9 @@
                     }
                 }
 
+                $('#addressLabel').val(`${places[0].formatted_address}`);
+                $('#latitudeLabel').val(`${places[0].geometry.location.lat()}`);
+                $('#longitudeLabel').val(`${places[0].geometry.location.lng()}`);
                 $('#address').val(`${places[0].formatted_address}`);
                 $('#latitude').val(`${places[0].geometry.location.lat()}`);
                 $('#longitude').val(`${places[0].geometry.location.lng()}`);
@@ -499,6 +505,10 @@
     </script>
     <script>
         $(document).ready(function() {
+            // $('.select2').select2({
+            //     placeholder: 'Pilih dan Sesuaikan'
+            // });
+
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
 

@@ -27,13 +27,13 @@
                         <li class="nav-item m-tabs__item">
                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
                         </li>
-                        <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
-                        </li>
                     </template>
                     <template v-else>
                         <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Guest</a>
                         </li>
                     </template>
                 </ul>
@@ -85,7 +85,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
+                        <div class="tab-pane" id="m_tabs_8_2" role="tabpanel">
                             <div class="table-responsive">
                                 <table class="table m-table m-table--head-bg-brand">
                                     <thead>
@@ -141,7 +141,7 @@
                         </div>
                     </template>
                     <template v-else>
-                        <div class="tab-pane active" id="m_tabs_8_3" role="tabpanel">
+                        <div class="tab-pane active" id="m_tabs_8_2" role="tabpanel">
                             <div class="table-responsive">
                                 <table class="table m-table m-table--head-bg-brand">
                                     <thead>

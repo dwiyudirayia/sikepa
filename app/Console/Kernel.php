@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\DispositionDeputiProposal'
+        Commands\RejectDana::class,
     ];
 
     /**
@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('dispositiondeptutiproposal:fiveminutes')-everyTenMinutes();
+        $schedule
+            ->command('reject:dana')
+            ->everyMinute();
     }
 
     /**

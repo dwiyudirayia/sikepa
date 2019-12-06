@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSubmissionProposalGuestRequest extends FormRequest
@@ -58,6 +59,12 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             $pathSIUP = $this->siup->storeAs(strtotime("now"), $fileName, 'siup_guest');
         }
 
+        if($this->type_of_cooperation_id == 1) {
+            $reject = Carbon::now()->addMinutes(10);
+        } else {
+            $reject = null;
+        }
+
         return [
             'type_guest_id' => $this->type_guest_id,
             'mailing_number' => "Surat-".strtotime("now"),
@@ -89,6 +96,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'time_period' => 1,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
+            'reject_dana' => $reject,
         ];
 
     }
