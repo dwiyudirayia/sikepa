@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css') }}">
 @yield('styles2')
 </head>
 
@@ -36,6 +37,8 @@
 <script src="{{ asset('assets/js/jquery.ellipsis.min.js') }}"></script>
 <script src="{{ asset('assets/js/scrollreveal.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
+@include('partialsFront.alert')
 @yield('scripts')
 </body>
 </html>

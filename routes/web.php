@@ -24,6 +24,12 @@ Route::get('/download/format/mou', 'ExportController@formatOldMOU');
 Route::get('/download/data/monev/pdf', 'ExportController@downloadDataMonevPDF');
 Route::get('/download/data/monev/detail/pdf/{id}', 'ExportController@downloadDataMonevDetailPDF');
 
+//AJAX
+Route::get('/ajax/typeone/{id}', 'FrontController@typeOne');
+Route::get('/ajax/typetwo/{id}', 'FrontController@typeTwo');
+Route::get('/ajax/province/{id}', 'FrontController@province');
+Route::get('/ajax/regency/{id}', 'FrontController@regency');
+
 Route::get('/about/{slug}', 'FrontController@about')->name('about');
 Route::get('/{any}', function(){
     return view('layouts.app');
