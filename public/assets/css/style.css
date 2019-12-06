@@ -561,6 +561,9 @@ h5 {
 .form-input .form-control:focus ~ .text-label, .form-input .form-control:valid ~ .text-label {
   top: 0;
 }
+.form-input .form-control.error {
+  color: #212121;
+}
 .form-input .form-control.error ~ .text-label {
   color: #DB1F1F;
 }
