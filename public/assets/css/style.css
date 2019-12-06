@@ -539,6 +539,9 @@ h5 {
   border-color: #DB1F1F;
   color: #DB1F1F;
 }
+.form-control.error option {
+  color: #212121;
+}
 
 .input-value {
   padding: 0 0 14px;
@@ -560,6 +563,12 @@ h5 {
 }
 .form-input .form-control.error ~ .text-label {
   color: #DB1F1F;
+}
+.form-input .form-control[readonly], .form-input .form-control[disabled] {
+  background-color: transparent;
+}
+.form-input .form-control[readonly] ~ .text-label, .form-input .form-control[disabled] ~ .text-label {
+  top: 0;
 }
 .form-input .text-label {
   position: absolute;
