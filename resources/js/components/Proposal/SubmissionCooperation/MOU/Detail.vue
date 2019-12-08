@@ -10,6 +10,38 @@
                         </h3>
                     </div>
                 </div>
+                <div class="m-portlet__head-tools">
+                    <ul class="m-portlet__nav">
+                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                <i class="la la-ellipsis-h m--font-brand"></i>
+                            </a>
+                            <div class="m-dropdown__wrapper" style="z-index: 101;">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">
+                                                <li class="m-nav__item">
+                                                    <a class="m-nav__link" @click="downloadSummary">
+                                                        <i class="m-nav__link-icon la la-file-pdf-o"></i>
+                                                        <span class="m-nav__link-text">Download Rangkuman Kerjasama</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item" v-if="status_disposition == 16">
+                                                    <a class="m-nav__link" @click="downloadFileDraftTerakhir">
+                                                        <i class="m-nav__link-icon la la-file-word-o"></i>
+                                                        <span class="m-nav__link-text">Download File Draft</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="m-portlet__body">
                 <div class="text-center">
@@ -189,7 +221,7 @@
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomer MOU</h3>
+                                    <h3 class="m-form__heading-title">Nomor MOU</h3>
                                 </div>
                                 <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
                                     <div class="text-right">
@@ -209,25 +241,24 @@
                                 </div>
                             </div>
                             <div class="m-form__seperator m-form__seperator--dashed"></div>
-                            <div class="form-group m-form__group">
-                                <label>Revisi Notulen Rapat Terakhir</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Pilih File" :value="notulenLabel">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" @click="handleExploreNotulenFinal">Browse</button>
-                                    </div>
+                            <div class="m-form__section m-form__section--last">
+                                <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">Revisi</h3>
                                 </div>
-                                <input type="file" class="custom-file-input" style="display:none;" ref="notulenFinal" id="customFile" @change="handleNotulen">
-                            </div>
-                            <div class="form-group m-form__group">
-                                <label>Draft Final MOU/PKS</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" @click="handleExploreDraftFinal">Browse</button>
-                                    </div>
+                                <div class="form-group m-form__group">
+                                    <label>Judul Kerjasama Final</label>
+                                    <input type="text" v-model="title_cooperation_final" class="form-control">
                                 </div>
-                                <input type="file" class="custom-file-input" style="display:none;" ref="draftFinal" id="customFile" @change="handleDraft">
+                                <div class="form-group m-form__group">
+                                    <label>Draft Final MOU/PKS</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" @click="handleExploreDraftFinal">Browse</button>
+                                        </div>
+                                    </div>
+                                    <input type="file" class="custom-file-input" style="display:none;" ref="draftFinal" id="customFile" @change="handleDraft">
+                                </div>
                             </div>
                             <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
@@ -335,6 +366,7 @@ export default {
             deputi: [],
             nomor: [''],
             title_cooperation: null,
+            title_cooperation_final: null,
             type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
@@ -353,6 +385,7 @@ export default {
             status_barcode: null,
             law: null,
             roles: this.$store.state.user,
+            nomorProposal: [],
         }
     },
     computed: {
@@ -440,6 +473,9 @@ export default {
         this.getData();
     },
     methods: {
+        downloadSummary() {
+            window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
+        },
         hukum() {
             let formData = new FormData();
 
@@ -469,6 +505,7 @@ export default {
             })
         },
         downloadFileWord(response, filename) {
+            console.log(response);
             // It is necessary to create a new blob object with mime-type explicitly set
             // otherwise only Chrome works like it should
             var newBlob = new Blob([response.data], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
@@ -492,23 +529,77 @@ export default {
                 window.URL.revokeObjectURL(data)
             }, 100)
         },
+        downloadFileDraftTerakhir() {
+            // axios.get(`/api/admin/download/file/draft/${this.$route.params.id}`, {
+            //     responseType: 'arraybuffer',
+            //     headers: {
+            //         'Authorization': localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') :'',
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // .then(response => {
+            //     this.downloadFileWord(response, 'File')
+            // })
+
+            window.location.href = `/api/admin/download/file/draft/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
+        },
         final() {
             let formData = new FormData();
             $.each(this.nomor, function(key, value) {
                 formData.append(`nomor[${key}]`, value);
             });
+            formData.append('title_cooperation_final', this.title_cooperation_final);
             formData.append('notulen', this.notulenFile);
             formData.append('draft', this.draftFile);
 
             $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
             .then(response => {
-                this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
-                });
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Perbaharui`);
             })
             .catch(error => {
-                console.log(error);
-            })
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Data Gagal di Perbaharui`);
+            });
+
+            this.getData();
         },
         handleExploreNotulenFinal() {
             this.$refs.notulenFinal.click();
@@ -563,6 +654,7 @@ export default {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
+                this.title_cooperation_final = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
@@ -585,11 +677,14 @@ export default {
                 this.notulen = response.data.data.law == null ? null : response.data.data.law.notulen;
                 this.notulenLabel = response.data.data.law == null ? null : response.data.data.law.notulen;
                 this.deputi = response.data.data.deputi;
+                this.nomorProposal = response.data.data.nomor;
             });
         },
         showModalReject() {
             if(this.status_disposition == 12 && this.status_barcode == 0) {
                 alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
+            } else if (this.status_disposition == 16 && this.nomorProposal.length == 0) {
+                alert('Anda Belum Submit Nomor & Melakukan Penyesuaian File Draft + Notulen Terakhir');
             } else {
                 this.forms.reason = '';
 
@@ -599,6 +694,8 @@ export default {
         showModalApprove() {
             if(this.status_disposition == 12 && this.status_barcode == 0) {
                 alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
+            } else if (this.status_disposition == 16 && this.nomorProposal.length == 0) {
+                alert('Anda Belum Submit Nomor & Melakukan Penyesuaian File Draft + Notulen Terakhir');
             } else {
                 this.forms.reason = '';
 
@@ -666,6 +763,24 @@ export default {
                 toastr.success(`Barcode Berhasil di Generate`);
             })
             .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
                 toastr.error(`Barcode Gagal di Generate`);
             })
         }

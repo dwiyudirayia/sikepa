@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ApprovalOldSubmissionCooperation;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\SubmissionProposalOld;
+use App\SubmissionProposalGuest;
+use App\SubmissionProposal;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -23,11 +24,29 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-            $data['submission_proposal_old'] = SubmissionProposalOld::groupBy('year')
-            ->select(DB::raw('count(IF(status =1, 1, NULL)) as status_valid, count(IF(status = 0, 1, NULL)) as status_not_valid, year'))
-            ->orderBy('year', 'asc')
-            ->take(5)
-            ->get();
+            $data['pks_approve'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+            $data['pks_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+
+            $data['mou_approve'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+            $data['mou_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+
+            $data['pks_reject'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 0)->get()->count();
+            $data['pks_reject_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 0)->get()->count();
+
+            $data['mou_reject'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 0)->get()->count();
+            $data['mou_reject_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 0)->get()->count();
+
+            $data['pks_process'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+            $data['pks_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+
+            $data['mou_process'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+            $data['mou_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+
+            $data['pks_total'] = SubmissionProposal::where('type_id', 1)->get()->count();
+            $data['pks_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->get()->count();
+
+            $data['mou_total'] = SubmissionProposal::where('type_id', 2)->get()->count();
+            $data['mou_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->get()->count();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

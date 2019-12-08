@@ -15,6 +15,8 @@ Route::get('/page/faq', 'FrontController@faq')->name('faq');
 Route::get('/page/article', 'FrontController@article')->name('article');
 Route::get('/page/article/{slug}', 'FrontController@articleDetail')->name('article.detail');
 Route::get('/page/submission/cooperation', 'FrontController@submissionProposal')->name('cooperation.submission');
+Route::get('/page/our-contact', 'FrontController@ourContact')->name('our.contact');
+Route::get('/page/distribution/of/cooperation', 'FrontController@distributionOfCooperation')->name('distribution_of_cooperation');
 Route::post('/page/submission/cooperation/store', 'FrontController@submissionProposalsStore')->name('cooperation.submission.store');
 // Route::get('/front/article', 'FrontController@article')->name('article');
 // Route::get('/front/article/{slug}', 'FrontController@articleDetail');

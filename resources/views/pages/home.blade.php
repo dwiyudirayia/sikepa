@@ -76,7 +76,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="sebaran-kerjasama.html" class="sr-btm">
+                <a href="{{ route('distribution_of_cooperation') }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">

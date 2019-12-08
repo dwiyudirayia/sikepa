@@ -221,7 +221,7 @@
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomor MOU</h3>
+                                    <h3 class="m-form__heading-title">Nomor MOU / PKS</h3>
                                 </div>
                                 <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
                                     <div class="text-right">
@@ -243,7 +243,7 @@
                             <div class="m-form__seperator m-form__seperator--dashed"></div>
                             <div class="m-form__section m-form__section--last">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomor MOU</h3>
+                                    <h3 class="m-form__heading-title">Revisi</h3>
                                 </div>
                                 <div class="form-group m-form__group">
                                     <label>Judul Kerjasama Final</label>

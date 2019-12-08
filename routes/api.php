@@ -18,6 +18,7 @@ Route::middleware('jwt')->group( function () {
     Route::prefix('admin')->group(function () {
         //Barcode
         Route::get('generate/barcode/{id}', 'BarcodeController@generate');
+        Route::get('generate/barcode/{id}/guest', 'BarcodeController@generateGuest');
 
         Route::resource('notification', 'NotificationController')->except(['create', 'destroy']);
         Route::post('logout', 'LoginController@logout');
@@ -59,18 +60,25 @@ Route::middleware('jwt')->group( function () {
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
         Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
+        Route::get('submission/cooperation/{id}/detail/guest','SubmissionProposalController@detailGuest');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
+        Route::post('submission/reason/approve/guest', 'SubmissionProposalGuestController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
+        Route::post('submission/reason/reject/guest', 'SubmissionProposalGuestController@reject');
         Route::post('submission/cooperation/law/{id}', 'SubmissionProposalController@law');
+        Route::post('submission/cooperation/law/{id}/guest', 'SubmissionProposalGuestController@law');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
+        Route::post('submission/cooperation/final/{id}/guest', 'SubmissionProposalGuestController@final');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
         Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
         Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
+        Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
 
         Route::get('download/summary/cooperation/{id}', 'ExportController@downloadSummary');
+        Route::get('download/summary/cooperation/{id}/guest', 'ExportController@downloadSummaryGuest');
 
         Route::post('submission/cooperation', 'SubmissionProposalController@store');
         //Change Status Article

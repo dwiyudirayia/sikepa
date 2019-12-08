@@ -23,8 +23,8 @@
                                 <h4 class="m-widget24__title">
                                     Diterima
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
-                                    3201
+                                <span class="m-widget24__stats m--font-success" style="padding-bottom:30px;">
+                                    {{ widget.mou.approve }}
                                 </span>
                             </div>
                         </div>
@@ -39,8 +39,8 @@
                                 <h4 class="m-widget24__title">
                                     Ditolak
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-success">
-                                    12
+                                <span class="m-widget24__stats m--font-danger">
+                                    {{ widget.mou.reject }}
                                 </span>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     Diproses
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-brand">
-                                    29
+                                    {{ widget.mou.process }}
                                 </span>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                     Total
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-primary">
-                                    29
+                                    {{ widget.mou.total }}
                                 </span>
                             </div>
                         </div>
@@ -103,8 +103,8 @@
                                 <h4 class="m-widget24__title">
                                     Diterima
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-danger" style="padding-bottom:30px;">
-                                    3201
+                                <span class="m-widget24__stats m--font-success" style="padding-bottom:30px;">
+                                    {{ widget.pks.approve }}
                                 </span>
                             </div>
                         </div>
@@ -119,8 +119,8 @@
                                 <h4 class="m-widget24__title">
                                     Ditolak
                                 </h4><br>
-                                <span class="m-widget24__stats m--font-success">
-                                    12
+                                <span class="m-widget24__stats m--font-danger">
+                                    {{ widget.pks.approve }}
                                 </span>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                                     Diproses
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-brand">
-                                    29
+                                    {{ widget.pks.process }}
                                 </span>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                     Total
                                 </h4><br>
                                 <span class="m-widget24__stats m--font-primary">
-                                    29
+                                    {{ widget.pks.total }}
                                 </span>
                             </div>
                         </div>
@@ -211,138 +211,6 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Pengajuan Kerjasama Terdahulu Keseluruhan Berdasarkan Status
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <div class="form-group m-form__group">
-                            <label for="Nama Lengkap">Tahun</label>
-                            <div class="m-form__control">
-                                <Select2
-                                    :options="yearsSubmissionProposalOld"
-                                    v-model="chartData.submissionProposalOld.selectedYear"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-                            <div class="m-form__actions m-form__actions--solid">
-                                <div class="row">
-                                    <div class="col-lg-5"></div>
-                                    <div class="col-lg-7">
-                                        <button type="button" class="btn btn-brand">{{ chartData.submissionProposalOld.textButton }}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <line-chart
-                            :chartData="chartData.submissionProposalOld.all"
-                            :options="options"
-                        />
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Perlindungan Anak
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-2" height="50"></canvas>
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Perlindungan Hak Perempuan
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-3" height="50"></canvas>
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Tumbuh Kembang Anak
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-4" height="50"></canvas>
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Partisipasi Masyarakat
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-5" height="50"></canvas>
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
-                                    MOU/PKS Deputi Bidang Sesmen
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-portlet__body">
-                        <canvas id="chart-data-deputi-6" height="50"></canvas>
-                    </div>
-                </div>
-                <!--End::Portlet-->
-            </div>
-            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
-                <!--Begin::Portlet-->
-                <div class="m-portlet  m-portlet--full-height ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-caption">
-                            <div class="m-portlet__head-title">
-                                <h3 class="m-portlet__head-text">
                                     Statistik Data Instansi Pertahun
                                 </h3>
                             </div>
@@ -375,6 +243,20 @@ export default {
     },
     data() {
         return {
+            widget: {
+                mou: {
+                    approve: null,
+                    reject: null,
+                    process: null,
+                    total: null,
+                },
+                pks: {
+                    approve: null,
+                    reject: null,
+                    process: null,
+                    total: null,
+                },
+            },
             options: null,
             chartData: {
                 oldMonev: {
@@ -388,16 +270,6 @@ export default {
                     yearsText: [],
                     textButton: 'Filter'
                 },
-                submissionProposalOld: {
-                    all: null,
-                    valid: null,
-                    years: [],
-                    labels: null,
-                    data: [],
-                    selectedYear: null,
-                    yearsText: [],
-                    textButton: 'Filter'
-                }
             },
             breadcrumbTitle: 'Dashboard',
             breadcrumbLink: [
@@ -413,14 +285,12 @@ export default {
         yearsMonev() {
             return this.chartData.oldMonev.years;
         },
-        yearsSubmissionProposalOld() {
-            return this.chartData.submissionProposalOld.years;
-        },
     },
     mounted() {
         this.getData();
         this.options = {
             responsive: true,
+
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
@@ -437,7 +307,6 @@ export default {
             .then(response => {
                 //monev all
                 this.chartData.oldMonev.data = response.data.data.old_monev_all;
-                this.chartData.submissionProposalOld.data = response.data.data.submission_proposal_old;
 
                 let objectYearMonev = this.chartData.oldMonev.data.map(value => {
                     return {
@@ -446,22 +315,11 @@ export default {
                     };
                 })
 
-                let objectSubmissionProposalOld = this.chartData.submissionProposalOld.data.map(value => {
-                    return {
-                        id: value.year,
-                        text: value.year
-                    };
-                })
-
-
                 this.chartData.oldMonev.years = objectYearMonev;
                 this.chartData.oldMonev.yearsText = this.chartData.oldMonev.data.map(map => map.year.toString());
                 this.chartData.oldMonev.valid = this.chartData.oldMonev.data.map(map => map.status_valid);
                 this.chartData.oldMonev.not_valid = this.chartData.oldMonev.data.map(map => map.status_not_valid);
 
-                this.chartData.submissionProposalOld.years = objectSubmissionProposalOld;
-                this.chartData.submissionProposalOld.yearsText = this.chartData.submissionProposalOld.data.map(map => map.year);
-                this.chartData.submissionProposalOld.valid = this.chartData.submissionProposalOld.data.map(map => map.status_valid);
 
                 this.chartData.oldMonev.all = {
                     labels: this.chartData.oldMonev.yearsText,
@@ -478,18 +336,19 @@ export default {
                         }
                     ]
                 };
+                const responseData = response.data.data;
 
-                this.chartData.submissionProposalOld.all = {
-                    labels: this.chartData.submissionProposalOld.yearsText,
-                    datasets: [
-                        {
-                            label: `Selesai`,
-                            backgroundColor: '#f87979',
-                            data: this.chartData.submissionProposalOld.valid
-                        },
-                    ]
-                };
+                this.widget.mou.approve = responseData.mou_approve + responseData.mou_approve_guest;
+                this.widget.mou.reject = responseData.mou_reject + responseData.mou_reject_guest;
+                this.widget.mou.reject = responseData.mou_reject + responseData.mou_reject_guest;
+                this.widget.mou.process = responseData.mou_process + responseData.mou_process_guest;
+                this.widget.mou.total = responseData.mou_total + responseData.mou_total_guest;
 
+                this.widget.pks.approve = responseData.pks_approve + responseData.pks_approve_guest;
+                this.widget.pks.reject = responseData.pks_reject + responseData.pks_reject_guest;
+                this.widget.pks.reject = responseData.pks_reject + responseData.pks_reject_guest;
+                this.widget.pks.process = responseData.pks_process + responseData.pks_process_guest;
+                this.widget.pks.total = responseData.pks_total + responseData.pks_total_guest;
             })
         },
         filterMonev() {

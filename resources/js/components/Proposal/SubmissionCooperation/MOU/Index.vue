@@ -27,13 +27,13 @@
                         <li class="nav-item m-tabs__item">
                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
                         </li>
-                        <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
-                        </li>
                     </template>
                     <template v-else>
                         <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Kerjasama</a>
+                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
                         </li>
                     </template>
                 </ul>
@@ -51,7 +51,7 @@
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
-                                            <th style="vertical-align: middle;">Tanggal</th>
+                                            <th style="vertical-align: middle;">Lama Pengajuan</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -65,17 +65,9 @@
                                                 <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">
-                                                    <span class="m-badge m-badge--success m-badge--wide">
-                                                        Dari Tanggal : {{ value.time_period_of }}
-                                                    </span>
-                                                    <br>
-                                                    <span class="m-badge m-badge--danger m-badge--wide">
-                                                        Sampai Tanggal : {{ value.time_period_to }}
-                                                    </span>
-                                                </td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationYourDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationYourDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-eye"></i>
                                                             <span>Detail Pengajuan</span>
@@ -93,63 +85,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
-                            <div class="table-responsive">
-                                <table class="table m-table m-table--head-bg-brand">
-                                    <thead>
-                                        <tr>
-                                            <th style="vertical-align: middle;">No</th>
-                                            <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Negara</th>
-                                            <th style="vertical-align: middle;">Instansi</th>
-                                            <th style="vertical-align: middle;">Nama Kantor</th>
-                                            <th style="vertical-align: middle;">Tanggal</th>
-                                            <th style="vertical-align: middle;">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <template v-if="approvalSubmission.length">
-                                            <tr v-for="(value, index) in approvalSubmission" :key="value.id">
-                                                <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">
-                                                    <span class="m-badge m-badge--success m-badge--wide">
-                                                        Dari Tanggal : {{ value.time_period_of }}
-                                                    </span>
-                                                    <br>
-                                                    <span class="m-badge m-badge--danger m-badge--wide">
-                                                        Sampai Tanggal : {{ value.time_period_to }}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                        <span>
-                                                            <i class="la la-eye"></i>
-                                                            <span>Detail Pengajuan</span>
-                                                        </span>
-                                                    </router-link>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                        <template v-else>
-                                            <tr>
-                                                <td colspan="9" class="text-center">Data Kososng</td>
-                                            </tr>
-                                        </template>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <div class="tab-pane active" id="m_tabs_8_3" role="tabpanel">
+                        <div class="tab-pane" id="m_tabs_8_2" role="tabpanel">
                             <div class="table-responsive">
                                 <table class="table m-table m-table--head-bg-brand">
                                     <thead>
@@ -177,7 +113,101 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                        <span>
+                                                            <i class="la la-eye"></i>
+                                                            <span>Detail Pengajuan</span>
+                                                        </span>
+                                                    </router-link>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
+                                            <tr>
+                                                <td colspan="9" class="text-center">Data Kososng</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="tab-pane active" id="m_tabs_8_2" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table m-table m-table--head-bg-brand">
+                                    <thead>
+                                        <tr>
+                                            <th style="vertical-align: middle;">No</th>
+                                            <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Negara</th>
+                                            <th style="vertical-align: middle;">Instansi</th>
+                                            <th style="vertical-align: middle;">Nama Kantor</th>
+                                            <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template v-if="approvalSubmission.length">
+                                            <tr v-for="(value, index) in approvalSubmission" :key="value.id">
+                                                <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td>
+                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                        <span>
+                                                            <i class="la la-eye"></i>
+                                                            <span>Detail Pengajuan</span>
+                                                        </span>
+                                                    </router-link>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
+                                            <tr>
+                                                <td colspan="9" class="text-center">Data Kososng</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table m-table m-table--head-bg-brand">
+                                    <thead>
+                                        <tr>
+                                            <th style="vertical-align: middle;">No</th>
+                                            <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Negara</th>
+                                            <th style="vertical-align: middle;">Instansi</th>
+                                            <th style="vertical-align: middle;">Nama Kantor</th>
+                                            <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template v-if="guestSubmission.length">
+                                            <tr v-for="(value, index) in guestSubmission" :key="value.id">
+                                                <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td>
+                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-eye"></i>
                                                             <span>Detail Pengajuan</span>
@@ -205,7 +235,7 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'MOUProposalSubmissionCooperationIndex',
+    name: 'PKSProposalSubmissionCooperationIndex',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -213,11 +243,12 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/mou/submission/cooperation'
+                    path: '/pks/submission/cooperation'
                 },
             ],
             approvalSubmission: [],
-            youSubmission: []
+            youSubmission: [],
+            guestSubmission: [],
         }
     },
     computed: {
@@ -239,6 +270,7 @@ export default {
         .then(response => {
             this.approvalSubmission = response.data.data.approval;
             this.youSubmission = response.data.data.you;
+            this.guestSubmission = response.data.data.guest;
 
             this.$store.commit('proposal/clearPage');
         })

@@ -80,6 +80,9 @@ class FrontController extends Controller
 
         return view('pages.single-article', compact('article'));
     }
+    public function ourContact() {
+        return view('pages.our-contact');
+    }
     public function submissionProposal() {
         $data['country'] = Country::all();
         $data['type'] = TypeOfCooperation::all();
@@ -212,5 +215,8 @@ class FrontController extends Controller
                 'status' => $th->getCode(),
             ]);
         }
+    }
+    public function distributionOfCooperation() {
+        return view('pages.sebaran-kerjasama');
     }
 }

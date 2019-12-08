@@ -99,6 +99,11 @@ return [
             'root' => storage_path('app/public/barcode'),
             'visibility' => 'public',
         ],
+        'barcode_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_guest'),
+            'visibility' => 'public',
+        ],
         'law_notulen' => [
             'driver' => 'local',
             'root' => storage_path('app/public/law_notulen'),
@@ -107,6 +112,16 @@ return [
         'law_draft' => [
             'driver' => 'local',
             'root' => storage_path('app/public/law_draft'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_guest'),
+            'visibility' => 'public',
+        ],
+        'law_draft_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_guest'),
             'visibility' => 'public',
         ],
         'old_mou' => [

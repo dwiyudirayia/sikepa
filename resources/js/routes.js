@@ -110,6 +110,8 @@ import PKSProposalSubmissionCooperationYourDetail from './components/Proposal/Su
 import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
 import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
 
+import MOUProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
+import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/PKS/Detail';
 // --- End Proposal --- //
 
 // --- Banner --- //
@@ -590,6 +592,23 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationTwoDerivativeEdit,
                     meta: {
                         requiresAuth: true,
+                    }
+                },
+                //Guest
+                {
+                    path: '/mou/submission/cooperation/:id/detail/guest',
+                    name: 'MOUProposalSubmissionCooperationDetailGuest',
+                    component: MOUProposalSubmissionCooperationDetaiGuest,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/:id/detail/guest',
+                    name: 'PKSProposalSubmissionCooperationDetailGuest',
+                    component: PKSProposalSubmissionCooperationDetaiGuest,
+                    meta:{
+                        requiresAuth: true
                     }
                 },
                 //Proposal Subtance Cooperation

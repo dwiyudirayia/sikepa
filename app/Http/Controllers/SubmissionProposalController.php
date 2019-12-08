@@ -11,7 +11,6 @@ use App\TypeOfCooperationTwoDerivative;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-use App\CooperationTarget;
 use App\Agency;
 use App\Country;
 use App\DeputiPIC;
@@ -52,11 +51,15 @@ class SubmissionProposalController extends Controller
                 $query->where('role_id', $user->roles[0]->id);
                 $query->whereNull('approval');
             })->where('type_id', 2)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+            $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $query->where('role_id', $user->roles[0]->id);
+                $query->whereNull('approval');
+            })->where('type_guest_id', 2)->where('status_disposition', 2)->where('status_proposal', 1)->get();
         } else {
             $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
         }
-        $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('created_by', $user->id)->get();
-        $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+        $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('created_by', $user->id)->get();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -79,12 +82,16 @@ class SubmissionProposalController extends Controller
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('type_id', 1)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('type_guest_id', 1)->where('status_disposition', 2)->where('status_proposal', 1)->get();
             } else {
                 $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+                $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             }
 
             $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('created_by', $user->id)->get();
-            $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -163,6 +170,15 @@ class SubmissionProposalController extends Controller
     public function detail($id) {
         try {
             $data = SubmissionProposal::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function detailGuest($id) {
+        try {
+            $data = SubmissionProposalGuest::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->showFailed($th));
@@ -385,7 +401,7 @@ class SubmissionProposalController extends Controller
 
                 $statusDisposition = $proposal->status_disposition + 1;
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                    $query->whereIn('id', $statusDisposition);
+                    $query->where('id', $statusDisposition);
                 })->get();
 
                 if($proposal->type_id == 1) {

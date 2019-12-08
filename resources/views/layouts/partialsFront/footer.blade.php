@@ -14,11 +14,11 @@
                     </div>
                     <ul class="footer-nav">
                         <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="pengajuan-kerjasama.html">Pengajuan Kerjasama</a></li>
+                        <li><a href="{{ route('cooperation.submission') }}">Pengajuan Kerjasama</a></li>
                         <li><a href="{{ route('faq') }}">FAQ</a></li>
                         <li><a href="{{ route('article') }}">Artikel</a></li>
-                        <li><a href="syarat-kerjasama.html">Syarat Kerjasama</a></li>
-                        <li><a href="kontak-kami.html">Kontak Kami</a></li>
+                        <li><a href="{{ route('cooperation.submission') }}">Syarat Kerjasama</a></li>
+                        <li><a href="{{ route('our.contact') }}">Kontak Kami</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-lg-offset-1 col-md-3 col-md-offset-1 col-sm-6 footer-wrap">
