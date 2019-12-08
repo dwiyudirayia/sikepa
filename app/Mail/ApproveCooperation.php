@@ -28,6 +28,6 @@ class ApproveCooperation extends Mailable
      */
     public function build()
     {
-        return $this->view('proposal.approve');
+        return $this->view('mail.approve');
     }
 }

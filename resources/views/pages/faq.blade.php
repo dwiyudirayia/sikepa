@@ -8,10 +8,12 @@
                         <div class="subtitle">Sikepa</div>
                         <h2 class="title">Frequently Asked Questions</h2>
                     </div>
-                    <div class="search-header sr-btm">
-                        <button class="btn btn-search" type="submit"><i class="mdi mdi-magnify"></i></button>
-                        <input class="form-control" placeholder="Cari seputar pertanyaan">
-                    </div>
+                    <form method="GET" action="{{ route('faq') }}">
+                        <div class="search-header sr-btm">
+                            <button class="btn btn-search" type="submit"><i class="mdi mdi-magnify"></i></button>
+                            <input class="form-control" placeholder="Cari seputar pertanyaan" name="q" value="{{ old('q') ?? $data['q'] }}">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -22,7 +24,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
                     <div class="faq-list">
-                        @foreach ($faq as $item)
+                        @foreach ($data['data'] as $item)
                             <div class="panel faq-item sr-btm">
                                 <div class="panel-body">
                                 <a href="" data-toggle="collapse"><span>{{ $item->question }}</span></a>

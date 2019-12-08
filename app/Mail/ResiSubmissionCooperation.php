@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RejectDanaGuest extends Mailable
+class ResiSubmissionCooperation extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class RejectDanaGuest extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    protected $proposal;
+    public function __construct($proposal)
     {
-        //
+        $this->proposal;
     }
 
     /**
@@ -28,6 +29,8 @@ class RejectDanaGuest extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.reject-dana');
+        return $this->view('mail.resi-submission-cooperation-guest')->with([
+            'proposal' => $this->proposal,
+        ]);
     }
 }

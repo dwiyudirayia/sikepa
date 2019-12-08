@@ -28,6 +28,6 @@ class RejectCooperation extends Mailable
      */
     public function build()
     {
-        return $this->view('proposal.reject');
+        return $this->view('mail.reject');
     }
 }

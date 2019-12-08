@@ -17,7 +17,7 @@
                         <li><a href="{{ route('cooperation.submission') }}">Pengajuan Kerjasama</a></li>
                         <li><a href="{{ route('faq') }}">FAQ</a></li>
                         <li><a href="{{ route('article') }}">Artikel</a></li>
-                        <li><a href="{{ route('cooperation.submission') }}">Syarat Kerjasama</a></li>
+                        <li><a href="{{ route('page', ['slug' => 'syarat-kerjasama']) }}">Syarat Kerjasama</a></li>
                         <li><a href="{{ route('our.contact') }}">Kontak Kami</a></li>
                     </ul>
                 </div>

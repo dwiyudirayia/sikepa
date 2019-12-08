@@ -28,6 +28,6 @@ class RejectDeputi extends Mailable
      */
     public function build()
     {
-        return $this->view('proposal.reject-deputi');
+        return $this->view('mail.reject-deputi');
     }
 }

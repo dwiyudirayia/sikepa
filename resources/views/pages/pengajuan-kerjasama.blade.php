@@ -646,7 +646,9 @@
                 } else {
                     $('.is-indonesian').hide();
                     $('#province_id').html('');
-                    $('#province_id').html('');
+                    $('#province_id').val('');
+                    $('#regency_id').html('');
+                    $('#regency_id').val('');
                 }
             });
             $('#province_id').change(function(e) {

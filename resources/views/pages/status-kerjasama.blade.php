@@ -1,0 +1,207 @@
+@extends('layouts.layout-single')
+@section('content')
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                    <div class="main-title text-center sr-btm">
+                        <div class="subtitle">Sikepa</div>
+                        <h2 class="title">Monitoring Hasil Kerjasama</h2>
+                    </div>
+                    <form action="{{ route('monitoring.cooperation') }}" method="GET">
+                        <div class="search-header sr-btm">
+                            <button class="btn btn-search" type="submit"><i class="mdi mdi-magnify"></i></button>
+                            <input class="form-control" placeholder="Masukan nomor resi" name="q" value="{{ old('q') ?? $data['q'] }}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    @if ($data['data'] == null)
+        <section class="content-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="control-group">
+                            <div class="main-title text-center sr-btm">
+                                <h4 class="title">Data Kosong</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @else
+        <section class="content-wrap">
+            <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="control-group">
+                                <div class="main-title text-center sr-btm">
+                                    <h4 class="title">Formulir Jenis Kerjasama</h4>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Usulan jenis kerjasama</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperation']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Permohonan kerjasama</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperationOne']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Kesepahaman jenis kerjasama</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperationTwo']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Instansi</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['agencies']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Negara</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['country']['country_name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Provinsi</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['province']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Kabupaten/Kota</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['regency']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Kodepos</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['postal_code']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Nama Instansi / Kantor</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['agency_name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row flex flex-center">
+                                        <div class="col-lg-4 col-md-4"><p>Alamat lengkap Instansi</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['address']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="main-title text-center sr-btm">
+                                    <h4 class="title">Formulir Biodata Pemohon/Instansi</h4>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Nama pemohon</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['name']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Jabatan pemohon</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['department']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Nomor telepon</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['no_telp']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Alamat email</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['email']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Maksud dan tujuan</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['purpose_objectives']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Usulan jangka waktu</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['time_period']}} Tahun</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Latar belakang</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="input-value"><b>{{ $data['data']['background']}}</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="main-title text-center sr-btm">
+                                    <h4 class="title">Formulir Sasaran Kerjasama</h4>
+                                </div>
+                                <div class="form-group sr-btm">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4"><p>Sasaran kerjasama</p></div>
+                                        <div class="col-lg-8 col-md-8">
+                                            @foreach ($data['data']['deputi'] as $item)
+                                                <div class="input-value"><b>{{ $item->role->name }}</b></div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+@endsection

@@ -11,20 +11,67 @@ use App\Page;
 use App\TypeOfCooperation;
 use App\Country;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
+use App\Mail\ResiSubmissionCooperation;
+use App\Mail\SurveyKepuasan;
 use App\Notifications\DeputiNotificationGuest;
 use App\Province;
 use App\Regency;
+use App\SatisfactionSurvey;
 use App\SubmissionProposalGuest;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
 use Illuminate\Support\Facades\Notification;
 use DB;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class FrontController extends Controller
 {
+    public function filterMonitoringCooperation($data) {
+        $monitoring = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
+
+        return $monitoring;
+    }
+    public function storeSatisfactionSurvey(Request $request) {
+        try {
+            DB::beginTransaction();
+            $survey = SatisfactionSurvey::create([
+                'email' => $request->email,
+                'survey' => $request->survey,
+                'token' => (string) Str::uuid(),
+            ]);
+
+            Mail::to($survey->email)->send(new SurveyKepuasan($survey));
+
+            DB::commit();
+            return back()->with('success', 'Berhasil! Silahkan Verifikasi Survey Anda Melalui Email');
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollback();
+            return back()->with('error', 'Data Berhasil di Simpan');
+        }
+    }
+    public function updateSatisfactionSurvey($token) {
+
+        SatisfactionSurvey::where('token', $token)->update([
+            'verified' => 1,
+        ]);
+    }
+    public function satisfactionSurvey() {
+        return view('pages.survey-kepuasan');
+    }
+    public function filterFAQ($data) {
+
+        if($data['q'] == null) {
+            $faq = FAQ::all();
+        } else {
+            $faq = FAQ::where('question', $data['q'])->orWhere('answere', $data['q'])->get();
+        }
+
+        return $faq;
+    }
     public function home()
     {
         $bannerArticle = Article::orderBy('created_at', 'desc')->take(3)->get();
@@ -34,10 +81,10 @@ class FrontController extends Controller
 
         return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
     }
-    public function about($slug) {
-        $about = Page::where('url', $slug)->firstOrFail();
+    public function page($slug) {
+        $data = Page::where('url', $slug)->firstOrFail();
 
-        return view('pages.about', compact('about'));
+        return view('pages.page', compact('data'));
     }
     // public function article() {
     //     $article = Article::paginate(5);
@@ -65,10 +112,16 @@ class FrontController extends Controller
     // public function submission() {
     //     return view('pages.submission');
     // }
-    public function faq() {
-        $faq = FAQ::all();
+    public function faq(Request $request) {
+        if($request->q) {
+            $data['q'] = $request->q;
+        } else {
+            $data['q'] = null;
+        }
 
-        return view('pages.faq', compact('faq'));
+        $data['data'] = $this->filterFAQ($data);
+
+        return view('pages.faq', compact('data'));
     }
     public function article() {
         $article = Article::paginate(9);
@@ -111,6 +164,16 @@ class FrontController extends Controller
         ];
         return view('pages.pengajuan-kerjasama', compact('data'));
     }
+    public function monitoringResultCooperation(Request $request) {
+        if($request->q) {
+            $data['q'] = $request->q;
+        } else {
+            $data['q'] = null;
+        }
+        $data['data'] = $this->filterMonitoringCooperation($data);
+
+        return view('pages.status-kerjasama', compact('data'));
+    }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
         // dd($request->all());
         try {
@@ -137,6 +200,7 @@ class FrontController extends Controller
             }
 
             Notification::send($users, new DeputiNotificationGuest($path));
+            Mail::to($request->email)->send(new ResiSubmissionCooperation($proposal));
 
             return back()->with('success', 'Data Berhasil di Simpan');
         } catch (\Throwable $th) {
@@ -217,6 +281,38 @@ class FrontController extends Controller
         }
     }
     public function distributionOfCooperation() {
-        return view('pages.sebaran-kerjasama');
+        $data['approval_guest_overseas'] = SubmissionProposalGuest::where('type_of_cooperation_one_derivative_id', 1)->get()->count();
+        $data['approval_guest_domestic'] = SubmissionProposalGuest::where('type_of_cooperation_one_derivative_id', 2)->get()->count();
+        $data['country'] = Country::all();
+
+        return view('pages.sebaran-kerjasama', compact('data'));
+    }
+    public function mapDistributionOfCooperation() {
+        return response()->json([
+            'data' => SubmissionProposalGuest::all(),
+        ]);
+    }
+    public function filterMapDistributionOfCooperation(Request $request) {
+        $data = SubmissionProposalGuest::query();
+
+        if($request->country_id) {
+            $data->with('typeOfCooperation')->where('countries_id', $request->country_id);
+        }
+
+        if($request->province_id)
+        {
+            $data->with('typeOfCooperation')->where('province_id', $request->province_id);
+        }
+
+        if($request->regency_id)
+        {
+            $data->with('typeOfCooperation')->where('regency_id', $request->regency_id);
+        }
+
+        $result = $data->get();
+
+        return response()->json([
+            'data' => $result,
+        ]);
     }
 }

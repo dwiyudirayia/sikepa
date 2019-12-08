@@ -33,7 +33,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="{{ request()->is('about/*') ? 'active' : '' }}"><a href="{{ route('about', ['slug' => 'tentang-sikepa']) }}">Tentang Sikepa</a></li>
+                    <li class="{{ request()->is('page/tentang-sikepa') ? 'active' : '' }}"><a href="{{ route('page', ['slug' => 'tentang-sikepa']) }}">Tentang Sikepa</a></li>
                     <li><a href="{{ route('cooperation.submission') }}">Pengajuan Kerjasama</a></li>
                     <li class="{{ request()->is('page/faq') ? 'active' : '' }}"><a href="{{ route('faq') }}">FAQ</a></li>
                     <li class="{{ request()->is('page/article') || request()->is('page/article/*') ? 'active' : '' }}"><a href="{{ route('article') }}">Artikel</a></li>

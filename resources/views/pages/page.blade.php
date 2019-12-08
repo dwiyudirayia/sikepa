@@ -6,7 +6,7 @@
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="main-title text-center sr-btm">
                         <div class="subtitle">Sikepa</div>
-                        <h2 class="title">{{ $about['title'] }}</h2>
+                        <h2 class="title">{{ $data['title'] }}</h2>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="row single-post">
                 <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
                     <article>
-                        {!! $about['content'] !!}
+                        {!! $data['content'] !!}
                     </article>
                 </div>
             </div>

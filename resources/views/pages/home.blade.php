@@ -64,7 +64,7 @@
     <div class="container">
         <div class="row list-box">
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="status-kerjasama.html" class="sr-btm">
+                <a href="{{ route('monitoring.cooperation') }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">
@@ -88,7 +88,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="syarat-kerjasama.html" class="sr-btm">
+                <a href="{{ route('page', ['slug' => 'syarat-kerjasama']) }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">
@@ -136,7 +136,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="survei-kepuasan.html" class="sr-btm">
+                <a href="{{ route('satisfaction.survey') }}" class="sr-btm">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">

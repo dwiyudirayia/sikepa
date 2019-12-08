@@ -360,10 +360,12 @@
   .map-wrapper .map-info .stats-filter .btn i {
     display: none;
   }
-  .map-wrapper .map-info .stats-filter .btn:before {
+  .map-wrapper .map-info .stats-filter .btn-primary:before {
     content: "Filter";
   }
-
+  .map-wrapper .map-info .stats-filter .btn-secondary:before {
+    content: "Reset";
+  }
   #search-result .table {
     background-color: #fff;
     box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
