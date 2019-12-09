@@ -275,6 +275,11 @@ const router = new VueRouter({
                     component: SectionArticleIndex,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        console.log(to);
+                        console.log(from);
+                        next();
                     }
                 },
                 {

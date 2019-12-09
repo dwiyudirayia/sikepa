@@ -6,6 +6,7 @@ use App\DeputiPICGuest;
 use App\LawFileSubmissionProposalGuest;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Mail\ApproveCooperation;
+use App\Mail\ApproveCooperationFinal;
 use App\Mail\RejectCooperation;
 use App\ReasonSubmissionCooperationGuest;
 use App\SubmissionProposalGuest;
@@ -114,7 +115,7 @@ class SubmissionProposalGuestController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
-                Mail::to($proposal->email)->send(new ApproveCooperation);
+                Mail::to($proposal->email)->send(new ApproveCooperationFinal);
             } else {
                 $rolesName = $user->roles[0]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
@@ -178,7 +179,7 @@ class SubmissionProposalGuestController extends Controller
 
                 if($sumStatus == $countRowProposal) {
                     if($sumApproval > 0) {
-                        $proposal->status_disposition = 9;
+                        $proposal->status_disposition = 8;
                         $proposal->save();
 
                         $statusDisposition = $proposal->status_disposition;
@@ -381,7 +382,7 @@ class SubmissionProposalGuestController extends Controller
             if($request->hasFile('notulen')) {
 
                 $extention = $request->notulen->getClientOriginalExtension();
-                
+
                 $fileName = 'law-notulen'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
                 $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen');
 
@@ -399,6 +400,13 @@ class SubmissionProposalGuestController extends Controller
                     ]);
                 }
             }
+            return response()->json([
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
         }
     }
 }

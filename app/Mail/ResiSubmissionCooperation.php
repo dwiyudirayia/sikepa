@@ -19,7 +19,7 @@ class ResiSubmissionCooperation extends Mailable
     protected $proposal;
     public function __construct($proposal)
     {
-        $this->proposal;
+        $this->proposal = $proposal;
     }
 
     /**
@@ -29,6 +29,7 @@ class ResiSubmissionCooperation extends Mailable
      */
     public function build()
     {
+        // dd($this->proposal);
         return $this->view('mail.resi-submission-cooperation-guest')->with([
             'proposal' => $this->proposal,
         ]);

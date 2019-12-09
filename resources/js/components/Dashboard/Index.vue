@@ -204,23 +204,46 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-6">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Statistik Data Instansi Pertahun
+                                    Deputi Bidang Kesetaraan Gender
                                 </h3>
                             </div>
                         </div>
                     </div>
                     <div class="m-portlet__body">
-                        <canvas id="chart-data-instansi-pertahun" height="50"></canvas>
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsKesetaraanGender"
+                                    v-model="chartData.deputiKesetaraanGender.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" class="btn btn-brand" @click="filterMonev">{{ chartData.oldMonev.textButton }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiKesetaraanGender.all"
+                            :options="options"
+                        />
                     </div>
                 </div>
-
                 <!--End::Portlet-->
             </div>
         </div>
@@ -270,6 +293,14 @@ export default {
                     yearsText: [],
                     textButton: 'Filter'
                 },
+                deputiKesetaraanGender: {
+                    all: null,
+                    selectedYear: null,
+                    data: [],
+                    years: [],
+                    value: [],
+                    yearsText: [],
+                }
             },
             breadcrumbTitle: 'Dashboard',
             breadcrumbLink: [
@@ -285,6 +316,9 @@ export default {
         yearsMonev() {
             return this.chartData.oldMonev.years;
         },
+        yearsKesetaraanGender() {
+            return this.chartData.deputiKesetaraanGender.years;
+        }
     },
     mounted() {
         this.getData();
@@ -336,6 +370,34 @@ export default {
                         }
                     ]
                 };
+
+                this.chartData.deputiKesetaraanGender.data = response.data.data.deputi_kesetaraan_gender;
+
+                let objectDeputiKesetaraanGender = this.chartData.deputiKesetaraanGender.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiKesetaraanGender.years = objectDeputiKesetaraanGender;
+                this.chartData.deputiKesetaraanGender.yearsText = this.chartData.deputiKesetaraanGender.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.value = this.chartData.deputiKesetaraanGender.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.all = {
+                    labels: this.chartData.deputiKesetaraanGender.yearsText,
+                    datasets: [
+                        {
+                            label: `Status`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.value,
+                        },
+                    ]
+                };
+
+
+                //Widget
                 const responseData = response.data.data;
 
                 this.widget.mou.approve = responseData.mou_approve + responseData.mou_approve_guest;

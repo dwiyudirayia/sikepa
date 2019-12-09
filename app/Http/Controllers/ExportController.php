@@ -65,7 +65,6 @@ class ExportController extends Controller
     }
     public function downloadFormatMOUWordGuest($id)
     {
-        dd($id);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $proposal = SubmissionProposalGuest::find($id);
         $getIdProposal = $proposal->id;
@@ -79,7 +78,7 @@ class ExportController extends Controller
         $wrappingStyles = array('inline', 'behind', 'infront', 'square', 'tight');
         $phpWord->addFontStyle('headerFontStyle', array('size'=>12, 'name' => 'Bookman Old Style'));
         $phpWord->addParagraphStyle('headerParagraphStyle', array('align'=>'center', 'spaceAfter'=>200));
-        $section->addImage(storage_path("app/public/barcode/$getIdProposal/barcode-$getMailingNumber.png"),['positioning' => 'absolute', 'width' => 60, 'height' => 60]);
+        $section->addImage(storage_path("app/public/barcode_guest/$getIdProposal/barcode-$getMailingNumber.png"),['positioning' => 'absolute', 'width' => 60, 'height' => 60]);
         $section->addText("KESEPAKATAN BERSAMA","headerFontStyle","headerParagraphStyle");
         $section->addText("ANTARA","headerFontStyle","headerParagraphStyle");
         $section->addText("$getAgencyName","headerFontStyle","headerParagraphStyle");

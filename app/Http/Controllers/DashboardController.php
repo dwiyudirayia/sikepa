@@ -6,6 +6,7 @@ use App\ApprovalOldSubmissionCooperation;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposalGuest;
 use App\SubmissionProposal;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -24,6 +25,15 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+            $data['data_deputi_kesetaraan_gender_guest'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
+                $q->where('role_id', 3);
+            })->get();
+            $data['data_deputi_kesetaraan_gender'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
+                $q->where('role_id', 3);
+            })->get();
+
+            $data['deputi_kesetaraan_gender'] = array_merge($data['data_deputi_kesetaraan_gender_guest']->toArray(), $data['data_deputi_kesetaraan_gender']->toArray());
+            //
             $data['pks_approve'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
             $data['pks_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
 

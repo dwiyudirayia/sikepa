@@ -586,7 +586,8 @@ class SubmissionProposalController extends Controller
     }
     public function proposalApproveMOU() {
         try {
-            $data = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get();
+            $data['satker'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get();
+            $data['guest'] = SubmissionProposalGuest::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -594,7 +595,8 @@ class SubmissionProposalController extends Controller
     }
     public function proposalRejectMOU() {
         try {
-            $data = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 0)->get();
+            $data['satker'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 0)->get();
+            $data['guest'] = SubmissionProposalGuest::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 0)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -603,7 +605,10 @@ class SubmissionProposalController extends Controller
     }
     public function proposalApprovePKS() {
         try {
-            $data = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get();
+            $data['satker'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get();
+
+            $data['guest'] = SubmissionProposalGuest::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get();
+
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -611,7 +616,8 @@ class SubmissionProposalController extends Controller
     }
     public function proposalRejectPKS() {
         try {
-            $data = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 0)->get();
+            $data['satker'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 0)->get();
+            $data['guest'] = SubmissionProposalGuest::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 0)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

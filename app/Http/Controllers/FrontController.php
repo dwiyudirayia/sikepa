@@ -179,7 +179,7 @@ class FrontController extends Controller
         try {
             DB::beginTransaction();
             $proposal = SubmissionProposalGuest::create($request->store());
-
+            // dd($proposal);
             foreach ($request->deputi as $key => $value) {
                 $proposal->deputi()->create([
                     'role_id' => $value,
