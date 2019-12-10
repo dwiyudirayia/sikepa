@@ -113,24 +113,5 @@
             <td colspan="3" class="width:100px"><span class="text-header">Persetujuan</span></td>
         </tr>
     </table>
-    <table>
-    @foreach ($data->reason as $index => $item)
-        <tr>
-            <td><span class="text-table">Nama</span></td>
-            <td><span class="text-table"> : </span></td>
-            <td><span class="text-table"> {{ $item->user->name }} </span></td>
-        </tr>
-        <tr>
-            <td><span class="text-table">Keterangan</span></td>
-            <td><span class="text-table"> : </span></td>
-            <td><span class="text-table"> {{ $item->approval == 1 ? 'Diterima' : 'Ditolak' }} </span></td>
-        </tr>
-        <tr>
-            <td><span class="text-table">Alasan</span></td>
-            <td><span class="text-table"> : </span></td>
-            <td><span class="text-table"> {{ $item->reason }} </span></td>
-        </tr>
-    @endforeach
-    </table>
 </body>
 </html>

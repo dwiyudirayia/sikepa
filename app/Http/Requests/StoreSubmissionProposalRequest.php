@@ -73,7 +73,7 @@ class StoreSubmissionProposalRequest extends FormRequest
             'purpose_objectives' => $this->purpose_objectives,
             'background' => $this->background,
             'status_proposal' => 1,
-            'status_disposition' => 2,
+            'status_disposition' => 3,
             'time_period' => $this->time_period,
             // 'time_period_of' => $this->time_period_of,
             // 'time_period_to' => $this->time_period_to,

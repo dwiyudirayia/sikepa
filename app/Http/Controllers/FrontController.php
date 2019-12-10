@@ -17,6 +17,7 @@ use App\Notifications\DeputiNotificationGuest;
 use App\Province;
 use App\Regency;
 use App\SatisfactionSurvey;
+use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
@@ -191,7 +192,7 @@ class FrontController extends Controller
 
             $deputi = $request->deputi;
             $users = User::whereHas('roles', function(Builder $query) use ($deputi) {
-                $query->whereIn('id', $deputi);
+                $query->whereIn('id', [2,9]);
             })->get();
             if($request->type_guest_id == 1) {
                 $path = 'PKSProposalSubmissionCooperationIndex';
@@ -205,7 +206,7 @@ class FrontController extends Controller
             return back()->with('success', 'Data Berhasil di Simpan');
         } catch (\Throwable $th) {
             DB::rollback();
-            dd($th);
+
             return back()->with('error', 'Data Berhasil di Simpan');
         }
     }
@@ -285,31 +286,46 @@ class FrontController extends Controller
         $data['approval_guest_domestic'] = SubmissionProposalGuest::where('type_of_cooperation_one_derivative_id', 2)->get()->count();
         $data['country'] = Country::all();
 
+        $merge['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
+        $merge['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+
+        $data['data'] = array_merge($merge['satker']->toArray(), $merge['guest']->toArray());
+
         return view('pages.sebaran-kerjasama', compact('data'));
     }
     public function mapDistributionOfCooperation() {
+        $data['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
+        $data['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+
+        $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
+
         return response()->json([
-            'data' => SubmissionProposalGuest::all(),
+            'data' => $merge,
         ]);
     }
     public function filterMapDistributionOfCooperation(Request $request) {
-        $data = SubmissionProposalGuest::query();
+        $data['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
+        $data['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+
+        $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
+
+        $collectMerge = collect($merge);
 
         if($request->country_id) {
-            $data->with('typeOfCooperation')->where('countries_id', $request->country_id);
+            $filtered = $collectMerge->where('countries_id', $request->country_id);
         }
 
         if($request->province_id)
         {
-            $data->with('typeOfCooperation')->where('province_id', $request->province_id);
+            $filtered = $collectMerge->where('province_id', $request->province_id);
         }
 
         if($request->regency_id)
         {
-            $data->with('typeOfCooperation')->where('regency_id', $request->regency_id);
+            $filtered = $collectMerge->where('regency_id', $request->regency_id);
         }
 
-        $result = $data->get();
+        $result = $filtered->all();
 
         return response()->json([
             'data' => $result,

@@ -397,7 +397,7 @@
             var markers = [];
             searchBox.addListener('places_changed', function() {
                 var places = searchBox.getPlaces();
-
+                console.log(places[0]);
                 for (var i = 0; i < places[0].address_components.length; i++) {
                     for (var j = 0; j < places[0].address_components[i].types.length; j++) {
                         if (places[0].address_components[i].types[j] == "postal_code") {
@@ -405,7 +405,7 @@
                         }
                     }
                 }
-
+                $('#loc-search').val(`${places[0].name}`);
                 $('#addressLabel').val(`${places[0].formatted_address}`);
                 $('#latitudeLabel').val(`${places[0].geometry.location.lat()}`);
                 $('#longitudeLabel').val(`${places[0].geometry.location.lng()}`);

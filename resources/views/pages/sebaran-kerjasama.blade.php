@@ -9,17 +9,17 @@
                         <div class="row list-stats">
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="stats">
-                                    <div class="stats-val">
+                                    <div class="stats-val" id="domestic">
                                         {{ $data['approval_guest_domestic'] }}
                                     </div>
-                                    <div class="stats-label">
+                                    <div class="stats-label" id="domestic">
                                         Total Kerjasama<br>Dalam Negri
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="stats">
-                                    <div class="stats-val">
+                                    <div class="stats-val" id="overseas">
                                         {{ $data['approval_guest_overseas'] }}
                                     </div>
                                     <div class="stats-label">
@@ -43,20 +43,26 @@
     <section class="content-wrap">
         <div class="container">
             <div class="main-title text-center sr-btm">
-                <h3 class="title">Hasil pencarian</h3>
+                <h3 class="title" id="title-table">Data Keseluruhan</h3>
             </div>
-            <table class="table table-striped sr-btm" id="is-search-table">
+            <table class="table table-striped sr-btm">
                 <thead>
                     <tr>
                         <th>Jenis kerjasama</th>
                         <th>Instansi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td title="Jenis kerjasama">Jenis kerjasama</td>
-                        <td title="Instansi">Instansi</td>
-                    </tr>
+                <tbody id="is-search-table">
+                    @forelse ($data['data'] as $item)
+                        <tr>
+                            <td title="Jenis kerjasama">{{ $item['type_of_cooperation']['name'] }}</td>
+                            <td title="Instansi">{{ $item['agency_name'] }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="2" style="text-align:center;">Data Kosong</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -158,7 +164,7 @@
             var infoWindowContent = data.map(content => {
                 return [`
                     <tr>
-                        <td>Nama Kelompok</b>
+                        <td>Judul Kerjasama</b>
                         <td>:</td>
                         <td>${content.title_cooperation}</td>
                     </tr>
@@ -199,6 +205,29 @@
                 this.setZoom(10);
                 google.maps.event.removeListener(boundsListener);
             });
+
+            let tableData = '';
+            data.map(value => {
+                tableData += `
+                    <tr>
+                        <td title="Jenis kerjasama">${value.type_of_cooperation.name}</td>
+                        <td title="Instansi">${value.agency_name}</td>
+                    </tr>
+                `
+            })
+
+            const overseas = data.filter(value => {
+                return value.type_of_cooperation_one_derivative_id == 1;
+            });
+            const domestic = data.filter(value => {
+                return value.type_of_cooperation_two_derivative_id == 2;
+            });
+
+            $('#overseas').html(overseas.length);
+            $('#domestic').html(domestic.length);
+
+            $('#title-table').html('Data Keseluruhan');
+            $('#is-search-table').html(tableData);
         });
     }
     function filterUmum(country_id, province_id, regency_id)
@@ -268,22 +297,33 @@
                 google.maps.event.removeListener(boundsListener);
             });
             let tableData = '';
-            data.map(value => {
-                tableData += `
-                    <thead>
-                        <tr>
-                            <th>Jenis kerjasama</th>
-                            <th>Nama Instansi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            if(data.length == 0) {
+                tableData = `
+                    <tr>
+                        <td colspan="2" style="text-align:center;">Data Kosong</td>
+                    </tr>
+                `
+            } else {
+                data.map(value => {
+                    tableData += `
                         <tr>
                             <td title="Jenis kerjasama">${value.type_of_cooperation.name}</td>
                             <td title="Instansi">${value.agency_name}</td>
                         </tr>
-                    </tbody>
-                `
-            })
+                    `
+                })
+            }
+            const overseas = data.filter(value => {
+                return value.type_of_cooperation_one_derivative_id == 1;
+            });
+            const domestic = data.filter(value => {
+                return value.type_of_cooperation_two_derivative_id == 2;
+            });
+
+            $('#overseas').html(overseas.length);
+            $('#domestic').html(domestic.length);
+
+            $('#title-table').html('Data Filter');
             $('#is-search-table').html(tableData);
         });
     }

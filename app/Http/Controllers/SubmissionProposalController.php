@@ -46,15 +46,15 @@ class SubmissionProposalController extends Controller
         });
 
         $idRoles = $mappingRole->all();
-        if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+        if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
             $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                 $query->where('role_id', $user->roles[0]->id);
                 $query->whereNull('approval');
-            })->where('type_id', 2)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+            })->where('type_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->get();
             $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                 $query->where('role_id', $user->roles[0]->id);
                 $query->whereNull('approval');
-            })->where('type_guest_id', 2)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+            })->where('type_guest_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->get();
         } else {
             $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
@@ -77,15 +77,15 @@ class SubmissionProposalController extends Controller
 
             $idRoles = $mappingRole->all();
 
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+            if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
                 $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
-                })->where('type_id', 1)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+                })->where('type_id', 1)->where('status_disposition', 3)->where('status_proposal', 1)->get();
                 $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
-                })->where('type_guest_id', 1)->where('status_disposition', 2)->where('status_proposal', 1)->get();
+                })->where('type_guest_id', 1)->where('status_disposition', 3)->where('status_proposal', 1)->get();
             } else {
                 $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
                 $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
@@ -177,7 +177,36 @@ class SubmissionProposalController extends Controller
     }
     public function detailGuest($id) {
         try {
-            $data = SubmissionProposalGuest::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            $data['data'] = SubmissionProposalGuest::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            $collectDeputi = collect($data['data']['deputi']);
+            $mapDeputi = $collectDeputi->map(function($item, $key) {
+                return $item['role_id'];
+            });
+            $currentRoleId = $mapDeputi->all();
+            $deputi = [
+                0 => [
+                    'id' => 2,
+                    'name' => 'Bidang Partisipasi Masyarakat',
+                ],
+                1 => [
+                    'id' => 3,
+                    'name' => 'Bidang Kesetaraan Gender',
+                ],
+                2 => [
+                    'id' => 4,
+                    'name' => 'Bidang Perlindungan Anak',
+                ],
+                3 => [
+                    'id' => 5,
+                    'name' => 'Bidang Perlindungan Hak Perempuan',
+                ],
+                4 => [
+                    'id' => 6,
+                    'name' => 'Bidang Tumbuh Kembang Anak'
+                ],
+            ];
+
+            $data['deputi'] = collect($deputi)->whereNotIn('id', $currentRoleId);
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -198,7 +227,7 @@ class SubmissionProposalController extends Controller
             $countRole = auth()->user()->roles()->count();
             $user = auth()->user();
             $proposal = SubmissionProposal::findOrFail($request->id);
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+            if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
 
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
@@ -320,8 +349,7 @@ class SubmissionProposalController extends Controller
 
             $proposal = SubmissionProposal::findOrFail($request->id);
 
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
-
+            if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 0

@@ -31,7 +31,7 @@
                         </div>
                         <article class="caption-text sr-btm">
                             <ul class="list-contact">
-                                <li><span class="text-label">Alamat</span><br><b>Jl. Batu Indah I No.6, Batununggal, Kec. Bandung Kidul, Kota Bandung, Jawa Barat 40266</b></li>
+                                <li><span class="text-label">Alamat</span><br><b>Jl. Medan Merdeka Barat No.15, RT.2/RW.3, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160</b></li>
                                 <li><span class="text-label">Telp</span><br><b>0812-3456-7890</b></li>
                                 <li><span class="text-label">Email</span><br><b><a href="#!"><span class="hover-line">info@sikepa.id</span></a></b></li>
                                 <li>
@@ -94,8 +94,8 @@
         $(document).ready(function () {
             var mapStyle = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
             var LocA = [{
-                lat: -6.3193176,
-                lon: 106.9833145,
+                lat: -6.1786963,
+                lon: 106.8211828,
                 icon: '/assets/images/marker-icon.svg',
                 show_infowindow: false,
             }]

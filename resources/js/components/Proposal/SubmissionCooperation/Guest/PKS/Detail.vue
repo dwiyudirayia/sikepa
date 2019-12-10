@@ -22,6 +22,12 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
+                                                <li class="m-nav__item" v-if="status_disposition == 2">
+                                                    <a class="m-nav__link" @click="modalEditDeputiPIC">
+                                                        <i class="m-nav__link-icon la la-users"></i>
+                                                        <span class="m-nav__link-text">Edit Tujuan Deputi</span>
+                                                    </a>
+                                                </li>
                                                 <li class="m-nav__item">
                                                     <a class="m-nav__link" @click="downloadSummary">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
@@ -45,6 +51,11 @@
             </div>
             <div class="m-portlet__body">
                 <div class="text-center">
+                    <template v-for="value in bpd">
+                        <template>
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
+                        </template>
+                    </template>
                     <template v-for="value in sortDeputi">
                         <template>
                             <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
@@ -308,6 +319,58 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="deputi-target" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tujuan Deputi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama Deputi</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-if="deputi.length">
+                                    <tr v-for="(value, index) in deputi" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.role.name }}</td>
+                                        <td>
+                                            <span class="m--font-danger" @click="hapusDeputi(value.id)">Hapus Deputi</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template v-else>
+                                    <tr>
+                                        <td colspan="9" class="text-center">Data Kosong</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div class="form-group m-form__group">
+                            <label for="message-text" class="form-control-label">Pilih Deputi</label>
+                            <div class="m-form__control">
+                                <select2-multiple multiple
+                                    :options="notInDeputi"
+                                    v-model="addDeputi"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" @click="addDeputiPIC" class="btn btn-primary">{{ text_button }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--end::Modal-->
         <!--begin::Modal-->
         <div class="modal fade" id="modal-reject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
@@ -346,6 +409,7 @@ export default {
     name: 'PKSProposalSubmissionCooperationDetailGuest',
     data() {
         return {
+            addDeputi: [],
             text_button: 'Submit',
             notulen: null,
             notulenFile: null,
@@ -371,6 +435,7 @@ export default {
                     path: `/pks/submission/cooperation/${this.$route.params.id}/detail/guest`
                 },
             ],
+            notInDeputi: [],
             deputi: [],
             nomor: [''],
             title_cooperation: null,
@@ -406,6 +471,23 @@ export default {
 
             return filterRoles.length;
         },
+        bpd: function() {
+            const data = this.tracking;
+
+            const value = Object.values(data).splice(2,1);
+            const label = ['Biro Perencanaan dan Data'];
+
+            let finalData = value.map((value, index) => {
+                return {
+                    id: index+1,
+                    label: label[index],
+                    value: value,
+                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : value == 2 ? 'btn-primary' : 'btn-metal'
+                }
+            });
+
+            return finalData;
+        },
         sortDeputi: function() {
             const data = this.deputi;
 
@@ -416,13 +498,14 @@ export default {
                     class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : 'btn-metal'
                 }
             });
+
             return finalData;
         },
         sortTracking: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(2,9);
-            const label = ['Biro Perencanaan dan Data','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+            const value = Object.values(data).splice(3,8);
+            const label = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
 
             let finalData = value.map((value, index) => {
                 return {
@@ -480,6 +563,77 @@ export default {
         this.getData();
     },
     methods: {
+        addDeputiPIC() {
+            $axios.post(`/admin/deputi/pic/guest`, {
+                id: this.$route.params.id,
+                data: this.addDeputi,
+            })
+            .then(response => {
+                this.getData();
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Perbaharui`);
+
+                this.addDeputi = [];
+
+                $('#deputi-target').modal('hide');
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        hapusDeputi(id) {
+            $axios.delete(`/admin/deputi/pic/guest/${id}`)
+            .then(response => {
+                this.getData();
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Hapus`);
+
+                $('#deputi-target').modal('hide');
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        modalEditDeputiPIC() {
+            $('#deputi-target').modal('show');
+        },
         downloadSummary() {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/guest/?token=${localStorage.getItem('token')}`;
         },
@@ -648,30 +802,31 @@ export default {
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/guest`)
             .then(response => {
-                this.title_cooperation = response.data.data.title_cooperation;
-                this.title_cooperation_final = response.data.data.title_cooperation;
-                this.type_of_cooperation = response.data.data.type_of_cooperation.name;
-                this.type_of_cooperation_one = response.data.data.type_of_cooperation_one == null ? "Kosong" : response.data.data.type_of_cooperation_one.name;
-                this.type_of_cooperation_two = response.data.data.type_of_cooperation_two == null ? "Kosong" : response.data.data.type_of_cooperation_two.name;
-                this.country = response.data.data.country.country_name;
-                this.province = response.data.data.province == null ? "Kosong" : response.data.data.province.name;
-                this.regency = response.data.data.regency == null ? "Kosong" : response.data.data.regency.name;
-                this.agency_category = response.data.data.agencies.name;
-                this.agency_name = response.data.data.agency_name;
-                this.agency_address = response.data.data.address;
-                this.purpose_objectives = response.data.data.purpose_objectives;
-                this.background = response.data.data.background;
-                this.forms.id = response.data.data.id;
-                this.latitude = parseFloat(response.data.data.latitude);
-                this.longitude = parseFloat(response.data.data.longitude);
-                this.tracking = response.data.data.tracking;
-                this.status_disposition = response.data.data.status_disposition;
-                this.status_barcode = response.data.data.status_barcode;
-                this.draft = response.data.data.law == null ? null : response.data.data.law.draft;
-                this.draftLabel = response.data.data.law == null ? null : response.data.data.law.draft;
-                this.notulen = response.data.data.law == null ? null : response.data.data.law.notulen;
-                this.notulenLabel = response.data.data.law == null ? null : response.data.data.law.notulen;
-                this.deputi = response.data.data.deputi;
+                this.title_cooperation = response.data.data.data.title_cooperation;
+                this.title_cooperation_final = response.data.data.data.title_cooperation;
+                this.type_of_cooperation = response.data.data.data.type_of_cooperation.name;
+                this.type_of_cooperation_one = response.data.data.data.type_of_cooperation_one == null ? "Kosong" : response.data.data.data.type_of_cooperation_one.name;
+                this.type_of_cooperation_two = response.data.data.data.type_of_cooperation_two == null ? "Kosong" : response.data.data.data.type_of_cooperation_two.name;
+                this.country = response.data.data.data.country.country_name;
+                this.province = response.data.data.data.province == null ? "Kosong" : response.data.data.data.province.name;
+                this.regency = response.data.data.data.regency == null ? "Kosong" : response.data.data.data.regency.name;
+                this.agency_category = response.data.data.data.agencies.name;
+                this.agency_name = response.data.data.data.agency_name;
+                this.agency_address = response.data.data.data.address;
+                this.purpose_objectives = response.data.data.data.purpose_objectives;
+                this.background = response.data.data.data.background;
+                this.forms.id = response.data.data.data.id;
+                this.latitude = parseFloat(response.data.data.data.latitude);
+                this.longitude = parseFloat(response.data.data.data.longitude);
+                this.tracking = response.data.data.data.tracking;
+                this.status_disposition = response.data.data.data.status_disposition;
+                this.status_barcode = response.data.data.data.status_barcode;
+                this.draft = response.data.data.data.law == null ? null : response.data.data.data.law.draft;
+                this.draftLabel = response.data.data.data.law == null ? null : response.data.data.data.law.draft;
+                this.notulen = response.data.data.data.law == null ? null : response.data.data.data.law.notulen;
+                this.notulenLabel = response.data.data.data.law == null ? null : response.data.data.data.law.notulen;
+                this.deputi = response.data.data.data.deputi;
+                this.notInDeputi = response.data.data.deputi
             });
         },
         showModalReject() {

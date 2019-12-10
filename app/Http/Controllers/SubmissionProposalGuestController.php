@@ -32,9 +32,9 @@ class SubmissionProposalGuestController extends Controller
             DB::beginTransaction();
             $countRole = auth()->user()->roles()->count();
             $user = auth()->user();
-            $proposal = SubmissionProposalGuest::findOrFail($request->id);
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+            $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
 
+            if($proposal->status_disposition == 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 1
@@ -48,7 +48,7 @@ class SubmissionProposalGuestController extends Controller
 
                 if($sumStatus == $countRowProposal) {
                     if($sumApproval > 0) {
-                        $proposal->status_disposition = 8;
+                        $proposal->status_disposition = 9;
                         $proposal->save();
 
                         $statusDisposition = $proposal->status_disposition;
@@ -71,7 +71,37 @@ class SubmissionProposalGuestController extends Controller
                         Mail::to($proposal->email)->send(new RejectCooperation);
                     }
                 }
-            } elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
+            } elseif($proposal->status_disposition == 2) {
+                $collectDeputi = collect($proposal->deputi->toArray());
+                $mapDeputi = $collectDeputi->map(function($item, $key) {
+                    return $item['role_id'];
+                });
+                $currentRoleId = $mapDeputi->all();
+
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $proposal->tracking()->update([
+                    $convertToSnakeCase => 1
+                ]);
+
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+
+
+
+                $users = User::whereHas('roles', function(Builder $query) use ($currentRoleId) {
+                    $query->whereIn('id', $currentRoleId);
+                })->get();
+
+                if($proposal->type_id == 1) {
+                    $path = 'PKSProposalSubmissionCooperationIndex';
+                } else {
+                    $path = 'MOUProposalSubmissionCooperationIndex';
+                }
+                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Mail::to($proposal->email)->send(new ApproveCooperation);
+            }
+            elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
 
@@ -164,7 +194,7 @@ class SubmissionProposalGuestController extends Controller
 
             $proposal = SubmissionProposalGuest::findOrFail($request->id);
 
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
+            if($proposal->status_disposition == 3) {
 
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
@@ -179,7 +209,7 @@ class SubmissionProposalGuestController extends Controller
 
                 if($sumStatus == $countRowProposal) {
                     if($sumApproval > 0) {
-                        $proposal->status_disposition = 8;
+                        $proposal->status_disposition = 9;
                         $proposal->save();
 
                         $statusDisposition = $proposal->status_disposition;
@@ -200,6 +230,21 @@ class SubmissionProposalGuestController extends Controller
                         Mail::to($proposal->email)->send(new RejectCooperation);
                     }
                 }
+            } elseif($proposal->status_disposition == 2) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $proposal->tracking()->update([
+                    $convertToSnakeCase => 0
+                ]);
+
+                SubmissionProposalGuest::where('id', $request->id)->update([
+                    'status_proposal' => 0
+                ]);
+
+                Mail::to($proposal->email)->send(new RejectCooperation);
+
+
             } elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
@@ -322,8 +367,18 @@ class SubmissionProposalGuestController extends Controller
             $proposal->status_disposition = $proposal->status_disposition + 1;
             $proposal->save();
 
-            DB::commit();
+            if($proposal->type_id == 1) {
+                $path = 'PKSProposalSubmissionCooperationIndex';
+            } else {
+                $path = 'MOUProposalSubmissionCooperationIndex';
+            }
+            $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                $query->where('id', 11);
+            })->get();
 
+            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+
+            DB::commit();
             return response()->json([
                 'messages' => 'Data Berhasil di Update'
             ]);
@@ -407,6 +462,42 @@ class SubmissionProposalGuestController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function destroyDeputiPIC($id) {
+        try {
+            $deputi = DeputiPICGuest::findOrFail($id);
+            $deputi->delete();
+
+            return response()->json([
+                'messages' => 'Data berhasil dihapus',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeDeputiPIC(Request $request) {
+        try {
+            foreach ($request->data as $key => $value) {
+                $deputiPIC = DeputiPICGuest::updateOrCreate([
+                    'role_id' => $value,
+                    'submission_proposal_guest_id' => $request->id,
+                ]);
+            }
+
+            return response()->json([
+                'messages' => 'Data berhasil ditambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
         }
     }
 }

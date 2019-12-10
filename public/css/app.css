@@ -362,3 +362,7 @@
   color: #5867dd !important;
 }
 
+.select2-container {
+  z-index: 99999999999;
+}
+

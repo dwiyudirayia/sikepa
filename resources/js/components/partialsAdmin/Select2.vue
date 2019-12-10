@@ -7,16 +7,7 @@
 <script>
 export default {
     name: 'Select2',
-    props: {
-        options: {
-            type: Array,
-            required: true,
-        },
-        value: {
-            type: String,
-            default: null,
-        }
-    },
+    props: ['options', 'value'],
     mounted: function () {
         var data = $.map(this.options, function (obj) {
             obj.id = obj.id;

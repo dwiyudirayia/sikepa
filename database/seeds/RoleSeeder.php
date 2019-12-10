@@ -17,25 +17,25 @@ class RoleSeeder extends Seeder
                 'name' => 'Admin'
             ],
             1 => [
-                'name' => 'Deputi Bidang Partisipasi Masyarakat'
+                'name' => 'Biro Perencanaan dan Data',
             ],
             2 => [
-                'name' => 'Deputi Bidang Kesetaraan Gender'
+                'name' => 'Deputi Bidang Partisipasi Masyarakat'
             ],
             3 => [
-                'name' => 'Deputi Bidang Perlindungan Anak',
+                'name' => 'Deputi Bidang Kesetaraan Gender'
             ],
             4 => [
-                'name' => 'Deputi Bidang Perlindungan Hak Perempuan'
+                'name' => 'Deputi Bidang Perlindungan Anak',
             ],
             5 => [
-                'name' => 'Deputi Bidang Tumbuh Kembang Anak'
+                'name' => 'Deputi Bidang Perlindungan Hak Perempuan'
             ],
             6 => [
-                'name' => 'Satker Sesmen'
+                'name' => 'Deputi Bidang Tumbuh Kembang Anak'
             ],
             7 => [
-                'name' => 'Biro Perencanaan dan Data',
+                'name' => 'Satker Sesmen'
             ],
             8 => [
                 'name' => 'Bagian Kerja Sama',
