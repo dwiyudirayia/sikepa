@@ -30,33 +30,6 @@
     @include('layouts.partialsFront.footer')
 </main>
 
-<div id="modal-welcome" class="auto-modal modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-                        <div class="panel">
-                            <a class="close" href="javascript:;" data-dismiss="modal"><i class="mdi mdi-close"></i></a>
-                            <div class="panel-body text-center">
-                                <div class="main-title">
-                                    <div class="subtitle">Sikepa</div>
-                                    <h3 class="title">Selamat Datang di Website SIKEPA</h3>
-                                </div>
-                                <div class="caption-text">
-                                    <p>Ajukan Kerjasama dengan kami dan tunggu proses, rasakan kemudahan dengan menggunakan SIKEPA</p>
-                                </div>
-                                <div class="caption-btn">
-                                    <a class="btn btn-lg btn-rounded btn-primary" href="#!">Ajukan Kerjasama</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/fill.box.js') }}"></script>

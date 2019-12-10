@@ -26,7 +26,7 @@
                         <h5 class="title">Kontak Kami</h5>
                     </div>
                     <ul class="footer-nav contact-footer">
-                        <li>Jl. Batu Indah I No.6, Batununggal, Kec. Bandung Kidul, Kota Bandung, Jawa Barat 40266</li>
+                        <li>Jl. Medan Merdeka Barat No.15, RT.2/RW.3, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160</li>
                         <li>0812-3456-7890</li>
                         <li><a href="#!"><span class="hover-line">info@sikepa.id</span></a></li>
                         <li>

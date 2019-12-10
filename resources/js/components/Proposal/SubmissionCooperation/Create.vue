@@ -336,24 +336,24 @@ export default {
         return {
             deputi: [
                 {
-                    id: 2,
-                    name: 'Bidang Partisipasi Masyarakat'
-                },
-                {
                     id: 3,
-                    name: 'Bidang Kesetaraan Gender',
+                    name: 'Deputi Bidang Partisipasi Masyarakat'
                 },
                 {
                     id: 4,
-                    name: 'Bidang Perlindungan Anak',
+                    name: 'Deputi Bidang Kesetaraan Gender',
                 },
                 {
                     id: 5,
-                    name: 'Bidang Perlindungan Hak Perempuan',
+                    name: 'Deputi Bidang Perlindungan Anak',
                 },
                 {
                     id: 6,
-                    name: 'Bidang Tumbuh Kembang Anak'
+                    name: 'Deputi Bidang Perlindungan Hak Perempuan',
+                },
+                {
+                    id: 7,
+                    name: 'Deputi Bidang Tumbuh Kembang Anak'
                 }
             ],
             options:[

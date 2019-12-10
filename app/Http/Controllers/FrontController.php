@@ -143,23 +143,23 @@ class FrontController extends Controller
         $data['agency'] = Agency::all();
         $data['deputi'] = [
             0 => [
-                'id' => 2,
+                'id' => 3,
                 'name' => 'Bidang Partisipasi Masyarakat',
             ],
             1 => [
-                'id' => 3,
+                'id' => 4,
                 'name' => 'Bidang Kesetaraan Gender',
             ],
             2 => [
-                'id' => 4,
+                'id' => 5,
                 'name' => 'Bidang Perlindungan Anak',
             ],
             3 => [
-                'id' => 5,
+                'id' => 6,
                 'name' => 'Bidang Perlindungan Hak Perempuan',
             ],
             4 => [
-                'id' => 6,
+                'id' => 7,
                 'name' => 'Bidang Tumbuh Kembang Anak',
             ],
         ];

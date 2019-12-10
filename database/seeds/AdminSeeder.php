@@ -21,15 +21,18 @@ class AdminSeeder extends Seeder
         $roleAdmin = Role::find(1); //AMBIL ROLE BERDASARKAN ID
         $roleAdmin->syncPermissions($permissionAdmin); //SET PERMISSION UNTUK ROLE TERSEBUT
 
-        for ($i=2; $i <= 6; $i++) {
+        $roleBPD = Role::find(2);
+        $roleBPD->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
+
+        for ($i=3; $i <= 7; $i++) {
             $roleSatkerDeputi = Role::find($i); //AMBIL ROLE BERDASARKAN ID
             $roleSatkerDeputi->syncPermissions($permissionSatkerDeputi); //SET PERMISSION UNTUK ROLE TERSEBUT
         }
 
-        $roleSatkerSesmen = Role::find(7);
+        $roleSatkerSesmen = Role::find(8);
         $roleSatkerSesmen->syncPermissions($permissionSatkerSesmen);
 
-        for ($x=8; $x <= 16; $x++) {
+        for ($x=9; $x <= 16; $x++) {
             $roleSatkerDeputi = Role::find($x); //AMBIL ROLE BERDASARKAN ID
             $roleSatkerDeputi->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
         }
