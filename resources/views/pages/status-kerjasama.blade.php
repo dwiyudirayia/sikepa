@@ -35,6 +35,37 @@
     @else
         <section class="content-wrap">
             <div class="container">
+                <div class="step sr-btm">
+                    <ul class="step-nav nav nav-tabs" role="tablist">
+                        <li class="step-item active">
+                            <a class="step-icon" href="#!">1</a>
+                        </li>
+                        <li class="step-item warning">
+                            <a class="step-icon" href="#!">2</a>
+                        </li>
+                        <li class="step-item danger">
+                            <a class="step-icon" href="#!">3</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">4</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">5</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">6</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">7</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">8</a>
+                        </li>
+                        <li class="step-item">
+                            <a class="step-icon" href="#!">9</a>
+                        </li>
+                    </ul>
+                </div>
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="control-group">
@@ -204,4 +235,30 @@
             </div>
         </section>
     @endif
+@endsection
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="{{ asset('assets/js/lightpick.js') }}"></script>
+{{-- <script>
+
+    var picker = new Lightpick({
+        field: document.getElementById("jangka_waktu"),
+        singleDate: false,
+        format: "DD MMMM, YYYY",
+        separator: "  →  "
+        //onSelect: function(start, end){
+            //var str = "";
+            //str += start ? start.format("DD MM YYYY") + "to" : "";
+            //str += end ? end.format("DD MM YYYY") : "...";
+        //}
+    });
+    setTimeout(function(){
+            $(".lightpick__select").each(function(){
+            var x = $(this).parent().append("<span></span>");
+            console.log(x);
+        });
+
+    },400);
+
+</script> --}}
 @endsection

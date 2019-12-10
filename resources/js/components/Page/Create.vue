@@ -135,45 +135,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="m-form__seperator m-form__seperator--dashed" />
-                <div class="m-form__heading">
-                    <h3 class="m-form__heading-title">Extra File Tambahan</h3>
-                </div>
-                <div
-                    v-for="(value, index) in name"
-                    :key="index"
-                >
-                    <div class="m-form__section m-form__section--last">
-                        <div class="form-group m-form__group">
-                            <div class="text-right">
-                                <i
-                                    v-if="(index === name.length - 1)"
-                                    class="la la-plus fa-2x"
-                                    @click="addExtraFile"
-                                />
-                                <i
-                                    v-if="name.length >= 2 && index === name.length - 1"
-                                    class="la la-minus fa-2x"
-                                    @click="removeExtraFile(index)"
-                                />
-                            </div>
-                            <label class="d-block" for="File">File</label>
-                            <span
-                                class="btn btn-primary m-btn m-btn--icon m-btn--pill m-btn--air"
-                                @click="handleExplore(index)"
-                            >
-                                <span>
-                                    <i class="la la-plus"></i>
-                                    <span>Tambah File</span>
-                                </span>
-                                <input type="file" ref="files" class="d-none" v-on:change="handleExtraFile(index)">
-                            </span>
-                            <p class="pt-3" :id="`name-file-${index}`"></p>
-                            <label for="Nama Lengkap">Nama</label>
-                            <input type="text" v-model="name[index]" class="form-control">
-                        </div>
-                    </div>
-                </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--last">
                     <div class="m-form__heading">
@@ -249,8 +210,6 @@ export default {
                 publish: null,
                 approved: null
             },
-            files: [''],
-            name: [''],
             section: null,
             category: null,
         }
@@ -276,38 +235,6 @@ export default {
         });
     },
     methods: {
-        handleExplore(index) {
-            this.$refs.files[index].click();
-        },
-        removeExtraFile(index) {
-            this.name.splice(index, 1);
-            this.files.splice(index, 1);
-            this.$refs.files.splice(index, 1);
-        },
-        addExtraFile() {
-            this.name.push('');
-            this.files.push('');
-        },
-        handleExtraFile(index) {
-            let uploadedFiles = this.$refs.files[index].files[0];
-
-            $(`#name-file-${index}`).html(uploadedFiles.name);
-
-            this.files[index] = uploadedFiles;
-        },
-        onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            const checkExtFile = files[0];
-            if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
-                if (!files.length) {
-                    return;
-                } else {
-                    this.createImage(checkExtFile);
-                }
-            } else {
-                alert('File Tidak Mendukung');
-            }
-        },
         createImage(file) {
             let reader = new FileReader();
             let vm = this;
@@ -332,13 +259,6 @@ export default {
             formData.append('seo_meta_desc', this.forms.seo_meta_desc);
             formData.append('publish', this.forms.publish);
             formData.append('approved', this.forms.approved);
-
-            $.each(this.files, function(key, value) {
-                formData.append(`file[${key}]`, value);
-            })
-            $.each(this.name, function(key, value) {
-                formData.append(`name[${key}]`, value);
-            })
 
             if(this.$v.forms.$invalid) {
                 return;

@@ -207,9 +207,7 @@ export default {
             forms: {},
             section: null,
             category: null,
-            extraFile: null,
             name: null,
-            files: [],
             previousImage: true,
             currentlyImage: false,
             selectedSection: null,
@@ -234,31 +232,12 @@ export default {
         .then(response => {
             this.section = response.data.data.section;
             this.category = response.data.data.category;
-            this.extraFile = response.data.data.file_page.length == 0 ? [''] : response.data.data.file_page;
             this.forms = response.data.data.data;
             this.selectedSection = response.data.data.data.section_id;
             this.selectedCategory = response.data.data.data.category_id;
         });
     },
     methods: {
-        handleExploreFile() {
-            this.$refs.filePage.click();
-        },
-        handleExtraFile(index) {
-
-            let uploadedFiles = this.$refs.files[index].files;
-
-            this.files[index] = uploadedFiles;
-        },
-        removeExtraFile(index) {
-            this.extraFile.splice(index, 1);
-        },
-        addExtraFile() {
-            this.extraFile.push({
-                name: this.name,
-                file: this.files,
-            });
-        },
         changeSection(value) {
             this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
         },

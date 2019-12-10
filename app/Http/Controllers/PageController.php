@@ -75,19 +75,7 @@ class PageController extends Controller
         try {
             DB::beginTransaction();
             $page = Page::create($request->store());
-            if($request->hasFile('file')) {
-                foreach ($request->file as $key => $value) {
-                    $extention = $value->getClientOriginalExtension();
-                    $fileName = 'file-page'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-                    $path = $value->storeAs($page->id, $fileName, 'file_page');
-                    $page->files()->create([
-                        'created_by' => auth()->user()->id,
-                        'page_id' => $page->id,
-                        'name' => $request->name[$key] ?? "",
-                        'file' => $path,
-                    ]);
-                }
-            }
+
             $data = Page::where('category_id', $request->category_id)->get();
 
             DB::commit();
