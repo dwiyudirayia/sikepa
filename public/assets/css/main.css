@@ -344,7 +344,7 @@
 .banner-area .banner-caption .caption .main-title .title {
   font-size: 4em;
   color: #fff;
-  height: calc(1.2em * 2);
+  height: calc(1.3em * 2);
   overflow: hidden;
 }
 .banner-area .banner-caption .caption .main-title .title:after {
@@ -1239,6 +1239,24 @@
 }
 .list-radio .radio-btn input[type=radio]:checked + label {
   color: #212121;
+}
+
+#hasil-survei {
+  height: 100vh;
+  width: 100%;
+  display: table;
+  background-image: url(../images/customer_service.svg);
+  background-size: 50% auto;
+  background-position: left bottom -70%;
+  background-repeat: no-repeat;
+}
+#hasil-survei .inner {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 8em 0 10em;
+}
+#hasil-survei .main-title {
+  margin: 0;
 }
 
 .main-footer {
