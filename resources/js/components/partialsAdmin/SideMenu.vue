@@ -32,6 +32,16 @@
                     </router-link>
                 </li>
                 <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/deputy/information">
+                        <i class="m-menu__link-icon la la-users"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Informasi Deputi</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/banner/category">
                         <i class="m-menu__link-icon la la-image"></i>
                         <span class="m-menu__link-title">

@@ -167,6 +167,16 @@ Route::middleware('jwt')->group( function () {
         //Dashboard
         Route::get('/dashboard', 'DashboardController@index');
         Route::get('/old/monev/filter/{year}', 'DashboardController@filterOldMonev');
+
+        //Information Deputi
+        Route::get('/deputi/information', 'DeputiInformationController@index');
+        Route::post('/deputi/information', 'DeputiInformationController@store');
+        Route::delete('/deputi/information/{id}', 'DeputiInformationController@destroy');
+        Route::post('/deputi/information/{id}/update', 'DeputiInformationController@update');
+        Route::get('/deputi/information/{id}/edit', 'DeputiInformationController@edit');
+        Route::delete('/deputi/information/{id}/file', 'DeputiInformationController@destroyFile');
+        Route::post('/deputi/information/file', 'DeputiInformationController@storeFile');
+        Route::get('/deputi/information/download/file/{id}', 'DeputiInformationController@downloadFileDeputiInformation');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

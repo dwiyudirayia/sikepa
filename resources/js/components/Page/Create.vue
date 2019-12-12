@@ -235,6 +235,12 @@ export default {
         });
     },
     methods: {
+        onImageChange(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.createImage(files[0]);
+        },
         createImage(file) {
             let reader = new FileReader();
             let vm = this;

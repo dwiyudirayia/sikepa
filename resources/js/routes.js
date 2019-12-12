@@ -143,6 +143,12 @@ import TestimoniIndex from './components/Testimoni/Index';
 import TestimoniCreate from './components/Testimoni/Create';
 import TestimoniEdit from './components/Testimoni/Edit';
 // EndTestimoni
+
+//Informasi Deputi
+
+import DeputiInformationIndex from './components/DeputiInformation/Index';
+import DeputiInformationEdit from './components/DeputiInformation/Edit';
+import DeputiInformationCreate from './components/DeputiInformation/Create';
 // --- End Admin --//
 
 //Auth
@@ -778,6 +784,31 @@ const router = new VueRouter({
                     component: BannerEdit,
                     meta: {
                         requiresAuth: true
+                    }
+                },
+                //Deputi Information
+                {
+                    path: '/deputy/information',
+                    name: 'DeputiInformationIndex',
+                    component: DeputiInformationIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/deputy/information/:id/edit',
+                    name: 'DeputiInformationEdit',
+                    component: DeputiInformationEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/deputy/information/create',
+                    name: 'DeputiInformationCreate',
+                    component: DeputiInformationCreate,
+                    meta: {
+                        requiresAuth: true,
                     }
                 },
                 //Testimoni

@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="content-page main-footer">
     <section class="content-wrap top-footer">
         <div class="container">
             <div class="row">

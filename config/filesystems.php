@@ -144,6 +144,31 @@ return [
             'root' => storage_path('app/public/siup_guest'),
             'visibility' => 'public',
         ],
+        'file_deputi_information' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/file_deputi_information'),
+            'visibility' => 'public',
+        ],
+        'photo_contact_deputi_information' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_contact_deputi_information'),
+            'visibility' => 'public',
+        ],
+        'photo_information_deputi_information' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_information_deputi_information'),
+            'visibility' => 'public',
+        ],
+        'photo_requirement_deputi_information' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_requirement_deputi_information'),
+            'visibility' => 'public',
+        ],
+        'photo_video_deputi_information' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_video_deputi_information'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

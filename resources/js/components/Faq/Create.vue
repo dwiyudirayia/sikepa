@@ -29,7 +29,7 @@
                 <div class="form-group m-form__group">
                     <label for="Username">Jawaban</label>
                     <div class="m-form__control">
-                        <textarea type="text" v-model="$v.forms.answere.$model" class="form-control" @blur="$v.forms.answere.$touch()"></textarea>
+                        <textarea v-model="$v.forms.answere.$model" class="form-control" @blur="$v.forms.answere.$touch()"></textarea>
                     </div>
                     <template v-if="$v.forms.answere.$error">
                         <span v-if="!$v.forms.answere.required" class="m--font-danger">Field Ini Harus di Isi</span>

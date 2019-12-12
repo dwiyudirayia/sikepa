@@ -501,7 +501,7 @@ export default {
                 }
             })
             .then(response => {
-                this.downloadFileWord(response, 'Download Format Excel')
+                this.downloadFileWord(response, 'Download Format Word')
             })
         },
         downloadFileWord(response, filename) {

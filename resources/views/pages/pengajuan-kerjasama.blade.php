@@ -1,9 +1,7 @@
 @extends('layouts.layout-single')
 @section('styles1')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lightpick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.steps.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lightpick.css') }}">
-@endsection
-@section('styles2')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/select2.min.css') }}">
 @endsection
 @section('content')
@@ -60,18 +58,18 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control required" id="type_guest_id" name="type_guest_id">
+                                                    <select class="form-control select2 required" id="type_guest_id" name="type_guest_id">
                                                         <option value="1">PKS</option>
                                                         <option value="2">MOU</option>
                                                     </select>
-                                                    <label class="text-label">Usulan jenis kerjasama</label>
+                                                    <label class="text-label">Jenis</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control required" id="type_of_cooperation_id" name="type_of_cooperation_id">
+                                                    <select class="form-control select2 required" id="type_of_cooperation_id" name="type_of_cooperation_id">
                                                         <option></option>
                                                         @foreach ($data['type'] as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -84,7 +82,7 @@
                                         <div class="col-lg-6 col-md-6" id="is-typeof-one">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
+                                                    <select class="form-control select2" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
                                                     </select>
                                                     <label class="text-label">Permohonan kerjasama</label>
                                                 </div>
@@ -505,9 +503,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            // $('.select2').select2({
-            //     placeholder: 'Pilih dan Sesuaikan'
-            // });
+            $('.select2').select2();
 
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();

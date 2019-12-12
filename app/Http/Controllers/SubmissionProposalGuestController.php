@@ -372,7 +372,7 @@ class SubmissionProposalGuestController extends Controller
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
-            $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+            $users = User::whereHas('roles', function(Builder $query) {
                 $query->where('id', 11);
             })->get();
 

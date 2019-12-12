@@ -1,6 +1,6 @@
 @extends('layouts.layout-home')
 @section('content')
-<section class="banner-area">
+<section class="content-page banner-area">
     <div class="swiper-container">
         <div class="swiper-wrapper">
             @foreach ($bannerArticle as $item)
@@ -30,7 +30,7 @@
     </div>
 </section>
 
-<section class="content-wrap" id="home-sikepa">
+<section class="content-page content-wrap" id="home-sikepa">
     <div class="container">
         <div class="row no-gutter block-media-text gallery">
             <div class="col-lg-6 col-md-6">
@@ -60,7 +60,7 @@
     </div>
 </section>
 
-<section class="content-wrap">
+<section class="content-page content-wrap pb0" id="home-feature">
     <div class="container">
         <div class="row list-box">
             <div class="col-lg-3 col-md-3 col-sm-6">
@@ -163,7 +163,7 @@
     </div>
 </section>
 
-<section class="content-wrap pt0">
+<section class="content-page content-wrap pb0" id="home-article">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
@@ -200,7 +200,7 @@
     </div>
 </section>
 
-<section class="content-wrap pt0" id="home-testimoni">
+<section class="content-page content-wrap" id="home-testimoni">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">

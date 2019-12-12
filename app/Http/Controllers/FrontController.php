@@ -203,7 +203,7 @@ class FrontController extends Controller
             Notification::send($users, new DeputiNotificationGuest($path));
             Mail::to($request->email)->send(new ResiSubmissionCooperation($proposal));
 
-            return back()->with('success', 'Data Berhasil di Simpan');
+            return redirect()->route('satisfaction.survey');with('success', 'Data Berhasil di Simpan');
         } catch (\Throwable $th) {
             DB::rollback();
 

@@ -14,7 +14,10 @@ class CreateFileDeputiInformationTable extends Migration
     public function up()
     {
         Schema::create('file_deputi_information', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->tinyIncrements('id');
+            $table->tinyInteger('deputi_information_id');
+            $table->string('name');
+            $table->string('file');
             $table->timestamps();
         });
     }

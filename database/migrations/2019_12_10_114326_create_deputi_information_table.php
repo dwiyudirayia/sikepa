@@ -14,15 +14,18 @@ class CreateDeputiInformationTable extends Migration
     public function up()
     {
         Schema::create('deputi_information', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('photo_contact');
-            $table->longText('text_contact');
-            $table->string('photo_information');
-            $table->longText('text_information');
-            $table->string('photo_requirement');
-            $table->longText('text_requirement');
-            $table->string('photo_video');
-            $table->longText('text_video');
+            $table->tinyIncrements('id');
+            $table->string('title');
+            $table->string('url');
+            $table->string('photo_contact')->nullable();
+            $table->text('text_contact')->nullable();
+            $table->string('photo_information')->nullable();
+            $table->longText('full_text_information')->nullable();
+            $table->text('text_information')->nullable();
+            $table->string('photo_requirement')->nullable();
+            $table->text('text_requirement')->nullable();
+            $table->string('photo_video')->nullable();
+            $table->text('text_video')->nullable();
             $table->timestamps();
         });
     }

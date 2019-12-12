@@ -60,7 +60,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
         }
 
         if($this->type_of_cooperation_id == 1) {
-            $reject = Carbon::now()->addMinutes(10);
+            $reject = Carbon::now()->addMinutes(10)->format('H:i');
         } else {
             $reject = null;
         }
