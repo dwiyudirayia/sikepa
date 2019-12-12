@@ -16,6 +16,10 @@
     padding: 5em 0;
   }
 
+  .flex {
+    display: block;
+  }
+
   .container {
     padding: 0 20px;
     width: 100%;
@@ -236,6 +240,16 @@
     margin-right: 20px;
   }
 
+  #hasil-survei {
+    text-align: center;
+    background-size: 90% auto;
+    background-position: center bottom -15%;
+    padding-bottom: 100px;
+  }
+  #hasil-survei .main-title .title {
+    font-size: 34px;
+  }
+
   #modal-welcome .main-title .title {
     font-size: 24px;
   }
@@ -360,12 +374,10 @@
   .map-wrapper .map-info .stats-filter .btn i {
     display: none;
   }
-  .map-wrapper .map-info .stats-filter .btn-primary:before {
+  .map-wrapper .map-info .stats-filter .btn:before {
     content: "Filter";
   }
-  .map-wrapper .map-info .stats-filter .btn-secondary:before {
-    content: "Reset";
-  }
+
   #search-result .table {
     background-color: #fff;
     box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
