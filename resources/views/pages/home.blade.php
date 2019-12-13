@@ -260,10 +260,10 @@
                                     <h3 class="title">Selamat Datang di Website SIKEPA</h3>
                                 </div>
                                 <div class="caption-text">
-                                    <p>Ajukan Kerjasama dengan kami dan tunggu proses, rasakan kemudahan dengan menggunakan SIKEPA</p>
+                                    <p>Sistem pengelolaan data dan informasi kerja sama Kementerian Pemberdayaan Perempuan dan Perlindungan Anak.</p>
                                 </div>
                                 <div class="caption-btn">
-                                    <a class="btn btn-lg btn-rounded btn-primary" href="{{ route('cooperation.submission') }}">Ajukan Kerjasama</a>
+                                    <a class="btn btn-lg btn-rounded btn-primary" href="{{ route('cooperation.submission') }}">AJUKAN KERJA SAMA</a>
                                 </div>
                             </div>
                         </div>

@@ -9,11 +9,10 @@
                         <div class="m-stack m-stack--ver m-stack--general">
                             <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                 <a href="#" class="m-brand__logo-wrapper">
-                                    <img alt="" src="" />
+                                    <img src="/assets/demo/default/media/img/logo/logo.svg" />
                                 </a>
                             </div>
                             <div class="m-stack__item m-stack__item--middle m-brand__tools">
-
                                 <!-- BEGIN: Left Aside Minimize Toggle -->
                                 <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
                                     <span></span>
@@ -50,16 +49,44 @@
                         <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
                             <div class="m-stack__item m-topbar__nav-wrapper">
                                 <ul class="m-topbar__nav m-nav m-nav--inline">
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
+                                    <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true">
+                                        <a href="#" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-topbar__userpic">
+                                                <img src="/assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+                                            </span>
+                                            <span class="m-topbar__username m--hide">{{ this.$store.state.user.authenticated.name }}</span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper" style="z-index: 101;">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 12.5px;"></span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center">
+                                                    <div class="m-card-user m-card-user--skin-dark">
+                                                        <div class="m-card-user__pic">
+                                                            <img src="/assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+
+                                                            <!--
+                        <span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S<span><span>
+                        -->
+                                                        </div>
+                                                        <div class="m-card-user__details">
+                                                            <span class="m-card-user__name m--font-weight-500">{{ this.$store.state.user.authenticated.name }}</span>
+                                                            <a href="" class="m-card-user__email m--font-weight-300 m-link">{{ this.$store.state.user.authenticated.index_roles_name }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true">
                                         <a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
                                             <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger" v-if="notifications.length > 0"></span>
                                             <span class="m-nav__link-icon"><i class="flaticon-alarm"></i></span>
                                         </a>
                                         <div class="m-dropdown__wrapper" style="z-index: 101;">
-                                            <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 12.5px;"></span>
                                             <div class="m-dropdown__inner">
                                                 <div class="m-dropdown__header m--align-center" style="{backgroundImage: `url('${BackgroundNotification}')`, backgroundSize: cover;}">
-                                                    <span class="m-dropdown__header-title">{{ notifications.length }} Pesan</span>
+                                                    <span class="m-dropdown__header-title">{{ notifications.length }} Pemberitahuan</span>
                                                 </div>
                                                 <div class="m-dropdown__body">
                                                     <div class="m-dropdown__content">
@@ -77,7 +104,7 @@
                                                                         <div class="m-list-timeline__items">
                                                                             <div class="m-list-timeline__item" v-for="(value, index) in notifications" :key="index">
                                                                                 <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-                                                                                <span class="m-list-timeline__text" @click="readNotif(value)">{{ value.data.message }}</span>
+                                                                                <router-link class="m-list-timeline__text" :to="{name: value.data.path}" @click.native="readNotif(value)">{{ value.data.message }}</router-link>
                                                                                 <span class="m-list-timeline__time">{{ value.created_at | formatDate }}</span>
                                                                             </div>
                                                                         </div>
@@ -96,18 +123,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
-                                    </li>
-                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1" aria-expanded="true">
                                     </li>
                                 </ul>
                             </div>
@@ -194,7 +209,7 @@ export default {
         readNotif(row) {
             //MENGIRIMKAN REQUEST KE SERVER UNTUK MENANDAI BAHWA NOTIFIKASI TELAH DI BACA
             //KEMUDIAN SELANJUTNYA KITA REDIRECT KE HALAMAN VIEW EXPENSES
-            this.readNotification({ id: row.id}).then(() => this.$router.push({ name: row.data.path}))
+            this.readNotification({ id: row.id});
         },
     },
 }

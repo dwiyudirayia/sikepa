@@ -1,8 +1,6 @@
 <template>
     <div>
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
-        <notification-success v-show="getShowNotification" :data="getMessage" v-if="getStatusatusCode == 200"></notification-success>
-        <notification-error v-show="getShowNotification" :data="getMessage" v-else></notification-error>
         <div class="m-portlet">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -25,6 +23,18 @@
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
                                                 <li class="m-nav__item">
+                                                    <a class="m-nav__link" v-tooltip.top="'Tambah MOU/PKS Terdahulu P3'">
+                                                        <i class="m-nav__link-icon la la-upload"></i>
+                                                        <span class="m-nav__link-text">Tambah MOU/PKS Terdahulu P3 </span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item">
+                                                    <a class="m-nav__link" v-tooltip.top="'Tambah MOU/PKS Terdahulu Satker'">
+                                                        <i class="m-nav__link-icon la la-upload"></i>
+                                                        <span class="m-nav__link-text">Tambah MOU/PKS Terdahulu Satker </span>
+                                                    </a>
+                                                </li>
+                                                <!-- <li class="m-nav__item">
                                                     <a class="m-nav__link" v-tooltip.top="'Import Monev Terdahulu'" @click="showModalImportMonev">
                                                         <i class="m-nav__link-icon la la-upload"></i>
                                                         <span class="m-nav__link-text">Import</span>
@@ -47,7 +57,7 @@
                                                         <i class="m-nav__link-icon la la-plus"></i>
                                                         <span class="m-nav__link-text">Tambah Monev</span>
                                                     </router-link>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -58,88 +68,93 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <div class="table-responsive">
-                    <table class="table m-table m-table--head-bg-brand">
-                        <thead>
-                            <tr>
-                                <th style="vertical-align: middle;">No</th>
-                                <th style="vertical-align: middle;">Judul MOU</th>
-                                <th style="vertical-align: middle;">Latar Belakang</th>
-                                <th style="vertical-align: middle;">Tanggal TTD</th>
-                                <th style="vertical-align: middle;">Tanggal Berakhir</th>
-                                <th style="vertical-align: middle;">Status</th>
-                                <th style="vertical-align: middle;">Keterangan</th>
-                                <th style="vertical-align: middle;">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template v-if="data.length">
-                                <tr v-for="(item, index) in data" :key="item.id">
-                                    <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                    <td style="vertical-align: middle;">{{ item.title_of_cooperation }}</td>
-                                    <td style="vertical-align: middle;">{{ item.background }}</td>
-                                    <td style="vertical-align: middle;">{{ item.tanggal_ttd }}</td>
-                                    <td style="vertical-align: middle;">{{ item.end_date }}</td>
-                                    <td style="vertical-align: middle;">{{ item.status == 1 ? 'Masih Berlaku' : 'Tidak Berlaku' }}</td>
-                                    <td style="vertical-align: middle;">{{ item.description }}</td>
-                                    <td style="vertical-align: middle;">
-                                        <router-link :to="{name: 'MonevActivityCreate', params: { id: item.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Kegiatan'">
-                                            <span>
-                                                <i class="la la-plus"></i>
-                                                <span>Tambah Kegiatan</span>
-                                            </span>
-                                        </router-link>
-                                        <router-link :to="{name: 'MonitoringEvaluasiEdit', params: { id: item.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
-                                            <span>
-                                                <i class="la la-pencil"></i>
-                                                <span>Edit Monev</span>
-                                            </span>
-                                        </router-link>
-                                        <router-link :to="{name: 'MonitoringEvaluasiEditFile', params: { id: item.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Monev'">
-                                            <span>
-                                                <i class="la la-file-o"></i>
-                                                <span>Edit File</span>
-                                            </span>
-                                        </router-link>
-                                        <router-link :to="{name: 'MonevActivityDetail', params: { id: item.id }}" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Monev'">
-                                            <span>
-                                                <i class="la la-eye"></i>
-                                                <span>Detail Monev</span>
-                                            </span>
-                                        </router-link>
-                                        <a :href="`/download/data/monev/detail/pdf/${item.id}`" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Detail PDF'">
-                                            <span>
-                                                <i class="la la-file-pdf-o"></i>
-                                                <span>Download PDF</span>
-                                            </span>
-                                        </a>
-                                        <router-link :to="{name: 'ListMonevActivity', params: {id: item.id}}" class="btn m-btn btn-info btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Daftar Aktivitas Monev'">
-                                            <span>
-                                                <i class="la la-list"></i>
-                                                <span>Daftar Aktivitas Monev</span>
-                                            </span>
-                                        </router-link>
-                                        <button @click="confirmDelete(item.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Monev'">
-                                            <span>
-                                                <i class="la la-trash"></i>
-                                                <span>Hapus Monev</span>
-                                            </span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-                            <template v-else>
-                                <tr>
-                                    <td colspan="7" class="text-center">Data Tidak Ada</td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
+                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_tabs_8_2" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table m-table m-table--head-bg-brand">
+                                <thead>
+                                    <tr>
+                                        <th style="vertical-align: middle;">No</th>
+                                        <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Negara</th>
+                                        <th style="vertical-align: middle;">Instansi</th>
+                                        <th style="vertical-align: middle;">Nama Kantor</th>
+                                        <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template v-if="tableData.guest.length">
+                                        <tr v-for="(value, index) in tableData.guest" :key="value.id">
+                                            <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                        </tr>
+                                    </template>
+                                    <template v-else>
+                                        <tr>
+                                            <td colspan="9" class="text-center">Data Kososng</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table m-table m-table--head-bg-brand">
+                                <thead>
+                                    <tr>
+                                        <th style="vertical-align: middle;">No</th>
+                                        <th style="vertical-align: middle;">Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
+                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Negara</th>
+                                        <th style="vertical-align: middle;">Instansi</th>
+                                        <th style="vertical-align: middle;">Nama Kantor</th>
+                                        <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template v-if="tableData.satker.length">
+                                        <tr v-for="(value, index) in tableData.satker" :key="value.id">
+                                            <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agency_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                        </tr>
+                                    </template>
+                                    <template v-else>
+                                        <tr>
+                                            <td colspan="9" class="text-center">Data Kososng</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!--begin::Modal-->
-        <div class="modal fade" id="modal-import-monev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+        <!-- <div class="modal fade" id="modal-import-monev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -165,8 +180,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!--end::Modal-->
+        </div> -->
     </div>
 </template>
 
@@ -186,131 +200,116 @@ export default {
                     path: '/monev'
                 },
             ],
-
-            file: null,
-            disabled: false,
-            textButton: 'Submit',
-            data: []
+            tableData: {
+                guest: [],
+                satker: [],
+            },
         }
-    },
-    computed: {
-        getMessage()
-        {
-            return this.$store.getters['proposal/getMessage'];
-        },
-        getStatusatusCode()
-        {
-            return this.$store.getters['proposal/getStatusCode'];
-        },
-        getShowNotification()
-        {
-            return this.$store.getters['proposal/getShowNotification'];
-        },
     },
     created() {
         this.getData();
     },
     methods: {
-
         getData() {
             $axios.get(`/admin/monev`)
             .then(response => {
-                this.data = response.data.data;
+                this.tableData.guest = response.data.data.guest;
+                this.tableData.satker = response.data.data.approval;
             })
         },
-        showModalImportMonev() {
-            $('#modal-import-monev').modal('show');
-        },
-        onFileChange() {
-            let uploadedFiles = this.$refs.files.files[0];
-            this.file = uploadedFiles;
-        },
-        destroy(id) {
-            $axios.delete(`/admin/monev/activity/${id}`)
-            .then(response => {
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
+        // showModalImportMonev() {
+        //     $('#modal-import-monev').modal('show');
+        // },
+        // onFileChange() {
+        //     let uploadedFiles = this.$refs.files.files[0];
+        //     this.file = uploadedFiles;
+        // },
+        // destroy(id) {
+        //     $axios.delete(`/admin/monev/activity/${id}`)
+        //     .then(response => {
+        //         toastr.options = {
+        //             "closeButton": false,
+        //             "debug": false,
+        //             "progressBar": true,
+        //             "newestOnTop": false,
+        //             "progressBar": false,
+        //             "positionClass": "toast-top-center",
+        //             "preventDuplicates": false,
+        //             "onclick": null,
+        //             "showDuration": "300",
+        //             "hideDuration": "1000",
+        //             "timeOut": "5000",
+        //             "extendedTimeOut": "1000",
+        //             "showEasing": "swing",
+        //             "hideEasing": "linear",
+        //             "showMethod": "fadeIn",
+        //             "hideMethod": "fadeOut"
+        //         };
 
-                toastr.success(`${response.data.messages}`);
-                this.data = response.data.data;
-            })
-            .catch(error => {
-                toastr.error(`${response.data.messages}`);
-            })
-        },
-        submit() {
-            this.disabled = true;
-            this.textButton = 'Loading ....';
-            let formData = new FormData()
-            formData.append('file', this.file);
+        //         toastr.success(`${response.data.messages}`);
+        //         this.data = response.data.data;
+        //     })
+        //     .catch(error => {
+        //         toastr.error(`${response.data.messages}`);
+        //     })
+        // },
+        // submit() {
+        //     this.disabled = true;
+        //     this.textButton = 'Loading ....';
+        //     let formData = new FormData()
+        //     formData.append('file', this.file);
 
-            $axiosFormData.post(`/admin/monev/import`, formData)
-            .then(response => {
-                this.file = null;
-                this.disabled = false;
-                this.textButton = 'Submit';
-                this.$refs.files.value = null;
-                $('.custom-file-label').html('Choose File');
-                $('#modal-import-monev').modal('hide');
+        //     $axiosFormData.post(`/admin/monev/import`, formData)
+        //     .then(response => {
+        //         this.file = null;
+        //         this.disabled = false;
+        //         this.textButton = 'Submit';
+        //         this.$refs.files.value = null;
+        //         $('.custom-file-label').html('Choose File');
+        //         $('#modal-import-monev').modal('hide');
 
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
-                if(response.data.status != 200) {
-                    toastr.error(`${response.data.messages}`);
-                } else {
-                    toastr.success(`${response.data.messages}`);
-                    this.data = response.data.data;
-                }
-            })
-        },
-        confirmDelete(id)
-        {
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Data yang terhapus tidak bisa di kembalikan",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Hapus!'
-                }).then((result) => {
-                if (result.value) {
-                    this.destroy(id);
-                }
-            })
-        },
+        //         toastr.options = {
+        //             "closeButton": false,
+        //             "debug": false,
+        //             "progressBar": true,
+        //             "newestOnTop": false,
+        //             "progressBar": false,
+        //             "positionClass": "toast-top-center",
+        //             "preventDuplicates": false,
+        //             "onclick": null,
+        //             "showDuration": "300",
+        //             "hideDuration": "1000",
+        //             "timeOut": "5000",
+        //             "extendedTimeOut": "1000",
+        //             "showEasing": "swing",
+        //             "hideEasing": "linear",
+        //             "showMethod": "fadeIn",
+        //             "hideMethod": "fadeOut"
+        //         };
+        //         if(response.data.status != 200) {
+        //             toastr.error(`${response.data.messages}`);
+        //         } else {
+        //             toastr.success(`${response.data.messages}`);
+        //             this.data = response.data.data;
+        //         }
+        //     })
+        // },
+        // confirmDelete(id)
+        // {
+        //     Swal.fire({
+        //         title: 'Apakah Anda Yakin?',
+        //         text: "Data yang terhapus tidak bisa di kembalikan",
+        //         type: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, Hapus!'
+        //         }).then((result) => {
+        //         if (result.value) {
+        //             this.destroy(id);
+        //         }
+        //     })
+        // },
     }
 }
 </script>

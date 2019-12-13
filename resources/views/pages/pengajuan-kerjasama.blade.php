@@ -191,7 +191,7 @@
                                                 <div class="form-input">
                                                     <input type="text" id="latitudeLabel" class="form-control required" disabled>
                                                     <input type="hidden" id="latitude" name="latitude" class="form-control required">
-                                                    <label class="text-label">Latitude</label>
+                                                    <label class="text-label">Koordinat (Latitude)</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,7 +200,7 @@
                                                 <div class="form-input">
                                                     <input type="text" id="longitudeLabel" class="form-control requried" disabled>
                                                     <input type="hidden" id="longitude" name="longitude" class="form-control required">
-                                                    <label class="text-label">Longitude</label>
+                                                    <label class="text-label">Koordinat (Longitude)</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,7 +295,7 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2 required" name="time_period">
+                                                    <select class="form-control required" name="time_period">
                                                         <option></option>
                                                         <option value="1">1 tahun</option>
                                                         <option value="2">2 tahun</option>
@@ -503,7 +503,10 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2();
+            $('.select2').select2({
+                width: '100%',
+                placeholder: 'Pilih dan Sesuaikan',
+            });
 
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
@@ -582,6 +585,7 @@
                             });
 
                             $('#countries_id').html(countryTwo);
+                            $('#countries_id').val('102');
                             $('#province_id').html(provinceTwo);
                             $('#type_of_cooperation_two_derivative_id').html(typeTwo);
                         }

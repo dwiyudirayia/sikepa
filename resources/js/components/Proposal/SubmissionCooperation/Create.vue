@@ -221,14 +221,14 @@
                             </template>
                         </div>
                         <div class="form-group m-form__group">
-                            <label for="Nama Lengkap">Latitude</label>
+                            <label for="Nama Lengkap">Koordinat (Latitude)</label>
                             <div class="m-form__control">
                                 <input type="text" v-model="forms.latitude" class="form-control" disabled>
                             </div>
                             <span class="m-form__help">Sudah Terisi Otomatis</span>
                         </div>
                         <div class="form-group m-form__group">
-                            <label for="Nama Lengkap">Longitude</label>
+                            <label for="Nama Lengkap">Koordinat (Longitude)</label>
                             <div class="m-form__control">
                                 <input type="text" v-model="forms.longitude" class="form-control" disabled>
                             </div>

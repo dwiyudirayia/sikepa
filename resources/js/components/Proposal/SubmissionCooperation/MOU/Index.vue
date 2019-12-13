@@ -22,18 +22,18 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
                     <template v-if="$can('Satker Sesmen')">
-                        <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
                         </li>
                     </template>
                     <template v-else>
-                        <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
                         </li>
-                        <li class="nav-item m-tabs__item">
-                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
                         </li>
                     </template>
                 </ul>

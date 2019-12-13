@@ -22,11 +22,11 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
-                    <li class="nav-item m-tabs__item">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item">
                         <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
+                    <li class="nav-item">
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
                     </li>
                 </ul>

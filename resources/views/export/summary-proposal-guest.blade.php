@@ -108,10 +108,5 @@
             <td><span class="text-table"> {{ $data->address }} </span></td>
         </tr>
     </table>
-    <table class="table table-bordered table-striped text-center" style="margin-top:10px">
-        <tr>
-            <td colspan="3" class="width:100px"><span class="text-header">Persetujuan</span></td>
-        </tr>
-    </table>
 </body>
 </html>

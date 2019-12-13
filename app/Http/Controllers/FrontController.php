@@ -49,9 +49,8 @@ class FrontController extends Controller
             DB::commit();
             return back()->with('success', 'Berhasil! Silahkan Verifikasi Survey Anda Melalui Email');
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollback();
-            return back()->with('error', 'Data Berhasil di Simpan');
+            return back()->with('error', 'Data Gagal di Simpan');
         }
     }
     public function updateSatisfactionSurvey($token) {
@@ -59,6 +58,8 @@ class FrontController extends Controller
         SatisfactionSurvey::where('token', $token)->update([
             'verified' => 1,
         ]);
+
+        return view('pages.hasil-survey');
     }
     public function satisfactionSurvey() {
         return view('pages.survey-kepuasan');
@@ -176,11 +177,10 @@ class FrontController extends Controller
         return view('pages.status-kerjasama', compact('data'));
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
-        // dd($request->all());
         try {
+            // dd(1);
             DB::beginTransaction();
             $proposal = SubmissionProposalGuest::create($request->store());
-            // dd($proposal);
             foreach ($request->deputi as $key => $value) {
                 $proposal->deputi()->create([
                     'role_id' => $value,
@@ -199,15 +199,16 @@ class FrontController extends Controller
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
-
+            // dd($request->type_guest_id);
             Notification::send($users, new DeputiNotificationGuest($path));
             Mail::to($request->email)->send(new ResiSubmissionCooperation($proposal));
 
-            return redirect()->route('satisfaction.survey');with('success', 'Data Berhasil di Simpan');
+            return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Jika Minat');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             DB::rollback();
 
-            return back()->with('error', 'Data Berhasil di Simpan');
+            return back()->with('error', 'Data Gagal di Simpan');
         }
     }
     public function typeOne($id) {
@@ -325,7 +326,7 @@ class FrontController extends Controller
             $filtered = $collectMerge->where('regency_id', $request->regency_id);
         }
 
-        $result = $filtered->all();
+        $result = array_values($filtered->all());
 
         return response()->json([
             'data' => $result,

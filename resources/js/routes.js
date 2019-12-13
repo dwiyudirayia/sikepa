@@ -836,6 +836,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
+                //Monev
                 {
                     path: '/monev',
                     name: 'MonitoringEvaluasiIndex',
@@ -844,54 +845,64 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
-                {
-                    path: '/monev/create',
-                    name: 'MonitoringEvaluasiCreate',
-                    component: MonitoringEvaluasiCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/monev/:id/edit',
-                    name: 'MonitoringEvaluasiEdit',
-                    component: MonitoringEvaluasiEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/monev/:id/edit/file',
-                    name: 'MonitoringEvaluasiEditFile',
-                    component: MonitoringEvaluasiEditFile,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/monev/activity/:id/create',
-                    name: 'MonevActivityCreate',
-                    component: MonevActivityCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/monev/activity/:id/detail',
-                    name: 'MonevActivityDetail',
-                    component: MonevActivityDetail,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/monev/list/activity/:id',
-                    name: 'ListMonevActivity',
-                    component: ListMonevActivity,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
+                // {
+                //     path: '/monev/p3/create',
+                //     name: 'MonitoringP3Create',
+                //     component: MonitoringP3Create
+                // },
+                // {
+                //     path: '/monev/satker/create',
+                //     name: 'MonitoringSatkerCreate',
+                //     component: MonitoringSatkerCreate
+                // },
+                // {
+                //     path: '/monev/create',
+                //     name: 'MonitoringEvaluasiCreate',
+                //     component: MonitoringEvaluasiCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/monev/:id/edit',
+                //     name: 'MonitoringEvaluasiEdit',
+                //     component: MonitoringEvaluasiEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/monev/:id/edit/file',
+                //     name: 'MonitoringEvaluasiEditFile',
+                //     component: MonitoringEvaluasiEditFile,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/monev/activity/:id/create',
+                //     name: 'MonevActivityCreate',
+                //     component: MonevActivityCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/monev/activity/:id/detail',
+                //     name: 'MonevActivityDetail',
+                //     component: MonevActivityDetail,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/monev/list/activity/:id',
+                //     name: 'ListMonevActivity',
+                //     component: ListMonevActivity,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
                 //Dashboard
                 {
                     path: '/dashboard',

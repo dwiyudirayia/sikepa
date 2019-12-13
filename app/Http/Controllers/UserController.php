@@ -28,6 +28,7 @@ class UserController extends Controller
                 }
             }
             $user['permission'] = $permissions;
+            $user['index_roles_name'] = $user->roles[0]->name;
             return response()->json(['status' => 'success', 'data' => $user]);
         } catch (\Throwable $th) {
             return response()->json(['status' => $th->getCode(), 'message' => $th->getMessage()]);

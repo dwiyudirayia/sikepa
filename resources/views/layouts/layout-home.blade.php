@@ -61,7 +61,7 @@
 
     //banner area
     var banner = new Swiper($(".banner-area .swiper-container"), {
-        speed: 1000,
+		speed: 1000,
         navigation: {
             nextEl: $(this).parent().find(".swiper-button-next"),
             prevEl: $(this).parent().find(".swiper-button-prev"),
@@ -71,11 +71,11 @@
             clickable: true
         },
         autoplay: {
-            delay: 6000,
+		    delay: 6000,
             disableOnInteraction: false,
-        },
+		},
         parallax: true,
-        simulateTouch: false,
+		simulateTouch: false,
     });
     banner.on("slideChange",function() {
         $(".banner-caption").addClass("change");
@@ -91,13 +91,13 @@
             slidesPerView: "auto",
             spaceBetween: emSize*3,
             navigation: {
-                nextEl: $(this).parent().find(".swiper-button-next"),
-                prevEl: $(this).parent().find(".swiper-button-prev"),
+               nextEl: $(this).parent().find(".swiper-button-next"),
+               prevEl: $(this).parent().find(".swiper-button-prev"),
             },
             breakpoints: {
                 768: {
-                    slidesPerView: 1,
-                    spaceBetween: emSize*2,
+                  slidesPerView: 1,
+                  spaceBetween: emSize*2,
                 },
             }
         });

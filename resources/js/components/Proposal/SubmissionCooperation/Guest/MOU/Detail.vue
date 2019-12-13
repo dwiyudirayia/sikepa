@@ -70,18 +70,18 @@
                         </template>
                     </template>
                 </div>
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                    <li class="nav-item">
+                        <a v-if="status_disposition == 12" class="nav-link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                    <li class="nav-item">
+                        <a v-if="status_disposition == 13" class="nav-link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
+                    <li class="nav-item">
+                        <a v-if="status_disposition == 16" class="nav-link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
                 <div class="tab-content">

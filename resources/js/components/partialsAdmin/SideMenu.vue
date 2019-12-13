@@ -125,22 +125,6 @@
                         </span>
                     </router-link>
                 </li>
-                <li class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/user')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-user"></i><span class="m-menu__link-text">User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-                    <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
-                        <ul class="m-menu__subnav">
-                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/user/change/password" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Ganti Password</span></router-link>
-                            </li>
-                            <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/user/admin" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Admin</span></router-link>
-                            </li>
-                            <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/user/satker" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Inti Disposisi</span></router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
                 <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/faq">
                         <i class="m-menu__link-icon la la-question"></i>
@@ -177,6 +161,26 @@
                             </span>
                         </span>
                     </router-link>
+                </li>
+                <li class="m-menu__section ">
+                    <h4 class="m-menu__section-text">User Menu</h4>
+                    <i class="m-menu__section-icon flaticon-more-v2"></i>
+                </li>
+                <li class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/user')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-user"></i><span class="m-menu__link-text">User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
+                        <ul class="m-menu__subnav">
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/user/change/password" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Ganti Password</span></router-link>
+                            </li>
+                            <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/user/admin" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Admin</span></router-link>
+                            </li>
+                            <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/user/satker" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Inti Disposisi</span></router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="m-menu__item" aria-haspopup="true">
                     <a class="m-menu__link" @click="logout">

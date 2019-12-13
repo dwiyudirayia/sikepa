@@ -221,8 +221,8 @@
                             <label for="Nama Lengkap">Tahun</label>
                             <div class="m-form__control">
                                 <Select2
-                                    :options="yearsKesetaraanGender"
-                                    v-model="chartData.deputiKesetaraanGender.selectedYear"
+                                    :options="yearsKesetaraanGenderPKS"
+                                    v-model="chartData.deputiKesetaraanGender.pks.selectedYear"
                                     class="form-control"
                                 />
                             </div>
@@ -239,7 +239,7 @@
                         </div>
                         <br>
                         <line-chart
-                            :chartData="chartData.deputiKesetaraanGender.all"
+                            :chartData="chartData.deputiKesetaraanGender.pks.all"
                             :options="options"
                         />
                     </div>
@@ -294,12 +294,22 @@ export default {
                     textButton: 'Filter'
                 },
                 deputiKesetaraanGender: {
-                    all: null,
-                    selectedYear: null,
-                    data: [],
-                    years: [],
-                    value: [],
-                    yearsText: [],
+                    pks: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    mou: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
                 }
             },
             breadcrumbTitle: 'Dashboard',
@@ -316,7 +326,7 @@ export default {
         yearsMonev() {
             return this.chartData.oldMonev.years;
         },
-        yearsKesetaraanGender() {
+        yearsKesetaraanGenderPKS() {
             return this.chartData.deputiKesetaraanGender.years;
         }
     },
@@ -371,27 +381,27 @@ export default {
                     ]
                 };
 
-                this.chartData.deputiKesetaraanGender.data = response.data.data.deputi_kesetaraan_gender;
+                this.chartData.deputiKesetaraanGender.pks.data = response.data.data.deputi_kesetaraan_gender_pks;
 
-                let objectDeputiKesetaraanGender = this.chartData.deputiKesetaraanGender.data.map(value => {
+                let objectDeputiKesetaraanGender = this.chartData.deputiKesetaraanGender.pks.data.map(value => {
                     return {
                         id: value.year.toString(),
                         text: value.year
                     };
                 })
 
-                this.chartData.deputiKesetaraanGender.years = objectDeputiKesetaraanGender;
-                this.chartData.deputiKesetaraanGender.yearsText = this.chartData.deputiKesetaraanGender.data.map(map => map.year.toString());
-                this.chartData.deputiKesetaraanGender.value = this.chartData.deputiKesetaraanGender.data.map(map => map.data);
+                this.chartData.deputiKesetaraanGender.pks.years = objectDeputiKesetaraanGender;
+                this.chartData.deputiKesetaraanGender.pks.yearsText = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.pks.value = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.data);
 
 
                 this.chartData.deputiKesetaraanGender.all = {
-                    labels: this.chartData.deputiKesetaraanGender.yearsText,
+                    labels: this.chartData.deputiKesetaraanGender.pks.yearsText,
                     datasets: [
                         {
                             label: `Status`,
                             backgroundColor: '#f87979',
-                            data: this.chartData.deputiKesetaraanGender.value,
+                            data: this.chartData.deputiKesetaraanGender.pks.value,
                         },
                     ]
                 };
