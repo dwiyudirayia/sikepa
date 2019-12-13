@@ -142,7 +142,7 @@ a:hover, a:focus, a:focus:active {
 .main-title .title {
   font-family: "vesterbro", sans-serif;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.3;
   letter-spacing: -0.02em;
   margin: 0;
 }
@@ -550,6 +550,54 @@ h5 {
 .input-value {
   padding: 0 0 14px;
   border-bottom: 1px solid #ddd;
+}
+
+.checkbox {
+  margin: 20px 0;
+}
+.checkbox + .checkbox {
+  margin-top: inherit;
+}
+.checkbox [type=checkbox] {
+  display: none;
+}
+.checkbox label {
+  position: relative;
+  margin: 0;
+  font-weight: normal;
+  padding-left: 40px;
+}
+.checkbox label:before, .checkbox label:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 7px;
+  transition: box-shadow 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), background-color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1), color 0.4s cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.checkbox label:before {
+  background-color: #ddd;
+}
+.checkbox label:after {
+  content: "";
+  font-family: "Material Design Icons";
+  line-height: 20px;
+  font-size: 12px;
+  text-align: center;
+  color: transparent;
+}
+.checkbox label:hover:before {
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.07);
+}
+.checkbox [type=checkbox]:checked + label:before {
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+}
+.checkbox [type=checkbox]:checked + label:after {
+  box-shadow: 0 0 0 5px rgba(14, 182, 221, 0.3);
+  background-color: #0EB6DD;
+  color: #fff;
 }
 
 .form-input {
