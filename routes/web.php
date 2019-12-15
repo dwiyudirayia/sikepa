@@ -31,6 +31,7 @@ Route::get('/front/submission', 'FrontController@submission')->name('submission.
 Route::get('/download/format/mou', 'ExportController@formatOldMOU');
 Route::get('/download/data/monev/pdf', 'ExportController@downloadDataMonevPDF');
 Route::get('/download/data/monev/detail/pdf/{id}', 'ExportController@downloadDataMonevDetailPDF');
+Route::post('/suggestion', 'FrontController@storeSuggest')->name('suggestion.store');
 
 //AJAX
 Route::get('/ajax/typeone/{id}', 'FrontController@typeOne');
@@ -39,6 +40,8 @@ Route::get('/ajax/province/{id}', 'FrontController@province');
 Route::get('/ajax/regency/{id}', 'FrontController@regency');
 
 Route::get('/page/{slug}', 'FrontController@page')->name('page');
+Route::get('/information/{slug}', 'FrontController@deputyInformation')->name('information');
+Route::get('/information/detail/{slug}', 'FrontController@deputyInformationDetail')->name('information.detail');
 Route::get('/{any}', function(){
     return view('layouts.app');
 })->where('any', '.*');

@@ -24,12 +24,9 @@
                     <li class="dropdown {{ request()->is('informasi/*') ? 'active' : '' }}"><a href="#!">Informasi</a>
                         <div class="dropdown-hover">
                             <ul>
-                                <li><a href="informasi.html">Deputi Bidang Kesetaraan Gender</a></li>
-                                <li><a href="informasi.html">Deputi Bidang Perlindungan Hak Perempuan</a></li>
-                                <li><a href="informasi.html">Deputi Bidang Perlindungan Perempuan</a></li>
-                                <li><a href="informasi.html">Deputi Bidang Tumbuh Kembang Anak</a></li>
-                                <li><a href="informasi.html">Deputi Bidang Partisipasi Masyarakat</a></li>
-                                <li><a href="informasi.html">SESMEN</a></li>
+                                @foreach (\App\DeputiInformation::all() as $item)
+                                    <li><a href="{{ route('information', ['slug' => $item->url ]) }}">{{ $item->title }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </li>

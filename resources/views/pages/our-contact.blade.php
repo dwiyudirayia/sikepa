@@ -57,22 +57,23 @@
                         <div class="subtitle">Kontak Kami</div>
                         <h3 class="title">Kirim Pesan &amp; Saran</h3>
                     </div>
-                    <form>
+                    <form action="{{ route('suggestion.store') }}" method="POST">
+                        @csrf
                         <div class="form-group sr-btm">
                             <div class="form-input">
-                                <input class="form-control" required="">
+                                <input class="form-control" required name="name" type="text">
                                 <label class="text-label">Nama Lengkap</label>
                             </div>
                         </div>
                         <div class="form-group sr-btm">
                             <div class="form-input">
-                                <input class="form-control" required="">
+                                <input class="form-control" required name="email" type="email">
                                 <label class="text-label">Alamat Email</label>
                             </div>
                         </div>
                         <div class="form-group sr-btm">
                             <div class="form-input">
-                                <input class="form-control" required="">
+                                <input class="form-control" required name="message" type="text">
                                 <label class="text-label">Pesan</label>
                             </div>
                         </div>

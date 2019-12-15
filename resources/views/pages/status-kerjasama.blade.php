@@ -18,7 +18,7 @@
             </div>
         </div>
     </section>
-    @if ($data['data'] == null)
+    @if ($data['data']['data'] == null)
         <section class="content-wrap">
             <div class="container">
                 <div class="row">
@@ -37,33 +37,68 @@
             <div class="container">
                 <div class="step sr-btm">
                     <ul class="step-nav nav nav-tabs" role="tablist">
-                        <li class="step-item active">
-                            <a class="step-icon" href="#!">1</a>
-                        </li>
-                        <li class="step-item warning">
-                            <a class="step-icon" href="#!">2</a>
-                        </li>
-                        <li class="step-item danger">
-                            <a class="step-icon" href="#!">3</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">4</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">5</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">6</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">7</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">8</a>
-                        </li>
-                        <li class="step-item">
-                            <a class="step-icon" href="#!">9</a>
-                        </li>
+                        @if ($data['data']['biro'] == 1)
+                            <li class="step-item active">
+                                <a class="step-icon" href="#!">1</a>
+                            </li>
+                        @elseif($data['data']['biro'] == 2)
+                            <li class="step-item warning">
+                                <a class="step-icon" href="#!">1</a>
+                            </li>
+                        @elseif($data['data']['biro'] == 0)
+                            <li class="step-item danger">
+                                <a class="step-icon" href="#!">1</a>
+                            </li>
+                        @else
+                            <li class="step-item">
+                                <a class="step-icon" href="#!">1</a>
+                            </li>
+                        @endif
+                        @php
+                        $initDeputi = 2;
+                        $keyDeputi = 2;
+                        @endphp
+                        @foreach ($data['data']['data']['deputi'] as $item)
+                            @if ($item->approval == 1)
+                                <li class="step-item active">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                </li>
+                            @elseif($item->approval == 2)
+                                <li class="step-item warning">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                </li>
+                            @elseif($item->approval == 0)
+                                <li class="step-item danger">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                </li>
+                            @else
+                                <li class="step-item">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                        @php
+                            $countInitUserKPPA = $keyDeputi + $data['data']['count_deputi'];
+                        @endphp
+                        @foreach ($data['data']['user_kppa'] as $item)
+                            @if ($item == 1)
+                                <li class="step-item active">
+                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                </li>
+                            @elseif($item == 2)
+                                <li class="step-item warning">
+                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                </li>
+                            @elseif($item == 0)
+                                <li class="step-item danger">
+                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                </li>
+                            @else
+                                <li class="step-item">
+                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
                     <div class="row">
@@ -76,7 +111,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Usulan jenis kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperation']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperation']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +119,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Permohonan kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperationOne']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperationOne']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +127,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Kesepahaman jenis kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['typeOfCooperationTwo']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperationTwo']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +135,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Instansi</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['agencies']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['agencies']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +143,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Negara</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['country']['country_name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['country']['country_name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +151,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Provinsi</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['province']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['province']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +159,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Kabupaten/Kota</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['regency']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['regency']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +167,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Kodepos</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['postal_code']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['postal_code']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +175,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Nama Instansi / Kantor</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['agency_name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['agency_name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +183,7 @@
                                     <div class="row flex flex-center">
                                         <div class="col-lg-4 col-md-4"><p>Alamat lengkap Instansi</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['address']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['address']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +196,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Nama pemohon</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +204,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Jabatan pemohon</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['department']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['department']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +212,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Nomor telepon</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['no_telp']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['no_telp']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +220,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Alamat email</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['email']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['email']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +228,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Maksud dan tujuan</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['purpose_objectives']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['purpose_objectives']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +236,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Usulan jangka waktu</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['time_period']}} Tahun</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['time_period']}} Tahun</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +244,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Latar belakang</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['background']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['background']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +257,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Sasaran kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            @foreach ($data['data']['deputi'] as $item)
+                                            @foreach ($data['data']['data']['deputi'] as $item)
                                                 <div class="input-value"><b>{{ $item->role->name }}</b></div>
                                             @endforeach
                                         </div>

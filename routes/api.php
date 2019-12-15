@@ -78,6 +78,16 @@ Route::middleware('jwt')->group( function () {
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
+        Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
+
+        Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
+        Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgdownloadAgencyProfile');
+
+        Route::get('download/file/proposal/{id}/guest', 'SubmissionProposalGuestController@downloadProposalCooperationGuest');
+        Route::get('download/file/agency/profile/{id}/guest', 'SubmissionProposalGuestController@downloadAgencyProfileCooperationGuest');
+        Route::get('download/file/ktp/{id}/guest', 'SubmissionProposalGuestController@downloadKTPGuest');
+        Route::get('download/file/npwp/{id}/guest', 'SubmissionProposalGuestController@downloadNPWPGuest');
+        Route::get('download/file/siup/{id}/guest', 'SubmissionProposalGuestController@downloadSIUPGuest');
 
         Route::get('download/summary/cooperation/{id}', 'ExportController@downloadSummary');
         Route::get('download/summary/cooperation/{id}/guest', 'ExportController@downloadSummaryGuest');
@@ -165,8 +175,18 @@ Route::middleware('jwt')->group( function () {
         Route::post('monev/old/file/mou/{id}', 'MonevController@uploadOldMOU');
 
         //Dashboard
-        Route::get('/dashboard', 'DashboardController@index');
-        Route::get('/old/monev/filter/{year}', 'DashboardController@filterOldMonev');
+        Route::get('dashboard', 'DashboardController@index');
+        Route::get('old/monev/filter/{year}', 'DashboardController@filterOldMonev');
+        Route::get('filter/kesetaraan/gender/pks/{year}', 'DashboardController@filterKesetaraanGenderPKS');
+        Route::get('filter/kesetaraan/gender/mou/{year}', 'DashboardController@filterKesetaraanGenderMOU');
+        Route::get('filter/partisipasi/masyarakat/pks/{year}', 'DashboardController@filterPartisipasiMasyarakatPKS');
+        Route::get('filter/partisipasi/masyarakat/mou/{year}', 'DashboardController@filterPartisipasiMasyarakatMOU');
+        Route::get('filter/perlindungan/anak/pks/{year}', 'DashboardController@filterPerlindunganAnakPKS');
+        Route::get('filter/perlindungan/anak/mou/{year}', 'DashboardController@filterPerlindunganAnakMOU');
+        Route::get('filter/perlindungan/hak/perempuan/pks/{year}', 'DashboardController@filterPerlindunganHakPerempuanPKS');
+        Route::get('filter/perlindungan/hak/perempuan/mou/{year}', 'DashboardController@filterPerlindunganHakPerempuanMOU');
+        Route::get('filter/perlindungan/tumbuh/kembang/anak/pks/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakPKS');
+        Route::get('filter/perlindungan/tumbuh/kembang/anak/mou/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakMOU');
 
         //Information Deputi
         Route::get('/deputi/information', 'DeputiInformationController@index');

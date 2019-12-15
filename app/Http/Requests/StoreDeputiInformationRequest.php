@@ -37,6 +37,7 @@ class StoreDeputiInformationRequest extends FormRequest
             'text_information' => $this->text_information,
             'text_requirement' => $this->text_requirement,
             'text_video' => $this->text_video,
+            'type_video' => $this->type_video,
         ];
     }
 }

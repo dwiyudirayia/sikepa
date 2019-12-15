@@ -7,6 +7,7 @@ use App\LawFileSubmissionProposalGuest;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Mail\ApproveCooperation;
 use App\Mail\ApproveCooperationFinal;
+use App\Mail\OfflineMeetingGuest;
 use App\Mail\RejectCooperation;
 use App\ReasonSubmissionCooperationGuest;
 use App\SubmissionProposalGuest;
@@ -56,7 +57,7 @@ class SubmissionProposalGuestController extends Controller
                             $query->where('id', $statusDisposition);
                         })->get();
 
-                        if($proposal->type_id == 1) {
+                        if($proposal->type_guest_id == 1) {
                             $path = 'PKSProposalSubmissionCooperationIndex';
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
@@ -93,15 +94,36 @@ class SubmissionProposalGuestController extends Controller
                     $query->whereIn('id', $currentRoleId);
                 })->get();
 
-                if($proposal->type_id == 1) {
+                if($proposal->type_guest_id == 1) {
                     $path = 'PKSProposalSubmissionCooperationIndex';
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
-            }
-            elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
+            } elseif($proposal->status_disposition == 12) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $proposal->tracking()->update([
+                    $convertToSnakeCase => 1
+                ]);
+
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $statusDisposition = $proposal->status_disposition + 1;
+                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                    $query->where('id', $statusDisposition);
+                })->get();
+
+                if($proposal->type_guest_id == 1) {
+                    $path = 'PKSProposalSubmissionCooperationIndex';
+                } else {
+                    $path = 'MOUProposalSubmissionCooperationIndex';
+                }
+
+                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
+            } elseif ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
 
@@ -117,7 +139,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_id == 1) {
+                if($proposal->type_guest_id == 1) {
                     $path = 'PKSProposalSubmissionCooperationIndex';
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
@@ -125,27 +147,6 @@ class SubmissionProposalGuestController extends Controller
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
 
-            } elseif($countRole == 2 && $proposal->status_disposition == 16) {
-                $rolesName = $user->roles[1]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
-                ]);
-
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
-
-                $users = User::whereHas('roles', function(Builder $query) {
-                    $query->where('id', 9);
-                })->get();
-
-                if($proposal->type_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
-                Mail::to($proposal->email)->send(new ApproveCooperationFinal);
             } else {
                 $rolesName = $user->roles[0]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
@@ -160,7 +161,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_id == 1) {
+                if($proposal->type_guest_id == 1) {
                     $path = 'PKSProposalSubmissionCooperationIndex';
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
@@ -217,7 +218,7 @@ class SubmissionProposalGuestController extends Controller
                             $query->where('id', $statusDisposition);
                         })->get();
 
-                        if($proposal->type_id == 1) {
+                        if($proposal->type_guest_id == 1) {
                             $path = 'PKSProposalSubmissionCooperationIndex';
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
@@ -230,7 +231,29 @@ class SubmissionProposalGuestController extends Controller
                         Mail::to($proposal->email)->send(new RejectCooperation);
                     }
                 }
-            } elseif($proposal->status_disposition == 2) {
+            } elseif($proposal->status_disposition == 12) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $proposal->tracking()->update([
+                    $convertToSnakeCase => 1
+                ]);
+
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $statusDisposition = $proposal->status_disposition + 1;
+                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                    $query->where('id', $statusDisposition);
+                })->get();
+
+                if($proposal->type_guest_id == 1) {
+                    $path = 'PKSProposalSubmissionCooperationIndex';
+                } else {
+                    $path = 'MOUProposalSubmissionCooperationIndex';
+                }
+
+                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
+            } elseif ($proposal->status_disposition == 2) {
                 $rolesName = $user->roles[0]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
 
@@ -245,7 +268,7 @@ class SubmissionProposalGuestController extends Controller
                 Mail::to($proposal->email)->send(new RejectCooperation);
 
 
-            } elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
+            } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
 
@@ -259,15 +282,6 @@ class SubmissionProposalGuestController extends Controller
 
                 Mail::to($proposal->email)->send(new RejectCooperation);
 
-            } elseif($countRole == 2 && $proposal->status_disposition == 16) {
-                $rolesName = $user->roles[1]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
-                ]);
-
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
             } else {
 
                 $proposal = SubmissionProposalGuest::findOrFail($request->id);
@@ -286,7 +300,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_id == 1) {
+                if($proposal->type_guest_id == 1) {
                     $path = 'PKSProposalSubmissionCooperationIndex';
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
@@ -367,7 +381,7 @@ class SubmissionProposalGuestController extends Controller
             $proposal->status_disposition = $proposal->status_disposition + 1;
             $proposal->save();
 
-            if($proposal->type_id == 1) {
+            if($proposal->type_guest_id == 1) {
                 $path = 'PKSProposalSubmissionCooperationIndex';
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
@@ -380,13 +394,13 @@ class SubmissionProposalGuestController extends Controller
 
             DB::commit();
             return response()->json([
-                'messages' => 'Data Berhasil di Update'
+                'messages' => 'Data Berhasil Diperbaharui'
             ]);
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json([
-                'messages' => $th->getMessage(),
-                'status' => $th->getMessage(),
+                'messages' => 'Data Gagal Diperbaharui',
+                'status' => $th->getCode(),
             ]);
         }
     }
@@ -399,39 +413,16 @@ class SubmissionProposalGuestController extends Controller
 
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Download Gagal',
                 'status' => $th->getCode()
             ]);
         }
     }
     public function final(Request $request, $id) {
-        // dd($request->title_cooperation_final);
         try {
-            $user = auth()->user();
-            $roles = collect($user['roles']);
-
-            $mappingRole = $roles->map(function($item, $key) {
-                return $item['id'];
-            });
-
-            if($user->roles[0]->id <= 6 && $user->roles[0]->id >= 2) {
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-                $idRoles = [2];
-                $data['approval'] = SubmissionProposal::with('tracking','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('tracking', function(Builder $query) use ($convertToSnakeCase) {
-                    $query->whereNull($convertToSnakeCase);
-                })->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
-            } else {
-                $idRoles = $mappingRole->all();
-
-                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
-            }
-
-            $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
-
             DB::beginTransaction();
 
-            $proposal = SubmissionProposal::findOrFail($id);
+            $proposal = SubmissionProposalGuest::findOrFail($id);
             $proposal->title_cooperation = $request->title_cooperation_final;
             $proposal->save();
             if($request->hasFile('notulen')) {
@@ -439,9 +430,9 @@ class SubmissionProposalGuestController extends Controller
                 $extention = $request->notulen->getClientOriginalExtension();
 
                 $fileName = 'law-notulen'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen');
+                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
 
-                $checkTable = LawFileSubmissionProposal::where('submission_proposal_id', $id)->get();
+                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
 
                 if($checkTable->count() == 0) {
                     $proposal->law()->create([
@@ -455,6 +446,58 @@ class SubmissionProposalGuestController extends Controller
                     ]);
                 }
             }
+
+            if($request->hasFile('draft')) {
+
+                $extention = $request->draft->getClientOriginalExtension();
+
+                $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
+
+                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
+
+                if($checkTable->count() == 0) {
+                    $proposal->law()->create([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                } else {
+                    $proposal->law()->update([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                }
+            }
+
+            foreach ($request->nomor as $key => $value) {
+                $proposal->nomor()->updateOrCreate([
+                    'created_by' => auth()->user()->id,
+                    'nomor' => $value
+                ]);
+            }
+            $user = auth()->user();
+            $rolesName = $user->roles[1]->name;
+            $convertToSnakeCase = Str::snake($rolesName);
+
+            $proposal->tracking()->update([
+                $convertToSnakeCase => 2
+            ]);
+
+            $track = SubmissionProposalGuest::where('id', $proposal->id)->increment('status_disposition', 1);
+
+            $users = User::whereHas('roles', function(Builder $query) {
+                $query->where('id', 9);
+            })->get();
+
+            if($proposal->type_guest_id == 1) {
+                $path = 'PKSProposalSubmissionCooperationIndex';
+            } else {
+                $path = 'MOUProposalSubmissionCooperationIndex';
+            }
+            DB::commit();
+            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+            Mail::to($proposal->email)->send(new ApproveCooperationFinal);
+
             return response()->json([
                 'messages' => 'Berhasil',
                 'status' => 200,
@@ -470,12 +513,12 @@ class SubmissionProposalGuestController extends Controller
             $deputi->delete();
 
             return response()->json([
-                'messages' => 'Data berhasil dihapus',
+                'messages' => 'Data Berhasil Dihapus',
                 'status' => 200,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Data Gagal Dihapus',
                 'status' => $th->getCode(),
             ]);
         }
@@ -490,13 +533,83 @@ class SubmissionProposalGuestController extends Controller
             }
 
             return response()->json([
-                'messages' => 'Data berhasil ditambahkan',
+                'messages' => 'Data Berhasil Ditambah',
                 'status' => 200,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Data Gagal Ditambah',
                 'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadProposalCooperationGuest($id) {
+        try {
+            $proposal = SubmissionProposalGuest::findOrFail($id);
+
+            $file = $proposal->proposal;
+            return response()->download(storage_path("/app/public/proposal_cooperation_guest/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadAgencyProfileCooperationGuest($id) {
+        try {
+            $proposal = SubmissionProposalGuest::findOrFail($id);
+
+            $file = $proposal->agency_profile;
+            return response()->download(storage_path("/app/public/agency_profile_cooperation_guest/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadKTPGuest($id) {
+        try {
+            $proposal = SubmissionProposalGuest::findOrFail($id);
+
+            $file = $proposal->ktp;
+            return response()->download(storage_path("/app/public/ktp_guest/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadNPWPGuest($id) {
+        try {
+            $proposal = SubmissionProposalGuest::findOrFail($id);
+
+            $file = $proposal->npwp;
+            return response()->download(storage_path("/app/public/npwp_guest/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadSIUPGuest($id) {
+        try {
+            $proposal = SubmissionProposalGuest::findOrFail($id);
+
+            $file = $proposal->siup;
+            return response()->download(storage_path("/app/public/siup_guest/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
             ]);
         }
     }

@@ -22,14 +22,20 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item">
-                                                    <a class="m-nav__link" @click="downloadSummary">
+                                                <li class="m-nav__item context-menu" @click="downloadSummary">
+                                                    <a class="m-nav__link">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Download Rangkuman Kerjasama</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item" v-if="status_disposition == 16">
-                                                    <a class="m-nav__link" @click="downloadFileDraftTerakhir">
+                                                <li class="m-nav__item  context-menu">
+                                                    <a class="m-nav__link" @click="showModalFile">
+                                                        <i class="m-nav__link-icon la la-file"></i>
+                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item context-menu" v-if="status_disposition == 16" @click="downloadFileDraftTerakhir">
+                                                    <a class="m-nav__link">
                                                         <i class="m-nav__link-icon la la-file-word-o"></i>
                                                         <span class="m-nav__link-text">Download File Draft</span>
                                                     </a>
@@ -60,17 +66,17 @@
                     </template>
                 </div>
                 <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
-                    <li class="nav-item m-tabs__item">
+                    <li class="nav-item m-tabs__item" @click="tabs = 1">
                         <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                        <a v-if="status_disposition == 12" :class="{'active' : tabs === 2 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                        <a v-if="status_disposition == 13" :class="{'active' : tabs === 3 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
+                        <a v-if="status_disposition == 16" :class="{'active' : tabs === 4 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -147,19 +153,33 @@
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
                             </div>
                         </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
-                            <div class="m-form__actions m-form__actions--solid">
-                                <div class="row">
-                                    <div class="col-lg-5"></div>
-                                    <div class="col-lg-7">
-                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
-                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                        <template v-if="status_disposition == 12 || status_disposition == 13 || status_disposition == 16">
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="nextTabs" class="btn btn-brand">Lanjut</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                            <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
+                    <div class="tab-pane" id="m_tabs_9_2" :class="{'active' : tabs === 2 }" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Generate Barcode</label>
                             <div class="col-lg-6">
@@ -185,7 +205,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
+                    <div class="tab-pane" id="m_tabs_9_3" :class="{'active' : tabs === 3 }" role="tabpanel" v-if="status_disposition == 13">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
@@ -217,7 +237,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" v-if="status_disposition == 16">
+                    <div class="tab-pane" id="m_tabs_9_4" :class="{'active' : tabs === 4 }" role="tabpanel" v-if="status_disposition == 16">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -292,6 +312,10 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -301,6 +325,45 @@
             </div>
         </div>
         <!--end::Modal-->
+        <div class="modal fade" id="file" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">File</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: middle;">1</td>
+                                    <td style="vertical-align: middle;">Profil</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadAgencyProfile">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">2</td>
+                                    <td style="vertical-align: middle;">Proposal</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadProposal">Download</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--begin::Modal-->
         <div class="modal fade" id="modal-reject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
             <div class="modal-dialog modal-lg" role="document">
@@ -317,6 +380,14 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="status_disposition == 12">
+                        <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                        <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -338,6 +409,7 @@ export default {
     name: 'MOUProposalSubmissionCooperationDetail',
     data() {
         return {
+            tabs: 1,
             text_button: 'Submit',
             notulen: null,
             notulenFile: null,
@@ -348,6 +420,7 @@ export default {
             disabled: false,
             forms: {
                 reason: null,
+                keterangan_pesan: null,
                 id: null,
             },
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -473,6 +546,24 @@ export default {
         this.getData();
     },
     methods: {
+        downloadProposal() {
+            window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+        },
+        downloadAgencyProfile() {
+           window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+        },
+        showModalFile() {
+            $('#file').modal('show');
+        },
+        nextTabs() {
+            if(this.status_disposition == 12) {
+                this.tabs = 2;
+            } else if(this.status_disposition == 13) {
+                this.tabs = 3;
+            } else {
+                this.tabs = 4;
+            }
+        },
         downloadSummary() {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
         },
@@ -484,12 +575,54 @@ export default {
 
             $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}`, formData)
             .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Perbaharui`);
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'PKSProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
-                console.log(error);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Data Gagal di Perbaharui`);
+                this.$router.push({
+                    name: 'PKSProposalSubmissionCooperationIndex'
+                });
             })
         },
         downloadFormatWord() {
@@ -505,7 +638,6 @@ export default {
             })
         },
         downloadFileWord(response, filename) {
-            console.log(response);
             // It is necessary to create a new blob object with mime-type explicitly set
             // otherwise only Chrome works like it should
             var newBlob = new Blob([response.data], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
@@ -709,12 +841,52 @@ export default {
                 this.text_button = 'Loading ...';
                 $('#modal-approve').modal('hide');
 
-                this.$store.commit('proposal/notification', response);
-                this.$store.commit('proposal/updateData', response);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Pengajuan Berhasil diterima`);
 
                 this.$router.push({
                     name: 'MOUProposalSubmissionCooperationIndex'
                 });
+            })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Pengajuan Gagal diterima`);
             })
 
             this.text_button = 'Submit';
@@ -727,12 +899,51 @@ export default {
                 this.text_button = 'Loading ...';
                 $('#modal-reject').modal('hide');
 
-                this.$store.commit('proposal/notification', response);
-                this.$store.commit('proposal/updateData', response);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
 
+                toastr.success(`Pengajuan Berhasil ditolak`);
                 this.$router.push({
                     name: 'MOUProposalSubmissionCooperationIndex'
                 });
+            })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Pengajuan Gagal ditolak`);
             })
 
             this.text_button = 'Submit';
@@ -787,7 +998,8 @@ export default {
     }
 }
 </script>
-
-<style>
-
+<style scoped>
+.context-menu {
+    cursor: context-menu;
+}
 </style>

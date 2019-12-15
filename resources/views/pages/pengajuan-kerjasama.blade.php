@@ -295,7 +295,7 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control required" name="time_period">
+                                                    <select class="form-control select2 required" name="time_period">
                                                         <option></option>
                                                         <option value="1">1 tahun</option>
                                                         <option value="2">2 tahun</option>
@@ -455,6 +455,7 @@
         bodyTag: ".tab-pane",
         titleTemplate: "#title#",
         transitionEffect: "slideLeft",
+        saveState: true,
         onStepChanging: function (event, currentIndex, newIndex)
         {
             // Allways allow previous action even if the current form is not valid!

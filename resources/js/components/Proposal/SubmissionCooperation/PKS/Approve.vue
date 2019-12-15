@@ -58,6 +58,14 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <button @click="downloadFilePengajuan(value.id)" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download File Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-file"></i>
+                                                        <span>Download File Pengajuan</span>
+                                                    </span>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -82,6 +90,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,6 +104,14 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <button @click="downloadFilePengajuanGuest(value.id)" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download File Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-file"></i>
+                                                        <span>Download File Pengajuan</span>
+                                                    </span>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -146,14 +163,26 @@ export default {
         },
     },
     created() {
-        $axios.get(`/admin/pks/submission/cooperation/approve`)
-        .then(response => {
-            this.youSubmission = response.data.data.you;
-            this.guestSubmission = response.data.data.guest;
-
-            this.$store.commit('proposal/clearPage');
-        })
+        this.getData();
     },
+    methods: {
+        getData() {
+            $axios.get(`/admin/pks/submission/cooperation/approve`)
+            .then(response => {
+                this.youSubmission = response.data.data.you;
+                this.guestSubmission = response.data.data.guest;
+
+                this.$store.commit('proposal/clearPage');
+            })
+        },
+        downloadFilePengajuan(id) {
+            window.location.href = `/api/admin/download/file/draft/${id}?token=${localStorage.getItem('token')}`;
+        },
+        downloadFilePengajuanGuest(id) {
+            window.location.href = `/api/admin/download/file/draft/${id}/guest?token=${localStorage.getItem('token')}`;
+        },
+    }
+
 }
 </script>
 

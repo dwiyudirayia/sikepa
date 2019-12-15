@@ -137,7 +137,21 @@
                         <span v-if="!$v.forms.text_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
+                <div class="m-form__group form-group">
+                    <label for="">Penyimpanan Video</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio m-radio--state-brand">
+                            <input type="radio" v-model="$v.forms.type_video.$model" value="1"> Server
+                            <span></span>
+                        </label>
+                        <label class="m-radio m-radio--state-brand">
+                            <input type="radio" v-model="$v.forms.type_video.$model" value="2"> YouTube
+                            <span></span>
+                        </label>
+                    </div>
+                    <!-- <span class="m-form__help"></span> -->
+                </div>
+                <div class="form-group m-form__group" v-if="forms.type_video == 1">
                     <label for="exampleInputEmail1">Video Tutorial</label>
                     <div></div>
                     <div class="custom-file">
@@ -145,6 +159,12 @@
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
                     </div>
                     <span class="m-form__help">Video Saat Ini :{{ forms.photo_video }}</span>
+                </div>
+                <div class="form-group m-form__group" v-else>
+                    <label>Video Tutorial</label>
+                    <div class="m-form__control">
+                        <input type="text" v-model="forms.photo_video" class="form-control">
+                    </div>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -261,6 +281,7 @@ export default {
                 photo_requirement: null,
                 text_requirement: null,
                 photo_video: null,
+                type_video: null,
                 text_video: null,
             },
             file_deputi_information: [],
@@ -453,6 +474,7 @@ export default {
             formData.append('text_requirement', this.forms.text_requirement);
             formData.append('photo_video', this.forms.photo_video);
             formData.append('text_video', this.forms.text_video);
+            formData.append('type_video', this.forms.type_video);
 
             if(this.$v.forms.$invalid) {
                 return;

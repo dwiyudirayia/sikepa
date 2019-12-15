@@ -26,7 +26,8 @@ class BarcodeController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage()
+                'messages' => 'Gagal Generate Barcode',
+                'status' => $th->getCode(),
             ]);
         }
     }
@@ -46,7 +47,8 @@ class BarcodeController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage()
+                'messages' => 'Gagal Generate Barcode',
+                'status' => $th->getCode(),
             ]);
         }
     }
