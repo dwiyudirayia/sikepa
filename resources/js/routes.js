@@ -26,12 +26,14 @@ import UserSatkerEdit from './components/User/Satker/Edit';
 
 //monev
 import MonitoringEvaluasiIndex from './components/Monev/Index';
-import MonitoringEvaluasiCreate from './components/Monev/Create';
-import MonitoringEvaluasiEdit from './components/Monev/Edit';
-import MonevActivityCreate from './components/Monev/Activity/Create';
-import MonevActivityDetail from './components/Monev/Detail';
-import ListMonevActivity from './components/Monev/Activity/List';
-import MonitoringEvaluasiEditFile from './components/Monev/EditFile';
+import MonitoringP3Create from './components/Monev/Proposal/P3Create';
+import MonitoringSatkerCreate from './components/Monev/Proposal/SatkerCreate';
+// import MonitoringEvaluasiCreate from './components/Monev/Create';
+// import MonitoringEvaluasiEdit from './components/Monev/Edit';
+// import MonevActivityCreate from './components/Monev/Activity/Create';
+// import MonevActivityDetail from './components/Monev/Detail';
+// import ListMonevActivity from './components/Monev/Activity/List';
+// import MonitoringEvaluasiEditFile from './components/Monev/EditFile';
 //end monev
 //End User
 // --- Article --- //
@@ -845,16 +847,16 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
-                // {
-                //     path: '/monev/p3/create',
-                //     name: 'MonitoringP3Create',
-                //     component: MonitoringP3Create
-                // },
-                // {
-                //     path: '/monev/satker/create',
-                //     name: 'MonitoringSatkerCreate',
-                //     component: MonitoringSatkerCreate
-                // },
+                {
+                    path: '/monev/p3/create',
+                    name: 'MonitoringP3Create',
+                    component: MonitoringP3Create
+                },
+                {
+                    path: '/monev/satker/create',
+                    name: 'MonitoringSatkerCreate',
+                    component: MonitoringSatkerCreate
+                },
                 // {
                 //     path: '/monev/create',
                 //     name: 'MonitoringEvaluasiCreate',

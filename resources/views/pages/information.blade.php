@@ -118,7 +118,7 @@
             <div class="row list-download">
                 @foreach ($data->file as $item)
                     <div class="col-lg-4 col-md-4">
-                        <a class="sr-btm" href="#!">
+                        <a class="sr-btm" href="{{ route('information.download.file', ['id' => $item->id]) }}">
                             <div class="panel download-wrapper">
                                 <div class="panel-body">
                                     <i class="mdi mdi-download"></i>

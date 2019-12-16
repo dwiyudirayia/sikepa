@@ -67,7 +67,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationYourDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationYourDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-eye"></i>
                                                             <span>Detail Pengajuan</span>
@@ -113,7 +113,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-eye"></i>
                                                             <span>Detail Pengajuan</span>
@@ -161,7 +161,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'PKSProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-eye"></i>
                                                             <span>Detail Pengajuan</span>
@@ -235,7 +235,7 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'PKSProposalSubmissionCooperationIndex',
+    name: 'MOUProposalSubmissionCooperationIndex',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',

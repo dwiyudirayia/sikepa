@@ -41,6 +41,7 @@ Route::get('/ajax/regency/{id}', 'FrontController@regency');
 
 Route::get('/page/{slug}', 'FrontController@page')->name('page');
 Route::get('/information/{slug}', 'FrontController@deputyInformation')->name('information');
+Route::get('/download/information/file/{id}', 'FrontController@downloadFileInformation')->name('information.download.file');
 Route::get('/information/detail/{slug}', 'FrontController@deputyInformationDetail')->name('information.detail');
 Route::get('/{any}', function(){
     return view('layouts.app');

@@ -16,7 +16,7 @@ class CreateSubmissionProposalGuest extends Migration
         Schema::create('submission_proposal_guest', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyInteger('type_guest_id');
-            $table->string('mailing_number')->unique();
+            $table->string('mailing_number')->nullable()->unique();
             $table->string('title_cooperation');
             $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
@@ -30,11 +30,11 @@ class CreateSubmissionProposalGuest extends Migration
             $table->double('longitude');
             $table->string('nominal')->nullable();
             $table->string('name');
-            $table->string('department');
-            $table->string('ktp');
-            $table->string('npwp');
-            $table->string('siup');
-            $table->string('no_telp');
+            $table->string('department')->nullable();
+            $table->string('ktp')->nullable();
+            $table->string('npwp')->nullable();
+            $table->string('siup')->nullable();
+            $table->string('no_telp')->nullable();
             $table->string('agency_name');
             $table->text('address');
             $table->string('email');
@@ -43,8 +43,8 @@ class CreateSubmissionProposalGuest extends Migration
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');
             $table->tinyInteger('time_period');
-            $table->string('agency_profile');
-            $table->string('proposal');
+            $table->string('agency_profile')->nullable();
+            $table->string('proposal')->nullable();
             $table->tinyInteger('status_barcode')->default(0);
             $table->string('reject_dana')->nullable();
             $table->timestamps();

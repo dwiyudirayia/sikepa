@@ -62,13 +62,20 @@
                     <br>
                 </div><div class="m-form__group form-group">
                     <label for="">Tujuan Deputi</label>
-                    <div class="m-checkbox-inline">
+                    <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
                             <input type="checkbox" :value="value.id" @click="deputiDirect(index, value.id)"> {{ value.name }}
                             <span></span>
                         </label>
+                    </div> -->
+                    <div class="m-form__control">
+                        <select2-multiple
+                            multiple
+                            :options="deputi"
+                            v-model="forms.deputi"
+                        />
                     </div>
-                    <span class="m-form__help">Some help text goes here</span>
+                    <span class="m-form__help">Tunjuk deputi yang diinginkan</span>
                 </div>
                 <div v-if="isNominal">
                     <div class="form-group m-form__group">
@@ -259,8 +266,6 @@
                                     v-model="$v.forms.time_period.$model"
                                     :options="data_select.time_period"
                                 />
-                                <span class="m-form__help">Pastikan Tanggal Sesuai</span>
-                                <br>
                                 <template v-if="$v.forms.time_period.$error">
                                     <span v-if="!$v.forms.time_period.required" class="m--font-danger">Field Ini Harus di Isi</span>
                                 </template>
@@ -359,11 +364,11 @@ export default {
             options:[
                 {
                     id: 1,
-                    name: 'MOU'
+                    name: 'PKS'
                 },
                 {
                     id: 2,
-                    name: 'PKS'
+                    name: 'MOU'
                 }
             ],
             markers: [
@@ -522,14 +527,14 @@ export default {
         }
     },
     methods: {
-        deputiDirect(indexVal, id) {
-            let index = this.forms.deputi.filter(a => a === id);
-            if(index.length == 1) {
-                this.forms.deputi.splice(indexVal, 1);
-            } else {
-                this.forms.deputi.push(id);
-            }
-        },
+        // deputiDirect(indexVal, id) {
+        //     let index = this.forms.deputi.filter(a => a === id);
+        //     if(index.length == 1) {
+        //         this.forms.deputi.splice(indexVal, 1);
+        //     } else {
+        //         this.forms.deputi.push(id);
+        //     }
+        // },
         store() {
             let formData = new FormData();
             this.$v.forms.$touch();
@@ -562,8 +567,26 @@ export default {
 
                 $axiosFormData.post(`/admin/submission/cooperation`, formData)
                 .then(response => {
-                    this.$store.commit('proposal/updateData', response);
-                    this.$store.commit('proposal/notification', response);
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.success(`${response.data.messages}`);
+
 
                     if(this.forms.type_id == 1) {
                         this.$router.push({

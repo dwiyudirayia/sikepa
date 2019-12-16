@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMonevP3Request;
+use App\Http\Requests\StoreMonevSatkerRequest;
+use App\LawFileSubmissionProposal;
+use App\LawFileSubmissionProposalGuest;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposal;
@@ -254,4 +258,100 @@ class MonevController extends Controller
     //     }
 
     // }
+    public function storeP3(StoreMonevP3Request $request) {
+        try {
+            DB::beginTransaction();
+            $proposal = SubmissionProposalGuest::create($request->store());
+            foreach ($request->deputi as $key => $value) {
+                $proposal->deputi()->create([
+                    'role_id' => $value,
+                ]);
+            }
+
+            if($request->hasFile('file_pengajuan')) {
+                $extention = $request->file_pengajuan->getClientOriginalExtension();
+                $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $path = $request->file_pengajuan->storeAs($proposal->id, $fileName, 'law_draft_guest');
+
+                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $proposal->id)->get();
+
+                if($checkTable->count() == 0) {
+                    $proposal->law()->create([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                } else {
+                    $proposal->law()->update([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                }
+            }
+            foreach ($request->nomor as $key => $value) {
+                $proposal->nomor()->updateOrCreate([
+                    'created_by' => auth()->user()->id,
+                    'nomor' => $value
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di Tambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeSatker(StoreMonevSatkerRequest $request) {
+        try {
+            DB::beginTransaction();
+            $proposal = SubmissionProposal::create($request->store());
+            foreach ($request->deputi as $key => $value) {
+                $proposal->deputi()->create([
+                    'role_id' => $value,
+                ]);
+            }
+
+            if($request->hasFile('file_pengajuan')) {
+                $extention = $request->file_pengajuan->getClientOriginalExtension();
+                $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $path = $request->file_pengajuan->storeAs($proposal->id, $fileName, 'law_draft');
+
+                $checkTable = LawFileSubmissionProposal::where('submission_proposal_id', $proposal->id)->get();
+
+                if($checkTable->count() == 0) {
+                    $proposal->law()->create([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                } else {
+                    $proposal->law()->update([
+                        'created_by' => auth()->user()->id,
+                        'draft' => $path
+                    ]);
+                }
+            }
+            foreach ($request->nomor as $key => $value) {
+                $proposal->nomor()->updateOrCreate([
+                    'created_by' => auth()->user()->id,
+                    'nomor' => $value
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di Tambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
 }

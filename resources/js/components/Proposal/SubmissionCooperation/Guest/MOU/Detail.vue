@@ -82,9 +82,10 @@
                         </template>
                     </template>
                 </div>
+                <br>
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
                     </li>
                     <li class="nav-item m-tabs__item">
                         <a v-if="status_disposition == 12" class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
@@ -97,7 +98,7 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                    <div class="tab-pane" :class="{'active' : tabs === 1 }" id="m_tabs_9_1" role="tabpanel">
                         <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
                             <div class="col-10">
@@ -221,6 +222,17 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" :class="{'active' : tabs === 3 }"  id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
                         <div class="form-group m-form__group">
@@ -254,7 +266,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" :class="{'active' : tabs === 3 }" role="tabpanel" v-if="status_disposition == 16">
+                    <div class="tab-pane" id="m_tabs_9_4" :class="{'active' : tabs === 4 }" role="tabpanel" v-if="status_disposition == 16">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">

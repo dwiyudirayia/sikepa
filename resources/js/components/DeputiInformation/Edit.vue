@@ -307,6 +307,9 @@ export default {
             full_text_information: {
                 required,
             },
+            type_video: {
+                required,
+            },
         }
     },
     created() {

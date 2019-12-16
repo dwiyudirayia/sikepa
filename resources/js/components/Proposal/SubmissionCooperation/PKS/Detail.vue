@@ -31,7 +31,7 @@
                                                 <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="showModalFile">
                                                         <i class="m-nav__link-icon la la-file"></i>
-                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                        <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu" v-if="status_disposition == 16" @click="downloadSummary">
@@ -65,22 +65,23 @@
                         </template>
                     </template>
                 </div>
+                <br>
                 <ul class="nav nav-tabs nav-fill" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                    <li class="nav-item m-tabs__item" @click="tabs = 1">
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" :class="{'active' : tabs === 3 }" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
                     <li class="nav-item">
-                        <a v-if="status_disposition == 12" class="nav-link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
-                    </li>
-                    <li class="nav-item">
-                        <a v-if="status_disposition == 13" class="nav-link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
-                    </li>
-                    <li class="nav-item">
-                        <a v-if="status_disposition == 16" class="nav-link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
+                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" :class="{'active' : tabs === 4 }" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                    <div class="tab-pane" :class="{'active' : tabs === 1 }" id="m_tabs_9_1" role="tabpanel">
                         <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
                             <div class="col-10">
@@ -179,7 +180,7 @@
                             </div>
                         </template>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
+                    <div class="tab-pane" :class="{'active' : tabs === 2 }" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Generate Barcode</label>
                             <div class="col-lg-6">
@@ -204,8 +205,19 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
+                    <div class="tab-pane" :class="{'active' : tabs === 3 }" id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
@@ -237,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" v-if="status_disposition == 16">
+                    <div class="tab-pane" :class="{'active' : tabs === 4 }" id="m_tabs_9_4" role="tabpanel" v-if="status_disposition == 16">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -700,6 +712,9 @@ export default {
                 };
 
                 toastr.success(`Data Berhasil di Perbaharui`);
+                this.$router.push({
+                    name: 'PKSProposalSubmissionCooperationIndex'
+                });
             })
             .catch(error => {
                 toastr.options = {
@@ -834,14 +849,52 @@ export default {
                 this.text_button = 'Loading ...';
                 $('#modal-approve').modal('hide');
 
-                this.$store.commit('proposal/notification', response);
-                this.$store.commit('proposal/updateData', response);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
 
+                toastr.success(`Pengajuan Berhasil diterima`);
                 this.$router.push({
                     name: 'PKSProposalSubmissionCooperationIndex'
                 });
             })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
 
+                toastr.error(`Pengajuan Gagal diterima`);
+            })
             this.text_button = 'Submit';
             this.disabled = false;
         },

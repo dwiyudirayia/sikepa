@@ -31,7 +31,7 @@
                                                 <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="showModalFile">
                                                         <i class="m-nav__link-icon la la-file"></i>
-                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                        <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu" v-if="status_disposition == 16" @click="downloadFileDraftTerakhir">
@@ -65,22 +65,23 @@
                         </template>
                     </template>
                 </div>
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
+                <br>
+                <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 2 }"> Rangkuman</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 12" :class="{'active' : tabs === 2 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 13" :class="{'active' : tabs === 3 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" :class="{'active' : tabs === 3 }" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 16" :class="{'active' : tabs === 4 }" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
+                    <li class="nav-item">
+                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" :class="{'active' : tabs === 4 }" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                    <div class="tab-pane" :class="{'active' : tabs === 1 }" id="m_tabs_9_1" role="tabpanel">
                         <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
                             <div class="col-10">
@@ -202,6 +203,17 @@
                                         <span>Download Format</span>
                                     </span>
                                 </button>
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -596,7 +608,7 @@ export default {
 
                 toastr.success(`Data Berhasil di Perbaharui`);
                 this.$router.push({
-                    name: 'PKSProposalSubmissionCooperationIndex'
+                    name: 'MOUProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -621,7 +633,7 @@ export default {
 
                 toastr.error(`Data Gagal di Perbaharui`);
                 this.$router.push({
-                    name: 'PKSProposalSubmissionCooperationIndex'
+                    name: 'MOUProposalSubmissionCooperationIndex'
                 });
             })
         },
@@ -707,6 +719,9 @@ export default {
                 };
 
                 toastr.success(`Data Berhasil di Perbaharui`);
+                this.$router.push({
+                    name: 'MOUProposalSubmissionCooperationIndex'
+                });
             })
             .catch(error => {
                 toastr.options = {

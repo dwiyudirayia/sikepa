@@ -15,6 +15,7 @@ class AdminSeeder extends Seeder
     {
         $permissionAdmin = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User', 'Mengubah Role User', 'Mengatur Role'];
         $permissionSatkerDeputi = ['Lihat Pengajuan Kerjasama','Monev'];
+        $permissionBagianKerjasama = ['Lihat Pengajuan Kerjasama','Monev'];
         $permissionSatkerSesmen = ['Lihat Pengajuan Kerjasama','Pengajuan Kerjasama', 'Satker Sesmen'];
         $permissionOtherRoles = ['Lihat Pengajuan Kerjasama'];
 
@@ -24,6 +25,9 @@ class AdminSeeder extends Seeder
         $roleBPD = Role::find(2);
         $roleBPD->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
 
+        $roleBPD = Role::find(9);
+        $roleBPD->syncPermissions($permissionBagianKerjasama); //SET PERMISSION UNTUK ROLE TERSEBUT
+
         for ($i=3; $i <= 7; $i++) {
             $roleSatkerDeputi = Role::find($i); //AMBIL ROLE BERDASARKAN ID
             $roleSatkerDeputi->syncPermissions($permissionSatkerDeputi); //SET PERMISSION UNTUK ROLE TERSEBUT
@@ -32,7 +36,7 @@ class AdminSeeder extends Seeder
         $roleSatkerSesmen = Role::find(8);
         $roleSatkerSesmen->syncPermissions($permissionSatkerSesmen);
 
-        for ($x=9; $x <= 16; $x++) {
+        for ($x=10; $x <= 16; $x++) {
             $roleSatkerDeputi = Role::find($x); //AMBIL ROLE BERDASARKAN ID
             $roleSatkerDeputi->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
         }

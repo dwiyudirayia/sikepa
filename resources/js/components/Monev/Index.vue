@@ -22,17 +22,17 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item">
-                                                    <a class="m-nav__link" v-tooltip.top="'Tambah MOU/PKS Terdahulu P3'">
-                                                        <i class="m-nav__link-icon la la-upload"></i>
-                                                        <span class="m-nav__link-text">Tambah MOU/PKS Terdahulu P3 </span>
-                                                    </a>
+                                                <li class="m-nav__item context-menu">
+                                                    <router-link class="m-nav__link" :to="{name: 'MonitoringP3Create'}" v-tooltip.top="'Tambah MOU/PKS P3 Terdahulu'">
+                                                        <i class="m-nav__link-icon la la-file"></i>
+                                                        <span class="m-nav__link-text">Tambah MOU/PKS P3 Terdahulu </span>
+                                                    </router-link>
                                                 </li>
-                                                <li class="m-nav__item">
-                                                    <a class="m-nav__link" v-tooltip.top="'Tambah MOU/PKS Terdahulu Satker'">
-                                                        <i class="m-nav__link-icon la la-upload"></i>
-                                                        <span class="m-nav__link-text">Tambah MOU/PKS Terdahulu Satker </span>
-                                                    </a>
+                                                <li class="m-nav__item context-menu">
+                                                    <router-link class="m-nav__link" :to="{name: 'MonitoringSatkerCreate'}" v-tooltip.top="'Tambah MOU/PKS Satker Terdahulu'">
+                                                        <i class="m-nav__link-icon la la-file-text"></i>
+                                                        <span class="m-nav__link-text">Tambah MOU/PKS Satker Terdahulu </span>
+                                                    </router-link>
                                                 </li>
                                                 <!-- <li class="m-nav__item">
                                                     <a class="m-nav__link" v-tooltip.top="'Import Monev Terdahulu'" @click="showModalImportMonev">
@@ -68,12 +68,12 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan P3</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -102,7 +102,7 @@
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                            <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -127,6 +127,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,7 +140,7 @@
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                            <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -313,7 +314,8 @@ export default {
     }
 }
 </script>
-
-<style>
-
+<style scoped>
+.context-menu {
+    cursor: context-menu;
+}
 </style>

@@ -173,6 +173,8 @@ Route::middleware('jwt')->group( function () {
         Route::delete('monev/list/activity/{id}', 'MonevController@destroyListMonevActivity');
         Route::post('monev/import', 'ImportController@importOldMOU');
         Route::post('monev/old/file/mou/{id}', 'MonevController@uploadOldMOU');
+        Route::post('monev/p3', 'MonevController@storeP3');
+        Route::post('monev/satker', 'MonevController@storeSatker');
 
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');

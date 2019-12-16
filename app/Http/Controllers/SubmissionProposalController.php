@@ -22,7 +22,7 @@ use App\ReasonSubmissionCooperation;
 use App\Regency;
 use Illuminate\Http\Request;
 use DB;
-// use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Mail;
 // use App\Mail\SubmissionCooperationApprove;
 // use App\Mail\SubmissionCooperationReject;
 use App\Notifications\DispositionNotification;
@@ -270,20 +270,21 @@ class SubmissionProposalController extends Controller
                     $convertToSnakeCase => 1
                 ]);
 
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
+                $data = SubmissionProposal::with('user')->findOrFail($request->id);
+                if($data->type_id == 1) {
                     $path = 'PKSProposalSubmissionCooperationIndex';
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
-                Mail::to($proposal->email)->send(new OfflineMeeting($request->keterangan_pesan));
+                Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
@@ -385,7 +386,7 @@ class SubmissionProposalController extends Controller
                         $proposal->save();
                     }
                 }
-            } elseif($countRole == 2 && ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) ) {
+            } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $rolesName = $user->roles[1]->name;
                 $convertToSnakeCase = Str::snake($rolesName);
 
@@ -397,6 +398,29 @@ class SubmissionProposalController extends Controller
                     'status_proposal' => 0
                 ]);
 
+            } elseif($proposal->status_disposition == 12) {
+                $rolesName = $user->roles[0]->name;
+                $convertToSnakeCase = Str::snake($rolesName);
+
+                $proposal->tracking()->update([
+                    $convertToSnakeCase => 1
+                ]);
+
+                SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
+                $statusDisposition = $proposal->status_disposition + 1;
+                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                    $query->where('id', $statusDisposition);
+                })->get();
+
+                $data = SubmissionProposal::with('user')->findOrFail($request->id);
+                if($data->type_id == 1) {
+                    $path = 'PKSProposalSubmissionCooperationIndex';
+                } else {
+                    $path = 'MOUProposalSubmissionCooperationIndex';
+                }
+
+                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } else {
 
                 $proposal = SubmissionProposal::findOrFail($request->id);
@@ -496,6 +520,17 @@ class SubmissionProposalController extends Controller
             $proposal->status_disposition = $proposal->status_disposition + 1;
             $proposal->save();
 
+            $data = SubmissionProposal::findOrFail($id);
+            if($data->type_id == 1) {
+                $path = 'PKSProposalSubmissionCooperationIndex';
+            } else {
+                $path = 'MOUProposalSubmissionCooperationIndex';
+            }
+            $users = User::whereHas('roles', function(Builder $query) {
+                $query->where('id', 11);
+            })->get();
+
+            Notification::send($users, new DispositionNotification(auth()->user(), $path));
             DB::commit();
 
             return response()->json([

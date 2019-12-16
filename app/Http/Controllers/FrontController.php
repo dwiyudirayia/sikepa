@@ -11,6 +11,7 @@ use App\Page;
 use App\TypeOfCooperation;
 use App\Country;
 use App\DeputiInformation;
+use App\FileDeputiInformation;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
 use App\Mail\ResiSubmissionCooperation;
 use App\Mail\SurveyKepuasan;
@@ -356,6 +357,20 @@ class FrontController extends Controller
             return back()->with('success', 'Saran Anda Berhasil di Tambahkan');
         } catch (\Throwable $th) {
             return back()->with('error', 'Saran Anda Gagal ditambahkan');
+        }
+    }
+    public function downloadFileInformation($id) {
+        try {
+            $deputi = FileDeputiInformation::findOrFail($id);
+
+            $file = $deputi->file;
+            return response()->download(storage_path("/app/public/file_deputi_information/".$file));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
         }
     }
 }
