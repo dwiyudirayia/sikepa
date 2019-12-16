@@ -10,6 +10,7 @@ use App\Testimoni;
 use App\Page;
 use App\TypeOfCooperation;
 use App\Country;
+use App\DeputiInformation;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
 use App\Mail\ResiSubmissionCooperation;
 use App\Mail\SurveyKepuasan;
@@ -19,6 +20,7 @@ use App\Regency;
 use App\SatisfactionSurvey;
 use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
+use App\Suggestion;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
 use Illuminate\Support\Facades\Notification;
@@ -31,8 +33,12 @@ use Illuminate\Support\Facades\Mail;
 class FrontController extends Controller
 {
     public function filterMonitoringCooperation($data) {
-        $monitoring = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
-
+        $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
+        $monitoring['biro'] = array_values($monitoring['data']['tracking']->toArray())[2];
+        $data = array_values($monitoring['data']['tracking']->toArray());
+        $monitoring['user_kppa'] = array_splice($data, 3, 8);
+        // $monitoring['label_user_kppa'] = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+        $monitoring['count_deputi'] = $monitoring['data']['deputi']->count();
         return $monitoring;
     }
     public function storeSatisfactionSurvey(Request $request) {
@@ -79,7 +85,6 @@ class FrontController extends Controller
         $bannerArticle = Article::orderBy('created_at', 'desc')->take(3)->get();
         $article = Article::orderBy('created_at', 'desc')->take(8)->get();
         $testimoni = Testimoni::all();
-        // $informasi = CategoryPage::with('pages', 'section', 'pages.files')->findOrFail(1);
 
         return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
     }
@@ -205,7 +210,6 @@ class FrontController extends Controller
 
             return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Jika Minat');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollback();
 
             return back()->with('error', 'Data Gagal di Simpan');
@@ -331,5 +335,27 @@ class FrontController extends Controller
         return response()->json([
             'data' => $result,
         ]);
+    }
+    public function deputyInformation($slug) {
+        $data = DeputiInformation::with('file')->where('url', $slug)->firstOrFail();
+
+        return view('pages.information', compact('data'));
+    }
+    public function deputyInformationDetail($slug) {
+        $data = DeputiInformation::where('url', $slug)->firstOrFail();
+
+        return view('pages.single-information', compact('data'));
+    }
+    public function storeSuggest(Request $request) {
+        try {
+            $suggest = Suggestion::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'message' => $request->message,
+            ]);
+            return back()->with('success', 'Saran Anda Berhasil di Tambahkan');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Saran Anda Gagal ditambahkan');
+        }
     }
 }

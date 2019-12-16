@@ -20,12 +20,17 @@ class MonevController extends Controller
     public function index() {
         try {
             $user = auth()->user();
-            $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
-                $query->where('role_id', $user->roles[0]->id);
-            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
-            $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
-                $query->where('role_id', $user->roles[0]->id);
-            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            if($user->roles[0]->id == 9) {
+                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            } else {
+                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                })->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                })->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            }
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

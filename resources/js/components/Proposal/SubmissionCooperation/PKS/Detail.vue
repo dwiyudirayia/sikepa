@@ -22,13 +22,19 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item">
-                                                    <a class="m-nav__link" @click="downloadSummary">
+                                                <li class="m-nav__item context-menu" @click="downloadSummary">
+                                                    <a class="m-nav__link">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Download Rangkuman Kerjasama</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item" v-if="status_disposition == 16">
+                                                <li class="m-nav__item  context-menu">
+                                                    <a class="m-nav__link" @click="showModalFile">
+                                                        <i class="m-nav__link-icon la la-file"></i>
+                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item context-menu" v-if="status_disposition == 16" @click="downloadSummary">
                                                     <a class="m-nav__link" @click="downloadFileDraftTerakhir">
                                                         <i class="m-nav__link-icon la la-file-word-o"></i>
                                                         <span class="m-nav__link-text">Download File Draft</span>
@@ -147,17 +153,31 @@
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
                             </div>
                         </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
-                            <div class="m-form__actions m-form__actions--solid">
-                                <div class="row">
-                                    <div class="col-lg-5"></div>
-                                    <div class="col-lg-7">
-                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
-                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                        <template v-if="status_disposition == 12 || status_disposition == 13 || status_disposition == 16">
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="nextTabs" class="btn btn-brand">Lanjut</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                            <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                     <div class="tab-pane" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group row">
@@ -276,6 +296,45 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="file" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">File</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: middle;">1</td>
+                                    <td style="vertical-align: middle;">Profil</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadAgencyProfile">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">2</td>
+                                    <td style="vertical-align: middle;">Proposal</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadProposal">Download</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--begin::Modal-->
         <div class="modal fade" id="modal-approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
             <div class="modal-dialog modal-lg" role="document">
@@ -291,6 +350,10 @@
                             <label for="message-text" class="form-control-label">Alasan</label>
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
+                        </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -317,6 +380,10 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -338,6 +405,7 @@ export default {
     name: 'PKSProposalSubmissionCooperationDetail',
     data() {
         return {
+            tabs: 1,
             text_button: 'Submit',
             notulen: null,
             notulenFile: null,
@@ -347,6 +415,7 @@ export default {
             draftLabel: null,
             disabled: false,
             forms: {
+                keterangan_pesan: null,
                 reason: null,
                 id: null,
             },
@@ -473,6 +542,24 @@ export default {
         this.getData();
     },
     methods: {
+        downloadProposal() {
+            window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+        },
+        downloadAgencyProfile() {
+           window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+        },
+        showModalFile() {
+            $('#file').modal('show');
+        },
+        nextTabs() {
+            if(this.status_disposition == 12) {
+                this.tabs = 2;
+            } else if(this.status_disposition == 13) {
+                this.tabs = 3;
+            } else {
+                this.tabs = 4;
+            }
+        },
         downloadSummary() {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
         },
@@ -484,12 +571,51 @@ export default {
 
             $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}`, formData)
             .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Perbaharui`);
                 this.$router.push({
                     name: 'PKSProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
-                console.log(error);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Data Gagal di Perbaharui`);
             })
         },
         downloadFormatWord() {
@@ -505,7 +631,6 @@ export default {
             })
         },
         downloadFileWord(response, filename) {
-            console.log(response);
             // It is necessary to create a new blob object with mime-type explicitly set
             // otherwise only Chrome works like it should
             var newBlob = new Blob([response.data], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
@@ -727,12 +852,50 @@ export default {
                 this.text_button = 'Loading ...';
                 $('#modal-reject').modal('hide');
 
-                this.$store.commit('proposal/notification', response);
-                this.$store.commit('proposal/updateData', response);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
 
+                toastr.success(`Pengajuan Perhasil ditolak`);
                 this.$router.push({
                     name: 'PKSProposalSubmissionCooperationIndex'
                 });
+            })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.error(`Pengajuan Perhasil ditolak`);
             })
 
             this.text_button = 'Submit';

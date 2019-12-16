@@ -22,19 +22,25 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item" v-if="status_disposition == 2">
+                                                <li class="m-nav__item  context-menu" v-if="status_disposition == 2">
                                                     <a class="m-nav__link" @click="modalEditDeputiPIC">
                                                         <i class="m-nav__link-icon la la-users"></i>
                                                         <span class="m-nav__link-text">Edit Tujuan Deputi</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item">
+                                                <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="downloadSummary">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Download Rangkuman Kerjasama</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item" v-if="status_disposition == 16">
+                                                <li class="m-nav__item  context-menu">
+                                                    <a class="m-nav__link" @click="showModalGuestFile">
+                                                        <i class="m-nav__link-icon la la-file"></i>
+                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item context-menu" v-if="status_disposition == 16">
                                                     <a class="m-nav__link" @click="downloadFileDraftTerakhir">
                                                         <i class="m-nav__link-icon la la-file-word-o"></i>
                                                         <span class="m-nav__link-text">Download File Draft</span>
@@ -71,11 +77,11 @@
                     </template>
                 </div>
                 <ul class="nav nav-tabs  m-tabs-line m-tabs-line--brand" role="tablist">
-                    <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
+                    <li class="nav-item m-tabs__item" @click="tabs = 1">
+                        <a class="nav-link m-tabs__link" :class="{'active' : tabs === 1 }" data-toggle="tab" href="#m_tabs_9_1" role="tab"> Rangkuman</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
                     <li class="nav-item m-tabs__item">
                         <a v-if="status_disposition == 13" class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
@@ -85,7 +91,7 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="m_tabs_9_1" role="tabpanel">
+                    <div class="tab-pane" :class="{'active' : tabs === 1 }" id="m_tabs_9_1" role="tabpanel">
                         <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
                             <div class="col-10">
@@ -158,22 +164,36 @@
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
                             </div>
                         </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
-                            <div class="m-form__actions m-form__actions--solid">
-                                <div class="row">
-                                    <div class="col-lg-5"></div>
-                                    <div class="col-lg-7">
-                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
-                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                        <template v-if="status_disposition == 12 || status_disposition == 13 || status_disposition == 16">
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="nextTabs" class="btn btn-brand">Lanjut</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                            <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
+                    <div class="tab-pane" :class="{'active' : tabs === 2 }"  id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Generate Barcode</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Generate Barcode :</label>
+                            <div class="col-lg">
                                 <button :class="statusBarcode" @click="generateBarcode" :disabled="disableBarcode
                                 ">
                                     <span>
@@ -185,8 +205,8 @@
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Download Format Word</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Download Format Word :</label>
+                            <div class="col-lg">
                                 <button class="btn btn-primary" @click="downloadFormatWord">
                                     <span>
                                         <i class="la la-word-o"></i>
@@ -195,8 +215,19 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
+                                        <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 13">
+                    <div class="tab-pane" id="m_tabs_9_3" :class="{'active' : tabs === 3 }" role="tabpanel" v-if="status_disposition == 13">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
@@ -228,7 +259,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" v-if="status_disposition == 16">
+                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" :class="{'active' : tabs === 4 }" v-if="status_disposition == 16">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -311,6 +342,10 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -343,7 +378,7 @@
                                         <td style="vertical-align: middle;">{{ index+1 }}</td>
                                         <td style="vertical-align: middle;">{{ value.role.name }}</td>
                                         <td>
-                                            <span class="m--font-danger" @click="hapusDeputi(value.id)">Hapus Deputi</span>
+                                            <span class="m--font-danger context-menu" @click="hapusDeputi(value.id)">Hapus Deputi</span>
                                         </td>
                                     </tr>
                                 </template>
@@ -371,6 +406,66 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="guest-file" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">File Pengaju</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: middle;">1</td>
+                                    <td style="vertical-align: middle;">Profil</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadAgencyProfile">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">2</td>
+                                    <td style="vertical-align: middle;">Proposal</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadProposal">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">3</td>
+                                    <td style="vertical-align: middle;">KTP</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadKTP">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">4</td>
+                                    <td style="vertical-align: middle;">NPWP</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadNPWP">Download</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">5</td>
+                                    <td style="vertical-align: middle;">SIUP</td>
+                                    <td>
+                                        <span class="m--font-brand context-menu" @click="downloadSIUP">Download</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--end::Modal-->
         <!--begin::Modal-->
         <div class="modal fade" id="modal-reject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999;">
@@ -387,6 +482,10 @@
                             <label for="message-text" class="form-control-label">Alasan</label>
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
+                        </div>
+                        <div class="form-group" v-if="status_disposition == 12">
+                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
+                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -409,6 +508,7 @@ export default {
     name: 'PKSProposalSubmissionCooperationDetailGuest',
     data() {
         return {
+            tabs: 1,
             addDeputi: [],
             text_button: 'Submit',
             notulen: null,
@@ -421,6 +521,7 @@ export default {
             forms: {
                 reason: null,
                 id: null,
+                keterangan_pesan: null,
             },
             breadcrumbTitle: 'Pengajuan Kerjasama',
             breadcrumbLink: [
@@ -563,6 +664,33 @@ export default {
         this.getData();
     },
     methods: {
+        showModalGuestFile() {
+            $('#guest-file').modal('show');
+        },
+        downloadKTP() {
+            window.location.href = `/api/admin/download/file/ktp/${this.$route.params.id}/guest?token=${localStorage.getItem('token')}`;
+        },
+        downloadNPWP() {
+            window.location.href = `/api/admin/download/file/npwp/${this.$route.params.id}/guest?token=${localStorage.getItem('token')}`;
+        },
+        downloadSIUP() {
+            window.location.href = `/api/admin/download/file/siup/${this.$route.params.id}/guest?token=${localStorage.getItem('token')}`;
+        },
+        downloadProposal() {
+            window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}/guest?token=${localStorage.getItem('token')}`;
+        },
+        downloadAgencyProfile() {
+           window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}/guest?token=${localStorage.getItem('token')}`;
+        },
+        nextTabs() {
+            if(this.status_disposition == 12) {
+                this.tabs = 2;
+            } else if(this.status_disposition == 13) {
+                this.tabs = 3;
+            } else {
+                this.tabs = 4;
+            }
+        },
         addDeputiPIC() {
             $axios.post(`/admin/deputi/pic/guest`, {
                 id: this.$route.params.id,
@@ -648,12 +776,52 @@ export default {
 
             $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}/guest`, formData)
             .then(response => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Data Berhasil di Perbaharui`);
+
                 this.$router.push({
                     name: 'PKSProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
-                console.log(error);
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Data Gagal di Perbaharui`);
             })
         },
         downloadFormatWord() {
@@ -701,7 +869,7 @@ export default {
             formData.append('notulen', this.notulenFile);
             formData.append('draft', this.draftFile);
 
-            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
+            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}/guest`, formData)
             .then(response => {
 
                 toastr.options = {
@@ -724,6 +892,9 @@ export default {
                 };
 
                 toastr.success(`Data Berhasil di Perbaharui`);
+                this.$router.push({
+                    name: 'PKSProposalSubmissionCooperationIndex'
+                });
             })
             .catch(error => {
                 toastr.options = {
@@ -933,6 +1104,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.context-menu {
+    cursor: context-menu;
+}
 </style>
+

@@ -54,6 +54,8 @@ class DeputiInformationController extends Controller
                 $extFile = $request->photo_video->getClientOriginalExtension();
                 $nameFile = 'photo-video'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
                 $pathPhotoVideo = $request->photo_video->storeAs($deputi->id, $nameFile, 'photo_video_deputi_information');
+            } else {
+                $pathPhotoVideo = $request->photo_video;
             }
 
             DeputiInformation::where('id', $deputi->id)->update([
@@ -157,7 +159,7 @@ class DeputiInformationController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Tambah File Gagal',
                 'status' => $th->getCode(),
                 'data' => FileDeputiInformation::where('deputi_information_id', $request->id)->get(),
             ]);
@@ -221,7 +223,7 @@ class DeputiInformationController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Data Gagal Diperbaharui',
                 'status' => $th->getCode(),
             ]);
         }
@@ -235,7 +237,7 @@ class DeputiInformationController extends Controller
 
         } catch (\Throwable $th) {
             return response()->json([
-                'messages' => $th->getMessage(),
+                'messages' => 'Download FIle Gagal',
                 'status' => $th->getCode()
             ]);
         }

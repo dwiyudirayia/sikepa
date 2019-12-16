@@ -134,12 +134,32 @@
                         <span v-if="!$v.forms.text_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
+                <div class="m-form__group form-group">
+                    <label for="">Penyimpanan Video</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio m-radio--state-brand">
+                            <input type="radio" v-model="$v.forms.type_video.$model" value="1"> Server
+                            <span></span>
+                        </label>
+                        <label class="m-radio m-radio--state-brand">
+                            <input type="radio" v-model="$v.forms.type_video.$model" value="2"> YouTube
+                            <span></span>
+                        </label>
+                    </div>
+                    <!-- <span class="m-form__help"></span> -->
+                </div>
+                <div class="form-group m-form__group" v-if="forms.type_video == 1">
                     <label for="exampleInputEmail1">Video Tutorial</label>
                     <div></div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_video" @change="photoVideo">
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
+                    </div>
+                </div>
+                <div class="form-group m-form__group" v-else>
+                    <label>Video Tutorial</label>
+                    <div class="m-form__control">
+                        <input type="text" v-model="forms.photo_video" class="form-control">
                     </div>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -290,6 +310,7 @@ export default {
                 text_requirement: null,
                 photo_video: null,
                 text_video: null,
+                type_video: 2,
             }
         }
     },
@@ -313,6 +334,9 @@ export default {
             text_video: {
                 required,
             },
+            type_video: {
+                required,
+            }
         }
     },
     methods: {
@@ -366,11 +390,13 @@ export default {
             formData.append('text_contact', this.forms.text_contact);
             formData.append('photo_contact', this.forms.photo_contact);
             formData.append('photo_information', this.forms.photo_information);
+            formData.append('full_text_information', this.forms.text_information);
             formData.append('text_information', this.forms.text_information);
             formData.append('photo_requirement', this.forms.photo_requirement);
             formData.append('text_requirement', this.forms.text_requirement);
             formData.append('photo_video', this.forms.photo_video);
             formData.append('text_video', this.forms.text_video);
+            formData.append('type_video', this.forms.type_video);
 
             this.name_file_deputi.forEach((value, index) => {
                 formData.append(`name[${index}]`, value)
@@ -437,6 +463,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.display {
+    display: none;
+}
 </style>

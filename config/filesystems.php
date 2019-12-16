@@ -69,26 +69,6 @@ return [
             'root' => storage_path('app/public/photo_user'),
             'visibility' => 'public',
         ],
-        'proposal_cooperation' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/proposal_cooperation'),
-            'visibility' => 'public',
-        ],
-        'agency_profile_cooperation' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/agency_profile_cooperation'),
-            'visibility' => 'public',
-        ],
-        'proposal_cooperation_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/proposal_cooperation_guest'),
-            'visibility' => 'public',
-        ],
-        'agency_profile_cooperation_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/agency_profile_cooperation_guest'),
-            'visibility' => 'public',
-        ],
         'activity_documentation' => [
             'driver' => 'local',
             'root' => storage_path('app/public/activity_documentation'),
@@ -99,14 +79,19 @@ return [
             'root' => storage_path('app/public/barcode'),
             'visibility' => 'public',
         ],
-        'barcode_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/barcode_guest'),
-            'visibility' => 'public',
-        ],
         'law_notulen' => [
             'driver' => 'local',
             'root' => storage_path('app/public/law_notulen'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation'),
             'visibility' => 'public',
         ],
         'law_draft' => [
@@ -114,34 +99,9 @@ return [
             'root' => storage_path('app/public/law_draft'),
             'visibility' => 'public',
         ],
-        'law_notulen_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/law_notulen_guest'),
-            'visibility' => 'public',
-        ],
-        'law_draft_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/law_draft_guest'),
-            'visibility' => 'public',
-        ],
         'old_mou' => [
             'driver' => 'local',
             'root' => storage_path('app/public/old_mou'),
-            'visibility' => 'public',
-        ],
-        'ktp_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/ktp_guest'),
-            'visibility' => 'public',
-        ],
-        'npwp_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/npwp_guest'),
-            'visibility' => 'public',
-        ],
-        'siup_guest' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/siup_guest'),
             'visibility' => 'public',
         ],
         'file_deputi_information' => [
@@ -167,6 +127,46 @@ return [
         'photo_video_deputi_information' => [
             'driver' => 'local',
             'root' => storage_path('app/public/photo_video_deputi_information'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_guest'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_guest'),
+            'visibility' => 'public',
+        ],
+        'barcode_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_guest'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_guest'),
+            'visibility' => 'public',
+        ],
+        'law_draft_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_guest'),
+            'visibility' => 'public',
+        ],
+        'ktp_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ktp_guest'),
+            'visibility' => 'public',
+        ],
+        'npwp_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/npwp_guest'),
+            'visibility' => 'public',
+        ],
+        'siup_guest' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/siup_guest'),
             'visibility' => 'public',
         ],
         's3' => [

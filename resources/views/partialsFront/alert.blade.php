@@ -41,7 +41,7 @@
     "hideMethod": "fadeOut"
     };
 
-    toastr.error("Data Berhasil di Simpan");
+    toastr.error("{{ session('error') }}");
 </script>
 @endif
 @if (session('warning'))

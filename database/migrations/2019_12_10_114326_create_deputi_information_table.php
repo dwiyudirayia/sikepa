@@ -24,6 +24,7 @@ class CreateDeputiInformationTable extends Migration
             $table->text('text_information')->nullable();
             $table->string('photo_requirement')->nullable();
             $table->text('text_requirement')->nullable();
+            $table->tinyInteger('type_video')->nullable();
             $table->string('photo_video')->nullable();
             $table->text('text_video')->nullable();
             $table->timestamps();

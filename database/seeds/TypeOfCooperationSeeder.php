@@ -39,7 +39,7 @@ class TypeOfCooperationSeeder extends Seeder
             'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative1->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Nota Kesepahaman (MoU)'
+            'name' => 'Nota Kesepahaman'
         ]);
 
         $typeOfCoopOneDerivative2 =  $typOfCoop2->typeOfCooperationOneDerivative()->create([
@@ -61,7 +61,7 @@ class TypeOfCooperationSeeder extends Seeder
             'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative2->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Perpanjangan MoU / PKS'
+            'name' => 'Perpanjangan'
         ]);
 
         TypeOfCooperationTwoDerivative::create([

@@ -97,8 +97,8 @@
                                         <tr v-for="(value, index) in tableData.guest" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
