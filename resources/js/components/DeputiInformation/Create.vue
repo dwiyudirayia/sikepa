@@ -66,6 +66,8 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_contact" @change="photoContact">
                         <label class="custom-file-label" for="customFile" id="label_photo_contact">Choose file</label>
                     </div>
+                    <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Full Text Informasi Deputi</label>
@@ -106,6 +108,8 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_information" @change="photoInformation">
                         <label class="custom-file-label" for="customFile" id="label_photo_information">Choose file</label>
                     </div>
+                    <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Syarat Kerjasama</label>
@@ -124,6 +128,8 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_requirement" @change="photoRequirement">
                         <label class="custom-file-label" for="customFile" id="label_photo_requirement">Choose file</label>
                     </div>
+                    <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Video Tutorial</label>
@@ -155,12 +161,15 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_video" @change="photoVideo">
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
                     </div>
+                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <span v-else-if="$v.forms.photo_video.$error && !$v.forms.photo_video.fileType" class="m--font-danger">Ektensi file harus .mp4</span>
                 </div>
                 <div class="form-group m-form__group" v-else>
                     <label>Video Tutorial</label>
                     <div class="m-form__control">
                         <input type="text" v-model="forms.photo_video" class="form-control">
                     </div>
+                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--last">
@@ -274,6 +283,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
 import $axiosFormData from '@/apiformdata';
 
@@ -314,8 +324,8 @@ export default {
             }
         }
     },
-    validations: {
-        forms: {
+    validations() {
+        const tmpForm = {
             title: {
                 required,
             },
@@ -336,8 +346,35 @@ export default {
             },
             type_video: {
                 required,
-            }
+            },
+            photo_contact: {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            },
+            photo_information: {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            },
+            photo_requirement: {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            },
+        };
+
+        if (this.forms.type_video == 1) {
+            tmpForm.photo_video = {
+                required,
+                fileType: fileType('video/mp4'),
+            };
+        } else {
+            tmpForm.photo_video = {
+                required,
+            };
         }
+
+        return {
+            forms: tmpForm,
+        };
     },
     methods: {
         fileDeputiInfomasi(index) {
