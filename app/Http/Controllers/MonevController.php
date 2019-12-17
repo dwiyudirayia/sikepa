@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMonevActivitySatkerGuestRequest;
+use App\Http\Requests\StoreMonevActivitySatkerRequest;
 use App\Http\Requests\StoreMonevP3Request;
 use App\Http\Requests\StoreMonevSatkerRequest;
 use App\LawFileSubmissionProposal;
 use App\LawFileSubmissionProposalGuest;
+use App\MonitoringActivity;
+use App\MonitoringActivityGuest;
+use App\MonitoringActivityResult;
+use App\MonitoringActivityResultGuest;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposal;
@@ -344,6 +350,174 @@ class MonevController extends Controller
             DB::commit();
             return response()->json([
                 'messages' => 'Data Berhasil di Tambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeActivitySatker(StoreMonevActivitySatkerRequest $request) {
+        try {
+            DB::beginTransaction();
+            $proposal = SubmissionProposal::findOrFail($request->id);
+            $monevActivity = $proposal->monevActivity()->create($request->store());
+
+            if($request->hasFile('file')) {
+                foreach ($request->file as $key => $value) {
+                    $extFile = $value->getClientOriginalExtension();
+                    $nameFile = 'file-monev-activity'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+                    $path = $value->storeAs($monevActivity->id, $nameFile, 'activity_documentation');
+                    $monevActivity->documentation()->create([
+                        'file' => $path
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di Tambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->storeFailed($th));
+        }
+    }
+    public function storeActivityGuest(StoreMonevActivitySatkerGuestRequest $request) {
+        try {
+            DB::beginTransaction();
+            $proposal = SubmissionProposalGuest::findOrFail($request->id);
+            $monevActivity = $proposal->monevActivity()->create($request->store());
+
+            if($request->hasFile('file')) {
+                foreach ($request->file as $key => $value) {
+                    $extFile = $value->getClientOriginalExtension();
+                    $nameFile = 'file-monev-activity'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+                    $path = $value->storeAs($monevActivity->id, $nameFile, 'activity_documentation');
+                    $monevActivity->documentation()->create([
+                        'file' => $path
+                    ]);
+                }
+            }
+            
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di Tambahkan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->storeFailed($th));
+        }
+    }
+    public function showActivitySatker($id) {
+        try {
+            $data = MonitoringActivity::findOrFail($id);
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function showActivityGuest($id) {
+        try {
+            $data = MonitoringActivityGuest::findOrFail($id);
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function listActivitySatker($id) {
+        try {
+            $data = MonitoringActivity::where('submission_proposal_id', $id)->get();
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function destroyActivitySatker($id) {
+        try {
+            $data = MonitoringActivity::findOrFail($id);
+            $data->delete();
+
+            return response()->json([
+                'messages' => 'Data Berhasil di Hapus',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Tambahkan',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function listActivityGuest($id) {
+        try {
+            $data = MonitoringActivityGuest::where('submission_proposal_guest_id', $id)->get();
+            return response()->json($this->notification->showSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
+    public function destroyActivityGuest($id) {
+        try {
+            $data = MonitoringActivityGuest::findOrFail($id);
+            $data->delete();
+
+            return response()->json([
+                'messages' => 'Data Berhasil di Hapus',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Tambahkan',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeResultActivitySatker(Request $request) {
+        try {
+            DB::beginTransaction();
+            $monev = MonitoringActivity::with('result')->findOrFail($request->id);
+
+            MonitoringActivityResult::create([
+                'monitoring_activity_id' => $request->id,
+                'evaluation' => $request->evaluation,
+                'recomendation' => $request->recomendation
+            ]);
+            $monev->result_status = 1;
+            $monev->save();
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di update',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeResultActivityGuest(Request $request) {
+        try {
+            DB::beginTransaction();
+            $monev = MonitoringActivityGuest::with('result')->findOrFail($request->id);
+
+            MonitoringActivityResultGuest::create([
+                'monitoring_activity_guest_id' => $request->id,
+                'evaluation' => $request->evaluation,
+                'recomendation' => $request->recomendation
+            ]);
+            $monev->result_status = 1;
+            $monev->save();
+            DB::commit();
+            return response()->json([
+                'messages' => 'Data Berhasil di update',
                 'status' => 200,
             ]);
         } catch (\Throwable $th) {

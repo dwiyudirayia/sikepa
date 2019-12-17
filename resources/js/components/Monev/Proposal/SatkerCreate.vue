@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Pengajuan
+                            Tambah Pengajuan Terdahulu
                         </h3>
                     </div>
                 </div>
@@ -18,13 +18,13 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis</label>
                     <div class="m-form__control">
-                        <select class="form-control" v-model="$v.forms.type_guest_id.$model">
+                        <select class="form-control" v-model="$v.forms.type_id.$model">
                             <option value="1">PKS</option>
                             <option value="2">MOU</option>
                         </select>
                     </div>
-                    <template v-if="$v.forms.type_guest_id.$error">
-                        <span v-if="!$v.forms.type_guest_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    <template v-if="$v.forms.type_id.$error">
+                        <span v-if="!$v.forms.type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -174,6 +174,7 @@
                         </select>
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <br>
                     <template v-if="$v.forms.agencies_id.$error">
                         <span v-if="!$v.forms.agencies_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -409,6 +410,11 @@ export default {
             breadcrumbLink: [
                 {
                     id: 1,
+                    label: 'Monitoring Evaluasi',
+                    path: '/monev'
+                },
+                {
+                    id: 2,
                     label: 'Tambah Pengajuan Sesmen Terdahulu',
                     path: '/monev/satker/create'
                 },
@@ -422,7 +428,7 @@ export default {
                 nomor: [''],
                 deputi: [],
                 name: null,
-                type_guest_id: '1',
+                type_id: '1',
                 title_cooperation: null,
                 type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
@@ -486,7 +492,7 @@ export default {
             name: {
                 required
             },
-            type_guest_id: {
+            type_id: {
                 required
             },
             title_cooperation: {
@@ -568,7 +574,7 @@ export default {
                 $.each(this.forms.nomor, function(index, value) {
                     formData.append(`nomor[${index}]`, value);
                 });
-                formData.append('type_guest_id', this.forms.type_guest_id);
+                formData.append('type_id', this.forms.type_id);
                 formData.append('name', this.forms.name);
                 formData.append('title_cooperation', this.forms.title_cooperation);
                 formData.append('type_of_cooperation_id', this.forms.type_of_cooperation_id);
@@ -635,7 +641,7 @@ export default {
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     };
-                    toastr.error(`Data Gagaal di Tambahkan`);
+                    toastr.error(`Data Gagal di Tambahkan`);
                 })
                 this.$v.$reset();
             }

@@ -48,4 +48,7 @@ class SubmissionProposal extends Model
     public function reason() {
         return $this->hasMany(ReasonSubmissionCooperation::class);
     }
+    public function monevActivity() {
+        return $this->hasMany(MonitoringActivity::class);
+    }
 }

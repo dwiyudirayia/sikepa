@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Pengajuan
+                            Tambah Pengajuan Terdahulu
                         </h3>
                     </div>
                 </div>
@@ -409,6 +409,11 @@ export default {
             breadcrumbLink: [
                 {
                     id: 1,
+                    label: 'Monitoring Evaluasi',
+                    path: '/monev'
+                },
+                {
+                    id: 2,
                     label: 'Tambah Pengajuan P3 Terdahulu',
                     path: '/monev/p3/create'
                 },
@@ -635,7 +640,7 @@ export default {
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     };
-                    toastr.error(`Data Gagaal di Tambahkan`);
+                    toastr.error(`Data Gagal di Tambahkan`);
                 })
                 this.$v.$reset();
             }

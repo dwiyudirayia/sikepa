@@ -90,6 +90,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,6 +104,41 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <router-link :to="{name: 'MonevActivityP3Create', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Tambah Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                                <router-link :to="{name: 'ListMonevActivityGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-list"></i>
+                                                        <span>Daftar Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                                <!-- <router-link :to="{name: 'ResultMonevActivityGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-pencil-square"></i>
+                                                        <span>Nilai Kegiatan</span>
+                                                    </span>
+                                                </router-link> -->
+                                                
+                                                <!-- <router-link :to="{name: 'ListMonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-list"></i>
+                                                        <span>Daftar Kegiatan</span>
+                                                    </span>
+                                                </router-link> -->
+                                            </td>
+                                            <!-- <td style="vertical-align: middle;">
+                                                <router-link :to="{name: 'FaqEdit', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Tambah Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-pencil"></i>
+                                                        <span>Tambah Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                            </td> -->
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -141,6 +177,20 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <router-link :to="{name: 'MonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-plus"></i>
+                                                        <span>Tambah Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                                <router-link :to="{name: 'ListMonevActivitySatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-list"></i>
+                                                        <span>Daftar Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                            </td>
                                         </tr>
                                     </template>
                                     <template v-else>

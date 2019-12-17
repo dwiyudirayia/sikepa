@@ -28,6 +28,12 @@ import UserSatkerEdit from './components/User/Satker/Edit';
 import MonitoringEvaluasiIndex from './components/Monev/Index';
 import MonitoringP3Create from './components/Monev/Proposal/P3Create';
 import MonitoringSatkerCreate from './components/Monev/Proposal/SatkerCreate';
+import MonevActivitySatkerCreate from './components/Monev/Proposal/Satker/Create';
+import ListMonevActivitySatker from './components/Monev/Proposal/Satker/List';
+import ResultMonevActivitySatker from './components/Monev/Proposal/Satker/Result';
+import ResultMonevActivityGuest from './components/Monev/Proposal/P3/Result';
+import MonevActivityP3Create from './components/Monev/Proposal/P3/Create';
+import ListMonevActivityGuest from './components/Monev/Proposal/P3/List';
 // import MonitoringEvaluasiCreate from './components/Monev/Create';
 // import MonitoringEvaluasiEdit from './components/Monev/Edit';
 // import MonevActivityCreate from './components/Monev/Activity/Create';
@@ -158,6 +164,7 @@ import DeputiInformationCreate from './components/DeputiInformation/Create';
 import Auth from './layouts/Auth';
 //End layouts
 import LoginAdmin from './components/Auth/Login'
+import $axios from './api';
 //End Auth
 
 
@@ -856,6 +863,36 @@ const router = new VueRouter({
                     path: '/monev/satker/create',
                     name: 'MonitoringSatkerCreate',
                     component: MonitoringSatkerCreate
+                },
+                {
+                    path: '/monev/activity/:id/guest/create',
+                    name: 'MonevActivityP3Create',
+                    component: MonevActivityP3Create
+                },
+                {
+                    path: '/monev/activity/:id/satker/create',
+                    name: 'MonevActivitySatkerCreate',
+                    component: MonevActivitySatkerCreate
+                },
+                {
+                    path: '/monev/activity/:id/satker/list',
+                    name: 'ListMonevActivitySatker',
+                    component: ListMonevActivitySatker,
+                },
+                {
+                    path: '/monev/activity/:id/guest/list',
+                    name: 'ListMonevActivityGuest',
+                    component: ListMonevActivityGuest,
+                },
+                {
+                    path: '/monev/activity/:id/satker/result',
+                    name: 'ResultMonevActivitySatker',
+                    component: ResultMonevActivitySatker,
+                },
+                {
+                    path: '/monev/activity/:id/guest/result',
+                    name: 'ResultMonevActivityGuest',
+                    component: ResultMonevActivityGuest,
                 },
                 // {
                 //     path: '/monev/create',

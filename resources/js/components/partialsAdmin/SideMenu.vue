@@ -152,7 +152,7 @@
                         </ul>
                     </div>
                 </li>
-                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true">
+                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true" :class="{'router-link-exact-active': subOpenMenu('/monev')}">
                     <router-link class="m-menu__link" to="/monev">
                         <i class="m-menu__link-icon la la-pencil-square"></i>
                         <span class="m-menu__link-title">

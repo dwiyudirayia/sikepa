@@ -175,6 +175,16 @@ Route::middleware('jwt')->group( function () {
         Route::post('monev/old/file/mou/{id}', 'MonevController@uploadOldMOU');
         Route::post('monev/p3', 'MonevController@storeP3');
         Route::post('monev/satker', 'MonevController@storeSatker');
+        Route::post('monev/activity/satker', 'MonevController@storeActivitySatker');
+        Route::post('monev/activity/guest', 'MonevController@storeActivityGuest');
+        Route::get('list/monev/activity/satker/{id}', 'MonevController@listActivitySatker');
+        Route::get('show/monev/activity/satker/{id}', 'MonevController@showActivitySatker');
+        Route::get('show/monev/activity/guest/{id}', 'MonevController@showActivityGuest');
+        Route::post('result/monev/activity/satker', 'MonevController@storeResultActivitySatker');
+        Route::post('result/monev/activity/guest', 'MonevController@storeResultActivityGuest');
+        Route::get('list/monev/activity/guest/{id}', 'MonevController@listActivityGuest');
+        Route::delete('list/monev/activity/satker/{id}', 'MonevController@destroyActivitySatker');
+        Route::delete('list/monev/activity/guest/{id}', 'MonevController@destroyActivityGuest');
 
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');
