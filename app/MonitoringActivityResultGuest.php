@@ -10,6 +10,6 @@ class MonitoringActivityResultGuest extends Model
     protected $fillable = ['monitoring_activity_guest_id','evaluation','recomendation'];
 
     public function result() {
-        return $this->hasOne(MonitoringActivityGuest::class);
+        return $this->belongsTo(MonitoringActivityGuest::class, 'monitoring_activity_guest_result_id');
     }
 }

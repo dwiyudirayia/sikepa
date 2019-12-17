@@ -18,7 +18,7 @@ use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
-
+use PDF;
 class MonevController extends Controller
 {
     private $notification;
@@ -31,13 +31,13 @@ class MonevController extends Controller
         try {
             $user = auth()->user();
             if($user->roles[0]->id == 9) {
-                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
             } else {
-                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['approval'] = SubmissionProposal::with('deputi','country','agencies','typeOfCooperation', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies','typeOfCooperation', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             }
@@ -527,5 +527,16 @@ class MonevController extends Controller
                 'status' => $th->getCode(),
             ]);
         }
+    }
+    public function downloadSummaryGuest($id) {
+        $data = SubmissionProposalGuest::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity.result', 'monevActivity.documentation')->findOrFail($id);
+        // dd($data->monevActivity[0]->result->evaluation);
+        $pdf = PDF::loadView('export.summary-monev', compact('data'));
+        return $pdf->download('Rangkuman Monitoring Evaluasi '.date('Y-m-d_H-i-s').'.pdf');
+    }
+    public function downloadSummarySatker($id) {
+        $data = SubmissionProposal::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity.result', 'monevActivity.documentation')->findOrFail($id);
+        $pdf = PDF::loadView('export.summary-monev', compact('data'));
+        return $pdf->download('Rangkuman Monitoring Evaluasi '.date('Y-m-d_H-i-s').'.pdf');
     }
 }

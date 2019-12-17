@@ -203,8 +203,8 @@
                                         <td style="vertical-align: middle;">{{ index+1 }}</td>
                                         <td style="vertical-align: middle;">{{ value.name }}</td>
                                         <td>
-                                            <span class="m--font-danger" @click="hapusFileDeputiInformation(value.id)">Hapus</span>
-                                            <span class="m--font-brand" @click="downloadFileDeputiInformation(value.id)">Download File</span>
+                                            <span class="m--font-danger " @click="hapusFileDeputiInformation(value.id)">Hapus</span>
+                                            <span class="m--font-brand context-menu" @click="downloadFileDeputiInformation(value.id)">Download File</span>
                                         </td>
                                     </tr>
                                 </template>
@@ -538,6 +538,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.context-menu {
+    cursor: context-menu;
+}
 </style>
+

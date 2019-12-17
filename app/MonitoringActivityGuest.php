@@ -16,6 +16,6 @@ class MonitoringActivityGuest extends Model
         return $this->hasMany(MonitoringActivityDocumentationGuest::class);
     }
     public function result() {
-        return $this->belongsTo(MonitoringActivityResultGuest::class);
+        return $this->hasOne(MonitoringActivityResultGuest::class);
     }
 }

@@ -117,6 +117,12 @@
                                                         <span>Daftar Kegiatan</span>
                                                     </span>
                                                 </router-link>
+                                                <button @click="downloadSummaryMonevGuest(value.id)" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Rangkuman Monev'">
+                                                    <span>
+                                                        <i class="la la-file"></i>
+                                                        <span>Download Rangkuman Monev</span>
+                                                    </span>
+                                                </button>
                                                 <!-- <router-link :to="{name: 'ResultMonevActivityGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
                                                     <span>
                                                         <i class="la la-pencil-square"></i>
@@ -190,6 +196,12 @@
                                                         <span>Daftar Kegiatan</span>
                                                     </span>
                                                 </router-link>
+                                                <button @click="downloadSummaryMonevSatker(value.id)" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Rangkuman Monev'">
+                                                    <span>
+                                                        <i class="la la-file"></i>
+                                                        <span>Download Rangkuman Monev</span>
+                                                    </span>
+                                                </button>
                                             </td>
                                         </tr>
                                     </template>
@@ -261,6 +273,12 @@ export default {
         this.getData();
     },
     methods: {
+        downloadSummaryMonevSatker(id) {
+            window.location.href = `/api/admin/download/monev/activity/satker/${id}?token=${localStorage.getItem('token')}`;
+        },
+        downloadSummaryMonevGuest(id) {
+            window.location.href = `/api/admin/download/monev/activity/guest/${id}?token=${localStorage.getItem('token')}`;
+        },
         getData() {
             $axios.get(`/admin/monev`)
             .then(response => {

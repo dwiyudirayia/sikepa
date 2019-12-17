@@ -185,6 +185,8 @@ Route::middleware('jwt')->group( function () {
         Route::get('list/monev/activity/guest/{id}', 'MonevController@listActivityGuest');
         Route::delete('list/monev/activity/satker/{id}', 'MonevController@destroyActivitySatker');
         Route::delete('list/monev/activity/guest/{id}', 'MonevController@destroyActivityGuest');
+        Route::get('download/monev/activity/satker/{id}', 'MonevController@downloadSummarySatker');
+        Route::get('download/monev/activity/guest/{id}', 'MonevController@downloadSummaryGuest');
 
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');
