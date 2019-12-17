@@ -48,7 +48,7 @@ class StoreUserRequest extends FormRequest
     public function store()
     {
         if($this->signature == null || $this->signature == 'null') {
-            $pathSignature = '';
+            $pathSignature = null;
         } else {
             $extentionSignature = $this->signature->getClientOriginalExtension();
             $filenameSignature = 'signature'.'-'.date('Y-m-d').'-'.time().'.'.$extentionSignature;
@@ -57,7 +57,7 @@ class StoreUserRequest extends FormRequest
         }
 
         if($this->photo == null || $this->photo == 'null') {
-            $pathPhoto = '';
+            $pathPhoto = null;
         } else {
             $extentionPhoto = $this->photo->getClientOriginalExtension();
             $filenamePhoto = 'photo'.'-'.date('Y-m-d').'-'.time().'.'.$extentionPhoto;
