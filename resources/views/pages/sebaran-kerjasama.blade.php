@@ -10,7 +10,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="stats">
                                     <div class="stats-val" id="domestic">
-                                        {{ $data['approval_guest_domestic'] }}
+                                        {{-- {{ $data['approval_guest_domestic'] + $data['approval_guest_domestic_guest']}} --}}
                                     </div>
                                     <div class="stats-label" id="domestic">
                                         Total Kerjasama<br>Dalam Negri
@@ -20,7 +20,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="stats">
                                     <div class="stats-val" id="overseas">
-                                        {{ $data['approval_guest_overseas'] }}
+                                        {{-- {{ $data['approval_guest_overseas'] + $data['approval_guest_overseas_guest'] }} --}}
                                     </div>
                                     <div class="stats-label">
                                         Total Kerjasama<br>Luar Negri
@@ -217,12 +217,11 @@
             })
 
             const overseas = data.filter(value => {
-                return value.type_of_cooperation_one_derivative_id == 1;
+                return value.countries_id != 102;
             });
             const domestic = data.filter(value => {
-                return value.type_of_cooperation_two_derivative_id == 2;
+                return value.countries_id == 102;
             });
-
             $('#overseas').html(overseas.length);
             $('#domestic').html(domestic.length);
 
@@ -314,10 +313,10 @@
                 })
             }
             const overseas = data.filter(value => {
-                return value.type_of_cooperation_one_derivative_id == 1;
+                return value.countries_id != 102;
             });
             const domestic = data.filter(value => {
-                return value.type_of_cooperation_two_derivative_id == 2;
+                return value.countries_id == 102;
             });
 
             $('#overseas').html(overseas.length);

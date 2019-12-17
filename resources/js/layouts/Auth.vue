@@ -1,7 +1,7 @@
 <template>
     <div class="router-transitions">
         <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container">
-            <div class="ui-bg-overlay bg-customize" :style="{'background-image' : `url('${background}')`}"></div>
+            <div class="ui-bg-overlay bg-customize" :style="{'background-image' : `url('/admin/5.jpg')`}"></div>
             <div class="title-inner">
                 <div class="title-app">
                     <h1>SIKEPA</h1>
@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="p-4 p-sm-5">
                         <div class="d-flex justify-content-center align-items-center pb-4">
-                            <img :src="logo" alt="">
+                            <img src="/admin/sikepa.png" alt="">
                         </div>
                         <h5 class="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5> <span></span>
                         <router-view></router-view>

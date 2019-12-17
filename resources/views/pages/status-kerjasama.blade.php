@@ -45,6 +45,10 @@
                             <li class="step-item warning">
                                 <a class="step-icon" href="#!">1</a>
                             </li>
+                        @elseif($data['data']['biro'] == null)
+                            <li class="step-item">
+                                <a class="step-icon" href="#!">1</a>
+                            </li>
                         @elseif($data['data']['biro'] == 0)
                             <li class="step-item danger">
                                 <a class="step-icon" href="#!">1</a>
@@ -65,6 +69,10 @@
                                 </li>
                             @elseif($item->approval == 2)
                                 <li class="step-item warning">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                </li>
+                            @elseif($item->approval == null)
+                                <li class="step-item">
                                     <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
                                 </li>
                             @elseif($item->approval == 0)
@@ -89,9 +97,13 @@
                                 <li class="step-item warning">
                                     <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
                                 </li>
-                            @elseif($item == 0)
-                                <li class="step-item danger">
+                            @elseif($item == null)
+                                <li class="step-item">
                                     <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                </li>
+                            @elseif($item->approval == 0)
+                                <li class="step-item danger">
+                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
                                 </li>
                             @else
                                 <li class="step-item">

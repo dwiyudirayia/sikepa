@@ -34,13 +34,21 @@ use Illuminate\Support\Facades\Mail;
 class FrontController extends Controller
 {
     public function filterMonitoringCooperation($data) {
-        $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
-        $monitoring['biro'] = array_values($monitoring['data']['tracking']->toArray())[2];
-        $data = array_values($monitoring['data']['tracking']->toArray());
-        $monitoring['user_kppa'] = array_splice($data, 3, 8);
-        // $monitoring['label_user_kppa'] = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
-        $monitoring['count_deputi'] = $monitoring['data']['deputi']->count();
-        return $monitoring;
+        if($data['q'] != null) {
+            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
+            if($monitoring['data'] != null) {
+                $monitoring['biro'] = array_values($monitoring['data']['tracking']->toArray())[2];
+                $data = array_values($monitoring['data']['tracking']->toArray());
+                $monitoring['user_kppa'] = array_splice($data, 3, 8);
+                // $monitoring['label_user_kppa'] = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+                $monitoring['count_deputi'] = $monitoring['data']['deputi']->count();
+                return $monitoring;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     }
     public function storeSatisfactionSurvey(Request $request) {
         try {
@@ -179,7 +187,7 @@ class FrontController extends Controller
             $data['q'] = null;
         }
         $data['data'] = $this->filterMonitoringCooperation($data);
-
+        
         return view('pages.status-kerjasama', compact('data'));
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
@@ -288,8 +296,10 @@ class FrontController extends Controller
         }
     }
     public function distributionOfCooperation() {
-        $data['approval_guest_overseas'] = SubmissionProposalGuest::where('type_of_cooperation_one_derivative_id', 1)->get()->count();
-        $data['approval_guest_domestic'] = SubmissionProposalGuest::where('type_of_cooperation_one_derivative_id', 2)->get()->count();
+        $data['approval_guest_overseas_guest'] = SubmissionProposalGuest::where('countries_id', '!=', 102)->get()->count();
+        $data['approval_guest_domestic_guest'] = SubmissionProposalGuest::where('countries_id', 102)->get()->count();
+        $data['approval_guest_overseas'] = SubmissionProposal::where('countries_id', '!=', '102')->get()->count();
+        $data['approval_guest_domestic'] = SubmissionProposal::where('countries_id', 102)->get()->count();
         $data['country'] = Country::all();
 
         $merge['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
