@@ -52,7 +52,7 @@
                                     <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true">
                                         <a href="#" class="m-nav__link m-dropdown__toggle">
                                             <span class="m-topbar__userpic">
-                                                <img src="/assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+                                                <img :src="`/storage/photo_user/${this.$store.state.user.authenticated.photo}`" class="m--img-rounded m--marginless" alt="">
                                             </span>
                                             <span class="m-topbar__username m--hide">{{ this.$store.state.user.authenticated.name }}</span>
                                         </a>
@@ -62,7 +62,7 @@
                                                 <div class="m-dropdown__header m--align-center">
                                                     <div class="m-card-user m-card-user--skin-dark">
                                                         <div class="m-card-user__pic">
-                                                            <img src="/assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+                                                            <img :src="`/storage/photo_user/${this.$store.state.user.authenticated.photo}`" class="m--img-rounded m--marginless" alt="">
 
                                                             <!--
                         <span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S<span><span>
