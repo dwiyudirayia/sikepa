@@ -67,7 +67,7 @@
                         <label class="custom-file-label" for="customFile" id="label_photo_contact">Choose file</label>
                     </div>
                     <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <span v-else-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Full Text Informasi Deputi</label>
@@ -109,7 +109,7 @@
                         <label class="custom-file-label" for="customFile" id="label_photo_information">Choose file</label>
                     </div>
                     <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <span v-else-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Syarat Kerjasama</label>
@@ -129,7 +129,7 @@
                         <label class="custom-file-label" for="customFile" id="label_photo_requirement">Choose file</label>
                     </div>
                     <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <span v-else-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Video Tutorial</label>
