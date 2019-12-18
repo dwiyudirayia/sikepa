@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Str;
 class StoreSubmissionProposalGuestRequest extends FormRequest
 {
     /**
@@ -79,7 +79,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'postal_code' => $this->postal_code,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'nominal' => $this->nominal,
+            'nominal' => (int) Str::replaceArray('.', [''], $this->nominal),
             'name' => $this->agency_name,
             'department' => $this->department,
             'ktp' => $pathKTP,

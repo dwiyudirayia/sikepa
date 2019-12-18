@@ -29,7 +29,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu">
-                                                    <a class="m-nav__link" @click="downloadAgencyProfile">
+                                                    <a class="m-nav__link" @click="downloadSummary">
                                                         <i class="m-nav__link-icon la la-file"></i>
                                                         <span class="m-nav__link-text">Download Rangkuman Kerjasama</span>
                                                     </a>
@@ -37,7 +37,7 @@
                                                 <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="showModalGuestFile">
                                                         <i class="m-nav__link-icon la la-archive"></i>
-                                                        <span class="m-nav__link-text">File Pengaju</span>
+                                                        <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu" v-if="status_disposition == 16">
@@ -378,7 +378,7 @@
                                         <td style="vertical-align: middle;">{{ index+1 }}</td>
                                         <td style="vertical-align: middle;">{{ value.role.name }}</td>
                                         <td>
-                                            <span class="m--font-danger context-menu" @click="hapusDeputi(value.id)">Hapus Deputi</span>
+                                            <span class="m--font-danger context-menu" @click="confirmDeleteDeputi(value.id)">Hapus Deputi</span>
                                         </td>
                                     </tr>
                                 </template>
@@ -757,6 +757,26 @@ export default {
             })
             .catch(error => {
                 console.log(error);
+            })
+        },
+        confirmDeleteDeputi(id) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data yang terhapus tidak bisa di kembalikan",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    );
+                    this.hapusDeputi(id);
+                }
             })
         },
         modalEditDeputiPIC() {

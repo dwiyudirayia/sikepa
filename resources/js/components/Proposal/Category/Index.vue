@@ -114,7 +114,7 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Hapus!'
+                confirmButtonText: 'Ya, Hapus!',
                 }).then((result) => {
                 if (result.value) {
                     Swal.fire(
