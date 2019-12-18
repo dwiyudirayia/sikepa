@@ -66,7 +66,9 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_contact" @change="photoContact">
                         <label class="custom-file-label" for="customFile" id="label_photo_contact">Choose file</label>
                     </div>
-                    <span class="m-form__help">File Saat Ini :{{ forms.photo_contact }}</span>
+                    <span v-if="typeof this.forms.photo_contact === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_contact }}</span>
+                    <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
+                    <span v-else-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Full Text Informasi Deputi</label>
@@ -107,7 +109,9 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_information" @change="photoInformation">
                         <label class="custom-file-label" for="customFile" id="label_photo_information">Choose file</label>
                     </div>
-                    <span class="m-form__help">File Saat Ini :{{ forms.photo_information }}</span>
+                    <span v-if="typeof this.forms.photo_information === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_information }}</span>
+                    <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
+                    <span v-else-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Syarat Kerjasama</label>
@@ -127,6 +131,8 @@
                         <label class="custom-file-label" for="customFile" id="label_photo_requirement">Choose file</label>
                     </div>
                     <span class="m-form__help">File Saat Ini :{{ forms.photo_requirement }}</span>
+                    <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
+                    <span v-else-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Video Tutorial</label>
@@ -158,13 +164,16 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_video" @change="photoVideo">
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
                     </div>
-                    <span class="m-form__help">Video Saat Ini :{{ forms.photo_video }}</span>
+                    <span v-if="typeof this.forms.photo_video === 'string'" class="m-form__help">Video Saat Ini :{{ forms.photo_video }}</span>
+                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
+                    <span v-else-if="$v.forms.photo_video.$error && !$v.forms.photo_video.fileType" class="m--font-danger d-block">Ektensi file harus .mp4</span>
                 </div>
                 <div class="form-group m-form__group" v-else>
                     <label>Video Tutorial</label>
                     <div class="m-form__control">
                         <input type="text" v-model="forms.photo_video" class="form-control">
                     </div>
+                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -242,6 +251,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
 import $axiosFormData from '@/apiformdata';
 import $axios from '@/api';
@@ -287,10 +297,13 @@ export default {
             file_deputi_information: [],
         }
     },
-    validations: {
-        forms: {
+    validations() {
+        const tmpForm = {
             title: {
                 required,
+            },
+            full_text_information: {
+                required
             },
             text_contact: {
                 required,
@@ -304,13 +317,62 @@ export default {
             text_video: {
                 required,
             },
-            full_text_information: {
-                required,
-            },
             type_video: {
                 required,
             },
+        };
+
+        if (typeof this.forms.photo_contact === "string") {
+            tmpForm.photo_contact = {
+                required,
+            };
+        } else {
+            tmpForm.photo_contact = {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            };
         }
+
+        if (typeof this.forms.photo_information === "string") {
+            tmpForm.photo_information = {
+                required,
+            };
+        } else {
+            tmpForm.photo_information = {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            };
+        }
+
+        if (typeof this.forms.photo_requirement === "string") {
+            tmpForm.photo_requirement = {
+                required,
+            };
+        } else {
+            tmpForm.photo_requirement = {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            };
+        }
+
+        if (this.forms.type_video == 1 && typeof this.forms.photo_video === "string") {
+            tmpForm.photo_video = {
+                required,
+            };
+        } else if (this.forms.type_video == 2) {
+            tmpForm.photo_video = {
+                required,
+            };
+        } else {
+            tmpForm.photo_video = {
+                required,
+                fileType: fileType('video/mp4'),
+            };
+        }
+
+        return {
+            forms: tmpForm,
+        };
     },
     created() {
         this.getData();
