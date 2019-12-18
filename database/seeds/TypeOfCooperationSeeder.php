@@ -19,7 +19,7 @@ class TypeOfCooperationSeeder extends Seeder
         $typOfCoop1 = TypeOfCooperation::create([
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Permohonan Bantuan Data'
+            'name' => 'Permohonan Bantuan Dana'
         ]);
 
         $typOfCoop2 = TypeOfCooperation::create([

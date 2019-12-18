@@ -363,6 +363,11 @@
 }
 
 .select2-container {
-  z-index: 10;
+  z-index: 100000000;
+}
+
+#toast-container {
+  position: fixed !important;
+  z-index: 99999999 !important;
 }
 

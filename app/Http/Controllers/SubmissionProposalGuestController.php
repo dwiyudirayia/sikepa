@@ -199,7 +199,7 @@ class SubmissionProposalGuestController extends Controller
 
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 0
+                    'approval' => 3
                 ]);
 
                 $deputi = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->get();
@@ -236,7 +236,7 @@ class SubmissionProposalGuestController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                    $convertToSnakeCase => 3
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -258,7 +258,7 @@ class SubmissionProposalGuestController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
+                    $convertToSnakeCase => 3
                 ]);
 
                 SubmissionProposalGuest::where('id', $request->id)->update([
@@ -273,7 +273,7 @@ class SubmissionProposalGuestController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
+                    $convertToSnakeCase => 3
                 ]);
 
                 SubmissionProposalGuest::where('id', $request->id)->update([
@@ -290,7 +290,7 @@ class SubmissionProposalGuestController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
+                    $convertToSnakeCase => 3
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -537,6 +537,7 @@ class SubmissionProposalGuestController extends Controller
                 'status' => 200,
             ]);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return response()->json([
                 'messages' => 'Data Gagal Ditambah',
                 'status' => $th->getCode(),

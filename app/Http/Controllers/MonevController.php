@@ -403,7 +403,7 @@ class MonevController extends Controller
                     ]);
                 }
             }
-            
+
             DB::commit();
             return response()->json([
                 'messages' => 'Data Berhasil di Tambahkan',
@@ -529,12 +529,18 @@ class MonevController extends Controller
         }
     }
     public function downloadSummaryGuest($id) {
+        ini_set('max_execution_time', 300);
+        ini_set("memory_limit","512M");
+
         $data = SubmissionProposalGuest::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity.result', 'monevActivity.documentation')->findOrFail($id);
         // dd($data->monevActivity[0]->result->evaluation);
         $pdf = PDF::loadView('export.summary-monev', compact('data'));
         return $pdf->download('Rangkuman Monitoring Evaluasi '.date('Y-m-d_H-i-s').'.pdf');
     }
     public function downloadSummarySatker($id) {
+        ini_set('max_execution_time', 300);
+        ini_set("memory_limit","512M");
+
         $data = SubmissionProposal::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity.result', 'monevActivity.documentation')->findOrFail($id);
         $pdf = PDF::loadView('export.summary-monev', compact('data'));
         return $pdf->download('Rangkuman Monitoring Evaluasi '.date('Y-m-d_H-i-s').'.pdf');

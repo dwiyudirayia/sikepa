@@ -110,29 +110,31 @@
     </table>
     @foreach ($data->monevActivity as $key => $item)
     @php
-        if($item->result->evaluation == 1)
-        {
-            $evaluation = "Sangat Tidak Memuaskan";
-        } elseif($item->result->evaluation == 2) {
-            $evaluation = "Tidak Memuaskan";
-        } elseif ($item->result->evaluation == 3) {
-            $evaluation = "Sesuai Standar";
-        } elseif ($item->result->evaluation == 4) {
-            $evaluation = "Memuaskan";
-        } else {
-            $evaluation = "Sangat Memuaskan";
-        }
+        if($item->result != null) {
+            if($item->result->evaluation == 1)
+            {
+                $evaluation = "Sangat Tidak Memuaskan";
+            } elseif($item->result->evaluation == 2) {
+                $evaluation = "Tidak Memuaskan";
+            } elseif ($item->result->evaluation == 3) {
+                $evaluation = "Sesuai Standar";
+            } elseif ($item->result->evaluation == 4) {
+                $evaluation = "Memuaskan";
+            } else {
+                $evaluation = "Sangat Memuaskan";
+            }
 
-        if($item->result->recomendation == 1)
-        {
-            $recomendation = "Diadendum";
-        } elseif($item->result->recomendation == 2) {
-            $recomendation = "Dihentikan";
-        } else {
-            $evaluation = "Dilanjutkan";
+            if($item->result->recomendation == 1)
+            {
+                $recomendation = "Diadendum";
+            } elseif($item->result->recomendation == 2) {
+                $recomendation = "Dihentikan";
+            } else {
+                $recomendation = "Dilanjutkan";
+            }
         }
     @endphp
-        <table class="table table-bordered table-striped text-center" style="margin-top:10px">
+        <table class="table table-bordered table-striped texth -center" style="margin-top:10px">
             <tr>
                 <td colspan="3" class="width:100px"><span class="text-header">Aktifitas Kegiatan Ke -{{ $key +1 }}</span></td>
             </tr>

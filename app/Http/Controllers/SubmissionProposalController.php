@@ -186,28 +186,28 @@ class SubmissionProposalController extends Controller
             $currentRoleId = $mapDeputi->all();
             $deputi = [
                 0 => [
-                    'id' => 2,
+                    'id' => 3,
                     'name' => 'Bidang Partisipasi Masyarakat',
                 ],
                 1 => [
-                    'id' => 3,
+                    'id' => 4,
                     'name' => 'Bidang Kesetaraan Gender',
                 ],
                 2 => [
-                    'id' => 4,
+                    'id' => 5,
                     'name' => 'Bidang Perlindungan Anak',
                 ],
                 3 => [
-                    'id' => 5,
+                    'id' => 6,
                     'name' => 'Bidang Perlindungan Hak Perempuan',
                 ],
                 4 => [
-                    'id' => 6,
+                    'id' => 7,
                     'name' => 'Bidang Tumbuh Kembang Anak'
                 ],
             ];
 
-            $data['deputi'] = collect($deputi)->whereNotIn('id', $currentRoleId);
+            $data['deputi'] = array_values(collect($deputi)->whereNotIn('id', $currentRoleId)->all());
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -356,7 +356,7 @@ class SubmissionProposalController extends Controller
             if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 0
+                    'approval' => 3
                 ]);
 
                 $deputi = DeputiPIC::where('submission_proposal_id', $request->id)->get();
@@ -391,7 +391,7 @@ class SubmissionProposalController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
+                    $convertToSnakeCase => 3
                 ]);
 
                 SubmissionProposal::where('id', $request->id)->update([
@@ -403,7 +403,7 @@ class SubmissionProposalController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                    $convertToSnakeCase => 3
                 ]);
 
                 SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
@@ -429,7 +429,7 @@ class SubmissionProposalController extends Controller
                 $convertToSnakeCase = Str::snake($rolesName);
 
                 $proposal->tracking()->update([
-                    $convertToSnakeCase => 0
+                    $convertToSnakeCase => 3
                 ]);
 
                 $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);

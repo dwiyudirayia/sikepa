@@ -129,9 +129,6 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="countries_id" name="countries_id">
                                                         <option value=""></option>
-                                                        @foreach ($data['country'] as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->country_name }}</option>
-                                                        @endforeach
                                                     </select>
                                                     <label class="text-label">Negara</label>
                                                 </div>
@@ -269,7 +266,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control required" id="no_telp" name="no_telp" type="text">
+                                                    <input class="form-control required" id="no_telp" name="no_telp" type="number">
                                                     <label class="text-label">Nomor telepon</label>
                                                 </div>
                                             </div>
@@ -504,11 +501,17 @@
     </script>
     <script>
         $(document).ready(function() {
+            var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
+            var map = new google.maps.Map(document.getElementById('loc-result'), {
+                center: {lat:  -1.514896, lng: 120.3647036},
+                zoom: 4,
+                styles: mapstyles,
+            });
             $('.select2').select2({
                 width: '100%',
                 placeholder: 'Pilih dan Sesuaikan',
             });
-
+            var geocoder = new google.maps.Geocoder();
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
 
@@ -587,6 +590,15 @@
 
                             $('#countries_id').html(countryTwo);
                             $('#countries_id').val('102');
+                            geocoder.geocode( { 'address': 'Indonesia'}, function(results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    map.setCenter(results[0].geometry.location);
+                                    if (results[0].geometry.viewport)
+                                    map.fitBounds(results[0].geometry.viewport);
+                                } else {
+                                    alert("Geocode was not successful for the following reason: " + status);
+                                }
+                            });
                             $('#province_id').html(provinceTwo);
                             $('#type_of_cooperation_two_derivative_id').html(typeTwo);
                         }
@@ -626,7 +638,7 @@
             })
             $('#countries_id').change(function(e) {
                 const value = $(this).val();
-
+                const text = $("#countries_id option:selected").text();
                 if(value == 102) {
                     $('.is-indonesian').show();
                     $.ajax({
@@ -651,9 +663,28 @@
                     $('#regency_id').html('');
                     $('#regency_id').val('');
                 }
+                geocoder.geocode( { 'address': text}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        if (results[0].geometry.viewport)
+                        map.fitBounds(results[0].geometry.viewport);
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
             });
             $('#province_id').change(function(e) {
                 const value = $(this).val();
+                const text = $("#province_id option:selected").text();
+                geocoder.geocode( { 'address': text}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        if (results[0].geometry.viewport)
+                        map.fitBounds(results[0].geometry.viewport);
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
 
                 $.ajax({
                     url: `/ajax/regency/${value}`,
@@ -670,6 +701,32 @@
                         $('#regency_id').html(regency);
                     }
                 })
+            });
+            $('#regency_id').change(function(){
+                const text = $("#province_id option:selected").text();
+                geocoder.geocode( { 'address': text}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        if (results[0].geometry.viewport)
+                        map.fitBounds(results[0].geometry.viewport);
+
+                        map.setZoom(24);
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            })
+            $('#nominal').keyup(function(event) {
+                // skip for arrow keys
+                if(event.which >= 37 && event.which <= 40) return;
+
+                // format number
+                $(this).val(function(index, value) {
+                return value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                ;
+                });
             });
         });
     </script>

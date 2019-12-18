@@ -13,11 +13,11 @@
                 <div class="m-portlet__head-tools">
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                            <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-                                <i class="la la-ellipsis-h m--font-brand"></i>
+                            <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                Opsi
                             </a>
-                            <div class="m-dropdown__wrapper" style="z-index: 101;">
-                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21.5px;"></span>
+                            <div class="m-dropdown__wrapper">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
                                 <div class="m-dropdown__inner">
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
@@ -36,14 +36,8 @@
                                                 </li>
                                                 <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="showModalGuestFile">
-                                                        <i class="m-nav__link-icon la la-file"></i>
+                                                        <i class="m-nav__link-icon la la-archive"></i>
                                                         <span class="m-nav__link-text">File Pengaju</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item context-menu">
-                                                    <a class="m-nav__link" @click="downloadSummary">
-                                                        <i class="m-nav__link-icon la la-file-pdf-o"></i>
-                                                        <span class="m-nav__link-text">Download Profil Pengaju</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu" v-if="status_disposition == 16">
@@ -87,14 +81,14 @@
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
                         <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 12" class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 12">
+                        <a class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
-                    <li class="nav-item m-tabs__item">
-                        <a v-if="status_disposition == 13" class="nav-link m-tabs__link" :class="{'active' : tabs === 3 }" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 13">
+                        <a class="nav-link m-tabs__link" :class="{'active' : tabs === 3 }" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
-                    <li class="nav-item">
-                        <a v-if="status_disposition == 16" class="nav-link m-tabs__link" :class="{'active' : tabs === 4 }" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 16">
+                        <a class="nav-link m-tabs__link" :class="{'active' : tabs === 4 }" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -569,7 +563,6 @@ export default {
         }
     },
     computed: {
-        google: gmapApi,
         checkRoles: function() {
             const roles = this.roles.authenticated.roles;
 
@@ -579,6 +572,7 @@ export default {
 
             return filterRoles.length;
         },
+        google: gmapApi,
         bpd: function() {
             const data = this.tracking;
 
@@ -728,8 +722,6 @@ export default {
                 toastr.success(`Data Berhasil di Perbaharui`);
 
                 this.addDeputi = [];
-
-                $('#deputi-target').modal('hide');
             })
             .catch(error => {
                 console.log(error);
@@ -760,7 +752,7 @@ export default {
 
                 toastr.success(`Data Berhasil di Hapus`);
 
-                $('#deputi-target').modal('hide');
+                this.addDeputi = [];
             })
             .catch(error => {
                 console.log(error);
