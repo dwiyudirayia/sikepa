@@ -101,7 +101,7 @@
                                 <li class="step-item">
                                     <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
                                 </li>
-                            @elseif($item->approval == 3)
+                            @elseif($item == 3)
                                 <li class="step-item danger">
                                     <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
                                 </li>

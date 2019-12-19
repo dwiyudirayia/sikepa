@@ -86,8 +86,6 @@ class TypeOfCooperationTwoDerivativeController extends Controller
     {
         try {
             $data['data'] = TypeOfCooperationTwoDerivative::findOrFail($id);
-            $data['select_type_of'] = TypeOfCooperation::all();
-            $data['select_type_of_derivative'] = TypeOfCooperationOneDerivative::all();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {

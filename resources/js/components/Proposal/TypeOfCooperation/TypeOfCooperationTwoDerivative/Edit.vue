@@ -26,10 +26,10 @@
                         <span v-if="!$v.forms.type_of_cooperation_one_derivative_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Permohonan Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Kesepahaman Kerjasama</label>
+                    <label for="Nama Lengkap">Nama Kesepahaman Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
@@ -37,7 +37,7 @@
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Kesepahaman Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -72,26 +72,21 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Edit Turunan Jenis Kerjasama',
+                    label: 'Edit Kesepahaman Kerjasama',
                     path: '/proposal/typeof/cooperation/two/derivative/create'
                 },
             ],
             forms: {
-                type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
                 name: null,
             },
             data_select: {
-                type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: []
             }
         }
     },
     validations: {
         forms: {
-            type_of_cooperation_id: {
-                required
-            },
             type_of_cooperation_one_derivative_id: {
                 required
             },
@@ -104,9 +99,9 @@ export default {
         $axios.get(`/admin/proposal/typeof/cooperation/two/${this.$route.params.id}/edit`)
         .then(response => {
             this.forms = response.data.data.data;
-            this.data_select.type_of_cooperation_id = response.data.data.select_type_of;
-            this.data_select.type_of_cooperation_one_derivative_id = response.data.data.select_type_of_derivative;
             this.$store.dispatch('proposal/clearPage');
+
+            this.getDataSelect();
         })
     },
     methods: {
@@ -121,6 +116,12 @@ export default {
                     this.$store.commit('proposal/notification', response);
                 })
             }
+        },
+        getDataSelect() {
+            $axios.get(`/admin/proposal/typeof/cooperation/two/${this.$store.state.paramsTwo}/create`)
+            .then(response => {
+                this.data_select.type_of_cooperation_one_derivative_id = response.data.data;
+            });
         },
     },
 }

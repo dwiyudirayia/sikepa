@@ -113,7 +113,12 @@ export default {
             } else {
                 $axios.put(`/admin/proposal/typeof/cooperation/one/${this.$route.params.id}`, this.forms)
                 .then(response => {
-                    this.$router.push({ name: 'ProposalTypeOfCooperationOneDerivativeListOne', params: this.forms.type_of_cooperation_id });
+                    this.$router.push({
+                        name: 'ProposalTypeOfCooperationOneDerivativeListOne',
+                        params: {
+                            id: this.forms.type_of_cooperation_id
+                        }
+                    });
                     this.$store.commit('proposal/notification', response);
                 })
             }
