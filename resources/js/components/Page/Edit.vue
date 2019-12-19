@@ -121,6 +121,8 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
+                    <span v-if="$v.forms.image.$error && !$v.forms.image.required" class="m--font-danger">Field ini harus di isi</span>
+                    <span v-else-if="$v.forms.image.$error && !$v.forms.image.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
@@ -133,8 +135,8 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-if="forms.image != null">
-                                    <img :src="forms.image" class="img-responsive" height="100%" width="100%" v-show="currentlyImage">
+                                    <img :src="previewImage" class="img-responsive" height="100%" width="100%" v-if="currentlyImage">
+                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-else-if="forms.image != null">
                                 </div>
                             </div>
                         </div>
@@ -179,6 +181,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
 import $axios from './../../api';
 import Select2Edit from './Select2Edit';
@@ -209,13 +212,14 @@ export default {
             category: null,
             name: null,
             previousImage: true,
+            previewImage: null,
             currentlyImage: false,
             selectedSection: null,
             selectedCategory: null,
         }
     },
-    validations: {
-        forms: {
+    validations() {
+        const tmpForm = {
             section_id: {
                 required
             },
@@ -226,6 +230,21 @@ export default {
                 required
             },
         }
+
+        if (typeof this.forms.image === "string") {
+            tmpForm.image = {
+                required,
+            };
+        } else {
+            tmpForm.image = {
+                required,
+                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
+            };
+        }
+
+        return {
+            forms: tmpForm
+        };
     },
     mounted() {
         $axios.get(`/admin/page/${this.$route.params.id}/edit`)
@@ -246,6 +265,7 @@ export default {
         },
         onImageChange(e) {
             let files = e.target.files || e.dataTransfer.files;
+            this.forms.image = files[0];
             if (!files.length)
                 return;
             this.createImage(files[0]);
@@ -256,7 +276,7 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.image = e.target.result;
+                vm.previewImage = e.target.result;
             };
             reader.readAsDataURL(file);
         },

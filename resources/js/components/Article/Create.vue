@@ -117,6 +117,8 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
+                    <span v-if="$v.forms.image.$error && !$v.forms.image.required" class="m--font-danger">Field ini harus di isi</span>
+                    <span v-else-if="$v.forms.image.$error && !$v.forms.image.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
                     <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
@@ -129,7 +131,7 @@
                             </div>
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
-                                    <img :src="forms.image" class="img-responsive" height="100%" width="100%">
+                                    <img :src="previewImage" class="img-responsive" height="100%" width="100%">
                                 </div>
                             </div>
                         </div>
@@ -174,6 +176,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
 import $axios from './../../api';
 import Select2 from './Select2';
@@ -214,6 +217,7 @@ export default {
             },
             section: null,
             category: null,
+            previewImage: null,
         }
     },
     validations: {
@@ -227,6 +231,10 @@ export default {
             title: {
                 required
             },
+            image: {
+                required,
+                fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
+            }
         }
     },
     created() {
@@ -239,6 +247,7 @@ export default {
     methods: {
         onImageChange(e) {
             let files = e.target.files || e.dataTransfer.files;
+            this.forms.image = files[0];
             if (!files.length)
                 return;
             this.createImage(files[0]);
@@ -247,7 +256,7 @@ export default {
             let reader = new FileReader();
             let vm = this;
             reader.onload = (e) => {
-                vm.forms.image = e.target.result;
+                vm.previewImage = e.target.result;
             };
             reader.readAsDataURL(file);
         },
