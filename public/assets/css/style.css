@@ -648,6 +648,9 @@ h5 {
   min-height: 62px;
   background-position: right top 28px;
 }
+.form-input label.error {
+  display: none;
+}
 
 select.form-control {
   -moz-appearance: none;
