@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css') }}">
+
 </head>
 
 <body>
@@ -29,7 +30,6 @@
     @yield('content')
     @include('layouts.partialsFront.footer')
 </main>
-
 <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/fill.box.js') }}"></script>

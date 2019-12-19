@@ -21,6 +21,7 @@ use App\Regency;
 use App\SatisfactionSurvey;
 use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
+use App\SubmissionType;
 use App\Suggestion;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
@@ -153,8 +154,8 @@ class FrontController extends Controller
         return view('pages.our-contact');
     }
     public function submissionProposal() {
+        $data['type'] = SubmissionType::all();
         $data['country'] = Country::all();
-        $data['type'] = TypeOfCooperation::all();
         $data['agency'] = Agency::all();
         $data['deputi'] = [
             0 => [
@@ -178,6 +179,7 @@ class FrontController extends Controller
                 'name' => 'Bidang Tumbuh Kembang Anak',
             ],
         ];
+
         return view('pages.pengajuan-kerjasama', compact('data'));
     }
     public function monitoringResultCooperation(Request $request) {
@@ -187,7 +189,7 @@ class FrontController extends Controller
             $data['q'] = null;
         }
         $data['data'] = $this->filterMonitoringCooperation($data);
-        
+
         return view('pages.status-kerjasama', compact('data'));
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
@@ -222,6 +224,21 @@ class FrontController extends Controller
             DB::rollback();
 
             return back()->with('error', 'Data Gagal di Simpan');
+        }
+    }
+    public function type($id) {
+        try {
+            $data = TypeOfCooperation::where('submission_type_id', $id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
         }
     }
     public function typeOne($id) {

@@ -34,6 +34,7 @@ Route::get('/download/data/monev/detail/pdf/{id}', 'ExportController@downloadDat
 Route::post('/suggestion', 'FrontController@storeSuggest')->name('suggestion.store');
 
 //AJAX
+Route::get('/ajax/type/{id}', 'FrontController@type');
 Route::get('/ajax/typeone/{id}', 'FrontController@typeOne');
 Route::get('/ajax/typetwo/{id}', 'FrontController@typeTwo');
 Route::get('/ajax/province/{id}', 'FrontController@province');

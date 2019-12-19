@@ -34,13 +34,10 @@ class SubmissionProposalGuest extends Model
         return $this->hasMany(DeputiPICGuest::class);
     }
     public function tracking() {
-        return $this->hasOne(TrackingSubmissionProposalGuest::class);
+        return $this->hasMany(TrackingSubmissionProposalGuest::class);
     }
     public function nomor() {
         return $this->hasMany(NomorApprovalSubmissionCooperationGuest::class);
-    }
-    public function reason() {
-        return $this->hasMany(ReasonSubmissionCooperationGuest::class);
     }
     public function law() {
         return $this->hasOne(LawFileSubmissionProposalGuest::class);

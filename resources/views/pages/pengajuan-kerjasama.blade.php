@@ -59,8 +59,10 @@
                                             <div class="form-group">
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="type_guest_id" name="type_guest_id">
-                                                        <option value="1">PKS</option>
-                                                        <option value="2">MOU</option>
+                                                        <option value=""></option>
+                                                        @foreach ($data['type'] as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <label class="text-label">Jenis</label>
                                                 </div>
@@ -71,9 +73,6 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="type_of_cooperation_id" name="type_of_cooperation_id">
                                                         <option></option>
-                                                        @foreach ($data['type'] as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
                                                     </select>
                                                     <label class="text-label">Jenis kerjasama</label>
                                                 </div>
@@ -129,6 +128,9 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="countries_id" name="countries_id">
                                                         <option value=""></option>
+                                                        @foreach ($data['country'] as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->country_name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <label class="text-label">Negara</label>
                                                 </div>
@@ -512,10 +514,35 @@
                 placeholder: 'Pilih dan Sesuaikan',
             });
             var geocoder = new google.maps.Geocoder();
+            $('#type_guest_id').change(function() {
+                const value = $(this).val();
+                $.ajax({
+                    url: `/ajax/type/${value}`,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#type_of_cooperation_id').html('');
+                        $('#type_of_cooperation_one_derivative_id').html('');
+                        $('#type_of_cooperation_two_derivative_id').html('');
+
+                        $('#type_of_cooperation_id').val('');
+                        $('#type_of_cooperation_one_derivative_id').val('');
+                        $('#type_of_cooperation_two_derivative_id').val('');
+                        let type = `<option value="">- Pilih dan Sesuaikan -</option>`;
+
+                        const data = response.data;
+
+                        $.map(data, function (value, index) {
+                            type += `<option value="${value.id}">${value.name}</option>`;
+                        });
+
+                        $('#type_of_cooperation_id').html(type);
+                    }
+                })
+            });
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
-
-                if(value != 1) {
+                console.log(value);
+                if(value != 1 || value != 2) {
                     $('#is-nominal').hide();
                     $('#is-typeof-one').show();
                     $('#is-typeof-two').show();

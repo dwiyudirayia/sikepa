@@ -199,7 +199,6 @@
         </div>
     </div>
 </section>
-
 <section class="content-page content-wrap" id="home-testimoni">
     <div class="container">
         <div class="row">
@@ -212,19 +211,21 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-                @foreach ($testimoni as $item)
-                    <div class="testimoni-content swiper-container sr-btm">
-                        <div class="swiper-wrapper">
+                <div class="testimoni-content swiper-container sr-btm">
+                    <div class="swiper-wrapper">
+                        @foreach ($testimoni as $item)
                             <div class="swiper-slide">
                                 <div class="caption-text text-center">
                                     <i class="mdi mdi-format-quote-close"></i>
-                                    <p>{{ $item->testimoni }}.</p>
+                                    <p>{{ $item->testimoni }}</p>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="testimoni-user swiper-container sr-btm">
-                        <div class="swiper-wrapper">
+                </div>
+                <div class="testimoni-user swiper-container sr-btm">
+                    <div class="swiper-wrapper">
+                        @foreach ($testimoni as $item)
                             <div class="swiper-slide">
                                 <div class="testimoni-info">
                                     <div class="box-media">
@@ -238,9 +239,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </div>

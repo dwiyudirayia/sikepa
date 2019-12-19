@@ -19,6 +19,7 @@ class CreateDeputiPicGuestTable extends Migration
             $table->integer('role_id');
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('approval')->nullable();
+            $table->text('reason');
             $table->timestamps();
         });
     }

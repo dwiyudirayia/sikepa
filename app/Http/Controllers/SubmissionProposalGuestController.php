@@ -31,14 +31,14 @@ class SubmissionProposalGuestController extends Controller
     public function approve(Request $request) {
         try {
             DB::beginTransaction();
-            $countRole = auth()->user()->roles()->count();
             $user = auth()->user();
             $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
 
             if($proposal->status_disposition == 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 1
+                    'approval' => 1,
+                    'reason' => $request->reason,
                 ]);
 
                 $deputi = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->get();
@@ -79,17 +79,13 @@ class SubmissionProposalGuestController extends Controller
                 });
                 $currentRoleId = $mapDeputi->all();
 
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 1,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
-
-
-
                 $users = User::whereHas('roles', function(Builder $query) use ($currentRoleId) {
                     $query->whereIn('id', $currentRoleId);
                 })->get();
@@ -102,11 +98,10 @@ class SubmissionProposalGuestController extends Controller
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
             } elseif($proposal->status_disposition == 12) {
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 1,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -124,11 +119,10 @@ class SubmissionProposalGuestController extends Controller
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } elseif ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $rolesName = $user->roles[1]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
+                    'status' => 1,
+                    'approval' => 1,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -148,11 +142,10 @@ class SubmissionProposalGuestController extends Controller
                 Mail::to($proposal->email)->send(new ApproveCooperation);
 
             } else {
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 1
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 1,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -171,14 +164,6 @@ class SubmissionProposalGuestController extends Controller
                 Mail::to($proposal->email)->send(new ApproveCooperation);
             }
 
-            ReasonSubmissionCooperationGuest::create([
-                'created_by' => auth()->user()->id,
-                'submission_proposal_guest_id' => $request->id,
-                'reason' => $request->reason,
-                'approval' => 1,
-            ]);
-
-
             $data = [];
             DB::commit();
             return response()->json($this->notification->updateSuccess($data));
@@ -190,7 +175,6 @@ class SubmissionProposalGuestController extends Controller
     public function reject(Request $request) {
         try {
             DB::beginTransaction();
-            $countRole = auth()->user()->roles()->count();
             $user = auth()->user();
 
             $proposal = SubmissionProposalGuest::findOrFail($request->id);
@@ -199,7 +183,8 @@ class SubmissionProposalGuestController extends Controller
 
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 3
+                    'approval' => 3,
+                    'reason' => $request->reason
                 ]);
 
                 $deputi = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->get();
@@ -232,11 +217,10 @@ class SubmissionProposalGuestController extends Controller
                     }
                 }
             } elseif($proposal->status_disposition == 12) {
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 3
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 3,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -254,11 +238,10 @@ class SubmissionProposalGuestController extends Controller
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } elseif ($proposal->status_disposition == 2) {
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 3
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 3,
+                    'reason' => $request->reason,
                 ]);
 
                 SubmissionProposalGuest::where('id', $request->id)->update([
@@ -269,11 +252,10 @@ class SubmissionProposalGuestController extends Controller
 
 
             } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $rolesName = $user->roles[1]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 3
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 3,
+                    'reason' => $request->reason,
                 ]);
 
                 SubmissionProposalGuest::where('id', $request->id)->update([
@@ -284,13 +266,10 @@ class SubmissionProposalGuestController extends Controller
 
             } else {
 
-                $proposal = SubmissionProposalGuest::findOrFail($request->id);
-
-                $rolesName = $user->roles[0]->name;
-                $convertToSnakeCase = Str::snake($rolesName);
-
-                $proposal->tracking()->update([
-                    $convertToSnakeCase => 3
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 3,
+                    'reason' => $request->reason,
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
@@ -307,15 +286,6 @@ class SubmissionProposalGuestController extends Controller
                 }
                 Notification::send($users, new DispositionNotification(auth()->user(), $path));
             }
-
-
-            ReasonSubmissionCooperationGuest::create([
-                'created_by' => auth()->user()->id,
-                'submission_proposal_guest_id' => $request->id,
-                'reason' => $request->reason,
-                'approval' => 0,
-            ]);
-
 
             $data = [];
             DB::commit();
@@ -371,11 +341,9 @@ class SubmissionProposalGuestController extends Controller
                 }
             }
 
-            $rolesName = $user->roles[0]->name;
-            $convertToSnakeCase = Str::snake($rolesName);
-
-            $proposal->tracking()->update([
-                $convertToSnakeCase => 2
+            $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                'status' => 1,
+                'approval' => 2,
             ]);
 
             $proposal->status_disposition = $proposal->status_disposition + 1;
@@ -475,12 +443,9 @@ class SubmissionProposalGuestController extends Controller
                     'nomor' => $value
                 ]);
             }
-            $user = auth()->user();
-            $rolesName = $user->roles[1]->name;
-            $convertToSnakeCase = Str::snake($rolesName);
-
-            $proposal->tracking()->update([
-                $convertToSnakeCase => 2
+            $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                'status' => 1,
+                'approval' => 2,
             ]);
 
             $track = SubmissionProposalGuest::where('id', $proposal->id)->increment('status_disposition', 1);

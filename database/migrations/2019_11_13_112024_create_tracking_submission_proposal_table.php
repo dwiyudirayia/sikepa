@@ -16,14 +16,10 @@ class CreateTrackingSubmissionProposalTable extends Migration
         Schema::create('tracking_submission_proposal', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('submission_proposal_id');
-            $table->tinyInteger('bagian_kerja_sama')->nullable();
-            $table->tinyInteger('bagian_ortala')->nullable();
-            $table->tinyInteger('sesmen')->nullable();
-            $table->tinyInteger('menteri')->nullable();
-            $table->tinyInteger('hukum')->nullable();
-            $table->tinyInteger('sesmen_final')->nullable();
-            $table->tinyInteger('menteri_final')->nullable();
-            $table->tinyInteger('bagian_kerja_sama_final')->nullable();
+            $table->integer('role_id');
+            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('approval')->nullable();
+            $table->text('reason');
             $table->timestamps();
         });
     }

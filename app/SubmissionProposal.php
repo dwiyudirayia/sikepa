@@ -34,7 +34,7 @@ class SubmissionProposal extends Model
         return $this->belongsTo(TypeOfCooperationTwoDerivative::class, 'type_of_cooperation_two_derivative_id');
     }
     public function tracking() {
-        return $this->hasOne(TrackingSubmissionProposal::class);
+        return $this->hasMany(TrackingSubmissionProposal::class);
     }
     public function law() {
         return $this->hasOne(LawFileSubmissionProposal::class);
@@ -44,9 +44,6 @@ class SubmissionProposal extends Model
     }
     public function deputi() {
         return $this->hasMany(DeputiPIC::class);
-    }
-    public function reason() {
-        return $this->hasMany(ReasonSubmissionCooperation::class);
     }
     public function monevActivity() {
         return $this->hasMany(MonitoringActivity::class);
