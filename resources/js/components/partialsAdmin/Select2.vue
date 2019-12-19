@@ -17,12 +17,13 @@ export default {
         });
         var vm = this
         $(this.$el)
-            .val(this.value)
             // init select2
             .select2({
                 placeholder: 'Pilih dan Sesuaikan',
                 data: data
             })
+            .val(this.value)
+            .trigger('change')
             // emit event on change.
             .on('change', function () {
                 vm.$emit('input', this.value)
@@ -31,7 +32,9 @@ export default {
     watch: {
         value: function (value) {
             // update value
-            $(this.$el).val(value)
+            $(this.$el)
+            .val(value)
+            .trigger('change')
         },
         options: function (newVal, oldVal) {
             // update options
@@ -42,10 +45,11 @@ export default {
                 return obj;
             });
 
-            $(this.$el).select2({
+            $(this.$el).empty().select2({
                 placeholder: 'Pilih dan Sesuaikan',
                 data: data
             })
+            $(this.$el).val(this.value).trigger('change.select2');
         }
     },
     destroyed: function () {

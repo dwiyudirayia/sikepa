@@ -145,18 +145,8 @@ const proposal = {
                 })
             })
         },
-        indexTypeOfCooperation({ commit }) {
-            return new Promise((resolve, reject) => {
-                $axios.get('/admin/proposal/typeof/cooperation')
-                .then((response) => {
-                    commit('updateData', response);
-                    commit('clearPage');
-
-                    resolve(response);
-                })
-            })
-        },
         storeTypeOfCooperation({ commit }, data) {
+            console.log(data);
             return new Promise((resolve, reject) => {
                 $axios.post('/admin/proposal/typeof/cooperation', data)
                 .then(response => {
@@ -173,7 +163,6 @@ const proposal = {
                 $axios.delete('/admin/proposal/typeof/cooperation/'+id)
                 .then(response => {
                     commit('notification', response);
-                    commit('updateData', response);
 
                     resolve(resolve);
                 })

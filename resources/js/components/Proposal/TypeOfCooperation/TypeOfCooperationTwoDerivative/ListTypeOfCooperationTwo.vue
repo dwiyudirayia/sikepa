@@ -11,15 +11,15 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Jenis</span>
+                            <span>Daftar Kesepahaman Kerjasama</span>
                         </h2>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/proposal/typeof/cooperation/two/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Jenis Kerjasama Proposal'">
+                    <router-link to="/proposal/typeof/cooperation/two/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kesepahaman Kerjasama Proposal'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Jenis Kerjasama</span>
+                            <span>Tambah Kesepahaman Kerjasama</span>
                         </span>
                     </router-link>
                 </div>
@@ -42,16 +42,16 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Jenis Kerjasama Proposal'">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Kesepahaman Kerjasama Proposal'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit Jenis Kerjasama</span>
+                                                <span>Edit Kesepahaman Kerjasama</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Jenis Kerjasama Proposal'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kesepahaman Kerjasama Proposal'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus Jenis Kerjasama</span>
+                                                <span>Hapus Kesepahaman Kerjasama</span>
                                             </span>
                                         </button>
                                     </div>
@@ -75,16 +75,16 @@ export default {
     name: 'ListTypeOfCooperationTwo',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Jenis Kerjasama',
-                    path: `/proposal/typeof/cooperation`
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
-                    label: 'Daftar Turunan Jenis Kerjasama',
+                    label: 'Daftar Kesepahaman Kerjasama',
                     path: `/proposal/typeof/cooperation/list/${this.$route.params.id}/two`
                 },
             ]
@@ -125,7 +125,7 @@ export default {
                 if (result.value) {
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Data Berhasil di Hapus.',
                         'success'
                     );
                     this.destroy(id);

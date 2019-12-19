@@ -30,7 +30,6 @@ class StoreTypeOfCooperationTwoDerivative extends FormRequest
     {
         return [
             'created_by' => auth()->user()->id,
-            'type_of_cooperation_id' => $this->type_of_cooperation_id,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id,
             'name' => $this->name,
         ];

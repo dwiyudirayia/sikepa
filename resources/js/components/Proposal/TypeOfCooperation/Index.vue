@@ -11,7 +11,7 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Jenis</span>
+                            <span>Daftar Jenis Kerjasama</span>
                         </h2>
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['proposal/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['proposal/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="data.length != 0">
+                            <div class="m-widget5__item" v-for="value in data" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -42,10 +42,10 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ProposalTypeOfCooperationOneDerivativeListOne', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Lihat Daftar Turunan Jenis Kerjasama'">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationOneDerivativeListOne', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Lihat Permohonan Kerjasama'">
                                             <span>
                                                 <i class="la la-list"></i>
-                                                <span>Daftar Turunan Jenis Kerjasama</span>
+                                                <span>Daftar Permohonan Kerjasama</span>
                                             </span>
                                         </router-link>
                                         <router-link :to="{name: 'ProposalTypeOfCooperationEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Jenis Kerjasama Proposal'">
@@ -76,18 +76,25 @@
 </template>
 
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'ProposalTypeOfCooperationIndex',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
-            ]
+                {
+                    id: 2,
+                    label: 'Jenis Kerjasama',
+                    path: `/proposal/typeof/cooperation/${this.$route.params.id}/list`
+                },
+            ],
+            data: [],
         }
     },
     computed: {
@@ -105,11 +112,24 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch('proposal/indexTypeOfCooperation');
+        this.getData();
+    },
+    beforeRouteLeave (to, from, next) {
+        this.$store.commit('paramsOne', from.params.id);
+        next();
     },
     methods: {
+        getData() {
+            $axios.get(`/admin/proposal/typeof/cooperation/${this.$route.params.id}`)
+            .then(response => {
+                this.data = response.data.data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
         destroy(id) {
-            this.$store.dispatch('proposal/destroyTypeOfCooperation', id);
+            this.$store.dispatch('proposal/destroyTypeOfCooperation', id).then(response => this.getData());
         },
         confirmDelete(id)
         {
@@ -125,7 +145,7 @@ export default {
                 if (result.value) {
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Data Berhasil di Hapus.',
                         'success'
                     );
                     this.destroy(id);

@@ -129,7 +129,7 @@ export default {
                 if (result.value) {
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Data Berhasil di Hapus.',
                         'success'
                     );
                     this.destroy(id);

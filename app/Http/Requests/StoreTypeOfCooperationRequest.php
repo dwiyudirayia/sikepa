@@ -30,6 +30,7 @@ class StoreTypeOfCooperationRequest extends FormRequest
     {
         return [
             'created_by' => auth()->user()->id,
+            'submission_type_id' => $this->submission_type_id,
             'name' => $this->name,
         ];
     }

@@ -72,7 +72,7 @@
                                 <router-link to="/proposal/cooperation/target" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Target Kerjasama</span></router-link>
                             </li>
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                <router-link to="/proposal/typeof/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Jenis Kerjasama</span></router-link>
+                                <router-link to="/proposal/submission/type" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kerjasama</span></router-link>
                             </li>
                             <!-- <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                                 <router-link to="/proposal/subtance/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kerjasama Subtansi</span></router-link>
@@ -184,10 +184,10 @@
                 </li>
                 <li class="m-menu__item" aria-haspopup="true">
                     <a class="m-menu__link" @click="logout">
-                        <i class="m-menu__link-icon la la-sign-out"></i>
+                        <i class="m-menu__link-icon la la-sign-out text-danger"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Keluar</span><span class="m-menu__link-badge"></span>
+                                <span class="m-menu__link-text text-danger">Keluar</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </a>

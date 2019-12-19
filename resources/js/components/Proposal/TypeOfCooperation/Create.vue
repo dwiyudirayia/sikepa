@@ -16,6 +16,20 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Jenis</label>
+                    <div class="m-form__control">
+                        <select2
+                            v-model="$v.forms.submission_type_id.$model"
+                            :options="options"
+                        />
+                    </div>
+                    <template v-if="$v.forms.submission_type_id.$error">
+                        <span v-if="!$v.forms.submission_type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    </template>
+                    <br>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                </div>
+                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Jenis Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
@@ -44,17 +58,17 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-
+import $axios from '@/api.js';
 export default {
     name: 'ProposalTypeOfCooperationCreate',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama Proposal',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
@@ -64,7 +78,9 @@ export default {
             ],
             forms: {
                 name: null,
+                submission_type_id: null,
             },
+            options: [],
             statusNameUnique: null
         }
     },
@@ -73,10 +89,19 @@ export default {
             name: {
                 required,
             },
+            submission_type_id: {
+                required,
+            }
         }
     },
     created() {
-        this.$store.dispatch('proposal/clearPage');
+        $axios.get(`/admin/proposal/typeof/cooperation/create`)
+        .then(response => {
+            this.options = response.data.data;
+        })
+        .catch(error => {
+            console.log(error);
+        })
     },
     methods: {
         store() {
@@ -85,9 +110,9 @@ export default {
                 return;
             } else {
                 this.$store.dispatch('proposal/storeTypeOfCooperation', this.forms);
+                this.$router.push(`/proposal/typeof/cooperation/${this.forms.submission_type_id}/list`);
                 this.$v.$reset();
             }
-            this.$router.push({ name: 'ProposalTypeOfCooperationIndex' });
         }
     },
 }

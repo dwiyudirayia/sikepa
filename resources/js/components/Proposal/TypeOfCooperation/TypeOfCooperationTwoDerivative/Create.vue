@@ -9,27 +9,14 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Turunan Jenis Kerjasama
+                            Tambah Kesepahaman Kerjasama
                         </h3>
                     </div>
                 </div>
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis Kerjasama</label>
-                    <div class="m-form__control">
-                        <select v-model="$v.forms.type_of_cooperation_id.$model" class="form-control" @change="onChangeTypeOfCooperation()">
-                            <option v-for="(value, index) in data_select.type_of_cooperation_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
-                    </div>
-                    <template v-if="$v.forms.type_of_cooperation_id.$error">
-                        <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Turunan Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Permohonan Kerjasama</label>
                     <div class="m-form__control">
                         <select v-model="$v.forms.type_of_cooperation_one_derivative_id.$model" class="form-control">
                             <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
@@ -39,10 +26,10 @@
                         <span v-if="!$v.forms.type_of_cooperation_one_derivative_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Permohonan Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama Turunan Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Nama Kesepahaman Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
@@ -73,38 +60,33 @@ import { required } from 'vuelidate/lib/validators';
 import $axios from '@/api.js';
 
 export default {
-    name: 'ProposalTypeOfCooperationCreate',
+    name: 'ProposalTypeOfCooperationTwoDerivativeCreate',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama Proposal',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Turunan Jenis Kerjasama',
+                    label: 'Tambah Kesepahaman Kerjasama',
                     path: '/proposal/typeof/cooperation/two/derivative/create'
                 },
             ],
             forms: {
-                type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
                 name: null,
             },
             data_select: {
-                type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: []
             }
         }
     },
     validations: {
         forms: {
-            type_of_cooperation_id: {
-                required
-            },
             type_of_cooperation_one_derivative_id: {
                 required
             },
@@ -128,17 +110,11 @@ export default {
             }
         },
         getDataSelect() {
-            $axios.get(`/admin/proposal/typeof/cooperation/two/create`)
-            .then(response => {
-                this.data_select.type_of_cooperation_id = response.data.data;
-            });
-        },
-        onChangeTypeOfCooperation() {
-            $axios.get(`/admin/proposal/typeof/cooperation/two/${this.forms.type_of_cooperation_id}/select`)
+            $axios.get(`/admin/proposal/typeof/cooperation/two/${this.$store.state.paramsTwo}/create`)
             .then(response => {
                 this.data_select.type_of_cooperation_one_derivative_id = response.data.data;
             });
-        }
+        },
     },
 }
 </script>

@@ -41,6 +41,8 @@ const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('token'),
         errors: [],
+        paramsOne: null,
+        paramsTwo: null,
     },
     getters: {
         isAuth(state) {
@@ -53,6 +55,12 @@ const store = new Vuex.Store({
         },
         setError(state, payload) {
             state.errors = payload
+        },
+        paramsOne(state, payload) {
+            state.paramsOne = payload;
+        },
+        paramsTwo(state, payload) {
+            state.paramsTwo = payload;
         },
     },
 })

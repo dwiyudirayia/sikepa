@@ -16,6 +16,22 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Jenis</label>
+                    <div class="m-form__control">
+                        <select2-edit
+                            @input="changeType"
+                            :options="options"
+                            v-model="$v.forms.submission_type_id.$model"
+                            :initSelected="selected"
+                        />
+                    </div>
+                    <template v-if="$v.forms.submission_type_id.$error">
+                        <span v-if="!$v.forms.submission_type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    </template>
+                    <br>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                </div>
+                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Jenis Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model.trim="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
@@ -44,18 +60,18 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import $axios from './../../../api';
+import $axios from '@/api.js';
 
 export default {
     name: 'ProposalTypeOfCooperationEdit',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
@@ -64,6 +80,8 @@ export default {
                 },
             ],
             forms: null,
+            options: [],
+            selected: null,
         }
     },
     validations: {
@@ -71,24 +89,41 @@ export default {
             name: {
                 required,
             },
+            submission_type_id: {
+                required,
+            }
+        },
+        selected: {
+            required
         }
     },
     created() {
         $axios.get(`/admin/proposal/typeof/cooperation/${this.$route.params.id}/edit`)
         .then(response => {
-            this.forms = response.data.data
+            this.options = response.data.data.tipe;
+            this.forms = response.data.data.data;
+            this.selected = response.data.data.data.submission_type_id;
         });
     },
     methods: {
+        changeType(value) {
+            this.forms.submission_type_id = value == '' ? parseInt(this.selected) : parseInt(value);
+        },
         update() {
             this.$v.forms.$touch();
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('proposal/updateTypeOfCooperation', this.forms);
-                this.$v.$reset();
+                this.$store.dispatch('proposal/updateTypeOfCooperation', this.forms).then(response => {
+                    this.$router.push({
+                        name: 'ProposalTypeOfCooperationIndex',
+                        params: {
+                            id: this.forms.submission_type_id,
+                        },
+                    });
+                    this.$v.$reset();
+                });
             }
-            this.$router.push({ name: 'ProposalTypeOfCooperationIndex' });
         }
     },
 }

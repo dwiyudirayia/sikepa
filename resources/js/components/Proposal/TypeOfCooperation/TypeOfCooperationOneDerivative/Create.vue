@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Turunan Jenis Kerjasama
+                            Tambah Permohonan Kerjasama
                         </h3>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama Turunan Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Nama Permohonan Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
@@ -37,7 +37,7 @@
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                     <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Permohonan Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -60,19 +60,19 @@ import { required } from 'vuelidate/lib/validators';
 import $axios from '@/api.js';
 
 export default {
-    name: 'ProposalTypeOfCooperationCreate',
+    name: 'ProposalTypeOfCooperationOneDerivativeCreate',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama Proposal',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Turunan Jenis Kerjasama',
+                    label: 'Tambah Permohonan Kerjasama',
                     path: '/proposal/typeof/cooperation/one/derivative/create'
                 },
             ],
@@ -108,7 +108,7 @@ export default {
             }
         },
         getDataSelect() {
-            $axios.get(`/admin/proposal/typeof/cooperation/one/create`)
+            $axios.get(`/admin/proposal/typeof/cooperation/one/${this.$store.state.paramsOne}/create`)
             .then(response => {
                 this.data_select = response.data.data;
             });

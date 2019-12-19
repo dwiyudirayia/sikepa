@@ -135,14 +135,16 @@ class TypeOfCooperationTwoDerivativeController extends Controller
     public function listTypeOfCooperationTwo($id) {
         try {
             $data = TypeOfCooperationTwoDerivative::where('type_of_cooperation_one_derivative_id', $id)->get();
+
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function changeSelectTwo($id) {
+    public function createType($id) {
         try {
             $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
+
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));

@@ -89,6 +89,10 @@ import ProposalCooperationTargetIndex from './components/Proposal/CooperationTar
 import ProposalCooperationTargetCreate from './components/Proposal/CooperationTarget/Create';
 import ProposalCooperationTargetEdit from './components/Proposal/CooperationTarget/Edit';
 
+import ProposalSubmissionTypeIndex from './components/Proposal/SubmissionType/Index';
+import ProposalSubmissionTypeCreate from './components/Proposal/SubmissionType/Create';
+import ProposalSubmissionTypeEdit from './components/Proposal/SubmissionType/Edit';
+
 import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperation/Index';
 import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
 import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperation/Edit';
@@ -539,9 +543,34 @@ const router = new VueRouter({
                         requiresAuth: true,
                     }
                 },
+                // Proposal Submission Type
+                {
+                    path: '/proposal/submission/type',
+                    name: 'ProposalSubmissionTypeIndex',
+                    component: ProposalSubmissionTypeIndex,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/submission/type/create',
+                    name: 'ProposalSubmissionTypeCreate',
+                    component: ProposalSubmissionTypeCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/proposal/submission/type/:id/edit',
+                    name: 'ProposalSubmissionTypeEdit',
+                    component: ProposalSubmissionTypeEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
                 //Proposal Type of Cooperation
                 {
-                    path: '/proposal/typeof/cooperation',
+                    path: '/proposal/typeof/cooperation/:id/list',
                     name: 'ProposalTypeOfCooperationIndex',
                     component: ProposalTypeOfCooperationIndex,
                     meta: {
@@ -560,6 +589,7 @@ const router = new VueRouter({
                     path: '/proposal/typeof/cooperation/:id/edit',
                     name: 'ProposalTypeOfCooperationEdit',
                     component: ProposalTypeOfCooperationEdit,
+                    props: true,
                     meta: {
                         requiresAuth: true,
                     }

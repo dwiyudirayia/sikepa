@@ -9,7 +9,7 @@ class TypeOfCooperation extends Model
 {
     use SoftDeletes;
     protected $table = 'type_of_cooperation';
-    protected $fillable = ['created_by', 'updated_by', 'name'];
+    protected $fillable = ['submission_type_id','created_by', 'updated_by', 'name'];
 
     public function proposal()
     {

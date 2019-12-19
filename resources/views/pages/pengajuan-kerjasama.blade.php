@@ -75,7 +75,7 @@
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label class="text-label">Usulan jenis kerjasama</label>
+                                                    <label class="text-label">Jenis kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                                         <option>Perpanjangan MOU/PKS</option>
                                                         <option>Lain-lain</option>
                                                     </select>
-                                                    <label class="text-label">Kesepahaman jenis kerjasama</label>
+                                                    <label class="text-label">Kesepahaman kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>

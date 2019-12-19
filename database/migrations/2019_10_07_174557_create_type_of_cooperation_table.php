@@ -15,6 +15,7 @@ class CreateTypeOfCooperationTable extends Migration
     {
         Schema::create('type_of_cooperation', function (Blueprint $table) {
             $table->tinyIncrements('id');
+            $table->tinyInteger('submission_type_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');

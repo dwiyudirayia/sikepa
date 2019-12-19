@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreTypeOfCooperationRequest;
 use App\Http\Requests\UpdateTypeOfCooperationRequest;
+use App\SubmissionType;
 use App\TypeOfCooperation;
 
 class TypeOfCooperationController extends Controller
@@ -15,22 +16,15 @@ class TypeOfCooperationController extends Controller
     {
         $this->notification = $notification;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function create() {
         try {
-            $data = TypeOfCooperation::all();
+            $data = SubmissionType::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -47,7 +41,6 @@ class TypeOfCooperationController extends Controller
             return response()->json($this->notification->storeFailed($th));
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -57,7 +50,7 @@ class TypeOfCooperationController extends Controller
     public function show($id)
     {
         try {
-            $data = TypeOfCooperation::findOrFail($id);
+            $data = TypeOfCooperation::where('submission_type_id', $id)->get();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -74,7 +67,8 @@ class TypeOfCooperationController extends Controller
     public function edit($id)
     {
         try {
-            $data = TypeOfCooperation::findOrFail($id);
+            $data['data'] = TypeOfCooperation::findOrFail($id);
+            $data['tipe'] = SubmissionType::all();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -112,9 +106,10 @@ class TypeOfCooperationController extends Controller
     {
         try {
             $data = TypeOfCooperation::findOrFail($id);
+
+            $array = TypeOfCooperation::where('submission_type_id', $data->submission_type_id)->get();
             $data->delete();
 
-            $array = TypeOfCooperation::all();
             return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));

@@ -31,9 +31,9 @@ class TypeOfCooperationOneDerivativeController extends Controller
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function create() {
+    public function createType($id) {
         try {
-            $data = TypeOfCooperation::all();
+            $data = TypeOfCooperation::where('submission_type_id', $id)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

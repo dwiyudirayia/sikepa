@@ -16,20 +16,7 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis Kerjasama</label>
-                    <div class="m-form__control">
-                        <select v-model="$v.forms.type_of_cooperation_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select.type_of_cooperation_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
-                    </div>
-                    <template v-if="$v.forms.type_of_cooperation_id.$error">
-                        <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Turunan Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Permohonan Kerjasama</label>
                     <div class="m-form__control">
                         <select v-model="$v.forms.type_of_cooperation_one_derivative_id.$model" class="form-control">
                             <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
@@ -42,7 +29,7 @@
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama Turunan Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Kesepahaman Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
@@ -76,12 +63,12 @@ export default {
     name: 'ProposalTypeOfCooperationTwoDerivativeEdit',
     data() {
         return {
-            breadcrumbTitle: 'Jenis Kerjasama Proposal',
+            breadcrumbTitle: 'Kerjasama',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Jenis Kerjasama Proposal',
-                    path: '/proposal/typeof/cooperation'
+                    label: 'Jenis',
+                    path: '/proposal/submission/type'
                 },
                 {
                     id: 2,
