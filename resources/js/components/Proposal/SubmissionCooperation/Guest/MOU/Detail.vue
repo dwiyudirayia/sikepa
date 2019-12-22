@@ -574,8 +574,8 @@ export default {
                 return {
                     id: index+1,
                     label: label[index],
-                    value: value,
-                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : value == 2 ? 'btn-primary' : 'btn-metal'
+                    value: value.approval,
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : value.approval == 2 ? 'btn-primary' : 'btn-metal'
                 }
             });
 

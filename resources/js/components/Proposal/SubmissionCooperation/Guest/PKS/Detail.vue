@@ -587,7 +587,8 @@ export default {
                 return {
                     id: value.id,
                     label: value.role.name,
-                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : 'btn-metal'
+                    value: value.approval,
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : value.approval == 2 ? 'btn-primary' : 'btn-metal'
                 }
             });
 
