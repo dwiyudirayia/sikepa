@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Page;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use File;
 class UpdatePageRequest extends FormRequest
 {
     /**
@@ -50,11 +50,11 @@ class UpdatePageRequest extends FormRequest
                 'approved' => (int)$this->approved,
             ];
         } else {
-            $image = $this->image;
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            \Image::make($this->image)->save(public_path('page/').$name);
+            $extFile = $this->image->getClientOriginalExtension();
+            $nameFile = 'page-photo'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+            $name = $this->image->storeAs(strtotime(now()), $nameFile, 'page_photo');
 
-            File::delete("page/".$data->image);
+            Storage::disk('page_photo')->delete($data->image);
 
             return [
                 'updated_by' => auth()->user()->id,

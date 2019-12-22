@@ -47,8 +47,14 @@
                     <!-- END: Brand -->
                     <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
                         <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
-                            <div class="m-stack__item m-topbar__nav-wrapper">
+                            <div class="m-stack__item m-topbar__nav-wrapper flex">
                                 <ul class="m-topbar__nav m-nav m-nav--inline">
+                                    <li id="view-frontend" class="m-nav__item">
+                                        <a href="http://newsikepa.test" class="m-menu__link">
+                                            <span class=" m-menu__link-text">View Frontend</span>
+                                            <i class="m-menu__link-icon la la-external-link"></i>
+                                        </a>
+                                    </li>
                                     <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true">
                                         <a href="#" class="m-nav__link m-dropdown__toggle">
                                             <span class="m-topbar__userpic">
@@ -83,6 +89,60 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav m-nav--skin-light">
+                                                            <!-- <li class="m-nav__section m--hide">
+                                                                <span class="m-nav__section-text">Section</span>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#!" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-user"></i>
+                                                                    <span class="m-nav__link-text">My Profile</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#!" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-share-alt"></i>
+                                                                    <span class="m-nav__link-title">
+                                                                        <span class="m-nav__link-wrap">
+                                                                            <span class="m-nav__link-text">Activity</span>
+                                                                            <span class="m-nav__link-badge"><span class="m-badge m-badge--success">2</span></span>
+                                                                        </span>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#!" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-comments"></i>
+                                                                    <span class="m-nav__link-text">Messages</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__separator m-nav__separator--fit">
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#!" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-question-circle"></i>
+                                                                    <span class="m-nav__link-text">FAQ</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#!" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-life-bouy"></i>
+                                                                    <span class="m-nav__link-text">Support</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__separator m-nav__separator--fit">
+                                                            </li> -->
+                                                            <li class="m-nav__item context-menu" @click="logout">
+                                                                <a class="m-nav__link">
+                                                                    <i class="m-nav__link-icon la la-sign-out"></i>
+                                                                    <span class="m-nav__link-text">Keluar</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -113,7 +173,7 @@
                                                                         <div class="m-list-timeline__items">
                                                                             <div class="m-list-timeline__item" v-for="(value, index) in notifications" :key="index">
                                                                                 <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-                                                                                <router-link class="m-list-timeline__text" :to="{name: value.data.path}" @click.native="readNotif(value)">{{ value.data.message }}</router-link>
+                                                                                <router-link class="m-list-timeline__text" style="color:black;" :to="{name: value.data.path}" @click.native="readNotif(value)">{{ value.data.message }}</router-link>
                                                                                 <span class="m-list-timeline__time">{{ value.created_at | formatDate }}</span>
                                                                             </div>
                                                                         </div>
@@ -220,6 +280,19 @@ export default {
             //KEMUDIAN SELANJUTNYA KITA REDIRECT KE HALAMAN VIEW EXPENSES
             this.readNotification({ id: row.id});
         },
+        logout() {
+            $axios.post(`/admin/logout`)
+            .then(() => {
+                localStorage.removeItem('token')
+                this.$store.state.token = localStorage.getItem('token')
+                window.location.href = '/login/admin';
+            })
+        },
     },
 }
 </script>
+<style scoped>
+    .context-menu {
+        cursor: context-menu;
+    }
+</style>

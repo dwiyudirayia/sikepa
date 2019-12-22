@@ -162,7 +162,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Partisipasi Masyarakat')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -204,7 +204,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Partisipasi Masyarakat')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -246,7 +246,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Kesetaraan Gender')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -288,7 +288,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Kesetaraan Gender')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -330,7 +330,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Anak')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -372,7 +372,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Anak')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -414,7 +414,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Hak Perempuan')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -456,14 +456,14 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Hak Perempuan')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Deputi Bidang Perlindungan Anak MOU
+                                    Deputi Bidang Perlindungan Hak Perempuan MOU
                                 </h3>
                             </div>
                         </div>
@@ -498,7 +498,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Tumbuh Kembang Anak')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -540,7 +540,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Tumbuh Kembang Anak')">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -576,6 +576,174 @@
                         <br>
                         <bar-chart
                             :chartData="chartData.deputiTumbuhKembangAnak.mou.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Instansi PKS
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsInstansiPKS"
+                                    v-model="chartData.instansi.pks.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterAgenciesPKS" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.instansi.pks.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Instansi MOU
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsInstansiMOU"
+                                    v-model="chartData.instansi.mou.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterAgenciesMOU" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.instansi.mou.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Pengajuan Kerjasama PKS
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSubmissionPKS"
+                                    v-model="chartData.submission.pks.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterSubmissionPKS" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.submission.pks.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Pengajuan Kerjasama MOU
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSubmissionMOU"
+                                    v-model="chartData.submission.mou.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterSubmissionMOU" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.submission.mou.all"
                             :options="options"
                         />
                     </div>
@@ -618,6 +786,42 @@ export default {
             },
             options: null,
             chartData: {
+                submission: {
+                    pks: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    mou: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                },
+                instansi: {
+                    pks: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    mou: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                },
                 deputiKesetaraanGender: {
                     pks: {
                         all: null,
@@ -720,6 +924,18 @@ export default {
         }
     },
     computed: {
+        yearsSubmissionPKS() {
+            return this.chartData.submission.pks.years;
+        },
+        yearsSubmissionMOU() {
+            return this.chartData.submission.mou.years;
+        },
+        yearsInstansiMOU() {
+            return this.chartData.instansi.mou.years;
+        },
+        yearsInstansiPKS() {
+            return this.chartData.instansi.pks.years;
+        },
         yearsKesetaraanGenderPKS() {
             return this.chartData.deputiKesetaraanGender.pks.years;
         },
@@ -760,26 +976,68 @@ export default {
             scales: {
                 yAxes: [{
                     ticks: {
-                        stepSize: 1
+                        stepSize: 1,
+                        beginAtZero: true
                     }
                 }]
             },
         }
     },
     methods: {
+        filterSubmissionPKS() {
+            $axios.get(`/admin/filter/submission/pks/${this.chartData.submission.pks.selectedYear}`)
+            .then(response => {
+                this.chartData.submission.pks.data = response.data.data;
+
+                this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
+                this.chartData.submission.pks.value = this.chartData.submission.pks.data.map(map => map.data);
+
+
+                this.chartData.submission.pks.all = {
+                    labels: this.chartData.submission.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterSubmissionMOU() {
+
+            $axios.get(`/admin/filter/submission/mou/${this.chartData.submission.pks.selectedYear}`)
+            .then(response => {
+                this.chartData.submission.pks.data = response.data.data;
+
+                this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
+                this.chartData.submission.pks.value = this.chartData.submission.pks.data.map(map => map.data);
+
+
+                this.chartData.submission.pks.all = {
+                    labels: this.chartData.submission.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterKesetaraanGenderPKS() {
             $axios.get(`/admin/filter/kesetaraan/gender/pks/${this.chartData.deputiKesetaraanGender.pks.selectedYear}`)
             .then(response => {
                 this.chartData.deputiKesetaraanGender.pks.data = response.data.data;
 
-                let objectDeputiKesetaraanGenderPKS = this.chartData.deputiKesetaraanGender.pks.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiKesetaraanGender.pks.years = objectDeputiKesetaraanGenderPKS;
                 this.chartData.deputiKesetaraanGender.pks.yearsText = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.year.toString());
                 this.chartData.deputiKesetaraanGender.pks.value = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.data);
 
@@ -804,14 +1062,6 @@ export default {
             .then(response => {
                 this.chartData.deputiKesetaraanGender.mou.data = response.data.data;
 
-                let objectDeputiKesetaraanGenderMOU = this.chartData.deputiKesetaraanGender.mou.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiKesetaraanGender.mou.years = objectDeputiKesetaraanGenderMOU;
                 this.chartData.deputiKesetaraanGender.mou.yearsText = this.chartData.deputiKesetaraanGender.mou.data.map(map => map.year.toString());
                 this.chartData.deputiKesetaraanGender.mou.value = this.chartData.deputiKesetaraanGender.mou.data.map(map => map.data);
 
@@ -836,14 +1086,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPartisipasiMasyarakat.pks.data = response.data.data;
 
-                let objectDeputiPartisipasiMasyarakatPKS = this.chartData.deputiPartisipasiMasyarakat.pks.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPartisipasiMasyarakat.pks.years = objectDeputiPartisipasiMasyarakatPKS;
                 this.chartData.deputiPartisipasiMasyarakat.pks.yearsText = this.chartData.deputiPartisipasiMasyarakat.pks.data.map(map => map.year.toString());
                 this.chartData.deputiPartisipasiMasyarakat.pks.value = this.chartData.deputiPartisipasiMasyarakat.pks.data.map(map => map.data);
 
@@ -868,14 +1110,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPartisipasiMasyarakat.mou.data = response.data.data;
 
-                let objectDeputiPartisipasiMasyarakatMOU = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPartisipasiMasyarakat.mou.years = objectDeputiPartisipasiMasyarakatMOU;
                 this.chartData.deputiPartisipasiMasyarakat.mou.yearsText = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.year.toString());
                 this.chartData.deputiPartisipasiMasyarakat.mou.value = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.data);
 
@@ -900,14 +1134,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganAnak.pks.data = response.data.data;
 
-                let objectDeputiPerlindunganAnakPKS = this.chartData.deputiPerlindunganAnak.pks.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganAnak.pks.years = objectDeputiPerlindunganAnakPKS;
                 this.chartData.deputiPerlindunganAnak.pks.yearsText = this.chartData.deputiPerlindunganAnak.pks.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganAnak.pks.value = this.chartData.deputiPerlindunganAnak.pks.data.map(map => map.data);
 
@@ -932,14 +1158,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganAnak.mou.data = response.data.data;
 
-                let objectDeputiPerlindunganAnakMOU = this.chartData.deputiPerlindunganAnak.mou.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganAnak.mou.years = objectDeputiPerlindunganAnakMOU;
                 this.chartData.deputiPerlindunganAnak.mou.yearsText = this.chartData.deputiPerlindunganAnak.mou.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganAnak.mou.value = this.chartData.deputiPerlindunganAnak.mou.data.map(map => map.data);
 
@@ -964,14 +1182,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganHakPerempuan.pks.data = response.data.data;
 
-                let objectDeputiPerlindunganHakPerempuanPKS = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganHakPerempuan.pks.years = objectDeputiPerlindunganHakPerempuanPKS;
                 this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganHakPerempuan.pks.value = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(map => map.data);
 
@@ -996,14 +1206,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganHakPerempuan.mou.data = response.data.data;
 
-                let objectDeputiPerlindunganHakPerempuanMOU = this.chartData.deputiPerlindunganHakPerempuan.mou.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganHakPerempuan.mou.years = objectDeputiPerlindunganHakPerempuanMOU;
                 this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText = this.chartData.deputiPerlindunganHakPerempuan.mou.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganHakPerempuan.mou.value = this.chartData.deputiPerlindunganHakPerempuan.mou.data.map(map => map.data);
 
@@ -1028,14 +1230,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data = response.data.data;
 
-                let objectDeputiPerlindunganTumbuhKembangAnakPKS = this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.years = objectDeputiPerlindunganTumbuhKembangAnakPKS;
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data.map(map => map.data);
 
@@ -1060,14 +1254,6 @@ export default {
             .then(response => {
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data = response.data.data;
 
-                let objectDeputiPerlindunganTumbuhKembangAnakMOU = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(value => {
-                    return {
-                        id: value.year.toString(),
-                        text: value.year
-                    };
-                })
-
-                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.years = objectDeputiPerlindunganTumbuhKembangAnakMOU;
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(map => map.year.toString());
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(map => map.data);
 
@@ -1087,9 +1273,99 @@ export default {
                 console.log(error);
             });
         },
+        filterAgenciesPKS() {
+            $axios.get(`/admin/filter/agencies/pks/${this.chartData.instansi.pks.selectedYear}`)
+            .then(response => {
+                this.chartData.instansi.pks.data = response.data.data;
+
+                this.chartData.instansi.pks.yearsText = this.chartData.instansi.pks.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.pks.value = this.chartData.instansi.pks.data.map(map => map.data);
+
+                this.chartData.instansi.pks.all = {
+                    labels: this.chartData.instansi.pks.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.pks.data.map(value => value.length),
+                        }
+                    ]
+                };
+            })
+        },
+        filterAgenciesMOU() {
+            $axios.get(`/admin/filter/agencies/mou/${this.chartData.instansi.mou.selectedYear}`)
+            .then(response => {
+                this.chartData.instansi.mou.data = response.data.data;
+
+                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
+
+                this.chartData.instansi.mou.all = {
+                    labels: this.chartData.instansi.mou.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                        }
+                    ]
+                };
+            })
+        },
         getData() {
             $axios.get(`/admin/dashboard`)
             .then(response => {
+                //Pengajuan Kerjasama PKS
+                this.chartData.submission.pks.data = response.data.data.submission_cooperation_pks;
+
+                let objectSubmissionPKS = this.chartData.submission.pks.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.submission.pks.years = objectSubmissionPKS;
+                this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
+                this.chartData.submission.pks.value = this.chartData.submission.pks.data.map(map => map.data);
+
+
+                this.chartData.submission.pks.all = {
+                    labels: this.chartData.submission.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.pks.value,
+                        },
+                    ]
+                };
+                //Pengajuan Kerjasama MOU
+                this.chartData.submission.mou.data = response.data.data.submission_cooperation_mou;
+
+                let objectSubmissionMOU = this.chartData.submission.mou.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.submission.mou.years = objectSubmissionMOU;
+                this.chartData.submission.mou.yearsText = this.chartData.submission.mou.data.map(map => map.year.toString());
+                this.chartData.submission.mou.value = this.chartData.submission.mou.data.map(map => map.data);
+
+
+                this.chartData.submission.mou.all = {
+                    labels: this.chartData.submission.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.mou.value,
+                        },
+                    ]
+                };
                 //Kesetaraan Gender
                 this.chartData.deputiKesetaraanGender.pks.data = response.data.data.deputi_kesetaraan_gender_pks;
 
@@ -1243,7 +1519,7 @@ export default {
                     ]
                 };
 
-                //Perlindungan Tumbuh Kembang Anak
+                //Perlindungan Tumbuh Hak Perempuan
                 this.chartData.deputiPerlindunganHakPerempuan.pks.data = response.data.data.deputi_perlindungan_hak_perempuan_pks;
 
                 let objectDeputiPartisipasideputiPerlindunganHakPerempuanPKS = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(value => {
@@ -1344,7 +1620,55 @@ export default {
                         },
                     ]
                 };
+                //Intansi PKS
+                this.chartData.instansi.pks.data = response.data.data.agencies_pks;
+                let objectInstansiPKS = response.data.data.agencies_year_pks.map(value => {
+                    return {
+                        id: value[0].year.toString(),
+                        text: value[0].year,
+                    };
+                })
 
+                this.chartData.instansi.pks.years = objectInstansiPKS;
+                this.chartData.instansi.pks.yearsText = this.chartData.instansi.pks.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.pks.value = this.chartData.instansi.pks.data.map(map => map.data);
+
+
+                this.chartData.instansi.pks.all = {
+                    labels: this.chartData.instansi.pks.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.pks.data.map(value => value.length),
+                        }
+                    ]
+                };
+
+                //Intansi MOU
+                this.chartData.instansi.mou.data = response.data.data.agencies_mou;
+                let objectInstansiMOU = response.data.data.agencies_year_mou.map(value => {
+                    return {
+                        id: value[0].year.toString(),
+                        text: value[0].year,
+                    };
+                })
+
+                this.chartData.instansi.mou.years = objectInstansiMOU;
+                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
+
+
+                this.chartData.instansi.mou.all = {
+                    labels: this.chartData.instansi.mou.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                        }
+                    ]
+                };
                 //Widget
                 const responseData = response.data.data;
 

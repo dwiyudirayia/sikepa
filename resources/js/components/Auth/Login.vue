@@ -22,7 +22,7 @@
             </div>
         </fieldset>
         <div class="d-flex justify-content-between align-items-center m-0">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
         </div>
     </form>
 </template>

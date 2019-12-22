@@ -1,5 +1,5 @@
 <template>
-    <select class="form-control">
+    <select class="form-control" style="z-index: 9999999;">
         <slot></slot>
     </select>
 </template>

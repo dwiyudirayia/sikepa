@@ -26,9 +26,9 @@
                         <h5 class="title">Kontak Kami</h5>
                     </div>
                     <ul class="footer-nav contact-footer">
-                        <li>Jl. Medan Merdeka Barat No.15, RT.2/RW.3, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160</li>
-                        <li>0812-3456-7890</li>
-                        <li><a href="#!"><span class="hover-line">info@sikepa.id</span></a></li>
+                        <li>Jalan Medan Merdeka Barat No. 15, Jakarta 10110</li>
+                        <li>021-3813351</li>
+                        <li><a href="#!"><span class="hover-line">kerjasama@kemenpppa.go.id</span></a></li>
                         <li>
                             <ul class="social-icon">
                                 <li><a href="#!" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>

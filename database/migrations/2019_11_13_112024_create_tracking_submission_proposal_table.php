@@ -19,7 +19,7 @@ class CreateTrackingSubmissionProposalTable extends Migration
             $table->integer('role_id');
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('approval')->nullable();
-            $table->text('reason');
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }

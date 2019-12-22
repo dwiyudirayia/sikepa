@@ -174,6 +174,16 @@ return [
             'root' => storage_path('app/public/activity_documentation'),
             'visibility' => 'public',
         ],
+        'article_photo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/article_photo'),
+            'visibility' => 'public',
+        ],
+        'page_photo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/page_photo'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -2,14 +2,13 @@
     <div class="top-header">
         <div class="container">
             <ul class="contact-header">
-                <li><i class="mdi mdi-phone"></i>+6281919002001</li>
-                <li><i class="mdi mdi-email-outline"></i>admin@sikepa.id</li>
+                <li><i class="mdi mdi-phone"></i>021-3813351</li>
+                <li><i class="mdi mdi-email-outline"></i>kerjasama@kemenpppa.go.id</li>
             </ul>
             <ul class="social-icon">
-                <li><a href="#!" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
-                <li><a href="#!" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
-                <li><a href="#!" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
-                <li><a href="#!" title="Google +"><i class="mdi mdi-google"></i></a></li>
+                <li><a href="https://www.facebook.com/kppdanpa" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
+                <li><a href="https://www.twitter.com/kpp_pa" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
+                <li><a href="https://www.instagram.com/kemenpppa" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
             </ul>
         </div>
     </div>
@@ -36,11 +35,11 @@
                     <li class="{{ request()->is('page/article') || request()->is('page/article/*') ? 'active' : '' }}"><a href="{{ route('article') }}">Artikel</a></li>
                 </ul>
                 <div class="btn-login">
-                    <a class="btn btn-lg btn-block btn-primary btn-rounded" href="/login/admin">Login</a>
+                    <a class="btn btn-lg btn-block btn-primary btn-rounded" href="/login/admin">Masuk</a>
                 </div>
             </div>
             <div class="user-header">
-                <a class="btn-rounded btn-login" href="/login/admin">Login<i class="mdi mdi-arrow-right"></i></a>
+                <a class="btn-rounded btn-login" href="/login/admin">Masuk<i class="mdi mdi-arrow-right"></i></a>
             </div>
             <div class="burger-menu">
                 <div class="burger-menu-content">

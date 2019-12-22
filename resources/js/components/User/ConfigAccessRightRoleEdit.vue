@@ -178,8 +178,29 @@ export default {
                     this.forms.id = '';
                     this.new_permission = [];
                     this.CLEAR_ROLE_PERMISSION();
-                    window.location = '/config/access/rights';
-                    this.$store.commit('accessright/anotherNotification', response);
+
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    toastr.success(`Data Berhasil di Perbaharui`);
+
+                    this.$router.push('/config/access/rights');
                 })
             }
         }

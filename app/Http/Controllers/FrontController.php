@@ -31,7 +31,8 @@ use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Cookie;
+use Validator;
 class FrontController extends Controller
 {
     public function filterMonitoringCooperation($data) {
@@ -54,6 +55,20 @@ class FrontController extends Controller
     public function storeSatisfactionSurvey(Request $request) {
         try {
             DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:satisfaction_survey|max:255',
+                'survey' => 'required',
+            ],[
+                'email.required' => 'Email Harus di Isi',
+                'email.unique' => 'Email Sudah Terdaftar Sebelumnya',
+            ]);
+            if ($validator->fails()) {
+                return back()
+                        ->withErrors($validator)
+                        ->withInput()
+                        ->with('error', 'Data Gagal di Simpan');
+                Cookie::queue(Cookie::forget('email'));
+            }
             $survey = SatisfactionSurvey::create([
                 'email' => $request->email,
                 'survey' => $request->survey,
@@ -63,7 +78,7 @@ class FrontController extends Controller
             Mail::to($survey->email)->send(new SurveyKepuasan($survey));
 
             DB::commit();
-            return back()->with('success', 'Berhasil! Silahkan Verifikasi Survey Anda Melalui Email');
+            return redirect()->route('home')->with('success', 'Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. Nomor Registrasi Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.');
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', 'Data Gagal di Simpan');
@@ -94,7 +109,7 @@ class FrontController extends Controller
     {
         $bannerArticle = Article::orderBy('created_at', 'desc')->take(3)->get();
         $article = Article::orderBy('created_at', 'desc')->take(8)->get();
-        $testimoni = Testimoni::all();
+        $testimoni = Testimoni::where('active', 1)->get();
 
         return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
     }
@@ -194,15 +209,23 @@ class FrontController extends Controller
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
         try {
-            // dd(1);
             DB::beginTransaction();
             $proposal = SubmissionProposalGuest::create($request->store());
+
             foreach ($request->deputi as $key => $value) {
                 $proposal->deputi()->create([
                     'role_id' => $value,
                 ]);
             }
-            $proposal->tracking()->create([]);
+
+            $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15, 16];
+            foreach ($userKPPA as $key => $value) {
+                $proposal->tracking()->create([
+                    'role_id' => $value,
+                ]);
+            }
+
+            Cookie::queue(Cookie::make('email', $request->email));
 
             DB::commit();
 
@@ -215,12 +238,12 @@ class FrontController extends Controller
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
-            // dd($request->type_guest_id);
             Notification::send($users, new DeputiNotificationGuest($path));
             Mail::to($request->email)->send(new ResiSubmissionCooperation($proposal));
 
             return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Jika Minat');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             DB::rollback();
 
             return back()->with('error', 'Data Gagal di Simpan');

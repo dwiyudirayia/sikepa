@@ -30,11 +30,11 @@ class StoreArticleRequest extends FormRequest
     }
     public function store()
     {
-        if($this->image != "null")
+        if($this->hasFile('image'))
         {
-            $image = $this->image;
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            \Image::make($this->image)->save(public_path('article/').$name);
+            $extFile = $this->image->getClientOriginalExtension();
+            $nameFile = 'article-photo'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+            $name = $this->image->storeAs(strtotime(now()), $nameFile, 'article_photo');
 
             return [
                 'created_by' => auth()->user()->id,

@@ -41,7 +41,7 @@ class RejectDana extends Command
      */
     public function handle()
     {
-        $proposal = SubmissionProposalGuest::where('type_of_cooperation_id', 1)->where('status_proposal', 1)->whereNotNull('reject_dana')->get();
+        $proposal = SubmissionProposalGuest::where('type_of_cooperation_id', 1)->orWhere('type_of_cooperation_id', 2)->where('status_proposal', 1)->whereNotNull('reject_dana')->get();
         if($proposal->count() == 0) {
             return true;
         } else {

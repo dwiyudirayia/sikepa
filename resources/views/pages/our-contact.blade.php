@@ -31,15 +31,14 @@
                         </div>
                         <article class="caption-text sr-btm">
                             <ul class="list-contact">
-                                <li><span class="text-label">Alamat</span><br><b>Jl. Medan Merdeka Barat No.15, RT.2/RW.3, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160</b></li>
-                                <li><span class="text-label">Telp</span><br><b>0812-3456-7890</b></li>
-                                <li><span class="text-label">Email</span><br><b><a href="#!"><span class="hover-line">info@sikepa.id</span></a></b></li>
+                                <li><span class="text-label">Alamat</span><br><b>Jalan Medan Merdeka Barat No. 15, Jakarta 10110</b></li>
+                                <li><span class="text-label">Telp</span><br><b>021-3813351</b></li>
+                                <li><span class="text-label">Email</span><br><b><a href="#!"><span class="hover-line">kerjasama@kemenpppa.go.id</span></a></b></li>
                                 <li>
                                     <ul class="social-icon">
-                                        <li><a href="#!" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
-                                        <li><a href="#!" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
-                                        <li><a href="#!" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
-                                        <li><a href="#!" title="Google +"><i class="mdi mdi-google"></i></a></li>
+                                        <li><a href="https://www.facebook.com/kppdanpa" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
+                                        <li><a href="https://www.twitter.com/kpp_pa" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
+                                        <li><a href="https://www.instagram.com/kemenpppa" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
                                     </ul>
                                 </li>
                             </ul>

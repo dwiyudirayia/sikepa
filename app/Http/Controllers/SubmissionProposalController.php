@@ -121,6 +121,13 @@ class SubmissionProposalController extends Controller
                 ]);
             }
 
+            $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15, 16];
+            foreach ($userKPPA as $key => $value) {
+                $proposal->tracking()->create([
+                    'role_id' => $value,
+                ]);
+            }
+
             DB::commit();
 
             $deputi = $request->deputi;
@@ -133,7 +140,7 @@ class SubmissionProposalController extends Controller
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
-            Notification::send($users, new DeputiNotification(auth()->user(), $path));
+            Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             return response()->json([
                 'messages' => 'Data Berhasil di Simpan',
                 'status' => 200
@@ -254,7 +261,7 @@ class SubmissionProposalController extends Controller
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
                         }
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                     } else {
                         $proposal->status_proposal = 0;
                         $proposal->save();
@@ -281,7 +288,7 @@ class SubmissionProposalController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
@@ -302,7 +309,7 @@ class SubmissionProposalController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
 
             } else {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
@@ -322,7 +329,7 @@ class SubmissionProposalController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             }
 
 
@@ -369,7 +376,7 @@ class SubmissionProposalController extends Controller
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
                         }
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                     } else {
                         $proposal->status_proposal = 0;
                         $proposal->save();
@@ -406,7 +413,7 @@ class SubmissionProposalController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } else {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
@@ -427,7 +434,7 @@ class SubmissionProposalController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             }
 
             $data = [];
@@ -502,7 +509,7 @@ class SubmissionProposalController extends Controller
                 $query->where('id', 11);
             })->get();
 
-            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+            Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             DB::commit();
 
             return response()->json([
@@ -610,7 +617,7 @@ class SubmissionProposalController extends Controller
             } else {
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
-            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+            Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             DB::commit();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {

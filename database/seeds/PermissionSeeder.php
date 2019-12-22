@@ -48,6 +48,21 @@ class PermissionSeeder extends Seeder
             ],
             11 => [
                 'name' => 'Satker Sesmen'
+            ],
+            12 => [
+                'name' => 'Chart Deputi Bidang Partisipasi Masyarakat',
+            ],
+            13 => [
+                'name' => 'Chart Deputi Bidang Kesetaraan Gender',
+            ],
+            14 => [
+                'name' => 'Chart Deputi Bidang Perlindungan Anak'
+            ],
+            15 => [
+                'name' => 'Chart Deputi Perlindungan Hak Perempuan'
+            ],
+            16 => [
+                'name' => 'Chart Deputi Tumbuh Kembang Anak'
             ]
         ];
 

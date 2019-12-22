@@ -57,9 +57,11 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             $extention = $this->siup->getClientOriginalExtension();
             $fileName = 'siup-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
             $pathSIUP = $this->siup->storeAs(strtotime("now"), $fileName, 'siup_guest');
+        } else {
+            $pathSIUP = '';
         }
 
-        if($this->type_of_cooperation_id == 1) {
+        if($this->type_of_cooperation_id == 1 || $this->type_of_cooperation_id == 2) {
             $reject = Carbon::now()->addMinutes(10)->format('H:i');
         } else {
             $reject = null;

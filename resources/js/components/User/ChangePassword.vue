@@ -18,15 +18,13 @@
                 <div class="form-group m-form__group">
                     <label for="Nama">Password Sekarang</label>
                     <div class="m-form__control">
-                        <input type="password" v-model="$v.forms.current_password.$model" class="form-control" @blur="$v.forms.current_password.$touch()">
+                        <input type="password" v-model="$v.forms.current_password.$model" class="form-control" @blur="$v.forms.current_password.isSameCurrentPassword.$touch()">
                     </div>
-                    <template v-if="$v.forms.current_password.$error">
-                        <span class="m--font-danger" v-if="!$v.forms.current_password.required">Password Sekarang Harus di Isi</span>
-                        <br>
-                        <span class="m--font-danger" v-if="!$v.forms.current_password.isSameCurrentPassword">Password Sekarang Tidak Sama Dengan Password Saat Ini</span>
-                    </template>
-                    <br>
                     <span class="m-form__help">Masukan Password Saat Ini</span>
+                    <template v-if="$v.forms.current_password.$error">
+                        <p class="m--font-danger" v-if="!$v.forms.current_password.required">Password Sekarang Harus di Isi</p>
+                        <p class="m--font-danger" v-if="!$v.forms.current_password.isSameCurrentPassword">Password Sekarang Tidak Sama Dengan Password Saat Ini</p>
+                    </template>
                 </div>
 
                 <div class="form-group m-form__group">
@@ -34,26 +32,22 @@
                     <div class="m-form__control">
                         <input type="password" v-model="$v.forms.new_password.$model" class="form-control" @blur="$v.forms.new_password.$touch()">
                     </div>
-                    <template v-if="$v.forms.new_password.$error">
-                        <span class="m--font-danger" v-if="!$v.forms.new_password.required">Password Baru Harus di Isi</span>
-                        <br>
-                        <span class="m--font-danger" v-if="!$v.forms.new_password.isSameNewPassword">Password Baru Tidak Boleh Sama Dengan Password Saat Ini</span>
-                    </template>
-                    <br>
                     <span class="m-form__help">Masukan Password Baru</span>
+                    <template v-if="$v.forms.new_password.$error">
+                        <p class="m--font-danger" v-if="!$v.forms.new_password.required">Password Baru Harus di Isi</p>
+                        <p class="m--font-danger" v-if="!$v.forms.new_password.isSameNewPassword">Password Baru Tidak Boleh Sama Dengan Password Saat Ini</p>
+                    </template>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama">Konfirmasi Password</label>
                     <div class="m-form__control">
                         <input type="password" v-model="$v.forms.new_password_confirmation.$model" class="form-control" @blur="$v.forms.new_password_confirmation.$touch()">
                     </div>
-                    <template v-if="$v.forms.new_password_confirmation.$error">
-                        <span class="m--font-danger" v-if="!$v.forms.new_password_confirmation.required">Konfirmasi Password Harus di Isi</span>
-                        <br>
-                        <span class="m--font-danger" v-if="!$v.forms.new_password_confirmation.sameAsPassword">Konfirmasi Password Tidak Sama</span>
-                    </template>
-                    <br>
                     <span class="m-form__help">Konfirmasi Password Baru</span>
+                    <template v-if="$v.forms.new_password_confirmation.$error">
+                        <p class="m--font-danger" v-if="!$v.forms.new_password_confirmation.required">Konfirmasi Password Harus di Isi</p>
+                        <p class="m--font-danger" v-if="!$v.forms.new_password_confirmation.sameAsPassword">Konfirmasi Password Tidak Sama</p>
+                    </template>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
@@ -110,7 +104,7 @@ export default {
                     // simulate async call, fail for all logins with even length
                     return new Promise((resolve, reject) => {
                         setTimeout(() => {
-                            resolve(this.isSameCurrentPassword == false)
+                            resolve(this.isSameCurrentPassword == true)
                         }, 350 + Math.random() * 300)
                     })
                 }
@@ -146,7 +140,7 @@ export default {
                 resolve()
             }).then(() => {
                 this.$store.state.token = localStorage.getItem('token')
-                this.$router.push('/login/admin')
+                window.location.href = '/login/admin';
             })
         },
         changePassword() {

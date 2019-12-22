@@ -52,7 +52,7 @@
                                                     <span>Edit Role</span>
                                                 </span>
                                             </router-link>
-                                            <button v-if="$can('Admin')" @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'" v-show="value.id >= 10 ? true : false">
+                                            <button v-if="$can('Admin')" @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'" v-show="value.id > 16 ? true : false">
                                                 <span>
                                                     <i class="la la-trash"></i>
                                                     <span>Delete Role</span>

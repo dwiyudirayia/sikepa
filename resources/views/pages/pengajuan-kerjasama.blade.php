@@ -68,7 +68,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-fund">
                                             <div class="form-group">
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="type_of_cooperation_id" name="type_of_cooperation_id">
@@ -253,10 +253,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-ministry">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload required" type="file" name="siup" id="siup">
+                                                    <input class="upload" type="file" name="siup" id="siup">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="siup" onclick="getFile()"></label>
                                                     </div>
@@ -344,7 +344,7 @@
                             <div class="step-btn">3</div>
                             <div id="step3" class="tab-pane">
                                 <div class="main-title text-center">
-                                    <h4 class="title">Formulir Sasaran Kerjasama</h4>
+                                    <h4 class="title">Unit yang akan terlibat</h4>
                                 </div>
                                 <div class="control-group">
                                     <div class="row">
@@ -542,20 +542,24 @@
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
                 console.log(value);
-                if(value != 1 || value != 2) {
-                    $('#is-nominal').hide();
-                    $('#is-typeof-one').show();
-                    $('#is-typeof-two').show();
-                    $('#is-typeof-two').attr('class', 'col-lg-12 col-md-12');
-                    $('#nominal').val('');
+                if(value == 1 || value == 2) {
+                    console.log(1);
+                    $('#is-nominal').show();
+                    $('#is-typeof-one').hide();
+                    $('#is-typeof-two').hide();
+                    $('#is-fund').attr('class', 'col-lg-12 col-md-12');
+                    $('#is-nominal').attr('class', 'col-lg-12 col-md-12');
+                    $('#is-typeof-one').attr('class', 'col-lg-12 col-md-12');
                     $('#type_of_cooperation_one_derivative_id').val('');
                     $('#type_of_cooperation_one_derivative_id').html('');
                     $('#type_of_cooperation_two_derivative_id').val('');
                     $('#type_of_cooperation_two_derivative_id').html('');
                 } else {
-                    $('#is-nominal').show();
-                    $('#is-typeof-one').hide();
-                    $('#is-typeof-two').hide();
+                    $('#is-nominal').hide();
+                    $('#is-typeof-one').show();
+                    $('#is-typeof-two').show();
+                    $('#is-typeof-two').attr('class', 'col-lg-12 col-md-12');
+                    $('#nominal').val('');
                     $('#type_of_cooperation_one_derivative_id').val('');
                     $('#type_of_cooperation_one_derivative_id').html('');
                     $('#type_of_cooperation_two_derivative_id').val('');
@@ -737,12 +741,22 @@
                         if (results[0].geometry.viewport)
                         map.fitBounds(results[0].geometry.viewport);
 
-                        map.setZoom(24);
+                        map.setZoom(4);
                     } else {
                         alert("Geocode was not successful for the following reason: " + status);
                     }
                 });
-            })
+            });
+            $('#agencies_id').change(function() {
+                const value = $(this).val();
+
+                if(value == 1) {
+                    $('#is-ministry').hide();
+                } else {
+                    $('#is-ministry').show();
+                }
+
+            });
             $('#nominal').keyup(function(event) {
                 // skip for arrow keys
                 if(event.which >= 37 && event.which <= 40) return;

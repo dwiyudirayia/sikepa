@@ -62,7 +62,7 @@ class SubmissionProposalGuestController extends Controller
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
                         }
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
 
                         Mail::to($proposal->email)->send(new ApproveCooperation);
                     } else {
@@ -95,7 +95,7 @@ class SubmissionProposalGuestController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
             } elseif($proposal->status_disposition == 12) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
@@ -116,7 +116,7 @@ class SubmissionProposalGuestController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } elseif ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
                 $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
@@ -128,7 +128,7 @@ class SubmissionProposalGuestController extends Controller
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
 
                 $statusDisposition = $proposal->status_disposition + 1;
-                // dd($statusDisposition);
+
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
@@ -138,7 +138,7 @@ class SubmissionProposalGuestController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
 
             } else {
@@ -160,7 +160,7 @@ class SubmissionProposalGuestController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
             }
 
@@ -208,7 +208,7 @@ class SubmissionProposalGuestController extends Controller
                         } else {
                             $path = 'MOUProposalSubmissionCooperationIndex';
                         }
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                     } else {
                         $proposal->status_proposal = 0;
                         $proposal->save();
@@ -235,7 +235,7 @@ class SubmissionProposalGuestController extends Controller
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
 
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } elseif ($proposal->status_disposition == 2) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
@@ -284,7 +284,7 @@ class SubmissionProposalGuestController extends Controller
                 } else {
                     $path = 'MOUProposalSubmissionCooperationIndex';
                 }
-                Notification::send($users, new DispositionNotification(auth()->user(), $path));
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             }
 
             $data = [];
@@ -358,7 +358,7 @@ class SubmissionProposalGuestController extends Controller
                 $query->where('id', 11);
             })->get();
 
-            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+            Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
 
             DB::commit();
             return response()->json([
@@ -460,7 +460,7 @@ class SubmissionProposalGuestController extends Controller
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
             DB::commit();
-            Notification::send($users, new DispositionNotification(auth()->user(), $path));
+            Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             Mail::to($proposal->email)->send(new ApproveCooperationFinal);
 
             return response()->json([
@@ -502,7 +502,6 @@ class SubmissionProposalGuestController extends Controller
                 'status' => 200,
             ]);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return response()->json([
                 'messages' => 'Data Gagal Ditambah',
                 'status' => $th->getCode(),

@@ -5,7 +5,8 @@
 	<title>SIKEPA</title>
 	<meta name="description" content="Sistem Informasi Kelompok Tani Perkebunan">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" sizes="32x32">
 	<link href="{{ asset('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/customize.css')}}" rel="stylesheet" type="text/css" />
@@ -24,7 +25,6 @@
     @endif
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<!--end::Page Vendors Styles -->
-	<link rel="shortcut icon" href="{{ asset('simponi-new.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('simponi-new.png') }}" type="image/x-icon">
 	<style>
 	.tooltip {

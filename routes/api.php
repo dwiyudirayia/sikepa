@@ -204,6 +204,10 @@ Route::middleware('jwt')->group( function () {
         Route::get('filter/perlindungan/hak/perempuan/mou/{year}', 'DashboardController@filterPerlindunganHakPerempuanMOU');
         Route::get('filter/perlindungan/tumbuh/kembang/anak/pks/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakPKS');
         Route::get('filter/perlindungan/tumbuh/kembang/anak/mou/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakMOU');
+        Route::get('filter/agencies/pks/{year}', 'DashboardController@filterAgenciesPKS');
+        Route::get('filter/agencies/mou/{year}', 'DashboardController@filterAgenciesMOU');
+        Route::get('filter/submission/pks/{year}', 'DashboardController@filterSubmissionPKS');
+        Route::get('filter/submission/mou/{year}', 'DashboardController@filterSubmissionMOU');
 
         //Information Deputi
         Route::get('/deputi/information', 'DeputiInformationController@index');

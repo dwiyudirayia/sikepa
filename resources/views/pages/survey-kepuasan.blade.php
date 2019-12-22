@@ -19,11 +19,14 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-6 col-md-offset-3">
                     <form method="POST" action="{{ route('satisfaction.survey.store') }}">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('email') == true ? 'has-error' : '' }}">
                             <div class="form-input">
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ Cookie::get('email') }}" required>
                                 <label class="text-label">Email</label>
                             </div>
+                            @if($errors->has('email'))
+                                <span style="color:red;">{{ $errors->first('email') }}</span>
+                            @endif
                         </div>
                         <div id="survey-satisfaction">
                             <div class="emoticon sr-btm"><div></div></div>

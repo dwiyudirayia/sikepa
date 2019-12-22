@@ -17,11 +17,12 @@ class DispositionNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    protected $sender, $path;
-    public function __construct($sender, $path)
+    protected $sender, $path, $proposal;
+    public function __construct($sender, $path, $proposal)
     {
         $this->sender = $sender;
         $this->path = $path;
+        $this->proposal = $proposal;
     }
     /**
      * Get the notification's delivery channels.
@@ -46,7 +47,7 @@ class DispositionNotification extends Notification implements ShouldQueue
         return [
             'sender_id' => $this->sender->id,
             'sender_name' => $this->sender->name,
-            'message' => 'Mohon Untuk di Tidak Lanjuti',
+            'message' => $this->proposal->title_cooperation.' telah di ...oleh '.$this->sender->name,
             'path' => $this->path,
         ];
      }

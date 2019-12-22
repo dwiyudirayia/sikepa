@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Article;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
-use File;
+use Illuminate\Support\Facades\Storage;
 class UpdateArticleRequest extends FormRequest
 {
     /**
@@ -50,11 +50,11 @@ class UpdateArticleRequest extends FormRequest
                 'approved' => (int)$this->approved,
             ];
         } else {
-            $image = $this->image;
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            \Image::make($this->image)->save(public_path('article/').$name);
+            $extFile = $this->image->getClientOriginalExtension();
+            $nameFile = 'article-photo'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+            $name = $this->image->storeAs(strtotime(now()), $nameFile, 'article_photo');
 
-            File::delete("article/".$data->image);
+            Storage::disk('article_photo')->delete($data->image);
 
             return [
                 'updated_by' => 1,
