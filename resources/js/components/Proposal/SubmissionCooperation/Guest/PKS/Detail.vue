@@ -453,7 +453,7 @@
                                         <span class="m--font-brand context-menu" @click="downloadNPWP">Download</span>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-if="agency_category == 'Kementerian'">
                                     <td style="vertical-align: middle;">5</td>
                                     <td style="vertical-align: middle;">SIUP</td>
                                     <td>
@@ -566,7 +566,7 @@ export default {
         bpd: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(2,1);
+            const value = Object.values(data).splice(0, 1);
             const label = ['Biro Perencanaan dan Data'];
 
             let finalData = value.map((value, index) => {
@@ -596,15 +596,15 @@ export default {
         sortTracking: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(3,8);
+            const value = Object.values(data).splice(1,8);
             const label = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
 
             let finalData = value.map((value, index) => {
                 return {
                     id: index+1,
                     label: label[index],
-                    value: value,
-                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : value == 2 ? 'btn-primary' : 'btn-metal'
+                    value: value.approval,
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : value.approval == 2 ? 'btn-primary' : 'btn-metal'
                 }
             });
 

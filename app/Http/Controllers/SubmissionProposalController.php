@@ -175,7 +175,7 @@ class SubmissionProposalController extends Controller
     }
     public function detail($id) {
         try {
-            $data = SubmissionProposal::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            $data = SubmissionProposal::with('nomor','deputi.role','law','tracking.role','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->showFailed($th));
@@ -183,7 +183,7 @@ class SubmissionProposalController extends Controller
     }
     public function detailGuest($id) {
         try {
-            $data['data'] = SubmissionProposalGuest::with('deputi','nomor','deputi.role','law','tracking','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
+            $data['data'] = SubmissionProposalGuest::with('nomor','deputi.role','law','tracking.role','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency')->findOrFail($id);
             $collectDeputi = collect($data['data']['deputi']);
             $mapDeputi = $collectDeputi->map(function($item, $key) {
                 return $item['role_id'];
