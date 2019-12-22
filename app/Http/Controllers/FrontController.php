@@ -37,12 +37,11 @@ class FrontController extends Controller
 {
     public function filterMonitoringCooperation($data) {
         if($data['q'] != null) {
-            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking','nomor','reason','law')->where('mailing_number', $data['q'])->first();
+            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking.role','nomor','law')->where('mailing_number', $data['q'])->first();
             if($monitoring['data'] != null) {
-                $monitoring['biro'] = array_values($monitoring['data']['tracking']->toArray())[2];
+                $monitoring['biro'] = $monitoring['data']['tracking'][0];
                 $data = array_values($monitoring['data']['tracking']->toArray());
-                $monitoring['user_kppa'] = array_splice($data, 3, 8);
-                // $monitoring['label_user_kppa'] = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+                $monitoring['user_kppa'] = array_splice($data, 1, 8);
                 $monitoring['count_deputi'] = $monitoring['data']['deputi']->count();
                 return $monitoring;
             } else {
@@ -51,6 +50,7 @@ class FrontController extends Controller
         } else {
             return true;
         }
+        dd($monitoring['biro']);
     }
     public function storeSatisfactionSurvey(Request $request) {
         try {

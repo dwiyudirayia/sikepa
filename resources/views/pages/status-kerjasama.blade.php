@@ -37,19 +37,19 @@
             <div class="container">
                 <div class="step sr-btm">
                     <ul class="step-nav nav nav-tabs" role="tablist">
-                        @if ($data['data']['biro'] == 1)
+                        @if ($data['data']['biro']['approval'] == 1)
                             <li class="step-item active">
                                 <a class="step-icon" href="#!">1</a>
                             </li>
-                        @elseif($data['data']['biro'] == 2)
+                        @elseif($data['data']['biro']['approval'] == 2)
                             <li class="step-item warning">
                                 <a class="step-icon" href="#!">1</a>
                             </li>
-                        @elseif($data['data']['biro'] == null)
+                        @elseif($data['data']['biro']['approval'] == null)
                             <li class="step-item">
                                 <a class="step-icon" href="#!">1</a>
                             </li>
-                        @elseif($data['data']['biro'] == 0)
+                        @elseif($data['data']['biro']['approval'] == 0)
                             <li class="step-item danger">
                                 <a class="step-icon" href="#!">1</a>
                             </li>
@@ -61,27 +61,28 @@
                         @php
                         $initDeputi = 2;
                         $keyDeputi = 2;
+
                         @endphp
                         @foreach ($data['data']['data']['deputi'] as $item)
                             @if ($item->approval == 1)
                                 <li class="step-item active">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @elseif($item->approval == 2)
                                 <li class="step-item warning">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @elseif($item->approval == null)
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @elseif($item->approval == 3)
                                 <li class="step-item danger">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @else
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -89,25 +90,25 @@
                             $countInitUserKPPA = $keyDeputi + $data['data']['count_deputi'];
                         @endphp
                         @foreach ($data['data']['user_kppa'] as $item)
-                            @if ($item == 1)
+                            @if ($item['approval'] == 1)
                                 <li class="step-item active">
-                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
-                            @elseif($item == 2)
+                            @elseif($item['approval'] == 2)
                                 <li class="step-item warning">
-                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
-                            @elseif($item == null)
+                            @elseif($item['approval'] == null)
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
-                            @elseif($item == 3)
+                            @elseif($item['approval'] == 3)
                                 <li class="step-item danger">
-                                    <a class="step-icon" href="#!">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @else
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -286,6 +287,11 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="{{ asset('assets/js/lightpick.js') }}"></script>
+<script>
+    $('[data-toggle="popover"]').popover({
+        trigger: 'hover',
+    });
+</script>
 {{-- <script>
 
     var picker = new Lightpick({
