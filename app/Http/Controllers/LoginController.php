@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PhotoLogin;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Validator;
@@ -77,5 +78,17 @@ class LoginController extends Controller
     public function guard()
     {
         return Auth::guard();
+    }
+    public function getPhoto() {
+        try {
+            $data = PhotoLogin::findOrFail(1);
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil',
+            ]);
+        } catch (\Throwable $th) {
+            
+        }
     }
 }

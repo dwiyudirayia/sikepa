@@ -179,6 +179,11 @@ return [
             'root' => storage_path('app/public/article_photo'),
             'visibility' => 'public',
         ],
+        'photo_login' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/photo_login'),
+            'visibility' => 'public',
+        ],
         'page_photo' => [
             'driver' => 'local',
             'root' => storage_path('app/public/page_photo'),

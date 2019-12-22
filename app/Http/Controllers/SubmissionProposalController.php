@@ -16,7 +16,6 @@ use App\Country;
 use App\DeputiPIC;
 use App\LawFileSubmissionProposal;
 use App\Mail\OfflineMeeting;
-use App\Notifications\DeputiNotification;
 use App\Province;
 use App\Regency;
 use Illuminate\Http\Request;

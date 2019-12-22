@@ -1,7 +1,14 @@
 <template>
     <div class="router-transitions">
         <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container">
-            <div class="ui-bg-overlay bg-customize" :style="{'background-image' : `url('/admin/5.jpg')`}"></div>
+            <div class="ui-bg-overlay bg-customize" 
+                :style="{
+                    'background-image' : `url('/storage/photo_login/${this.backgroundImage}')`,
+                    'background-size' : 'cover',
+                    'background-position': 'center',
+                    'background-repeat': 'no-repeat'
+                }"
+            />
             <div class="title-inner">
                 <div class="title-app">
                     <h1>SIKEPA</h1>
@@ -27,12 +34,14 @@
 <script>
 import background from './../../sass/admin/5.jpg';
 import logo from '~/admin/sikepa.png';
+import $axios from '@/api.js';
 export default {
     name: 'Auth',
     data() {
         return {
             background: background,
-            logo: logo
+            logo: logo,
+            backgroundImage: null,
         }
     },
     beforeCreate()
@@ -41,5 +50,16 @@ export default {
 
         $('body').addClass('m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default');
     },
+    created() {
+        this.getPhoto();
+    },
+    methods: {
+        getPhoto() {
+            $axios.get('get/photo')
+            .then(response => {
+                this.backgroundImage = response.data.data.image_path;
+            })
+        }
+    }
 }
 </script>

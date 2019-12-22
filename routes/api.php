@@ -13,6 +13,8 @@
 
 Route::post('login', 'LoginController@login');
 Route::get('refresh', 'LoginController@refresh');
+Route::get('get/photo', 'LoginController@getPhoto');
+
 Route::post('me', 'LoginController@me');
 Route::middleware('jwt')->group( function () {
     Route::prefix('admin')->group(function () {
@@ -31,13 +33,15 @@ Route::middleware('jwt')->group( function () {
 
         Route::resource('agency', 'AgencyController');
 
-        Route::resource('banner/category', 'BannerCategoryController');
-        Route::get('banner/list/{id}/category', 'BannerController@listCategoryBanner');
-        Route::post('banner', 'BannerController@store');
-        Route::get('banner/create', 'BannerController@create');
-        Route::delete('banner/{id}', 'BannerController@destroy');
-        Route::get('banner/{id}/edit', 'BannerController@edit');
-        Route::put('banner/{id}', 'BannerController@update');
+        // Route::resource('banner/category', 'BannerCategoryController');
+        // Route::get('banner/list/{id}/category', 'BannerController@listCategoryBanner');
+        // Route::post('banner', 'BannerController@store');
+        // Route::get('banner/create', 'BannerController@create');
+        // Route::delete('banner/{id}', 'BannerController@destroy');
+        // Route::get('banner/{id}/edit', 'BannerController@edit');
+        // Route::put('banner/{id}', 'BannerController@update');
+
+
 
         Route::resource('section/page', 'SectionPageController');
         Route::resource('category/page', 'CategoryPageController');
@@ -142,6 +146,11 @@ Route::middleware('jwt')->group( function () {
         Route::get('check/same/new/password/{current_password}/{new_password}', 'UserController@checkNewPassword');
         //End User
 
+        //Photo Login
+        Route::get('photo/login', 'PhotoLoginController@index');
+        Route::get('photo/login/{id}/edit', 'PhotoLoginController@edit');
+        Route::post('photo/login/{id}', 'PhotoLoginController@update');
+        //End Photo Login
         //End Validation
         Route::post('comment', 'CommentController@store');
 

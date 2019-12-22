@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(FrontSeeder::class);
         $this->call(TypeOfCooperationSeeder::class);
         $this->call(MasterSeeder::class);
+        $this->call(PhotoLoginSeeder::class);
     }
 }

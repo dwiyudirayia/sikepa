@@ -24,6 +24,10 @@ import UserSatkerCreate from './components/User/Satker/Create';
 import UserSatkerEdit from './components/User/Satker/Edit';
 //EndAdmin
 
+//Background Login
+import BackgroundLoginIndex from './components/BackgroundLogin/Index';
+import BackgroundLoginEdit from './components/BackgroundLogin/Edit';
+
 //monev
 import MonitoringEvaluasiIndex from './components/Monev/Index';
 import MonitoringP3Create from './components/Monev/Proposal/P3Create';
@@ -128,14 +132,14 @@ import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/Su
 
 // --- Banner --- //
 //Category
-import BannerCategoryIndex from './components/Banner/Category/Index';
-import BannerCategoryCreate from './components/Banner/Category/Create';
-import BannerCategoryEdit from './components/Banner/Category/Edit';
+// import BannerCategoryIndex from './components/Banner/Category/Index';
+// import BannerCategoryCreate from './components/Banner/Category/Create';
+// import BannerCategoryEdit from './components/Banner/Category/Edit';
 
 //Banner
-import BannerListCategory from './components/Banner/BannerListCategory';
-import BannerCreate from './components/Banner/Create';
-import BannerEdit from './components/Banner/Edit';
+// import BannerListCategory from './components/Banner/BannerListCategory';
+// import BannerCreate from './components/Banner/Create';
+// import BannerEdit from './components/Banner/Edit';
 // --- End Banner //
 
 //Faq
@@ -168,7 +172,6 @@ import DeputiInformationCreate from './components/DeputiInformation/Create';
 import Auth from './layouts/Auth';
 //End layouts
 import LoginAdmin from './components/Auth/Login'
-import $axios from './api';
 //End Auth
 
 
@@ -778,53 +781,69 @@ const router = new VueRouter({
                 },
                 //Banner Category
                 {
-                    path: '/banner/category',
-                    name: 'BannerCategoryIndex',
-                    component: BannerCategoryIndex,
+                    path: '/background/login',
+                    name: 'BackgroundLoginIndex',
+                    component: BackgroundLoginIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    }                    
                 },
                 {
-                    path: '/banner/category/create',
-                    name: 'BannerCategoryCreate',
-                    component: BannerCategoryCreate,
+                    path: '/background/login/:id/edit',
+                    name: 'BackgroundLoginEdit',
+                    component: BackgroundLoginEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    }                    
                 },
-                {
-                    path: '/banner/category/:id/edit',
-                    name: 'BannerCategoryEdit',
-                    component: BannerCategoryEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/banner/list/:id/category',
-                    name: 'BannerListCategory',
-                    component: BannerListCategory,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/banner/create',
-                    name: 'BannerCreate',
-                    component: BannerCreate,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/banner/:id/edit',
-                    name: 'BannerEdit',
-                    component: BannerEdit,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
+                // {
+                //     path: '/banner/category',
+                //     name: 'BannerCategoryIndex',
+                //     component: BannerCategoryIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/banner/category/create',
+                //     name: 'BannerCategoryCreate',
+                //     component: BannerCategoryCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/banner/category/:id/edit',
+                //     name: 'BannerCategoryEdit',
+                //     component: BannerCategoryEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/banner/list/:id/category',
+                //     name: 'BannerListCategory',
+                //     component: BannerListCategory,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/banner/create',
+                //     name: 'BannerCreate',
+                //     component: BannerCreate,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/banner/:id/edit',
+                //     name: 'BannerEdit',
+                //     component: BannerEdit,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
                 //Deputi Information
                 {
                     path: '/deputy/information',

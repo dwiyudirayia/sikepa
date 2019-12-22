@@ -47,7 +47,7 @@ class DispositionNotification extends Notification implements ShouldQueue
         return [
             'sender_id' => $this->sender->id,
             'sender_name' => $this->sender->name,
-            'message' => $this->proposal->title_cooperation.' telah di ...oleh '.$this->sender->name,
+            'message' => $this->proposal->title_cooperation.' telah di tindak lanjuti oleh '.$this->sender->name,
             'path' => $this->path,
         ];
      }
