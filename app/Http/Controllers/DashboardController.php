@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
+use App\SatisfactionSurvey;
 use App\SubmissionProposalGuest;
 use App\SubmissionProposal;
 use Carbon\Carbon;
@@ -19,6 +20,19 @@ class DashboardController extends Controller
     }
     public function index() {
         try {
+            $data['survey'] = SatisfactionSurvey::
+            select(DB::raw('count(IF(survey = 1, 1, NULL)) as sangat_tidak_memuaskan, count(IF(survey = 2, 1, NULL)) as tidak_memuaskan, count(IF(survey = 3, 1, NULL)) as sesuai_standar, count(IF(survey = 4, 1, NULL)) as memuaskan,count(IF(survey = 5, 1, NULL)) as sangat_memuaskan, monthname(created_at) as monthname'))
+            ->whereYear('created_at', Carbon::now()->format('Y'))
+            ->groupBy('monthname')
+            ->orderBy('monthname', 'desc')
+            ->take(5)
+            ->get();
+
+            $data['survey_year'] = SatisfactionSurvey::groupBy('year')
+            ->select(DB::raw('year(created_at) as year'))
+            ->orderBy('year', 'desc')
+            ->take(5)
+            ->get();
             //Instansi PKS
             $merge['data_deputi_agencies_guest_pks'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_guest_id', 1)->get();
             $merge['data_deputi_agencies_pks'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_id', 1)->get();
@@ -171,6 +185,22 @@ class DashboardController extends Controller
             $data['mou_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->get()->count();
 
             return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function filterSurvey($year) {
+        try {
+            
+            $result = SatisfactionSurvey::groupBy('year')
+            ->select(DB::raw('count(IF(survey = 1, 1, NULL)) as sangat_tidak_memuaskan, count(IF(survey = 2, 1, NULL)) as tidak_memuaskan, count(IF(survey = 3, 1, NULL)) as sesuai_standar, count(IF(survey = 4, 1, NULL)) as memuaskan,count(IF(survey = 5, 1, NULL)) as sangat_memuaskan, year(created_at) as year, monthname(created_at) as monthname'))
+            ->whereYear('created_at', $year)
+            ->groupBy('monthname')
+            ->orderBy('monthname', 'desc')
+            ->take(5)
+            ->get();
+
+            return response()->json($this->notification->generalSuccess($result));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }

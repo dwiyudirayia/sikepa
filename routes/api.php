@@ -217,6 +217,7 @@ Route::middleware('jwt')->group( function () {
         Route::get('filter/agencies/mou/{year}', 'DashboardController@filterAgenciesMOU');
         Route::get('filter/submission/pks/{year}', 'DashboardController@filterSubmissionPKS');
         Route::get('filter/submission/mou/{year}', 'DashboardController@filterSubmissionMOU');
+        Route::get('filter/survey/{year}', 'DashboardController@filterSurvey');
 
         //Information Deputi
         Route::get('/deputi/information', 'DeputiInformationController@index');

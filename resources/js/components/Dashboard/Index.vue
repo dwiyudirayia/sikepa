@@ -750,6 +750,48 @@
                 </div>
                 <!--End::Portlet-->
             </div>
+                    <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+                <!--Begin::Portlet-->
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Survey Kepuasan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSurvey"
+                                    v-model="chartData.survey.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterSurvey" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.survey.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+                <!--End::Portlet-->
+            </div>
         </div>
     </div>
 </template>
@@ -757,6 +799,7 @@
 <script>
 import BarChart from '@/components/Chart/BarChart.vue';
 import LineChart from '@/components/Chart/LineChart.vue';
+import PieChart from '@/components/Chart/PieChart.vue';
 import Select2 from '@/components/Chart/Select2.vue';
 import axios from 'axios';
 import $axios from '@/api.js';
@@ -766,6 +809,7 @@ export default {
     components: {
         BarChart,
         LineChart,
+        PieChart,
         Select2
     },
     data() {
@@ -786,6 +830,20 @@ export default {
             },
             options: null,
             chartData: {
+                survey: {
+                    all: null,
+                    sangat_memuaskan: null,
+                    memuaskan: null,
+                    sesuai_standar: null,
+                    tidak_memuaskan: null,
+                    tidak_memuaskan: null,
+                    sangat_tidak_memuaskan: null,
+                    selectedYear: null,
+                    data: [],
+                    years: [],
+                    value: [],
+                    yearsText: [],
+                },
                 submission: {
                     pks: {
                         all: null,
@@ -924,6 +982,20 @@ export default {
         }
     },
     computed: {
+        yearsSurvey() {
+            return this.chartData.survey.years;
+        },
+        // test() {
+        //     const data = this.chartData.survey.data;
+        //     let mapData = data.map((value, index) => {
+        //         return {
+        //             id: index+1,
+        //             sangat_memuaskan: value.sangat_memuaskan,
+        //         }
+        //     })
+
+        //     return mapData;
+        // },
         yearsSubmissionPKS() {
             return this.chartData.submission.pks.years;
         },
@@ -984,6 +1056,52 @@ export default {
         }
     },
     methods: {
+        filterSurvey() {
+            $axios.get(`/admin/filter/survey/${this.chartData.survey.selectedYear}`)
+            .then(response => {
+                this.chartData.survey.data = response.data.data;
+
+                this.chartData.survey.yearsText = this.chartData.survey.data.map(map => map.monthname.toString());
+                this.chartData.survey.sangat_memuaskan = this.chartData.survey.data.map(map => map.sangat_memuaskan);
+                this.chartData.survey.memuaskan = this.chartData.survey.data.map(map => map.memuaskan);
+                this.chartData.survey.sesuai_standar = this.chartData.survey.data.map(map => map.sesuai_standar);
+                this.chartData.survey.tidak_memuaskan = this.chartData.survey.data.map(map => map.tidak_memuaskan);
+                this.chartData.survey.sangat_tidak_memuaskan = this.chartData.survey.data.map(map => map.sangat_tidak_memuaskan);
+                this.chartData.survey.all = {
+                    labels: this.chartData.survey.yearsText,
+                    datasets: [
+                        {
+                            label: `Sangat Memuaskan`,
+                            backgroundColor: '#34bfa3',
+                            data: this.chartData.survey.sangat_memuaskan
+                        },
+                        {
+                            label: 'Memuaskan',
+                            backgroundColor: '#36a3f7',
+                            data: this.chartData.survey.memuaskan
+                        },
+                        {
+                            label: 'Sesuai Standar',
+                            backgroundColor: '#716aca',
+                            data: this.chartData.survey.sesuai_standar
+                        },
+                        {
+                            label: 'Tidak Memuaskan',
+                            backgroundColor: '#ffb822',
+                            data: this.chartData.survey.tidak_memuaskan
+                        },
+                        {
+                            label: 'Sangat Tidak Memuaskan',
+                            backgroundColor: '#f4516c',
+                            data: this.chartData.survey.sangat_tidak_memuaskan
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterSubmissionPKS() {
             $axios.get(`/admin/filter/submission/pks/${this.chartData.submission.pks.selectedYear}`)
             .then(response => {
@@ -1316,6 +1434,52 @@ export default {
         getData() {
             $axios.get(`/admin/dashboard`)
             .then(response => {
+                //Survey
+                this.chartData.survey.data = response.data.data.survey;
+                let objectSurveyYear = response.data.data.survey_year.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.survey.years = objectSurveyYear;
+                this.chartData.survey.yearsText = this.chartData.survey.data.map(map => map.monthname.toString());
+                this.chartData.survey.sangat_memuaskan = this.chartData.survey.data.map(map => map.sangat_memuaskan);
+                this.chartData.survey.memuaskan = this.chartData.survey.data.map(map => map.memuaskan);
+                this.chartData.survey.sesuai_standar = this.chartData.survey.data.map(map => map.sesuai_standar);
+                this.chartData.survey.tidak_memuaskan = this.chartData.survey.data.map(map => map.tidak_memuaskan);
+                this.chartData.survey.sangat_tidak_memuaskan = this.chartData.survey.data.map(map => map.sangat_tidak_memuaskan);
+                this.chartData.survey.all = {
+                    labels: this.chartData.survey.yearsText,
+                    datasets: [
+                        {
+                            label: `Sangat Memuaskan`,
+                            backgroundColor: '#34bfa3',
+                            data: this.chartData.survey.sangat_memuaskan
+                        },
+                        {
+                            label: 'Memuaskan',
+                            backgroundColor: '#36a3f7',
+                            data: this.chartData.survey.memuaskan
+                        },
+                        {
+                            label: 'Sesuai Standar',
+                            backgroundColor: '#716aca',
+                            data: this.chartData.survey.sesuai_standar
+                        },
+                        {
+                            label: 'Tidak Memuaskan',
+                            backgroundColor: '#ffb822',
+                            data: this.chartData.survey.tidak_memuaskan
+                        },
+                        {
+                            label: 'Sangat Tidak Memuaskan',
+                            backgroundColor: '#f4516c',
+                            data: this.chartData.survey.sangat_tidak_memuaskan
+                        },
+                    ]
+                };
                 //Pengajuan Kerjasama PKS
                 this.chartData.submission.pks.data = response.data.data.submission_cooperation_pks;
 
@@ -1690,4 +1854,3 @@ export default {
 <style>
 
 </style>
-
