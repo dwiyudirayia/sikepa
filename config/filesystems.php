@@ -169,9 +169,9 @@ return [
             'root' => storage_path('app/public/siup_guest'),
             'visibility' => 'public',
         ],
-        'activity_documentation' => [
+        'activity_documentation_guest' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/activity_documentation'),
+            'root' => storage_path('app/public/activity_documentation_guest'),
             'visibility' => 'public',
         ],
         'article_photo' => [

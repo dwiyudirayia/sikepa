@@ -40,6 +40,8 @@ import ResultMonevActivityGuest from './components/Monev/Proposal/P3/Result';
 import MonevActivityP3Create from './components/Monev/Proposal/P3/Create';
 import ListMonevActivityGuest from './components/Monev/Proposal/P3/List';
 import DetailMonevGuest from './components/Monev/Proposal/P3/Detail';
+import ResultMonevActivitySatkerEdit from './components/Monev/Proposal/Satker/Edit';
+import ResultMonevActivityGuestEdit from './components/Monev/Proposal/P3/Edit';
 // import MonitoringEvaluasiCreate from './components/Monev/Create';
 // import MonitoringEvaluasiEdit from './components/Monev/Edit';
 // import MonevActivityCreate from './components/Monev/Activity/Create';
@@ -788,7 +790,7 @@ const router = new VueRouter({
                     component: BackgroundLoginIndex,
                     meta: {
                         requiresAuth: true,
-                    }                    
+                    }
                 },
                 {
                     path: '/background/login/:id/edit',
@@ -796,7 +798,7 @@ const router = new VueRouter({
                     component: BackgroundLoginEdit,
                     meta: {
                         requiresAuth: true,
-                    }                    
+                    }
                 },
                 // {
                 //     path: '/banner/category',
@@ -908,52 +910,98 @@ const router = new VueRouter({
                 {
                     path: '/monev/p3/create',
                     name: 'MonitoringP3Create',
-                    component: MonitoringP3Create
+                    component: MonitoringP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/satker/create',
                     name: 'MonitoringSatkerCreate',
-                    component: MonitoringSatkerCreate
+                    component: MonitoringSatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/guest/create',
                     name: 'MonevActivityP3Create',
-                    component: MonevActivityP3Create
+                    component: MonevActivityP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/satker/create',
                     name: 'MonevActivitySatkerCreate',
-                    component: MonevActivitySatkerCreate
+                    component: MonevActivitySatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/satker/list',
                     name: 'ListMonevActivitySatker',
                     component: ListMonevActivitySatker,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/guest/list',
                     name: 'ListMonevActivityGuest',
                     component: ListMonevActivityGuest,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/satker/result',
                     name: 'ResultMonevActivitySatker',
                     component: ResultMonevActivitySatker,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/activity/:id/guest/result',
                     name: 'ResultMonevActivityGuest',
                     component: ResultMonevActivityGuest,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/detail/:id/guest',
                     name: 'DetailMonevGuest',
                     component: DetailMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 {
                     path: '/monev/detail/:id/satker',
                     name: 'DetailMonevSatker',
                     component: DetailMonevSatker,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/detail/:id/satker/edit',
+                    name: 'ResultMonevActivitySatkerEdit',
+                    component: ResultMonevActivitySatkerEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/monev/detail/:id/guest/edit',
+                    name: 'ResultMonevActivityGuestEdit',
+                    component: ResultMonevActivityGuestEdit,
+                    meta: {
+                        requiresAuth: true,
+                    }
                 },
                 // {
                 //     path: '/monev/create',

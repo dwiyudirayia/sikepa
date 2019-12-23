@@ -1003,7 +1003,8 @@ export default {
     }
 }
 </script>
-
-<style>
-
+<style scoped>
+.context-menu {
+    cursor: context-menu;
+}
 </style>

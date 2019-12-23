@@ -9,6 +9,8 @@ use App\Http\Requests\StoreMonevSatkerRequest;
 use App\LawFileSubmissionProposal;
 use App\LawFileSubmissionProposalGuest;
 use App\MonitoringActivity;
+use App\MonitoringActivityDocumentation;
+use App\MonitoringActivityDocumentationGuest;
 use App\MonitoringActivityGuest;
 use App\MonitoringActivityResult;
 use App\MonitoringActivityResultGuest;
@@ -19,6 +21,8 @@ use App\SubmissionProposalGuest;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 class MonevController extends Controller
 {
     private $notification;
@@ -397,7 +401,7 @@ class MonevController extends Controller
                 foreach ($request->file as $key => $value) {
                     $extFile = $value->getClientOriginalExtension();
                     $nameFile = 'file-monev-activity'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
-                    $path = $value->storeAs($monevActivity->id, $nameFile, 'activity_documentation');
+                    $path = $value->storeAs($monevActivity->id, $nameFile, 'activity_documentation_guest');
                     $monevActivity->documentation()->create([
                         'file' => $path
                     ]);
@@ -565,6 +569,188 @@ class MonevController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Data Gagal di Ambil',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function editSatker($id) {
+        try {
+            $data = MonitoringActivity::with('documentation')->findOrFail($id);
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => $th->getCode(),
+                'messages' => 'Data Gagal di Ambil',
+            ]);
+        }
+    }
+    public function editGuest($id) {
+        try {
+            $data = MonitoringActivityGuest::with('documentation')->findOrFail($id);
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => $th->getCode(),
+                'messages' => 'Data Gagal di Ambil',
+            ]);
+        }
+    }
+    public function downloadImageGuest($id) {
+        try {
+            $data = MonitoringActivityDocumentationGuest::findOrFail($id);
+
+            $draft = $data->file;
+            return response()->download(storage_path("/app/public/activity_documentation_guest/".$draft));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadImageSatker($id) {
+        try {
+            $data = MonitoringActivityDocumentation::findOrFail($id);
+
+            $draft = $data->file;
+            return response()->download(storage_path("/app/public/activity_documentation/".$draft));
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function destroyImageGuest($id) {
+        try {
+            $data = MonitoringActivityDocumentationGuest::findOrFail($id);
+            Storage::disk('activity_documentation_guest')->delete($data->file);
+            $data->delete();
+
+            return response()->json([
+                'messages' => 'Data Berhasil di Hapus',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Hapus',
+                'status' => 200,
+            ]);
+        }
+    }
+    public function destroyImageSatker($id) {
+        try {
+            $data = MonitoringActivityDocumentation::findOrFail($id);
+            Storage::disk('activity_documentation')->delete($data->file);
+            $data->delete();
+
+            return response()->json([
+                'messages' => 'Data Berhasil di Hapus',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Hapus',
+                'status' => 200,
+            ]);
+        }
+    }
+    public function storeImageGuest(Request $request)  {
+        try {
+            if($request->hasFile('file')) {
+                $extFile = $request->file->getClientOriginalExtension();
+                $nameFile = 'file-monev-activity'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+                $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation_guest');
+
+                MonitoringActivityDocumentationGuest::create([
+                    'monitoring_activity_guest_id' => $request->id,
+                    'file' => $path
+                ]);
+            }
+
+            return response()->json([
+                'messages' => 'Data Berahasil di Simpan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Simpan',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeImageSatker(Request $request) {
+        try {
+            if($request->hasFile('file')) {
+                $extFile = $request->file->getClientOriginalExtension();
+                $nameFile = 'file-monev-activity'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
+                $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation');
+
+                MonitoringActivityDocumentation::create([
+                    'monitoring_activity_id' => $request->id,
+                    'file' => $path
+                ]);
+            }
+
+            return response()->json([
+                'messages' => 'Data Berahasil di Simpan',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Simpan',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function updateActivityGuest(Request $request, $id) {
+        try {
+            MonitoringActivityGuest::where('id', $id)->update([
+                'budget' => (int) Str::replaceArray('.', [''], $request->budget),
+                'target' => $request->target,
+                'reach' => $request->reach,
+                'problem' => $request->problem,
+                'problem_solving' => $request->problem_solving,
+                'report' => $request->report,
+            ]);
+            return response()->json([
+                'messages' => 'Data Berahasil di Perbaharui',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Perbaharui',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function updateActivitySatker(Request $request, $id) {
+        try {
+            MonitoringActivity::where('id', $id)->update([
+                'budget' => (int) Str::replaceArray('.', [''], $request->budget),
+                'target' => $request->target,
+                'reach' => $request->reach,
+                'problem' => $request->problem,
+                'problem_solving' => $request->problem_solving,
+                'report' => $request->report,
+            ]);
+            return response()->json([
+                'messages' => 'Data Berahasil di Perbaharui',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Perbaharui',
                 'status' => $th->getCode(),
             ]);
         }

@@ -112,6 +112,12 @@
                                                 <span>Nilai Kegiatan</span>
                                             </span>
                                         </router-link>
+                                        <router-link :to="{name: 'ResultMonevActivityGuestEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
+                                            <span>
+                                                <i class="la la-pencil"></i>
+                                                <span>Edit Kegiatan</span>
+                                            </span>
+                                        </router-link>
                                     </td>
                                 </tr>
                             </template>

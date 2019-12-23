@@ -176,7 +176,7 @@
                                     <div class="m-portlet__body">
                                         <div class="row">
                                             <div v-for="item in value.documentation" :key="item.id" class="col-lg-4">
-                                                <img :src="`/storage/activity_documentation/${item.file}`" height="100">
+                                                <img :src="`/storage/activity_documentation_guest/${item.file}`" height="100">
                                             </div>
                                         </div>
                                     </div>

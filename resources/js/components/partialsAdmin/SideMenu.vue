@@ -184,10 +184,10 @@
                 </li>
                 <li class="m-menu__item" aria-haspopup="true" @click="logout">
                     <a class="m-menu__link">
-                        <i class="m-menu__link-icon la la-sign-out"></i>
+                        <i class="m-menu__link-icon la la-sign-out text-danger"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Keluar</span><span class="m-menu__link-badge"></span>
+                                <span class="m-menu__link-text text-danger">Keluar</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </a>

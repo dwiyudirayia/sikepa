@@ -117,7 +117,7 @@
                                                         <span>Daftar Kegiatan</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'DetailMonevGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                <router-link :to="{name: 'DetailMonevGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Detail Monev'">
                                                     <span>
                                                         <i class="la la-eye"></i>
                                                         <span>Detail Monev</span>
@@ -135,7 +135,7 @@
                                                         <span>Nilai Kegiatan</span>
                                                     </span>
                                                 </router-link> -->
-                                                
+
                                                 <!-- <router-link :to="{name: 'ListMonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
                                                     <span>
                                                         <i class="la la-list"></i>
@@ -202,7 +202,7 @@
                                                         <span>Daftar Kegiatan</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'DetailMonevSatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                <router-link :to="{name: 'DetailMonevSatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Detail Kegiatan'">
                                                     <span>
                                                         <i class="la la-eye"></i>
                                                         <span>Detail Monev</span>
