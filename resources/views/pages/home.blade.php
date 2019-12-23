@@ -45,7 +45,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="caption-content">
                     <div class="main-title sr-btm">
-                        <div class="subtitle">Sikepa</div>
+                        <div class="subtitle">SIKEPA</div>
                         <h3 class="title">Sistem Kerjasama Kementerian Pemberdayaan Perempuan dan Perlindungan Anak</h3>
                     </div>
                     <article class="caption-text sr-btm">

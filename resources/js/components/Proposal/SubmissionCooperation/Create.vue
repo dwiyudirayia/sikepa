@@ -18,10 +18,9 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis</label>
                     <div class="m-form__control">
-                        <select class="form-control" v-model="$v.forms.type_id.$model">
-                            <option value="1">PKS</option>
-                            <option value="2">MOU</option>
-                        </select>
+                        <select2 :options="data_select.type" v-model="$v.forms.type_id.$model"
+                        @input="onChangeTypeCooperation">
+                        </select2>
                     </div>
                     <template v-if="$v.forms.type_id.$error">
                         <span v-if="!$v.forms.type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -39,20 +38,9 @@
                     </template>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Subtansi Kerjasama</label>
+                    <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
-                        <select
-                            v-model="$v.forms.type_of_cooperation_id.$model"
-                            class="form-control"
-                        >
-                            <option
-                                v-for="(value, index) in data_select.type_of_cooperation_id"
-                                :key="index"
-                                :value="value.id"
-                            >
-                            {{ value.name }}
-                            </option>
-                        </select>
+                        <select2 :options="data_select.type_of_cooperation_id" v-model="$v.forms.type_of_cooperation_id.$model" @input="onChangeTypeCooperationOneDerivative" />
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <br>
@@ -61,7 +49,7 @@
                     </template>
                     <br>
                 </div><div class="m-form__group form-group">
-                    <label for="">Tujuan Deputi</label>
+                    <label for="">Unit Yang Terlibat (Deputi)</label>
                     <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
                             <input type="checkbox" :value="value.id" @click="deputiDirect(index, value.id)"> {{ value.name }}
@@ -86,7 +74,7 @@
                                 v-model="forms.nominal"
                                 class="form-control"
                                 placeholder="Masukan Nominal Yang di Inginkan"
-                                @input="validate()"
+                                @validate="validate()"
                             >
                         </div>
                         <span class="m-form__help">Ketikan Nominal Yang di Inginkan</span>
@@ -94,20 +82,16 @@
                 </div>
                 <div v-else>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Jenis Kerjasama</label>
+                        <label for="Nama Lengkap">Permohonan kerjasama</label>
                         <div class="m-form__control">
-                            <select v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
-                                <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                            </select>
+                            <select2 :options="data_select.type_of_cooperation_one_derivative_id" v-model="forms.type_of_cooperation_one_derivative_id" @input="onChangeTypeCooperationTwoDerivative" />
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                        <span class="m-form__help">Pastikan Nama Permohonan kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
                         <div class="m-form__control">
-                            <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control">
-                                <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                            </select>
+                            <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" />
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
@@ -115,11 +99,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
-                        <select class="form-control" v-model="$v.forms.country_id.$model">
-                            <option :value="value.id" v-for="(value, index) in data_select.country_id" :key="index">
-                                {{ value.country_name }}
-                            </option>
-                        </select>
+                        <select2 :options="data_select.country_id" v-model="$v.forms.country_id.$model" />
                     </div>
                     <template v-if="$v.forms.country_id.$error">
                         <span v-if="!$v.forms.country_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -130,18 +110,14 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Provinsi</label>
                         <div class="m-form__control">
-                            <select v-model="forms.province_id" class="form-control" @change="getRegencies()">
-                                <option v-for="(value, index) in data_select.province_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
-                            </select>
+                            <select2 :options="data_select.province_id" v-model="forms.province_id" @input="getRegencies"/>
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Kabupaten / Kota</label>
                         <div class="m-form__control">
-                            <select v-model="forms.regency_id" class="form-control">
-                                <option v-for="(value, index) in data_select.regency_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
-                            </select>
+                            <select2 :options="data_select.regency_id" v-model="forms.regency_id" />
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
@@ -393,7 +369,7 @@ export default {
             isIndonesian: false,
             forms: {
                 deputi: [],
-                type_id: '1',
+                type_id: null,
                 title_cooperation: null,
                 type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
@@ -437,6 +413,7 @@ export default {
                         name: '5 Tahun',
                     }
                 ],
+                type: [],
                 type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: [],
                 type_of_cooperation_two_derivative_id: [],
@@ -498,10 +475,10 @@ export default {
     created() {
         $axios.get(`/admin/submission/cooperation/create`)
         .then(response => {
-            this.data_select.type_of_cooperation_id = response.data.data.typeof;
-            this.data_select.agencies_id = response.data.data.agency;
-            this.data_select.type_of_cooperation_one_derivative_id = response.data.data.typeof_one;
+            this.data_select.type = response.data.data.type;
+            this.data_select.agencies_id = response.data.data.agencies;
         });
+
     },
     computed: {
         plainValue() {
@@ -523,18 +500,38 @@ export default {
                 .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
             this.forms.nominal = result;
-            this.$emit('input', this.plainValue);
+            this.$emit('validate', this.plainValue);
         }
     },
     methods: {
-        // deputiDirect(indexVal, id) {
-        //     let index = this.forms.deputi.filter(a => a === id);
-        //     if(index.length == 1) {
-        //         this.forms.deputi.splice(indexVal, 1);
-        //     } else {
-        //         this.forms.deputi.push(id);
-        //     }
-        // },
+        onChangeTypeCooperation() {
+            const value = this.forms.type_id;
+            $axios.get(`/admin/type/${value}`)
+            .then(response => {
+                this.data_select.type_of_cooperation_id = response.data.data;
+            })
+        },
+        onChangeTypeCooperationOneDerivative() {
+            const value = this.forms.type_of_cooperation_id;
+            $axios.get(`/admin/typeone/${value}`)
+            .then(response => {
+                this.data_select.type_of_cooperation_one_derivative_id = response.data.data;
+            })
+        },
+        onChangeTypeCooperationTwoDerivative() {
+            const value = this.forms.type_of_cooperation_one_derivative_id;
+            if(value == 1 || value == 2) {
+                this.isIndonesian = false;
+            } else {
+                this.isIndonesian = true;
+            }
+            $axios.get(`/admin/typetwo/${value}`)
+            .then(response => {
+                this.data_select.type_of_cooperation_two_derivative_id = response.data.data.type;
+                this.data_select.country_id = response.data.data.country;
+                this.data_select.province_id = response.data.data.province;
+            })
+        },
         store() {
             let formData = new FormData();
             this.$v.forms.$touch();
@@ -656,26 +653,6 @@ export default {
             this.forms.latitude = event.latLng.lat();
             this.forms.longitude = event.latLng.lng();
         },
-        onChangeTypeOfCooperationTwoDerivative() {
-
-            if(this.forms.type_of_cooperation_one_derivative_id == 1) {
-                $axios.get(`/admin/submission/cooperation/two/${this.forms.type_of_cooperation_one_derivative_id}/derivative`)
-                .then(response => {
-                    this.data_select.type_of_cooperation_two_derivative_id = response.data.data.data;
-                    this.data_select.country_id = response.data.data.country;
-                    this.isIndonesian = false;
-                });
-            } else {
-                this.isNominal = false;
-                $axios.get(`/admin/submission/cooperation/two/${this.forms.type_of_cooperation_one_derivative_id}/derivative`)
-                .then(response => {
-                    this.data_select.type_of_cooperation_two_derivative_id = response.data.data.data;
-                    this.data_select.country_id = response.data.data.country;
-                    this.data_select.province_id = response.data.data.province;
-                    this.isIndonesian = true;
-                });
-            }
-        }
     }
 }
 </script>

@@ -13,8 +13,13 @@
             </div>
             <div class="m-portlet__body">
                 <div class="text-center">
+                    <template v-for="value in sortDeputi">
+                        <template>
+                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
+                        </template>
+                    </template>
                     <template v-for="(value, index) in sortTracking">
-                        <template v-if="index + 1 < 15">
+                        <template v-if="index + 1 < sortTracking.length">
                             <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
                         </template>
                         <template v-else>
@@ -137,23 +142,35 @@ export default {
             longitude: null,
             status_disposition: null,
             tracking: [],
-            status_barcode: null,
+            deputi: [],
         }
     },
     computed: {
         google: gmapApi,
+        sortDeputi: function() {
+            const data = this.deputi;
+
+            let finalData = data.map((value, index) => {
+                return {
+                    id: value.id,
+                    label: value.role.name,
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : 'btn-metal'
+                }
+            });
+            return finalData;
+        },
         sortTracking: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(2,15);
-            const label = ['Deputi Bidang Partisipasi Masyarakat','Deputi Bidang Kesetaraan Gender','Deputi Bidang Perlindungan Anak','Deputi Bidang Perlindungan Hak Perempuan','Deputi Bidang Tumbuh Kembang Anak','Satker Sesmen','Biro Perencanaan dan Data','Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+            const value = Object.values(data).splice(1,8);
+            const label = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
 
             let finalData = value.map((value, index) => {
                 return {
                     id: index+1,
                     label: label[index],
-                    value: value,
-                    class: value == 0 ? 'btn-danger' : value == 1 ? 'btn-success' : 'btn-metal'
+                    value: value.approval,
+                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : value.approval == 2 ? 'btn-primary' : 'btn-metal'
                 }
             });
 
@@ -168,6 +185,7 @@ export default {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
+                this.title_cooperation_final = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
@@ -184,6 +202,12 @@ export default {
                 this.tracking = response.data.data.tracking;
                 this.status_disposition = response.data.data.status_disposition;
                 this.status_barcode = response.data.data.status_barcode;
+                this.draft = response.data.data.law == null ? null : response.data.data.law.draft;
+                this.draftLabel = response.data.data.law == null ? null : response.data.data.law.draft;
+                this.notulen = response.data.data.law == null ? null : response.data.data.law.notulen;
+                this.notulenLabel = response.data.data.law == null ? null : response.data.data.law.notulen;
+                this.deputi = response.data.data.deputi;
+                this.nomorProposal = response.data.data.nomor;
             });
         },
     }

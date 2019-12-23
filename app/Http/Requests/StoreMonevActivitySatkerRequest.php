@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreMonevActivitySatkerRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class StoreMonevActivitySatkerRequest extends FormRequest
     public function store() {
         return [
             'submission_proposal_id' => $this->id,
-            'budget' => $this->budget == "null" ? 0 : $this->budget,
+            'budget' => (int) Str::replaceArray('.', [''], $this->budget),
             'target' => $this->target,
             'reach' => $this->reach,
             'problem' => $this->problem,

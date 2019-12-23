@@ -143,7 +143,7 @@
             <tr>
                 <td><span class="text-table">Anggaran</span></td>
                 <td><span class="text-table"> : </span></td>
-                <td><span class="text-table">{{ $item->budget }}</span></td>
+                <td><span class="text-table">Rp. {{ number_format($item->budget,2,',','.') }}</span></td>
             </tr>
             <tr>
                 <td><span class="text-table">Target</span></td>

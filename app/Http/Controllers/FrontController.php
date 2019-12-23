@@ -281,7 +281,7 @@ class FrontController extends Controller
     }
     public function typeTwo($id) {
         try {
-            if($id == 1) {
+            if($id == 1 || $id == 2) {
                 $data['country'] = Country::where('id', '!=', '102')->get();
             } else {
                 $data['country'] = Country::where('id', '102')->get();

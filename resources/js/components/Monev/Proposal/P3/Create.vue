@@ -22,8 +22,9 @@
                     <div class="form-group m-form__group">
                         <label for="exampleInputEmail1">Anggaran</label>
                         <div class="m-form__control">
-                            <input type="number" v-model="forms.budget" class="form-control">
+                            <input type="text" v-model="forms.budget" class="form-control" @input="validate()">
                         </div>
+                        <span v-show="budget.error" class="m--font-danger">{{ budget.message }}</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="exampleInputEmail1">Target</label>
@@ -119,6 +120,10 @@ export default {
                 report: null,
                 file: [''],
             },
+            budget: {
+                message: null,
+                error: false,
+            },
             breadcrumbTitle: 'Pengajuan Kerjasama',
             breadcrumbLink: [
                 {
@@ -134,7 +139,42 @@ export default {
             ],
         }
     },
+    computed: {
+        plainValue() {
+            let val = 0;
+            if (this.forms.budget) {
+                val = parseInt(this.forms.budget.replace(/\./g, ''));
+                return val;
+            }
+            return null;
+        },
+    },
+    watch: {
+        "forms.budget": function(newValue) {
+            let result = newValue;
+            if (newValue) {
+                result = newValue.toString()
+                .replace(/\D/g, '')
+                .replace(/^[0]/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+            this.forms.budget = result;
+            this.$emit('input', this.plainValue);
+        }
+    },
     methods: {
+        validate() {
+            const regex = new RegExp(/\D/g);
+            const value = this.forms.budget.toString().replace(/\./g, '');
+
+            if (!regex.test(value)) {
+                this.budget.message = '';
+                this.budget.error = false;
+            } else {
+                this.budget.message = 'Hanya Dapat di Isi Oleh Angka';
+                this.budget.error = true;
+            }
+        },
         store() {
             let formData = new FormData();
             formData.append('id', this.$route.params.id);

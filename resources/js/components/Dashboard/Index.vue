@@ -750,7 +750,7 @@
                 </div>
                 <!--End::Portlet-->
             </div>
-                    <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
                 <!--Begin::Portlet-->
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">

@@ -35,9 +35,11 @@ import MonitoringSatkerCreate from './components/Monev/Proposal/SatkerCreate';
 import MonevActivitySatkerCreate from './components/Monev/Proposal/Satker/Create';
 import ListMonevActivitySatker from './components/Monev/Proposal/Satker/List';
 import ResultMonevActivitySatker from './components/Monev/Proposal/Satker/Result';
+import DetailMonevSatker from './components/Monev/Proposal/Satker/Detail';
 import ResultMonevActivityGuest from './components/Monev/Proposal/P3/Result';
 import MonevActivityP3Create from './components/Monev/Proposal/P3/Create';
 import ListMonevActivityGuest from './components/Monev/Proposal/P3/List';
+import DetailMonevGuest from './components/Monev/Proposal/P3/Detail';
 // import MonitoringEvaluasiCreate from './components/Monev/Create';
 // import MonitoringEvaluasiEdit from './components/Monev/Edit';
 // import MonevActivityCreate from './components/Monev/Activity/Create';
@@ -942,6 +944,16 @@ const router = new VueRouter({
                     path: '/monev/activity/:id/guest/result',
                     name: 'ResultMonevActivityGuest',
                     component: ResultMonevActivityGuest,
+                },
+                {
+                    path: '/monev/detail/:id/guest',
+                    name: 'DetailMonevGuest',
+                    component: DetailMonevGuest,
+                },
+                {
+                    path: '/monev/detail/:id/satker',
+                    name: 'DetailMonevSatker',
+                    component: DetailMonevSatker,
                 },
                 // {
                 //     path: '/monev/create',

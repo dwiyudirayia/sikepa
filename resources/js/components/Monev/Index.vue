@@ -105,16 +105,22 @@
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                             <td style="vertical-align: middle;">
-                                                <router-link :to="{name: 'MonevActivityP3Create', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
+                                                <router-link :to="{name: 'MonevActivityP3Create', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
                                                         <i class="la la-plus"></i>
                                                         <span>Tambah Kegiatan</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'ListMonevActivityGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                <router-link :to="{name: 'ListMonevActivityGuest', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
                                                     <span>
                                                         <i class="la la-list"></i>
                                                         <span>Daftar Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                                <router-link :to="{name: 'DetailMonevGuest', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-eye"></i>
+                                                        <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
                                                 <button @click="downloadSummaryMonevGuest(value.id)" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Rangkuman Monev'">
@@ -194,6 +200,12 @@
                                                     <span>
                                                         <i class="la la-list"></i>
                                                         <span>Daftar Kegiatan</span>
+                                                    </span>
+                                                </router-link>
+                                                <router-link :to="{name: 'DetailMonevSatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                    <span>
+                                                        <i class="la la-eye"></i>
+                                                        <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
                                                 <button @click="downloadSummaryMonevSatker(value.id)" class="btn m-btn btn-secondary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download Rangkuman Monev'">

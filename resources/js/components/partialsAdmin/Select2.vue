@@ -27,6 +27,7 @@ export default {
             // emit event on change.
             .on('change', function () {
                 vm.$emit('input', this.value)
+                // vm.$emit('changeData', this.value)
             })
     },
     watch: {

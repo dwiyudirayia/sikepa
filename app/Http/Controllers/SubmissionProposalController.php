@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Mail;
 // use App\Mail\SubmissionCooperationReject;
 use App\Notifications\DispositionNotification;
 use App\SubmissionProposalGuest;
+use App\SubmissionType;
 use Illuminate\Support\Facades\Notification;
 
 class SubmissionProposalController extends Controller
@@ -99,9 +100,8 @@ class SubmissionProposalController extends Controller
     }
     public function create() {
         try {
-            $data['typeof'] = TypeOfCooperation::where('id', 2)->get();
-            $data['typeof_one'] = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', 2)->get();
-            $data['agency'] = Agency::all();
+            $data['type'] = SubmissionType::all();
+            $data['agencies'] = Agency::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -703,6 +703,92 @@ class SubmissionProposalController extends Controller
             return response()->json([
                 'messages' => 'Download Gagal',
                 'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function type($id) {
+        try {
+            $data = TypeOfCooperation::where('submission_type_id', $id)->where('name', '!=', 'Permohonan Bantuan Dana')->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function typeOne($id) {
+        try {
+            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function typeTwo($id) {
+        try {
+            if($id == 1 || $id == 2) {
+                $data['country'] = Country::where('id', '!=', '102')->get();
+            } else {
+                $data['country'] = Country::where('id', '102')->get();
+                $data['province'] = Province::all();
+            }
+
+            $data['type'] = TypeOfCooperationTwoDerivative::where('type_of_cooperation_one_derivative_id', $id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function province($id) {
+        try {
+            if($id == 102) {
+                $data = Province::all();
+            } else {
+                $data = [];
+            }
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function regency($id) {
+        try {
+            $data = Regency::where('province_id', $id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
             ]);
         }
     }

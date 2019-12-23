@@ -199,6 +199,8 @@ Route::middleware('jwt')->group( function () {
         Route::delete('list/monev/activity/guest/{id}', 'MonevController@destroyActivityGuest');
         Route::get('download/monev/activity/satker/{id}', 'MonevController@downloadSummarySatker');
         Route::get('download/monev/activity/guest/{id}', 'MonevController@downloadSummaryGuest');
+        Route::get('monev/detail/guest/{id}', 'MonevController@detailMonevGuest');
+        Route::get('monev/detail/satker/{id}', 'MonevController@detailMonevSatker');
 
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');
@@ -228,6 +230,13 @@ Route::middleware('jwt')->group( function () {
         Route::delete('/deputi/information/{id}/file', 'DeputiInformationController@destroyFile');
         Route::post('/deputi/information/file', 'DeputiInformationController@storeFile');
         Route::get('/deputi/information/download/file/{id}', 'DeputiInformationController@downloadFileDeputiInformation');
+
+        //Submisison Cooperation
+        Route::get('type/{id}', 'SubmissionProposalController@type');
+        Route::get('typeone/{id}', 'SubmissionProposalController@typeOne');
+        Route::get('typetwo/{id}', 'SubmissionProposalController@typeTwo');
+        Route::get('province/{id}', 'SubmissionProposalController@province');
+        Route::get('regency/{id}', 'SubmissionProposalController@regency');
     });
 
     Route::get('user-authenticated', 'UserController@getUserLogin');

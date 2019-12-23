@@ -155,7 +155,7 @@
                             </div>
                         </div>
                         <template v-if="status_disposition == 12 || status_disposition == 13 || status_disposition == 16">
-                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
                                     <div class="row">
                                         <div class="col-lg-5"></div>
@@ -167,7 +167,7 @@
                             </div>
                         </template>
                         <template v-else>
-                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="checkRoles == 0">
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
                                     <div class="row">
                                         <div class="col-lg-5"></div>
@@ -475,15 +475,6 @@ export default {
     },
     computed: {
         google: gmapApi,
-        checkRoles: function() {
-            const roles = this.roles.authenticated.roles;
-
-            let filterRoles = roles.filter(value => {
-                return value.id == 13;
-            })
-
-            return filterRoles.length;
-        },
         sortDeputi: function() {
             const data = this.deputi;
 
