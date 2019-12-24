@@ -1,4 +1,5 @@
-import $axios from './../../api';
+import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
 
 const article = {
     namespaced: true,
@@ -133,7 +134,7 @@ const article = {
             });
         },
         storeArticle({ commit }, forms) {
-            $axios.post('/admin/article', forms)
+            $axiosFormData.post('/admin/article', forms)
             .then(response => {
                 commit('notification', response);
                 commit('updateData', response);
@@ -152,16 +153,16 @@ const article = {
                 commit('notification', error);
             });
         },
-        updateArticle({ commit }, forms) {
-            $axios.put(`/admin/article/${forms.id}`, forms)
-            .then(response => {
-                commit('notification', response);
-                commit('updateData', response);
-            })
-            .catch(error => {
-                commit('notification', error);
-            });
-        },
+        // updateArticle({ commit }, forms) {
+        //     $axiosFormData.put(`/admin/article/${forms.id}`, forms)
+        //     .then(response => {
+        //         commit('notification', response);
+        //         commit('updateData', response);
+        //     })
+        //     .catch(error => {
+        //         commit('notification', error);
+        //     });
+        // },
         changePublishStatus({ commit }, id) {
             $axios.get(`/admin/change/article/publish/${id}`)
             .then(response => {

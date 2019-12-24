@@ -136,7 +136,7 @@
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
                                     <img :src="previewImage" class="img-responsive" height="100%" width="100%" v-if="currentlyImage">
-                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-else-if="forms.image != null">
+                                    <img :src="`/storage/article_photo/${forms.image}`" class="img-responsive" height="100%" width="100%" v-else-if="forms.image != null">
                                 </div>
                             </div>
                         </div>
@@ -184,6 +184,7 @@ import { required } from 'vuelidate/lib/validators';
 import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue'
 import $axios from './../../api';
+import $axiosFormData from '@/apiformdata.js';
 import Select2Edit from './Select2Edit';
 
 export default {
@@ -293,25 +294,31 @@ export default {
         },
         update() {
             this.$v.forms.$touch();
+            let formData = new FormData();
+            formData.append('id', this.$route.params.id);
+            formData.append('section_id', this.forms.section_id);
+            formData.append('category_id', this.forms.category_id);
+            formData.append('title', this.forms.title);
+            formData.append('short_content', this.forms.short_content);
+            formData.append('content', this.forms.content);
+            formData.append('image', this.forms.image);
+            formData.append('seo_title', this.forms.seo_title);
+            formData.append('seo_meta_key', this.forms.seo_meta_key);
+            formData.append('seo_meta_desc', this.forms.seo_meta_desc);
+            formData.append('publish', this.forms.publish);
+            formData.append('approved', this.forms.approved);
+            formData.append('_method', 'PUT');
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                let formData = new FormData();
-
-                formData.append('id', this.$route.params.id);
-                formData.append('section_id', this.forms.section_id);
-                formData.append('category_id', this.forms.category_id);
-                formData.append('title', this.forms.title);
-                formData.append('short_content', this.forms.short_content);
-                formData.append('content', this.forms.content);
-                formData.append('image', this.forms.image);
-                formData.append('seo_title', this.forms.seo_title);
-                formData.append('seo_meta_key', this.forms.seo_meta_key);
-                formData.append('seo_meta_desc', this.forms.seo_meta_desc);
-                formData.append('publish', this.forms.publish);
-                formData.append('approved', this.forms.approved);
-
-                this.$store.dispatch('article/updateArticle', formData);
+                $axiosFormData.post(`/admin/article/${this.$route.params.id}`, formData)
+                .then(response => {
+                    this.$store.commit('article/notification', response);
+                    this.$store.commit('article/updateData', response);
+                })
+                .catch(error => {
+                    this.$store.commit('notification', error);
+                });
                 this.$v.$reset();
             }
 

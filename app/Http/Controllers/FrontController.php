@@ -110,7 +110,6 @@ class FrontController extends Controller
         $bannerArticle = Article::orderBy('created_at', 'desc')->where('approved', 1)->where('publish', 1)->take(3)->get();
         $article = Article::orderBy('created_at', 'desc')->where('approved', 1)->where('publish', 1)->take(8)->get();
         $testimoni = Testimoni::where('active', 1)->get();
-        dd($bannerArticle, $article, $testimoni);
 
         return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
     }

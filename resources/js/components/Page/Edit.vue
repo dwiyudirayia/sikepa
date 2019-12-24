@@ -136,7 +136,7 @@
                             <div class="m-accordion__item-body collapse show" id="m_accordion_6_item_2_body" role="tabpanel" aria-labelledby="m_accordion_6_item_2_head" data-parent="#m_accordion_6" style="">
                                 <div class="m-accordion__item-content">
                                     <img :src="previewImage" class="img-responsive" height="100%" width="100%" v-if="currentlyImage">
-                                    <img :src="`/page/${forms.image}`" class="img-responsive" height="100%" width="100%" v-else-if="forms.image != null">
+                                    <img :src="`/storage/page_photo/${forms.image}`" class="img-responsive" height="100%" width="100%" v-else-if="forms.image != null">
                                 </div>
                             </div>
                         </div>
@@ -185,6 +185,7 @@ import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
 import $axios from './../../api';
 import Select2Edit from './Select2Edit';
+import $axiosFormData from '@/apiformdata.js';
 
 export default {
     name: 'PageEdit',
@@ -299,8 +300,16 @@ export default {
                 formData.append('seo_meta_desc', this.forms.seo_meta_desc);
                 formData.append('publish', this.forms.publish);
                 formData.append('approved', this.forms.approved);
+                formData.append('_method', 'PUT');
 
-                this.$store.dispatch('page/updatePage', formData);
+                $axiosFormData.post(`/admin/page/${this.$route.params.id}`, formData)
+                .then(response => {
+                    this.$store.commit('page/notification', response);
+                    this.$store.commit('page/updateData', response);
+                })
+                .catch(error => {
+                    this.$store.commit('page/notification', error);
+                });
                 this.$v.$reset();
             }
 

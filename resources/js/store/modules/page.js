@@ -153,16 +153,16 @@ const page = {
                 commit('notification', error);
             });
         },
-        updatePage({ commit }, forms) {
-            $axios.put(`/admin/page/${forms.id}`, forms)
-            .then(response => {
-                commit('notification', response);
-                commit('updateData', response);
-            })
-            .catch(error => {
-                commit('notification', error);
-            });
-        },
+        // updatePage({ commit }, forms) {
+        //     $axiosFormData.post(`/admin/page/${forms.id}`, forms)
+        //     .then(response => {
+        //         commit('notification', response);
+        //         commit('updateData', response);
+        //     })
+        //     .catch(error => {
+        //         commit('notification', error);
+        //     });
+        // },
         changePublishStatus({ commit }, id) {
             $axios.get(`/admin/change/page/publish/${id}`)
             .then(response => {
