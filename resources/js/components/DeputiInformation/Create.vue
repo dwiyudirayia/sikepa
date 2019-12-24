@@ -161,6 +161,7 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_video" @change="photoVideo">
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
                     </div>
+                    <span class="m-form__help">Pastikan Ekstensi File <strong>.mp4</strong></span>
                     <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     <span v-else-if="$v.forms.photo_video.$error && !$v.forms.photo_video.fileType" class="m--font-danger">Ektensi file harus .mp4</span>
                 </div>
@@ -169,6 +170,7 @@
                     <div class="m-form__control">
                         <input type="text" v-model="forms.photo_video" class="form-control">
                     </div>
+                    <span class="m-form__help">Tolong Ambil Karakter Unik dari Youtube. Contoh: https://www.youtube.com/watch?v=<strong>5qt40tGcmwg</strong></span>
                     <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger">Field Ini Harus di Isi</span>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed"></div>

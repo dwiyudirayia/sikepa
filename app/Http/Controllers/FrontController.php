@@ -13,7 +13,7 @@ use App\Country;
 use App\DeputiInformation;
 use App\FileDeputiInformation;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
-use App\Mail\ResiSubmissionCooperation;
+use App\Mail\NomorResi;
 use App\Mail\SurveyKepuasan;
 use App\Notifications\DeputiNotificationGuest;
 use App\Province;
@@ -239,7 +239,7 @@ class FrontController extends Controller
                 $path = 'MOUProposalSubmissionCooperationIndex';
             }
             Notification::send($users, new DeputiNotificationGuest($path));
-            Mail::to($request->email)->send(new ResiSubmissionCooperation($proposal));
+            Mail::to($request->email)->send(new NomorResi($proposal));
 
             return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Jika Minat');
         } catch (\Throwable $th) {
@@ -417,6 +417,21 @@ class FrontController extends Controller
             return response()->download(storage_path("/app/public/file_deputi_information/".$file));
 
         } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode()
+            ]);
+        }
+    }
+    public function downloadFileCooperation($id) {
+        try {
+            $data = SubmissionProposalGuest::with('law')->findOrFail($id);
+            // dd($data);
+            $file = $data->law->draft;
+            return response()->download(storage_path("/app/public/law_draft_guest/".$file));
+
+        } catch (\Throwable $th) {
+            dd($th);
             return response()->json([
                 'messages' => 'Download Gagal',
                 'status' => $th->getCode()

@@ -215,6 +215,7 @@ Route::middleware('jwt')->group( function () {
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');
         Route::get('old/monev/filter/{year}', 'DashboardController@filterOldMonev');
+
         Route::get('filter/kesetaraan/gender/pks/{year}', 'DashboardController@filterKesetaraanGenderPKS');
         Route::get('filter/kesetaraan/gender/mou/{year}', 'DashboardController@filterKesetaraanGenderMOU');
         Route::get('filter/partisipasi/masyarakat/pks/{year}', 'DashboardController@filterPartisipasiMasyarakatPKS');
@@ -231,6 +232,21 @@ Route::middleware('jwt')->group( function () {
         Route::get('filter/submission/mou/{year}', 'DashboardController@filterSubmissionMOU');
         Route::get('filter/survey/{year}', 'DashboardController@filterSurvey');
 
+        Route::get('reset/kesetaraan/gender/pks', 'DashboardController@resetKesetaraanGenderPKS');
+        Route::get('reset/kesetaraan/gender/mou', 'DashboardController@resetKesetaraanGenderMOU');
+        Route::get('reset/partisipasi/masyarakat/pks', 'DashboardController@resetPartisipasiMasyarakatPKS');
+        Route::get('reset/partisipasi/masyarakat/mou', 'DashboardController@resetPartisipasiMasyarakatMOU');
+        Route::get('reset/perlindungan/anak/pks', 'DashboardController@resetPerlindunganAnakPKS');
+        Route::get('reset/perlindungan/anak/mou', 'DashboardController@resetPerlindunganAnakMOU');
+        Route::get('reset/perlindungan/hak/perempuan/pks', 'DashboardController@resetPerlindunganHakPerempuanPKS');
+        Route::get('reset/perlindungan/hak/perempuan/mou', 'DashboardController@resetPerlindunganHakPerempuanMOU');
+        Route::get('reset/perlindungan/tumbuh/kembang/anak/pks', 'DashboardController@resetPerlindunganTumbuhKembangAnakPKS');
+        Route::get('reset/perlindungan/tumbuh/kembang/anak/mou', 'DashboardController@resetPerlindunganTumbuhKembangAnakMOU');
+        Route::get('reset/agencies/pks', 'DashboardController@resetAgenciesPKS');
+        Route::get('reset/agencies/mou', 'DashboardController@resetAgenciesMOU');
+        Route::get('reset/submission/pks', 'DashboardController@resetSubmissionPKS');
+        Route::get('reset/submission/mou', 'DashboardController@resetSubmissionMOU');
+        Route::get('reset/survey', 'DashboardController@resetSurvey');
         //Information Deputi
         Route::get('/deputi/information', 'DeputiInformationController@index');
         Route::post('/deputi/information', 'DeputiInformationController@store');

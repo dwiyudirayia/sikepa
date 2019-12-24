@@ -49,7 +49,7 @@
                         <h3 class="title">Sistem Kerjasama Kementerian Pemberdayaan Perempuan dan Perlindungan Anak</h3>
                     </div>
                     <article class="caption-text sr-btm">
-                        <p>Ajukan Kerjasama dengan kami dan tunggu proses, rasakan kemudahan dengan menggunakan SIKEPA.</p>
+                        <p>Sistem pengelolaan data dan informasi kerja sama Kementerian Pemberdayaan Perempuan dan Perlindungan Anak..</p>
                     </article>
                     <div class="caption-btn sr-btm">
                         <a class="link-icon" href="{{ route('cooperation.submission') }}">Ajukan kerjasama<i class="mdi mdi-play"></i></a>

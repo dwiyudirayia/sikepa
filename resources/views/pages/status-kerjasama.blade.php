@@ -1,4 +1,9 @@
 @extends('layouts.layout-single')
+@section('styles2')
+    <style>
+    .context-menu {cursor: context-menu;}
+    </style>
+@endsection
 @section('content')
     <section class="page-header">
         <div class="container">
@@ -200,6 +205,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if ($data['data']['data']['status_disposition'] == 17)
+                                    <div class="form-group sr-btm">
+                                        <div class="row flex flex-center">
+                                            <div class="col-lg-4 col-md-4"><p>Download File Kerjasama</p></div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <div class="input-value"><a href="{{ route('download.file.cooperation', ['id' => $data['data']['data']['id']]) }}">Download</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="control-group">
                                 <div class="main-title text-center sr-btm">
@@ -264,7 +279,7 @@
                             </div>
                             <div class="control-group">
                                 <div class="main-title text-center sr-btm">
-                                    <h4 class="title">Formulir Sasaran Kerjasama</h4>
+                                    <h4 class="title">Unit yang akan terlibat</h4>
                                 </div>
                                 <div class="form-group sr-btm">
                                     <div class="row">

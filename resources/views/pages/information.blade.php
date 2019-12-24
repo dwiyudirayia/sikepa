@@ -91,15 +91,27 @@
                 </div>
             </div>
             <div class="row no-gutter block-media-text">
+                @if($data['type_video'] == 2)
                 <div class="col-lg-6 col-md-6">
                     <div class="caption-media no-bg">
                         <div class="box-media">
                             <div class="thumb">
-                                <img src="{{ asset('assets/images/img08.jpg') }}">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $data['photo_video'] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="col-lg-6 col-md-6">
+                    <div class="caption-media no-bg">
+                        <div class="box-media">
+                            <div class="thumb">
+                                <video width="100%" height="100%" src="{{ asset('storage/photo_video_deputi_information/'.$data['photo_video']) }}"></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <div class="col-lg-6 col-md-6">
                     <div class="caption-content">
                         <div class="main-title sr-btm">

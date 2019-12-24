@@ -191,6 +191,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPartisipasiMasyarakatPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPartisipasiMasyarakatPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -233,6 +234,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPartisipasiMasyarakatMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPartisipasiMasyarakatMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -275,6 +277,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterKesetaraanGenderPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetKesetaraanGenderPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -359,6 +362,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganAnakPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganAnakPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -401,6 +405,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganAnakMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganAnakMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -443,6 +448,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganHakPerempuanPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganHakPerempuanPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -485,6 +491,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganHakPerempuanMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganHakPerempuanMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -527,6 +534,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganTumbuhKembangAnakPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganTumbuhKembangAnakPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -611,6 +619,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterAgenciesPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetAgenciesPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -653,6 +662,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterAgenciesMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetAgenciesMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -695,6 +705,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterSubmissionPKS" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetSubmissionPKS" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -737,6 +748,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterSubmissionMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetSubmissionMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -779,6 +791,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterSurvey" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetSurvey" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -1102,9 +1115,81 @@ export default {
                 console.log(error);
             });
         },
+        resetSurvey() {
+            $axios.get(`/admin/reset/survey`)
+            .then(response => {
+                this.chartData.survey.selectedYear = null;
+                this.chartData.survey.data = response.data.data;
+
+                this.chartData.survey.yearsText = this.chartData.survey.data.map(map => map.monthname.toString());
+                this.chartData.survey.sangat_memuaskan = this.chartData.survey.data.map(map => map.sangat_memuaskan);
+                this.chartData.survey.memuaskan = this.chartData.survey.data.map(map => map.memuaskan);
+                this.chartData.survey.sesuai_standar = this.chartData.survey.data.map(map => map.sesuai_standar);
+                this.chartData.survey.tidak_memuaskan = this.chartData.survey.data.map(map => map.tidak_memuaskan);
+                this.chartData.survey.sangat_tidak_memuaskan = this.chartData.survey.data.map(map => map.sangat_tidak_memuaskan);
+                this.chartData.survey.all = {
+                    labels: this.chartData.survey.yearsText,
+                    datasets: [
+                        {
+                            label: `Sangat Memuaskan`,
+                            backgroundColor: '#34bfa3',
+                            data: this.chartData.survey.sangat_memuaskan
+                        },
+                        {
+                            label: 'Memuaskan',
+                            backgroundColor: '#36a3f7',
+                            data: this.chartData.survey.memuaskan
+                        },
+                        {
+                            label: 'Sesuai Standar',
+                            backgroundColor: '#716aca',
+                            data: this.chartData.survey.sesuai_standar
+                        },
+                        {
+                            label: 'Tidak Memuaskan',
+                            backgroundColor: '#ffb822',
+                            data: this.chartData.survey.tidak_memuaskan
+                        },
+                        {
+                            label: 'Sangat Tidak Memuaskan',
+                            backgroundColor: '#f4516c',
+                            data: this.chartData.survey.sangat_tidak_memuaskan
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterSubmissionPKS() {
             $axios.get(`/admin/filter/submission/pks/${this.chartData.submission.pks.selectedYear}`)
             .then(response => {
+                this.chartData.submission.pks.data = response.data.data;
+
+                this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
+                this.chartData.submission.pks.value = this.chartData.submission.pks.data.map(map => map.data);
+
+
+                this.chartData.submission.pks.all = {
+                    labels: this.chartData.submission.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetSubmissionPKS() {
+            $axios.get(`/admin/reset/submission/pks`)
+            .then(response => {
+                this.chartData.submission.pks.selectedYear = null;
                 this.chartData.submission.pks.data = response.data.data;
 
                 this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
@@ -1151,9 +1236,59 @@ export default {
                 console.log(error);
             });
         },
+        resetSubmissionMOU() {
+            $axios.get(`/admin/reset/submission/mou`)
+            .then(response => {
+                this.chartData.submission.pks.selectedYear = null;
+                this.chartData.submission.pks.data = response.data.data;
+
+                this.chartData.submission.pks.yearsText = this.chartData.submission.pks.data.map(map => map.year.toString());
+                this.chartData.submission.pks.value = this.chartData.submission.pks.data.map(map => map.data);
+
+
+                this.chartData.submission.pks.all = {
+                    labels: this.chartData.submission.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterKesetaraanGenderPKS() {
             $axios.get(`/admin/filter/kesetaraan/gender/pks/${this.chartData.deputiKesetaraanGender.pks.selectedYear}`)
             .then(response => {
+                this.chartData.deputiKesetaraanGender.pks.data = response.data.data;
+
+                this.chartData.deputiKesetaraanGender.pks.yearsText = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.pks.value = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.pks.all = {
+                    labels: this.chartData.deputiKesetaraanGender.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetKesetaraanGenderPKS() {
+            $axios.get(`/admin/reset/kesetaraan/gender/pks`)
+            .then(response => {
+                this.chartData.deputiKesetaraanGender.pks.selectedYear = null;
                 this.chartData.deputiKesetaraanGender.pks.data = response.data.data;
 
                 this.chartData.deputiKesetaraanGender.pks.yearsText = this.chartData.deputiKesetaraanGender.pks.data.map(map => map.year.toString());
@@ -1223,9 +1358,59 @@ export default {
                 console.log(error);
             });
         },
+        resetPartisipasiMasyarakatPKS() {
+            $axios.get(`/admin/reset/partisipasi/masyarakat/pks`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.pks.selectedYear = null;
+                this.chartData.deputiPartisipasiMasyarakat.pks.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.pks.yearsText = this.chartData.deputiPartisipasiMasyarakat.pks.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.pks.value = this.chartData.deputiPartisipasiMasyarakat.pks.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.pks.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterPartisipasiMasyarakatMOU() {
             $axios.get(`/admin/filter/partisipasi/masyarakat/mou/${this.chartData.deputiPartisipasiMasyarakat.mou.selectedYear}`)
             .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.mou.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.yearsText = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.mou.value = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPartisipasiMasyarakatMOU() {
+            $axios.get(`/admin/reset/partisipasi/masyarakat/mou`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.mou.selectedYear = null;
                 this.chartData.deputiPartisipasiMasyarakat.mou.data = response.data.data;
 
                 this.chartData.deputiPartisipasiMasyarakat.mou.yearsText = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.year.toString());
@@ -1271,6 +1456,31 @@ export default {
                 console.log(error);
             });
         },
+        resetPerlindunganAnakPKS() {
+            $axios.get(`/admin/reset/perlindungan/anak/pks`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.pks.selectedYear = null;
+                this.chartData.deputiPerlindunganAnak.pks.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.pks.yearsText = this.chartData.deputiPerlindunganAnak.pks.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.pks.value = this.chartData.deputiPerlindunganAnak.pks.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.pks.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterPerlindunganAnakMOU() {
             $axios.get(`/admin/filter/perlindungan/anak/mou/${this.chartData.deputiPerlindunganAnak.mou.selectedYear}`)
             .then(response => {
@@ -1295,8 +1505,33 @@ export default {
                 console.log(error);
             });
         },
+        resetPerlindunganAnakMOU() {
+            $axios.get(`/admin/reset/perlindungan/anak/mou`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.mou.selectedYear = null;
+                this.chartData.deputiPerlindunganAnak.mou.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.mou.yearsText = this.chartData.deputiPerlindunganAnak.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.mou.value = this.chartData.deputiPerlindunganAnak.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.mou.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterPerlindunganHakPerempuanPKS() {
-            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/pks/${this.chartData.deputiPerlindunganHakPerempuan.pks.selectedYear}`)
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/${this.chartData.deputiPerlindunganHakPerempuan.pks.selectedYear}`)
             .then(response => {
                 this.chartData.deputiPerlindunganHakPerempuan.pks.data = response.data.data;
 
@@ -1319,8 +1554,33 @@ export default {
                 console.log(error);
             });
         },
+        resetPerlindunganHakPerempuanPKS() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/pks`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.pks.selectedYear = null;
+                this.chartData.deputiPerlindunganHakPerempuan.pks.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.pks.value = this.chartData.deputiPerlindunganHakPerempuan.pks.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.pks.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterPerlindunganHakPerempuanMOU() {
-            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/mou/${this.chartData.deputiPerlindunganHakPerempuan.mou.selectedYear}`)
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/mou/${this.chartData.deputiPerlindunganHakPerempuan.mou.selectedYear}`)
             .then(response => {
                 this.chartData.deputiPerlindunganHakPerempuan.mou.data = response.data.data;
 
@@ -1343,8 +1603,33 @@ export default {
                 console.log(error);
             });
         },
+        resetPerlindunganHakPerempuanMOU() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/mou`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.mou.selectedYear = null;
+                this.chartData.deputiPerlindunganHakPerempuan.mou.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText = this.chartData.deputiPerlindunganHakPerempuan.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.mou.value = this.chartData.deputiPerlindunganHakPerempuan.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.mou.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         filterPerlindunganTumbuhKembangAnakPKS() {
-            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/pks/${this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.selectedYear}`)
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/${this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.selectedYear}`)
             .then(response => {
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data = response.data.data;
 
@@ -1367,9 +1652,59 @@ export default {
                 console.log(error);
             });
         },
-        filterPerlindunganTumbuhKembangAnakMOU() {
-            $axios.get(`/admin/filter/perlindungan/hak/perempuan/pks/mou/${this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear}`)
+        resetPerlindunganTumbuhKembangAnakPKS() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/pks`)
             .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.selectedYear = null;
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganTumbuhKembangAnakMOU() {
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/mou/${this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `Berdasarkan Tahun`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganTumbuhKembangAnakMOU() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/mou`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear = null;
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data = response.data.data;
 
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data.map(map => map.year.toString());
@@ -1411,9 +1746,51 @@ export default {
                 };
             })
         },
+        resetAgenciesPKS() {
+            $axios.get(`/admin/reset/agencies/pks`)
+            .then(response => {
+                this.chartData.instansi.pks.selectedYear = null;
+                this.chartData.instansi.pks.data = response.data.data;
+
+                this.chartData.instansi.pks.yearsText = this.chartData.instansi.pks.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.pks.value = this.chartData.instansi.pks.data.map(map => map.data);
+
+                this.chartData.instansi.pks.all = {
+                    labels: this.chartData.instansi.pks.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.pks.data.map(value => value.length),
+                        }
+                    ]
+                };
+            })
+        },
         filterAgenciesMOU() {
             $axios.get(`/admin/filter/agencies/mou/${this.chartData.instansi.mou.selectedYear}`)
             .then(response => {
+                this.chartData.instansi.mou.data = response.data.data;
+
+                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
+                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
+
+                this.chartData.instansi.mou.all = {
+                    labels: this.chartData.instansi.mou.yearsText,
+                    datasets: [
+                        {
+                            label: "Berdasarkan Instansi",
+                            backgroundColor: "#f87979",
+                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                        }
+                    ]
+                };
+            })
+        },
+        resetAgenciesMOU() {
+            $axios.get(`/admin/reset/agencies/mou`)
+            .then(response => {
+                this.chartData.instansi.mou.selectedYear = null;
                 this.chartData.instansi.mou.data = response.data.data;
 
                 this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());

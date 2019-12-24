@@ -235,6 +235,7 @@
                                                     <input class="upload required" id="ktp" type="file" name="ktp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="ktp" onclick="getFile()"></label>
+                                                        <label class="icon" for="ktp"><i class="mdi mdi-upload"></i></label>
                                                     </div>
                                                     <label class="text-label">KTP Pemohon</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -247,6 +248,7 @@
                                                     <input class="upload required" type="file" id="npwp" name="npwp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="npwp" onclick="getFile()"></label>
+                                                        <label class="icon" for="npwp"><i class="mdi mdi-upload"></i></label>
                                                     </div>
                                                     <label class="text-label">NPWP Pemohon</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -259,6 +261,7 @@
                                                     <input class="upload" type="file" name="siup" id="siup">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="siup" onclick="getFile()"></label>
+                                                        <label class="icon" for="siup"><i class="mdi mdi-upload"></i></label>
                                                     </div>
                                                     <label class="text-label">SIUP/akta pendirian organisasi/lainnya</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -320,6 +323,7 @@
                                                     <input class="upload required" type="file" id="agency_profile" name="agency_profile">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="agency_profile" onclick="getFile()"></label>
+                                                        <label class="icon" for="agency_profile"><i class="mdi mdi-upload"></i></label>
                                                     </div>
                                                     <label class="text-label">Profil instansi</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -332,6 +336,8 @@
                                                     <input class="upload required" type="file" id="proposal" name="proposal">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="proposal" onclick="getFile()"></label>
+                                                        <label class="icon" for="proposal"><i class="mdi mdi-upload"></i></label>
+
                                                     </div>
                                                     <label class="text-label">Proposal</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -350,15 +356,12 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                                             <div class="form-group">
-                                                <div class="form-input">
-                                                    <select class="form-control select2" name="deputi[]" multiple="multiple">
-                                                        <option value=""></option>
-                                                        @foreach ($data['deputi'] as $item)
-                                                        <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <label class="text-label">Sasaran kerjasama</label>
+                                                @foreach ($data['deputi'] as $item)
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" id="{{ $item['id'] }}" name="deputi[]" value="{{ $item['id'] }}">
+                                                        <label for="{{ $item['id'] }}">{{ $item['name'] }}</label>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -375,8 +378,7 @@
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places&callback=initAutocomplete"
-    async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places"></script>
     <script>
         function initAutocomplete() {
             var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
@@ -503,6 +505,7 @@
     </script>
     <script>
         $(document).ready(function() {
+            initAutocomplete();
             var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
             var map = new google.maps.Map(document.getElementById('loc-result'), {
                 center: {lat:  -1.514896, lng: 120.3647036},
@@ -739,7 +742,7 @@
                         if (results[0].geometry.viewport)
                         map.fitBounds(results[0].geometry.viewport);
 
-                        map.setZoom(4);
+                        map.setZoom(10);
                     } else {
                         alert("Geocode was not successful for the following reason: " + status);
                     }

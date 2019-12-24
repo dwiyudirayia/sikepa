@@ -394,7 +394,21 @@
                         </div>
                         <div class="form-group" v-if="status_disposition == 12">
                             <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
-                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
+                            <editor
+                            api-key="dzzffhe3e7rwi6o0yhr653apjdpwu2uyld4x4xppx02diki8"
+                            v-model="forms.keterangan_pesan"
+                            :init="{
+                                height: 500,
+                                plugins: [
+                                    'print preview paste searchreplace autolink code visualblocks visualchars image link media table charmap hr anchor insertdatetime advlist lists wordcount imagetools textpattern noneditable charmap quickbars emoticons',
+                                ],
+                                imagetools_cors_hosts: ['picsum.photos'],
+                                menubar: 'file edit view insert format tools table',
+                                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap emoticons | preview save print | insertfile image media link',
+                                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                            }"
+                        >
+                        </editor>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -411,10 +425,14 @@
 <script>
 import $axios from '@/api.js';
 import $axiosFormData from '@/apiformdata.js';
+import Editor from '@tinymce/tinymce-vue';
 import {gmapApi} from 'vue2-google-maps';
 
 export default {
     name: 'PKSProposalSubmissionCooperationDetail',
+     components: {
+        Editor
+    },
     data() {
         return {
             tabs: 1,

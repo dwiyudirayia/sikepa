@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class NomorResi extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    protected $proposal;
+    public function __construct($proposal)
+    {
+        $this->proposal = $proposal;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        // dd($this->proposal);
+        return $this->view('mail.resi-submission-cooperation-guest')->with([
+            'proposal' => $this->proposal,
+        ]);
+    }
+}

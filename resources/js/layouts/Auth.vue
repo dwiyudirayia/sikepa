@@ -1,7 +1,7 @@
 <template>
     <div class="router-transitions">
         <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container">
-            <div class="ui-bg-overlay bg-customize" 
+            <div class="ui-bg-overlay bg-customize"
                 :style="{
                     'background-image' : `url('/storage/photo_login/${this.backgroundImage}')`,
                     'background-size' : 'cover',
