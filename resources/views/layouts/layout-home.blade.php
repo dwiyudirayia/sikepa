@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css') }}">
+@yield('styles')
 
 </head>
 

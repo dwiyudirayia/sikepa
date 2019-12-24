@@ -265,7 +265,21 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('article/storeArticle', this.forms);
+
+                let formData = new FormData();
+                formData.append('section_id', this.forms.section_id);
+                formData.append('category_id', this.forms.category_id);
+                formData.append('title', this.forms.title);
+                formData.append('short_content', this.forms.short_content);
+                formData.append('content', this.forms.content);
+                formData.append('image', this.forms.image);
+                formData.append('seo_title', this.forms.seo_title);
+                formData.append('seo_meta_key', this.forms.seo_meta_key);
+                formData.append('seo_meta_desc', this.forms.seo_meta_desc);
+                formData.append('publish', this.forms.publish);
+                formData.append('approved', this.forms.approved);
+
+                this.$store.dispatch('article/storeArticle', formData);
                 this.$v.$reset();
             }
 

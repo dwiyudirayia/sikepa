@@ -9,6 +9,7 @@ import DashboardIndex from './components/Dashboard/Index';
 import Admin from './layouts/Admin';
 //User
 import UserChangePassword from './components/User/ChangePassword';
+import UserEditProfile from './components/User/Edit';
 
 import ConfigAccessRightRoleIndex from './components/User/ConfigAccessRightRoleIndex';
 import ConfigAccessRightRoleCreate from './components/User/ConfigAccessRightRoleCreate';
@@ -241,6 +242,14 @@ const router = new VueRouter({
                     path: '/user/change/password',
                     name: 'UserChangePassword',
                     component: UserChangePassword,
+                    meta: {
+                        requiresAuth: true,
+                    }
+                },
+                {
+                    path: '/user/edit/profile',
+                    name: 'UserEditProfile',
+                    component: UserEditProfile,
                     meta: {
                         requiresAuth: true,
                     }

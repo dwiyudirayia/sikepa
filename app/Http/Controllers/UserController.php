@@ -111,6 +111,15 @@ class UserController extends Controller
             return response()->json($this->notification->deleteFailed($th));
         }
     }
+    public function edit($id) {
+        try {
+            $data = auth()->user();
+
+            return response()->json($this->notification->showSuccess($currentData));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->showFailed($th));
+        }
+    }
     public function editRole($id)
     {
         try {

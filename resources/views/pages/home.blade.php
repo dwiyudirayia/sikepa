@@ -1,4 +1,11 @@
 @extends('layouts.layout-home')
+@section('styles')
+<style>
+    #formSubmit, #formSubmit-pc {
+        background-color: #337ab7 !important;
+    }
+</style>
+@endsection
 @section('content')
 <section class="content-page banner-area">
     <div class="swiper-container">
