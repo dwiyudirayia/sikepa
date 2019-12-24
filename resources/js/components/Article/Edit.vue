@@ -297,6 +297,8 @@ export default {
                 return;
             } else {
                 let formData = new FormData();
+
+                formData.append('id', this.$route.params.id);
                 formData.append('section_id', this.forms.section_id);
                 formData.append('category_id', this.forms.category_id);
                 formData.append('title', this.forms.title);
