@@ -306,6 +306,7 @@ export default {
                 .then(response => {
                     this.$store.commit('page/notification', response);
                     this.$store.commit('page/updateData', response);
+                    this.$router.push({ path: `/category/${this.forms.category_id}/page` });
                 })
                 .catch(error => {
                     this.$store.commit('page/notification', error);
@@ -313,7 +314,6 @@ export default {
                 this.$v.$reset();
             }
 
-            this.$router.push({ path: `/category/${this.forms.category_id}/page` });
         }
     },
 }

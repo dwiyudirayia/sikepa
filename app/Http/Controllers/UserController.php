@@ -9,6 +9,9 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
+use Illuminate\Support\Facades\Storage;
+use Validator;
+
 class UserController extends Controller
 {
     private $notification;
@@ -111,11 +114,11 @@ class UserController extends Controller
             return response()->json($this->notification->deleteFailed($th));
         }
     }
-    public function edit($id) {
+    public function editUser() {
         try {
             $data = auth()->user();
 
-            return response()->json($this->notification->showSuccess($currentData));
+            return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->showFailed($th));
         }
@@ -142,5 +145,46 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
+    }
+    public function updateProfileUser(Request $request) {
+        Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email,'.auth()->user()->id,
+            'username' => 'required|unique:users,username,'.auth()->user()->id,
+        ], [
+            'email.unique' => 'Email sudah digunakan',
+            'username.unique' => 'Username sudah digunakan'
+        ])->validate();
+
+        if($request->hasFile('photo')) {
+            $extentionPhoto = $request->photo->getClientOriginalExtension();
+            $filenamePhoto = 'photo'.'-'.date('Y-m-d').'-'.time().'.'.$extentionPhoto;
+            $pathPhoto = $request->photo->storeAs($request->username, $filenamePhoto, 'photo_user');
+
+            $user = User::findOrFail(auth()->user()->id);
+
+            Storage::disk('photo_user')->delete($user->photo);
+
+            User::where('id', auth()->user()->id)->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'jabatan' => $request->jabatan,
+                'photo' => $pathPhoto,
+                'nip' => $request->nip,
+            ]);
+        } else {
+            User::where('id', auth()->user()->id)->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'jabatan' => $request->jabatan,
+                'nip' => $request->nip,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'messages' => 'Data Berhasil di Masukan'
+        ]);
     }
 }

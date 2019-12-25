@@ -38,28 +38,23 @@ class SatkerController extends Controller
     }
     public function store(StoreUserRequest $request)
     {
-        
-        try {
-            $user = User::create($request->store());
-            if($request->role == "Bagian Kerja Sama")
-            {
-                $user->assignRole(["Bagian Kerja Sama", "Bagian Kerja Sama Final"]);
-            } elseif ($request->role == "Sesmen") {
-                $user->assignRole(["Sesmen", "Sesmen Final"]);
-            } elseif($request->role == "Menteri") {
-                $user->assignRole(["Menteri", "Menteri Final"]);
-            } else {
-                $user->assignRole($request->role);
-            }
-
-            $data = User::with('roles')->whereHas('roles', function(Builder $query) {
-                $query->whereBetween('id', [2, 13]);
-            })->where('id', '!=', auth()->user()->id)->get();
-
-            return response()->json($this->notification->storeSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->storeFailed($th));
+        $user = User::create($request->store());
+        if($request->role == "Bagian Kerja Sama")
+        {
+            $user->assignRole(["Bagian Kerja Sama", "Bagian Kerja Sama Final"]);
+        } elseif ($request->role == "Sesmen") {
+            $user->assignRole(["Sesmen", "Sesmen Final"]);
+        } elseif($request->role == "Menteri") {
+            $user->assignRole(["Menteri", "Menteri Final"]);
+        } else {
+            $user->assignRole($request->role);
         }
+
+        $data = User::with('roles')->whereHas('roles', function(Builder $query) {
+            $query->whereBetween('id', [2, 13]);
+        })->where('id', '!=', auth()->user()->id)->get();
+
+        return response()->json($this->notification->storeSuccess($data));
     }
     public function changeStatus($id) {
         try {
@@ -98,28 +93,24 @@ class SatkerController extends Controller
         }
     }
     public function update(UpdateUserRequest $request, $id) {
-        try {
-            User::whereId($id)->update($request->update());
+        User::whereId($id)->update($request->update());
 
-            $userUpdatePermission = User::findOrFail($id);
-            if($request->role == "Bagian Kerja Sama")
-            {
-                $userUpdatePermission->syncRoles(["Bagian Kerja Sama", "Bagian Kerja Sama Final"]);
-            } elseif ($request->role == "Sesmen") {
-                $userUpdatePermission->syncRoles(["Sesmen", "Sesmen Final"]);
-            } elseif($request->role == "Menteri") {
-                $userUpdatePermission->syncRoles(["Menteri", "Menteri Final"]);
-            } else {
-                $userUpdatePermission->syncRoles($request->role);
-            }
-
-            $data = User::with('roles')->whereHas('roles', function(Builder $query) {
-                $query->whereBetween('id', [2, 13]);
-            })->where('id', '!=', auth()->user()->id)->get();
-
-            return response()->json($this->notification->updateSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->updateFailed($th));
+        $userUpdatePermission = User::findOrFail($id);
+        if($request->role == "Bagian Kerja Sama")
+        {
+            $userUpdatePermission->syncRoles(["Bagian Kerja Sama", "Bagian Kerja Sama Final"]);
+        } elseif ($request->role == "Sesmen") {
+            $userUpdatePermission->syncRoles(["Sesmen", "Sesmen Final"]);
+        } elseif($request->role == "Menteri") {
+            $userUpdatePermission->syncRoles(["Menteri", "Menteri Final"]);
+        } else {
+            $userUpdatePermission->syncRoles($request->role);
         }
+
+        $data = User::with('roles')->whereHas('roles', function(Builder $query) {
+            $query->whereBetween('id', [2, 13]);
+        })->where('id', '!=', auth()->user()->id)->get();
+
+        return response()->json($this->notification->updateSuccess($data));
     }
 }

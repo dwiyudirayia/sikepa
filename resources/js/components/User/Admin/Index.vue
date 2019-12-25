@@ -49,7 +49,7 @@
                                         <span>Edit User</span>
                                     </span>
                                 </router-link>
-                                <button v-if="$can('Hapus User')" @click="confirmDelete" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'">
+                                <button v-if="$can('Hapus User')" @click="confirmDelete(item.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Delete User'">
                                     <span>
                                         <i class="la la-trash"></i>
                                         <span>Delete User</span>

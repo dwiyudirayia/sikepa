@@ -47,21 +47,21 @@ class StoreUserRequest extends FormRequest
 
     public function store()
     {
-        if($this->signature == null || $this->signature == 'null') {
-            $pathSignature = null;
-        } else {
-            $extentionSignature = $this->signature->getClientOriginalExtension();
-            $filenameSignature = 'signature'.'-'.date('Y-m-d').'-'.time().'.'.$extentionSignature;
-            $pathSignature = $this->signature->storeAs($this->username, $filenameSignature, 'signature_user');
+        // if($this->signature == null || $this->signature == 'null') {
+        //     $pathSignature = null;
+        // } else {
+        //     $extentionSignature = $this->signature->getClientOriginalExtension();
+        //     $filenameSignature = 'signature'.'-'.date('Y-m-d').'-'.time().'.'.$extentionSignature;
+        //     $pathSignature = $this->signature->storeAs($this->username, $filenameSignature, 'signature_user');
 
-        }
+        // }
 
         if($this->photo == null || $this->photo == 'null') {
             $pathPhoto = null;
         } else {
             $extentionPhoto = $this->photo->getClientOriginalExtension();
             $filenamePhoto = 'photo'.'-'.date('Y-m-d').'-'.time().'.'.$extentionPhoto;
-            $pathPhoto = $this->signature->storeAs($this->username, $filenamePhoto, 'photo_user');
+            $pathPhoto = $this->photo->storeAs($this->username, $filenamePhoto, 'photo_user');
         }
         return [
             'created_by' => auth()->user()->id,
@@ -72,7 +72,7 @@ class StoreUserRequest extends FormRequest
             'nip' => $this->nip,
             'jabatan' => $this->jabatan,
             'photo' => $pathPhoto,
-            'signature' => $pathSignature,
+            // 'signature' => $pathSignature,
             'active' => 1
         ];
     }

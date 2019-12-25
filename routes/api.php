@@ -26,7 +26,7 @@ Route::middleware('jwt')->group( function () {
         Route::post('logout', 'LoginController@logout');
         Route::resource('user', 'UserController');
         Route::put('user/change/password', 'UserController@changePassword');
-        Route::get('user/{id}/edit', 'UserController@edit');
+        Route::post('user/update/profile', 'UserController@updateProfileUser');
         Route::resource('faq', 'FAQController');
         Route::resource('article', 'ArticleController');
         Route::resource('section/article', 'SectionArticleController');

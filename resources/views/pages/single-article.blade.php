@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <article>
-                        <img src="{{ asset('article/'.$article['image']) }}">
+                        <img src="{{ asset('storage/article_photo/'.$article['image']) }}">
                         {!! $article['content'] !!}
                     </article>
                 </div>

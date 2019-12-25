@@ -22,7 +22,7 @@
                             <div class="box-media">
                                 <a href="single-article.html">
                                     <div class="thumb">
-                                        <img src="{{ asset('article/'.$item->image) }}">
+                                        <img src="{{ asset('storage/article_photo/'.$item->image) }}">
                                     </div>
                                 </a>
                             </div>

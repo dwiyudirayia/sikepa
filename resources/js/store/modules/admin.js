@@ -54,13 +54,35 @@ const admin = {
                 commit('clearPage');
             });
         },
-        storeAdmin({ commit }, forms) {
-            $axiosFormData.post(`/admin/user/admin/store`, forms)
-            .then(response => {
-                commit('updateData', response);
-                commit('notification', response);
-            })
-        },
+        // storeAdmin({ commit }, forms) {
+        //     $axiosFormData.post(`/admin/user/admin/store`, forms)
+        //     .then(response => {
+        //         commit('updateData', response);
+        //         commit('notification', response);
+        //         this.$router.push({ path: `/user/admin` });
+        //     })
+        //     .catch(error => {
+        //         toastr.options = {
+        //             "closeButton": false,
+        //             "debug": false,
+        //             "progressBar": true,
+        //             "newestOnTop": false,
+        //             "progressBar": false,
+        //             "positionClass": "toast-top-center",
+        //             "preventDuplicates": false,
+        //             "onclick": null,
+        //             "showDuration": "300",
+        //             "hideDuration": "1000",
+        //             "timeOut": "5000",
+        //             "extendedTimeOut": "1000",
+        //             "showEasing": "swing",
+        //             "hideEasing": "linear",
+        //             "showMethod": "fadeIn",
+        //             "hideMethod": "fadeOut"
+        //         };
+        //         toastr.error('Data Gagal di Tambahkan');
+        //     })
+        // },
         destroyAdmin({ commit }, id) {
             $axios.delete(`/admin/user/admin/${id}`)
             .then(response => {

@@ -279,11 +279,10 @@ export default {
                 formData.append('publish', this.forms.publish);
                 formData.append('approved', this.forms.approved);
 
-                this.$store.dispatch('page/storePage', formData);
+                this.$store.dispatch('page/storePage', formData).then(response => this.$router.push({ path: `/category/${this.forms.category_id}/page` }));
                 this.$v.$reset();
             }
 
-            this.$router.push({ path: `/category/${this.forms.category_id}/page` });
         }
     }
 }

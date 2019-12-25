@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Edit Satker & Sesmen
+                            Edit User KPPA
                         </h3>
                     </div>
                 </div>
@@ -20,36 +20,38 @@
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
-                    <span class="m-form__help">Nama Lengkap Harus di Isi</span>
-                    <br>
+                    <p class="m-form__help">Nama Lengkap Harus di Isi</p>
                     <template v-if="$v.forms.name.$error">
-                        <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Username</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validate" @keyup="inputFunction" @blur="$v.forms.username.$touch()">
+                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validate" @keyup="inputFunction" @blur="$v.forms.username.$touch()" @keydown="errorValidator.username = null">
                     </div>
-                    <span class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</span>
-                    <br>
+                    <p class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</p>
                     <template v-if="$v.forms.username.$error">
-                        <span v-if="!$v.forms.username.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.username.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
-                    <br>
-                    <span v-if="data_errors.username.without_space" class="m--font-danger">Tidak Boleh Ada Spasi</span>
+                    <p v-if="data_errors.username.without_space" class="m--font-danger">Tidak Boleh Ada Spasi</p>
+                    <div v-if="errorValidator.username">
+                        <p class="m--font-danger" v-for="(value,index) in errorValidator.username" :key="index">{{ value }}</p>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Email</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.email.$model" class="form-control" @blur="$v.forms.email.$touch()">
+                        <input type="text" v-model="$v.forms.email.$model" class="form-control" @blur="$v.forms.email.$touch()" @keydown="errorValidator.email = null">
                     </div>
-                    <span class="m-form__help">Pastikan Email Terdaftar di Platformnya</span>
-                    <br>
+                    <p class="m-form__help">Pastikan Email Terdaftar di Platformnya</p>
                     <template v-if="$v.forms.email.$error">
-                        <span v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</span>
+                        <p v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</p>
+                        <p v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</p>
                     </template>
+                    <div v-if="errorValidator.username">
+                        <p class="m--font-danger" v-for="(value,index) in errorValidator.username" :key="index">{{ value }}</p>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jabatan</label>
@@ -58,17 +60,17 @@
                     </div>
                     <span class="m-form__help">Jabatan Saat Ini</span>
                 </div>
-                <div class="form-group m-form__group">
+                <!-- <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>
                     <div class="m-form__control">
                         <input type="file" @change="onSignatureChange" ref="signature" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
                     <span class="m-form__help">Pastikan File Yang di Upload .jpg .png .jpeg</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                </div> -->
+                <!-- <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist"> -->
                         <!--begin::Item-->
-                        <div class="m-accordion__item m-accordion__item--success">
+                        <!-- <div class="m-accordion__item m-accordion__item--success">
                             <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
                                 <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
                                 <span class="m-accordion__item-title">Tampilan Tanda Tangan</span>
@@ -85,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Foto Admin</label>
                     <div class="m-form__control">
@@ -110,10 +112,11 @@
                                     data-parent="#m_accordion_7"
                                 >
                                     <div class="m-accordion__item-content">
-                                        <div
+                                        <!-- <div
                                             :style="[forms.photo && forms.photo.length ? {'background-image': 'url(' + require('../../../../../storage/app/public/photo_user/'+forms.photo) + ')'} : null]" style="height:400px"
                                             v-show="previousPhoto"
-                                        />
+                                        /> -->
+                                        <img :src="`/storage/photo_user/${forms.photo}`" class="img-responsive" height="400px" width="100%" v-show="previousPhoto">
                                         <img :src="photoPreview" class="img-responsive" height="400px" width="100%" v-show="currentlyPhoto">
                                     </div>
                                 </div>
@@ -162,25 +165,29 @@ export default {
     name: 'UserSatkerEdit',
     data() {
         return {
-            previousSignature: true,
+            errorValidator: {
+                username: null,
+                email: null
+            },
+            // previousSignature: true,
             previousPhoto: true,
-            currentlySignature: false,
+            // currentlySignature: false,
             currentlyPhoto: false,
             data_errors: {
                 username: {
                     without_space: false
                 }
             },
-            breadcrumbTitle: 'Satker & Sesmen',
+            breadcrumbTitle: 'User KPPA',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Satker & Sesmen',
+                    label: 'Daftar User KPPA',
                     path: '/user/satker'
                 },
                 {
                     id: 2,
-                    label: 'Edit Satker & Sesmen',
+                    label: 'Edit User KPPA',
                     path: `/user/satker/${this.$route.params.id}`
                 },
             ],
@@ -188,15 +195,12 @@ export default {
                 name: null,
                 username: null,
                 email: null,
-                password: null,
                 jabatan: null,
-                signature: null,
+                // signature: null,
                 photo: null,
-                nip: null,
-                role: null
             },
             photoPreview: null,
-            signaturePreview: null,
+            // signaturePreview: null,
             listRoles: [],
             selectedRole: null
         }
@@ -213,14 +217,10 @@ export default {
                 required,
                 email
             },
-            nip: {
-                required,
-                minLength: minLength(18),
-            }
         }
     },
     created() {
-        this.getPermission();
+        this.getRoles();
         this.getData();
     },
     watch: {
@@ -237,7 +237,7 @@ export default {
                 this.selectedRole = response.data.data.roles[0].name;
             })
         },
-        getPermission() {
+        getRoles() {
             $axios.get('/admin/user/satker/create')
             .then(response => {
                 this.listRoles = response.data.data.role;
@@ -256,32 +256,32 @@ export default {
         inputFunction(event) {
             this.$emit('input', event.target.value);
         },
-        onSignatureChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            let uploadedFiles = this.$refs.signature.files[0];
+        // onSignatureChange(e) {
+        //     let files = e.target.files || e.dataTransfer.files;
+        //     let uploadedFiles = this.$refs.signature.files[0];
 
-            const checkExtFile = files[0];
-            if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
-                if (!files.length) {
-                    return;
-                } else {
-                    this.forms.signature = uploadedFiles;
-                    this.currentlySignature = true;
-                    this.previousSignature = false;
-                    this.createSignature(checkExtFile);
-                }
-            } else {
-                alert('File Tidak Mendukung');
-            }
-        },
-        createSignature(file) {
-            let reader = new FileReader();
-            let vm = this;
-            reader.onload = (e) => {
-                vm.signaturePreview = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
+        //     const checkExtFile = files[0];
+        //     if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
+        //         if (!files.length) {
+        //             return;
+        //         } else {
+        //             this.forms.signature = uploadedFiles;
+        //             this.currentlySignature = true;
+        //             this.previousSignature = false;
+        //             this.createSignature(checkExtFile);
+        //         }
+        //     } else {
+        //         alert('File Tidak Mendukung');
+        //     }
+        // },
+        // createSignature(file) {
+        //     let reader = new FileReader();
+        //     let vm = this;
+        //     reader.onload = (e) => {
+        //         vm.signaturePreview = e.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
         onPhotoChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             let uploadedFiles = this.$refs.photo.files[0];
@@ -318,7 +318,7 @@ export default {
             formData.append('username', this.forms.username);
             formData.append('email', this.forms.email);
             formData.append('jabatan', this.forms.jabatan);
-            formData.append('signature', this.forms.signature);
+            // formData.append('signature', this.forms.signature);
             formData.append('photo', this.forms.photo);
             formData.append('nip', this.forms.nip);
             formData.append('role', this.selectedRole);
@@ -332,6 +332,28 @@ export default {
                     this.$store.commit('satker/updateData', response);
                     this.$store.commit('satker/notification', response);
                     this.$router.push({ path: `/user/satker` });
+                })
+                .catch(error => {
+                    toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.error('Data Gagal diperbaharui');
+                this.errorValidator = error.response.data.errors;
                 })
             }
         }

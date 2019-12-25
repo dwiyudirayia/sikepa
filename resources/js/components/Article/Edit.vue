@@ -315,14 +315,14 @@ export default {
                 .then(response => {
                     this.$store.commit('article/notification', response);
                     this.$store.commit('article/updateData', response);
+
+                    this.$router.push({ path: `/category/${this.forms.category_id}/article` });
                 })
                 .catch(error => {
                     this.$store.commit('notification', error);
                 });
                 this.$v.$reset();
             }
-
-            this.$router.push({ path: `/category/${this.forms.category_id}/article` });
         }
     }
 }

@@ -84,11 +84,11 @@ export default {
     name: "UserSatkerIndex",
     data() {
         return {
-            breadcrumbTitle: 'Satker & Sesmen',
+            breadcrumbTitle: 'User KPPA',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Satker & Sesmen',
+                    label: 'Daftar User KPPA',
                     path: '/user/satker'
                 },
             ]

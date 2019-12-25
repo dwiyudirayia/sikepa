@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Satker & Sesmen
+                            Tambah User KPPA
                         </h3>
                     </div>
                 </div>
@@ -21,35 +21,37 @@
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
                     <span class="m-form__help">Nama Lengkap Harus di Isi</span>
-                    <br>
                     <template v-if="$v.forms.name.$error">
-                        <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Username</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validateUsername" @keyup="inputUsername" @blur="$v.forms.username.$touch()">
+                        <input type="text" v-model="$v.forms.username.$model" class="form-control" @input="validateUsername" @keyup="inputUsername" @blur="$v.forms.username.$touch()" @keydown="errorValidator.username = null">
                     </div>
-                    <span class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</span>
-                    <br>
+                    <p class="m-form__help">Harap Username Ini di Ingat Untuk Masuk ke Halaman Admin</p>
                     <template v-if="$v.forms.username.$error">
-                        <span v-if="!$v.forms.username.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.username.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
-                    <br>
-                    <span v-if="data_errors.username.without_space" class="m--font-danger">Tidak Boleh Ada Spasi</span>
+                    <p v-if="data_errors.username.without_space" class="m--font-danger">Tidak Boleh Ada Spasi</p>
+                    <div v-if="errorValidator.username">
+                        <p class="m--font-danger" v-for="(value,index) in errorValidator.username" :key="index">{{ value }}</p>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Email</label>
                     <div class="m-form__control">
-                        <input type="text" v-model="$v.forms.email.$model" class="form-control" @blur="$v.forms.email.$touch()">
+                        <input type="text" v-model="$v.forms.email.$model" class="form-control" @blur="$v.forms.email.$touch()" @keydown="errorValidator.email = null">
                     </div>
                     <span class="m-form__help">Pastikan Email Terdaftar di Platformnya</span>
-                    <br>
                     <template v-if="$v.forms.email.$error">
-                        <span v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</span>
+                        <p v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</p>
+                        <p v-if="!$v.forms.email.email" class="m--font-danger">Format Email Tidak Sesuai</p>
                     </template>
+                    <div v-if="errorValidator.email">
+                        <p class="m--font-danger" v-for="(value,index) in errorValidator.email" :key="index">{{ value }}</p>
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Password</label>
@@ -57,10 +59,10 @@
                         <input type="password" v-model="$v.forms.password.$model" class="form-control" @blur="$v.forms.password.$touch()">
                     </div>
                     <span class="m-form__help">Password Ini Untuk Masuk ke Halaman Admin</span>
-                    <br>
                     <template v-if="$v.forms.password.$error">
-                        <span v-if="!$v.forms.password.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <span v-if="!$v.forms.password.minLength" class="m--font-danger">Field Ini Harus Lebih Dari 6 Karakter</span>
+                        <p v-if="!$v.forms.password.required" class="m--font-danger">Field Ini Harus di Isi</p>
+                        <p v-if="!$v.forms.nip.maxLength" class="m--font-danger">Field Ini Tidak Boleh Lebih 18 Angka</p>
+                        <p v-if="!$v.forms.password.minLength" class="m--font-danger">Field Ini Harus Lebih Dari 6 Karakter</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -77,26 +79,24 @@
                         ">
                     </div>
                     <span class="m-form__help">Pastikan NIP Sesuai Dengan Yang Ada Inginkan</span>
-                    <br>
                     <template v-if="$v.forms.nip.$error">
-                        <span v-if="!$v.forms.nip.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                        <br>
-                        <span v-if="!$v.forms.nip.minLength" class="m--font-danger">Field Ini Harus 18 Angka</span>
-                        <br>
+                        <p v-if="!$v.forms.nip.required" class="m--font-danger">Field Ini Harus di Isi</p>
+                        <p v-if="!$v.forms.nip.minLength" class="m--font-danger">Field Ini Harus 18 Angka</p>
+                        <p v-if="!$v.forms.nip.maxLength" class="m--font-danger">Field Ini Tidak Boleh Lebih 18 Angka</p>
+                        <p v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</p>
                     </template>
-                    <span v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</span>
                 </div>
-                <div class="form-group m-form__group">
+                <!-- <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>
                     <div class="m-form__control">
                         <input type="file" @change="onSignatureChange" ref="signature" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
                     <span class="m-form__help">Pastikan File Yang di Upload .jpg .png .jpeg</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                </div> -->
+                <!-- <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist"> -->
                         <!--begin::Item-->
-                        <div class="m-accordion__item m-accordion__item--success">
+                        <!-- <div class="m-accordion__item m-accordion__item--success">
                             <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
                                 <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
                                 <span class="m-accordion__item-title">Tampilan Tanda Tangan</span>
@@ -109,9 +109,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Foto</label>
+                    <label for="Nama Lengkap">Foto Satker</label>
                     <div class="m-form__control">
                         <input type="file" @change="onPhotoChange" ref="photo" class="form-control" accept="image/x-png,image/jpeg">
                     </div>
@@ -124,7 +124,7 @@
                             <div class="m-accordion__item m-accordion__item--primary">
                                 <div class="m-accordion__item-head" role="tab" id="m_accordion_8_item_3_head" data-toggle="collapse" href="#m_accordion_8_item_3_body" aria-expanded="true">
                                     <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
-                                    <span class="m-accordion__item-title">Tampilan Foto Admin</span>
+                                    <span class="m-accordion__item-title">Tampilan Foto Satker</span>
                                     <span class="m-accordion__item-mode"></span>
                                 </div>
                                 <div class="m-accordion__item-body collapse show" id="m_accordion_8_item_3_body" role="tabpanel" aria-labelledby="m_accordion_8_item_3_head" data-parent="#m_accordion_7" style="">
@@ -170,12 +170,18 @@
 </template>
 
 <script>
-import { required, email, minLength } from 'vuelidate/lib/validators';
-import $axios from './../../../api';
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
+import $axios from '@/api.js';
+import $axiosFormData from '@/apiformdata.js';
+
 export default {
     name: 'UserSatkerCreate',
     data() {
         return {
+            errorValidator: {
+                username: null,
+                email: null
+            },
             data_errors: {
                 username: {
                     without_space: false
@@ -184,16 +190,16 @@ export default {
                     number_only: false
                 }
             },
-            breadcrumbTitle: 'Satker & Sesmen',
+            breadcrumbTitle: 'User KPPA',
             breadcrumbLink: [
                 {
                     id: 1,
-                    label: 'Daftar Satker & Sesmen',
-                    path: '/user/satker'
+                    label: 'Daftar User KPPA',
+                    path: '/user/User KPPA'
                 },
                 {
                     id: 2,
-                    label: 'Tambah Satker & Sesmen',
+                    label: 'Tambah User KPPA',
                     path: '/user/satker/create'
                 },
             ],
@@ -203,8 +209,8 @@ export default {
                 email: null,
                 password: null,
                 jabatan: null,
-                signature: null,
-                signaturePreview: null,
+                // signature: null,
+                // signaturePreview: null,
                 photo: null,
                 photoPreview: null,
                 nip: null,
@@ -232,13 +238,14 @@ export default {
             nip: {
                 required,
                 minLength: minLength(18),
+                maxLength: maxLength(18),
             }
         }
     },
     created() {
         $axios.get('/admin/user/satker/create')
         .then(response => {
-            this.listRoles = response.data.data.role;
+            this.listRoles = response.data.data;
         })
     },
     watch: {
@@ -280,30 +287,30 @@ export default {
         inputUsername(event) {
             this.$emit('input', event.target.value);
         },
-        onSignatureChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            let uploadedFiles = this.$refs.signature.files[0];
+        // onSignatureChange(e) {
+        //     let files = e.target.files || e.dataTransfer.files;
+        //     let uploadedFiles = this.$refs.signature.files[0];
 
-            const checkExtFile = files[0];
-            if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
-                if (!files.length) {
-                    return;
-                } else {
-                    this.forms.signature = uploadedFiles;
-                    this.createSignature(checkExtFile);
-                }
-            } else {
-                alert('File Tidak Mendukung');
-            }
-        },
-        createSignature(file) {
-            let reader = new FileReader();
-            let vm = this;
-            reader.onload = (e) => {
-                vm.forms.signaturePreview = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
+        //     const checkExtFile = files[0];
+        //     if (checkExtFile.type === 'image/jpeg' || checkExtFile.type === 'image/jpg' || checkExtFile.type === 'image/png' ) {
+        //         if (!files.length) {
+        //             return;
+        //         } else {
+        //             this.forms.signature = uploadedFiles;
+        //             this.createSignature(checkExtFile);
+        //         }
+        //     } else {
+        //         alert('File Tidak Mendukung');
+        //     }
+        // },
+        // createSignature(file) {
+        //     let reader = new FileReader();
+        //     let vm = this;
+        //     reader.onload = (e) => {
+        //         vm.forms.signaturePreview = e.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
         onPhotoChange(e) {
             let files = e.target.files || e.dataTransfer.files;
             let uploadedFiles = this.$refs.photo.files[0];
@@ -328,28 +335,6 @@ export default {
             };
             reader.readAsDataURL(file);
         },
-        addRole(name, value) {
-            var self = this;
-            this.selectedRole.forEach(function(val, index){
-
-                if(val['name'] == name) {
-                self.selectedRole.splice(index, 1);
-                return false;
-                }
-            });
-            self.selectedRole.push(value);
-        },
-        addPermission(name, value) {
-            var self = this;
-            this.selectedPermission.forEach(function(val, index){
-
-                if(val['name'] == name) {
-                self.selectedPermission.splice(index, 1);
-                return false;
-                }
-            });
-            addPermisself.selectedPermission.push(value);
-        },
         store() {
             this.$v.forms.$touch();
 
@@ -360,7 +345,7 @@ export default {
             formData.append('email', this.forms.email);
             formData.append('password', this.forms.password);
             formData.append('jabatan', this.forms.jabatan);
-            formData.append('signature', this.forms.signature);
+            // formData.append('signature', this.forms.signature);
             formData.append('photo', this.forms.photo);
             formData.append('nip', this.forms.nip);
             formData.append('role', this.forms.role);
@@ -368,9 +353,36 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('satker/storeAdmin', formData);
-                this.$v.$reset();
+            $axiosFormData.post(`/admin/user/satker/store`, formData)
+            .then(response => {
+                console.log(response);
+                this.$store.commit('satker/updateData', response);
+                this.$store.commit('satker/notification', response);
                 this.$router.push({ path: `/user/satker` });
+            })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr.error('Data Gagal di Tambahkan');
+                this.errorValidator = error.response.data.errors;
+            })
+                this.$v.$reset();
             }
         }
     },

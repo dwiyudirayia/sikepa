@@ -14,7 +14,7 @@
                 <div class="swiper-slide">
                     <div class="banner-image" data-swiper-parallax="50%">
                         <div class="thumb">
-                            <img src="{{ asset('article/'.$item->image) }}">
+                            <img src="{{ asset('storage/article_photo/'.$item->image) }}">
                         </div>
                     </div>
                     <div class="banner-caption">
@@ -187,7 +187,7 @@
                         <div class="box-media">
                             <a href="{{ route('article.detail', ['slug' => $item->url]) }}">
                                 <div class="thumb">
-                                    <img src="{{ asset('article/'.$item->image) }}">
+                                    <img src="{{ asset('storage/article_photo/'.$item->image) }}">
                                 </div>
                             </a>
                         </div>
