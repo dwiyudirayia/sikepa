@@ -46,6 +46,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Admin',
                 'username' => 'admin',
                 'password' => 'admin',
+                'photo' => 'admin/default.png',
                 'jabatan' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'roles' => ['Admin']
@@ -54,6 +55,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Deputi Bidang Partisipasi Masyarakat',
                 'username' => 'deputibidangpartisipasimasyarakat',
                 'password' => 'deputibidangpartisipasimasyarakat',
+                'photo' => 'deputibidangpartisipasimasyarakat/default.png',
                 'jabatan' => 'Deputi Bidang Partisipasi Masyarakat',
                 'email' => 'deputibidangpartisipasimasyarakat@gmail.com',
                 'roles' => ['Deputi Bidang Partisipasi Masyarakat']
@@ -62,6 +64,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Deputi Bidang Kesetaraan Gender',
                 'username' => 'deputibidangkesetaraangender',
                 'password' => 'deputibidangkesetaraangender',
+                'photo' => 'deputibidangkesetaraangender/default.png',
                 'jabatan' => 'Deputi Bidang Kesetaraan Gender',
                 'email' => 'deputibidangkesetaraangender@gmail.com',
                 'roles' => ['Deputi Bidang Kesetaraan Gender']
@@ -70,6 +73,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Deputi Bidang Perlindungan Anak',
                 'username' => 'deputibidangperlindungananak',
                 'password' => 'deputibidangperlindungananak',
+                'photo' => 'deputibidangperlindungananak/default.png',
                 'jabatan' => 'Deputi Bidang Perlindungan Anak',
                 'email' => 'deputibidangperlindungananak@gmail.com',
                 'roles' => ['Deputi Bidang Perlindungan Anak'],
@@ -78,6 +82,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Deputi Bidang Perlindungan Hak Perempuan',
                 'username' => 'deputibidangperlindunganhakperempuan',
                 'password' => 'deputibidangperlindunganhakperempuan',
+                'photo' => 'deputibidangperlindunganhakperempuan/default.png',
                 'jabatan' => 'Deputi Bidang Perlindungan Hak Perempuan',
                 'email' => 'deputibidangperlindunganhakperempuan@gmail.com',
                 'roles' => ['Deputi Bidang Perlindungan Hak Perempuan']
@@ -86,6 +91,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Deputi Bidang Tumbuh Kembang Anak',
                 'username' => 'deputibidangtumbuhkembanganak',
                 'password' => 'deputibidangtumbuhkembanganak',
+                'photo' => 'deputibidangtumbuhkembanganak/default.png',
                 'jabatan' => 'Deputi Bidang Tumbuh Kembang Anak',
                 'email' => 'deputibidangtumbuhkembanganak@gmail.com',
                 'roles' => ['Deputi Bidang Tumbuh Kembang Anak']
@@ -94,6 +100,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Satker Sesmen',
                 'username' => 'satkersesmen',
                 'password' => 'satkersesmen',
+                'photo' => 'satkersesmen/default.png',
                 'jabatan' => 'Satker Sesmen',
                 'email' => 'satkersesmen@gmail.com',
                 'roles' => ['Satker Sesmen'],
@@ -102,6 +109,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Biro Perencanaan dan Data',
                 'username' => 'biroperencanaandandata',
                 'password' => 'biroperencanaandandata',
+                'photo' => 'biroperencanaandandata/default.png',
                 'jabatan' => 'Biro Perencanaan dan Data',
                 'email' => 'biroperencanaandandata@gmail.com',
                 'roles' => ['Biro Perencanaan dan Data'],
@@ -110,6 +118,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Bagian Kerja Sama',
                 'username' => 'bagiankerjasama',
                 'password' => 'bagiankerjasama',
+                'photo' => 'bagiankerjasama/default.png',
                 'jabatan' => 'Bagian Kerja Sama',
                 'email' => 'bagiankerjasama@gmail.com',
                 'roles' => ['Bagian Kerja Sama', 'Bagian Kerja Sama Final'],
@@ -118,6 +127,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Bagian Ortala',
                 'username' => 'bagianortala',
                 'password' => 'bagianortala',
+                'photo' => 'bagianortala/default.png',
                 'jabatan' => 'Bagian Ortala',
                 'email' => 'bagianortala@gmail.com',
                 'roles' => ['Bagian Ortala']
@@ -126,6 +136,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Sesmen',
                 'username' => 'sesmen',
                 'password' => 'sesmen',
+                'photo' => 'sesmen/default.png',
                 'jabatan' => 'Sesmen',
                 'email' => 'sesmen@gmail.com',
                 'roles' => ['Sesmen', 'Sesmen Final']
@@ -134,6 +145,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Menteri',
                 'username' => 'menteri',
                 'password' => 'menteri',
+                'photo' => 'menteri/default.png',
                 'jabatan' => 'Menteri',
                 'email' => 'menteri@gmail.com',
                 'roles' => ['Menteri', 'Menteri Final']
@@ -142,6 +154,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Hukum',
                 'username' => 'hukum',
                 'password' => 'hukum',
+                'photo' => 'hukum/default.png',
                 'jabatan' => 'Hukum',
                 'email' => 'hukum@gmail.com',
                 'roles' => ['Hukum']
@@ -154,6 +167,7 @@ class AdminSeeder extends Seeder
                 'email' => $value['email'],
                 'password' => Hash::make($value['password']),
                 'jabatan' => $value['jabatan'],
+                'photo' => $value['photo'],
                 'active' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

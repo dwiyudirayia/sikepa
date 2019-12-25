@@ -87,6 +87,9 @@ Route::middleware('jwt')->group( function () {
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
         Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
+        Route::get('filter/satker/sesmen/approval/mou','SubmissionProposalController@filterSatkerSesmenApprovalMOU');
+        Route::get('filter/satker/sesmen/mou','SubmissionProposalController@filterSatkerSesmenYouMOU');
+        Route::get('filter/guest/mou','SubmissionProposalController@filterGuestMOU');
 
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
         Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgdownloadAgencyProfile');

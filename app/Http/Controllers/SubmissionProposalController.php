@@ -60,6 +60,7 @@ class SubmissionProposalController extends Controller
             $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
         }
         $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('created_by', $user->id)->get();
+        $data['type'] = TypeOfCooperation::where('submission_type_id', 2)->get();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -92,6 +93,7 @@ class SubmissionProposalController extends Controller
             }
 
             $data['you'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('created_by', $user->id)->get();
+            $data['type'] = SubmissionType::all();
 
         return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -790,6 +792,103 @@ class SubmissionProposalController extends Controller
                 'messages' => $th->getMessage(),
                 'status' => $th->getCode(),
             ]);
+        }
+    }
+    public function filterSatkerSesmenApprovalMOU(Request $request) {
+        try {
+            $user = auth()->user();
+            $roles = collect($user['roles']);
+
+            $mappingRole = $roles->map(function($item, $key) {
+                return $item['id'];
+            });
+
+            $idRoles = $mappingRole->all();
+            $data['approval'] = SubmissionProposal::query();
+            if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
+                if($request->q != null) {
+                    $data['approval']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                        $query->where('role_id', $user->roles[0]->id);
+                        $query->whereNull('approval');
+                    })->where('type_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%'.$request->q);
+                }
+
+                if($request->type != null) {
+                    $data['approval']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                        $query->where('role_id', $user->roles[0]->id);
+                        $query->whereNull('approval');
+                    })->where('type_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->where('type_of_cooperation_id', $request->type);
+                }
+            } else {
+                if($request->q != null) {
+                    $data['approval']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%'.$request->q);
+                }
+
+                if($request->type != null) {
+                    $data['approval']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_id', $request->type);
+                }
+            }
+            $result['guest'] = $data['guest']->get();
+            return response()->json($this->notification->generalSuccess($result));
+            } catch (\Throwable $th) {
+                return response()->json($this->notification->generalFailed($th));
+            }
+    }
+    public function filterSatkerSesmenYouMOU(Request $request) {
+        try {
+            $user = auth()->user();
+            $data['you'] = SubmissionProposal::query();
+            if($request->q != null) {
+                $data['you']->with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('created_by', $user->id)->where('type_of_cooperation_id', $request->type)->where('title_cooperation', 'LIKE', '%'.$request->q);
+            }
+            if($request->type != null) {
+                $data['you']->with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('created_by', $user->id)->where('type_of_cooperation_id', $request->type)->where('type_of_cooperation_id', $request->type);
+            }
+
+            $result['you'] = $data['you']->get();
+            return response()->json($this->notification->generalSuccess($result));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function filterGuestMOU(Request $request) {
+        try {
+        $user = auth()->user();
+        $roles = collect($user['roles']);
+
+        $mappingRole = $roles->map(function($item, $key) {
+            return $item['id'];
+        });
+
+        $idRoles = $mappingRole->all();
+        $data['guest'] = SubmissionProposalGuest::query();
+        if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
+            if($request->q != null) {
+                $data['guest']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('type_guest_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%'.$request->q);
+            }
+
+            if($request->type != null) {
+                $data['guest']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('type_guest_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->where('type_of_cooperation_id', $request->type);
+            }
+        } else {
+            if($request->q != null) {
+                $data['guest']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%'.$request->q);
+            }
+
+            if($request->type != null) {
+                $data['guest']->with('deputi','country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_id', $request->type);
+            }
+        }
+        $result['guest'] = $data['guest']->get();
+        return response()->json($this->notification->generalSuccess($result));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
     }
 }

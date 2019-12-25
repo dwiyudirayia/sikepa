@@ -20,7 +20,8 @@ export default {
             // init select2
             .select2({
                 placeholder: 'Pilih dan Sesuaikan',
-                data: data
+                data: data,
+                width: '100%'
             })
             .val(this.value)
             .trigger('change')
@@ -48,7 +49,8 @@ export default {
 
             $(this.$el).empty().select2({
                 placeholder: 'Pilih dan Sesuaikan',
-                data: data
+                data: data,
+                width: '100%'
             })
             $(this.$el).val(this.value).trigger('change.select2');
         }

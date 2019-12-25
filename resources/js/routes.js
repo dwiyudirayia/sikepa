@@ -211,6 +211,17 @@ const router = new VueRouter({
                     component: ConfigAccessRightRoleIndex,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -219,6 +230,17 @@ const router = new VueRouter({
                     component: ConfigAccessRightRoleCreate,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -227,7 +249,18 @@ const router = new VueRouter({
                     component: ConfigAccessRightRoleEdit,
                     meta: {
                         requiresAuth: true
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/config/role/user',
@@ -235,6 +268,17 @@ const router = new VueRouter({
                     component: ConfigRoleUser,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //user
@@ -260,6 +304,17 @@ const router = new VueRouter({
                     component: UserAdminIndex,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -268,6 +323,17 @@ const router = new VueRouter({
                     component: UserAdminCreate,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -276,6 +342,17 @@ const router = new VueRouter({
                     component: UserAdminEdit,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //satker
@@ -285,6 +362,17 @@ const router = new VueRouter({
                     component: UserSatkerIndex,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -293,6 +381,17 @@ const router = new VueRouter({
                     component: UserSatkerCreate,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -301,6 +400,17 @@ const router = new VueRouter({
                     component: UserSatkerEdit,
                     meta: {
                         requiresAuth: true
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //Section Article
@@ -312,9 +422,15 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        console.log(to);
-                        console.log(from);
-                        next();
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -323,6 +439,17 @@ const router = new VueRouter({
                     component: SectionArticleCreate,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -331,6 +458,17 @@ const router = new VueRouter({
                     component: SectionArticleEdit,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //Category Article
@@ -340,6 +478,17 @@ const router = new VueRouter({
                     component: ListSectionCategoryArticle,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -348,6 +497,17 @@ const router = new VueRouter({
                     component: CategoryArticleCreate,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -356,6 +516,17 @@ const router = new VueRouter({
                     component: CategoryArticleEdit,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //Article
@@ -366,6 +537,17 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                     },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    }
                 },
                 {
                     path: '/article/create',
@@ -373,6 +555,17 @@ const router = new VueRouter({
                     component: ArticleCreate,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -381,6 +574,17 @@ const router = new VueRouter({
                     component: ArticleEdit,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 //Section Page
@@ -392,14 +596,35 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        let listPermissions = store.state.user.authenticated
-                        next();
-                    },
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    }
                 },
                 {
                     path: '/section/page/create',
                     name: 'SectionPageCreate',
-                    component: SectionPageCreate
+                    component: SectionPageCreate,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    }
                 },
                 {
                     path: '/section/page/:id/edit',
@@ -407,6 +632,17 @@ const router = new VueRouter({
                     component: SectionPageEdit,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 // Category page
@@ -416,6 +652,17 @@ const router = new VueRouter({
                     component: ListSectionCategoryPage,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -424,6 +671,17 @@ const router = new VueRouter({
                     component: CategoryPageCreate,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -432,6 +690,17 @@ const router = new VueRouter({
                     component: CategoryPageEdit,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 // Page
@@ -441,6 +710,17 @@ const router = new VueRouter({
                     component: ListCategoryPage,
                     meta: {
                         requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
                     }
                 },
                 {
@@ -449,7 +729,18 @@ const router = new VueRouter({
                     component: PageCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/page/:id/edit',
@@ -457,7 +748,18 @@ const router = new VueRouter({
                     component: PageEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Faq
                 {
@@ -466,7 +768,18 @@ const router = new VueRouter({
                     component: FaqIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/faq/create',
@@ -474,7 +787,18 @@ const router = new VueRouter({
                     component: FaqCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/faq/:id/edit',
@@ -482,7 +806,18 @@ const router = new VueRouter({
                     component: FaqEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Agency
                 {
@@ -491,7 +826,18 @@ const router = new VueRouter({
                     component: AgencyIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/agency/create',
@@ -499,7 +845,18 @@ const router = new VueRouter({
                     component: AgencyCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/agency/:id/edit',
@@ -507,58 +864,69 @@ const router = new VueRouter({
                     component: AgencyEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Proposal Category
-                {
-                    path: '/proposal/category',
-                    name: 'ProposalCategoryIndex',
-                    component: ProposalCategoryIndex,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/category/create',
-                    name: 'ProposalCategoryCreate',
-                    component: ProposalCategoryCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/category/:id/edit',
-                    name: 'ProposalCategoryEdit',
-                    component: ProposalCategoryEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
+                // {
+                //     path: '/proposal/category',
+                //     name: 'ProposalCategoryIndex',
+                //     component: ProposalCategoryIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/category/create',
+                //     name: 'ProposalCategoryCreate',
+                //     component: ProposalCategoryCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/category/:id/edit',
+                //     name: 'ProposalCategoryEdit',
+                //     component: ProposalCategoryEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
                 //Proposal Cooperation Target
-                {
-                    path: '/proposal/cooperation/target',
-                    name: 'ProposalCooperationTargetIndex',
-                    component: ProposalCooperationTargetIndex,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/cooperation/target/create',
-                    name: 'ProposalCooperationTargetCreate',
-                    component: ProposalCooperationTargetCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/cooperation/target/:id/edit',
-                    name: 'ProposalCooperationTargetEdit',
-                    component: ProposalCooperationTargetEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
+                // {
+                //     path: '/proposal/cooperation/target',
+                //     name: 'ProposalCooperationTargetIndex',
+                //     component: ProposalCooperationTargetIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/cooperation/target/create',
+                //     name: 'ProposalCooperationTargetCreate',
+                //     component: ProposalCooperationTargetCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/cooperation/target/:id/edit',
+                //     name: 'ProposalCooperationTargetEdit',
+                //     component: ProposalCooperationTargetEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
                 // Proposal Submission Type
                 {
                     path: '/proposal/submission/type',
@@ -566,7 +934,18 @@ const router = new VueRouter({
                     component: ProposalSubmissionTypeIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/submission/type/create',
@@ -574,7 +953,18 @@ const router = new VueRouter({
                     component: ProposalSubmissionTypeCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/submission/type/:id/edit',
@@ -591,7 +981,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/create',
@@ -599,7 +1000,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/:id/edit',
@@ -608,7 +1020,18 @@ const router = new VueRouter({
                     props: true,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //TypeOfCooperationOneDerivative
                 {
@@ -617,7 +1040,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationOneDerivativeListOne,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/one/derivative/create',
@@ -625,7 +1059,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationOneDerivativeCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/one/derivative/:id/edit',
@@ -633,7 +1078,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationOneDerivativeEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //TypeOfCooperationTwoDerivative
                 {
@@ -642,7 +1098,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationTwoDerivativeListTwo,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/two/derivative/create',
@@ -650,7 +1117,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationTwoDerivativeCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/proposal/typeof/cooperation/two/derivative/:id/edit',
@@ -658,7 +1136,18 @@ const router = new VueRouter({
                     component: ProposalTypeOfCooperationTwoDerivativeEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Guest
                 {
@@ -864,7 +1353,18 @@ const router = new VueRouter({
                     component: DeputiInformationIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/deputy/information/:id/edit',
@@ -872,7 +1372,18 @@ const router = new VueRouter({
                     component: DeputiInformationEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/deputy/information/create',
@@ -880,7 +1391,18 @@ const router = new VueRouter({
                     component: DeputiInformationCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Testimoni
                 {
@@ -889,7 +1411,18 @@ const router = new VueRouter({
                     component: TestimoniIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/testimoni/create',
@@ -897,7 +1430,18 @@ const router = new VueRouter({
                     component: TestimoniCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/testimoni/:id/edit',
@@ -905,7 +1449,18 @@ const router = new VueRouter({
                     component: TestimoniEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Monev
                 {
@@ -914,7 +1469,18 @@ const router = new VueRouter({
                     component: MonitoringEvaluasiIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/p3/create',
@@ -922,7 +1488,18 @@ const router = new VueRouter({
                     component: MonitoringP3Create,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/satker/create',
@@ -930,7 +1507,18 @@ const router = new VueRouter({
                     component: MonitoringSatkerCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/guest/create',
@@ -938,7 +1526,18 @@ const router = new VueRouter({
                     component: MonevActivityP3Create,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/satker/create',
@@ -946,7 +1545,18 @@ const router = new VueRouter({
                     component: MonevActivitySatkerCreate,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/satker/list',
@@ -954,7 +1564,18 @@ const router = new VueRouter({
                     component: ListMonevActivitySatker,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/guest/list',
@@ -962,7 +1583,18 @@ const router = new VueRouter({
                     component: ListMonevActivityGuest,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/satker/result',
@@ -970,7 +1602,18 @@ const router = new VueRouter({
                     component: ResultMonevActivitySatker,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/activity/:id/guest/result',
@@ -978,7 +1621,18 @@ const router = new VueRouter({
                     component: ResultMonevActivityGuest,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/detail/:id/guest',
@@ -986,7 +1640,18 @@ const router = new VueRouter({
                     component: DetailMonevGuest,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/detail/:id/satker',
@@ -994,7 +1659,18 @@ const router = new VueRouter({
                     component: DetailMonevSatker,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/detail/:id/satker/edit',
@@ -1002,7 +1678,18 @@ const router = new VueRouter({
                     component: ResultMonevActivitySatkerEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/monev/detail/:id/guest/edit',
@@ -1010,7 +1697,18 @@ const router = new VueRouter({
                     component: ResultMonevActivityGuestEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 // {
                 //     path: '/monev/create',
