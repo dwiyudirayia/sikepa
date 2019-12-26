@@ -70,6 +70,15 @@
                     <span v-else-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
                 </div>
                 <div class="form-group m-form__group">
+                    <label>Text Pada Informasi Deputi</label>
+                    <div class="m-form__control">
+                        <textarea type="text" v-model="$v.forms.text_information.$model" class="form-control" @blur="$v.forms.text_information.$touch()"></textarea>
+                    </div>
+                    <template v-if="$v.forms.text_information.$error">
+                        <span v-if="!$v.forms.text_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                    </template>
+                </div>
+                <div class="form-group m-form__group">
                     <label>Full Text Informasi Deputi</label>
                     <div class="m-form__control">
                         <editor
@@ -90,15 +99,6 @@
                     </div>
                     <template v-if="$v.forms.full_text_information.$error">
                         <span v-if="!$v.forms.full_text_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
-                    <label>Text Pada Informasi Deputi</label>
-                    <div class="m-form__control">
-                        <textarea type="text" v-model="$v.forms.text_information.$model" class="form-control" @blur="$v.forms.text_information.$touch()"></textarea>
-                    </div>
-                    <template v-if="$v.forms.text_information.$error">
-                        <span v-if="!$v.forms.text_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
                 <div class="form-group m-form__group">

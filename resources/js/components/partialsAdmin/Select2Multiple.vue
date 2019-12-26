@@ -21,6 +21,7 @@ export default {
             .select2({
                 placeholder: 'Pilih dan Sesuaikan',
                 data: data,
+                dropdownCssClass: "increasedzindexclass",
                 width: '100%',
             })
             .val(this.value)
@@ -46,6 +47,7 @@ export default {
             $(this.$el).empty().select2({
                 placeholder: 'Pilih dan Sesuaikan',
                 data: data,
+                dropdownCssClass: "increasedzindexclass",
                 width: '100%',
             })
         }

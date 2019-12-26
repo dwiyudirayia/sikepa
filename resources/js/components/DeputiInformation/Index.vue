@@ -35,9 +35,9 @@
                                     <td style="vertical-align: middle;">{{ index+1 }}</td>
                                     <td style="vertical-align: middle;">{{ item.title }}</td>
                                     <td style="vertical-align: middle;">
-                                        <router-link :to="{name: 'DeputiInformationEdit', params: {id: item.id}}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Daftar Aktivitas Monev'">
+                                        <router-link :to="{name: 'DeputiInformationEdit', params: {id: item.id}}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Informasi Deputi'">
                                             <span>
-                                                <i class="la la-eye"></i>
+                                                <i class="la la-pencil"></i>
                                                 <span>Edit Informasi Deputi</span>
                                             </span>
                                         </router-link>

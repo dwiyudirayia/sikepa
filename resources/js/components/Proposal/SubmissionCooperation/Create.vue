@@ -270,7 +270,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInstansi" ref="fileInstansi" @change="fileProfileInstansi()">
-                                <label class="custom-file-label" for="customFile">Pilih file</label>
+                                <label class="custom-file-label" for="fileInstansi" id="labelFileInstansi">Pilih file</label>
                             </div>
                             <span class="m-form__help">Pastikan Ekstensi File <strong>.docx, .doc dan .pdf</strong></span>
                         </div>
@@ -279,7 +279,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileProposal" ref="fileProposal" @change="fileProposal()">
-                                <label class="custom-file-label" for="customFile">Pilih file</label>
+                                <label class="custom-file-label" for="customFile" id="labelFileProposal">Pilih file</label>
                             </div>
                             <span class="m-form__help">Pastikan Ekstensi File <strong>.pdf, .jpeg, .jpg dan .mp4</strong></span>
                         </div>
@@ -633,9 +633,11 @@ export default {
 
             if(ext=="pdf" || ext=="docx" || ext=="doc"){
                 this.forms.agency_profile = files;
+                document.getElementById("labelFileInstansi").innerHTML = files.value;
             } else{
                 alert('File Tidak Mendukung')
-                document.getElementById("fileInstansi").value = "";
+                this.forms.agency_profile = null;
+                document.getElementById("labelFileInstansi").innerHTML = "";
             }
         },
         fileProposal() {
@@ -644,9 +646,11 @@ export default {
 
             if(ext == "pdf" || ext == "jpg" || ext == "mp4" || ext == "jpeg"){
                 this.forms.proposal = files;
+                document.getElementById("labelFileProposal").innerHTML = files.value;
             } else{
                 alert('File Tidak Mendukung')
-                document.getElementById("fileProposal").value = "";
+                this.forms.proposal = null;
+                document.getElementById("labelFileProposal").innerHTML = "";
             }
         },
         updateCoordinates(event) {
