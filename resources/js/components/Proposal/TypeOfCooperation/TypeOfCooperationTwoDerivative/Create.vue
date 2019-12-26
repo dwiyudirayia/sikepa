@@ -18,15 +18,15 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Permohonan Kerjasama</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.type_of_cooperation_one_derivative_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2
+                            v-model="$v.forms.type_of_cooperation_one_derivative_id.$model"
+                            :options="data_select.type_of_cooperation_one_derivative_id"
+                        />
                     </div>
+                    <span class="m-form__help">Pastikan Nama Permohonan Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.type_of_cooperation_one_derivative_id.$error">
                         <span v-if="!$v.forms.type_of_cooperation_one_derivative_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Permohonan Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Kesepahaman Kerjasama</label>

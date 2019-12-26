@@ -18,9 +18,10 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.type_of_cooperation_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2
+                            v-model="$v.forms.type_of_cooperation_id.$model"
+                            :options="data_select"
+                        />
                     </div>
                     <template v-if="$v.forms.type_of_cooperation_id.$error">
                         <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>

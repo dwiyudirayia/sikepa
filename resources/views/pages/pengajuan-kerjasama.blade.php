@@ -476,7 +476,25 @@
                 form.find(".body:eq(" + newIndex + ") label.error").remove();
                 form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
             }
-            form.validate().settings.ignore = ":disabled,:hidden";
+            form.validate({
+                rules: {
+                    ktp: {
+                        required: true,
+                    },
+                    npwp: {
+                        required: true,
+                    },
+                    agency_profile: {
+                        required: true,
+                    },
+                    proposal: {
+                        required: true,
+                    },
+                },
+                errorPlacement: function (error, element) { }
+            }).settings.ignore = ":disabled,:hidden";
+
+            // Start validation; Prevent going forward if false
             return form.valid();
         },
         onStepChanged: function (event, currentIndex, priorIndex)

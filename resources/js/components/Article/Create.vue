@@ -232,7 +232,6 @@ export default {
                 required
             },
             image: {
-                required,
                 fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
             }
         }

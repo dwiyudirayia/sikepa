@@ -25,22 +25,20 @@
                             :initSelected="selected"
                         />
                     </div>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.submission_type_id.$error">
                         <span v-if="!$v.forms.submission_type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Jenis Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model.trim="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.name.$error">
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
