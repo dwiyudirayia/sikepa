@@ -250,9 +250,8 @@ class SubmissionProposalGuestController extends Controller
 
                 Mail::to($proposal->email)->send(new RejectCooperation);
 
-
             } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                     'status' => 1,
                     'approval' => 3,
                     'reason' => $request->reason,

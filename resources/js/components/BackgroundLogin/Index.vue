@@ -29,7 +29,7 @@
                         </div>
                         <div class="section__action">
                             <div class="list__section__action">
-                                <router-link :to="{name: 'BackgroundLoginEdit', params: {id: value.id}}" class="btn m-btn btn-success btn-sm m-btn--icon m-btn--pill m-btn--air icon-only">
+                                <router-link :to="{name: 'BackgroundLoginEdit', params: {id: value.id}}" class="btn m-btn btn-success btn-sm m-btn--icon m-btn--pill m-btn--air icon-only" v-tooltip.top="'Untuk Edit Background Login'">
                                     <span>
                                         <i class="la la-pencil"></i>
                                         <span>Edit Background Login</span>

@@ -362,7 +362,7 @@
   color: #5867dd !important;
 }
 
-.select2-container {
+.select2-dropdown.increasedzindexclass {
   z-index: 9999999;
 }
 

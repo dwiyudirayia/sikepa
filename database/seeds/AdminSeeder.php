@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     {
         $permissionAdmin = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User', 'Mengubah Role User', 'Mengatur Role'];
         $permissionSatkerDeputi = ['Lihat Pengajuan Kerjasama','Monev'];
-        $permissionBagianKerjasama = ['Lihat Pengajuan Kerjasama','Monev'];
+        $permissionBagianKerjasama = ['Lihat Pengajuan Kerjasama','Monev', 'Bagian Kerjasama'];
         $permissionSatkerSesmen = ['Lihat Pengajuan Kerjasama','Pengajuan Kerjasama', 'Satker Sesmen'];
         $permissionOtherRoles = ['Lihat Pengajuan Kerjasama'];
 

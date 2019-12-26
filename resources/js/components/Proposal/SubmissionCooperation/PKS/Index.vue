@@ -67,7 +67,7 @@
                                                 </div>
                                                 <div class="d-sm-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-2 col-sm-12 col-xs-12">
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
                                                 <button type="submit" class="btn m-btn btn-primary m-btn--icon m-btn--pill m-btn--wide">
                                                     <span>
                                                         <i class="la la-search"></i>
