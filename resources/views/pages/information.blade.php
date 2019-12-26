@@ -57,7 +57,7 @@
                             <h3 class="title">Informasi Deputi</h3>
                         </div>
                         <article class="caption-text sr-btm">
-                            <p>{{ $data['text_information'] }}.</p>
+                            <p>{!! $data['text_information'] !!}.</p>
                         </article>
                         <div class="caption-btn sr-btm">
                             <a class="link-icon" href="{{ route('information.detail', ['slug' => $data['url']]) }}">Selengkapnya<i class="mdi mdi-play"></i></a>
