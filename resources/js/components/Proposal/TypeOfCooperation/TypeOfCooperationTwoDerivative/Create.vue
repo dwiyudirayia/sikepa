@@ -33,11 +33,10 @@
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
                     </div>
+                    <span class="m-form__help">Pastikan Nama Kesepahaman Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.name.$error">
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
-                    <span class="m-form__help">Pastikan Nama Kesepahaman Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
