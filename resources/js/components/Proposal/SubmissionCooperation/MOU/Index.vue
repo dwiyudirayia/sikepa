@@ -67,11 +67,19 @@
                                                 </div>
                                                 <div class="d-sm-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-4 col-sm-12 col-xs-12">
-                                                <button class="btn m-btn btn-secondary m-btn--icon m-btn--pill m-btn--wide">
+                                            <div class="col-xl-4 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="submit" class="btn m-btn btn-primary m-btn--icon m-btn--pill m-btn--wide">
                                                     <span>
                                                         <i class="la la-search"></i>
                                                         <span>Search</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="button" @click="resetSatkerSesmenYou" class="btn m-btn btn-brand m-btn--icon m-btn--pill m-btn--wide">
+                                                    <span>
+                                                        <i class="la la-refresh"></i>
+                                                        <span>Reset</span>
                                                     </span>
                                                 </button>
                                             </div>
@@ -154,11 +162,19 @@
                                                 </div>
                                                 <div class="d-sm-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-4 col-sm-12 col-xs-12">
-                                                <button class="btn m-btn btn-secondary m-btn--icon m-btn--pill m-btn--wide">
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="submit" class="btn m-btn btn-primary m-btn--icon m-btn--pill m-btn--wide">
                                                     <span>
                                                         <i class="la la-search"></i>
                                                         <span>Search</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="button" @click="resetSatkerSesmen" class="btn m-btn btn-brand m-btn--icon m-btn--pill m-btn--wide">
+                                                    <span>
+                                                        <i class="la la-refresh"></i>
+                                                        <span>Reset</span>
                                                     </span>
                                                 </button>
                                             </div>
@@ -243,11 +259,19 @@
                                                 </div>
                                                 <div class="d-sm-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-4 col-sm-12 col-xs-12">
-                                                <button class="btn m-btn btn-secondary m-btn--icon m-btn--pill m-btn--wide">
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="submit" class="btn m-btn btn-primary m-btn--icon m-btn--pill m-btn--wide">
                                                     <span>
                                                         <i class="la la-search"></i>
                                                         <span>Search</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="button" @click="resetSatkerSesmen" class="btn m-btn btn-brand m-btn--icon m-btn--pill m-btn--wide">
+                                                    <span>
+                                                        <i class="la la-refresh"></i>
+                                                        <span>Reset</span>
                                                     </span>
                                                 </button>
                                             </div>
@@ -330,11 +354,19 @@
                                                 </div>
                                                 <div class="d-sm-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-xl-4 col-lg-4 col-sm-12 col-xs-12">
-                                                <button class="btn m-btn btn-secondary m-btn--icon m-btn--pill m-btn--wide">
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="submit" class="btn m-btn btn-primary m-btn--icon m-btn--pill m-btn--wide">
                                                     <span>
                                                         <i class="la la-search"></i>
                                                         <span>Search</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-sm-12 col-xs-12">
+                                                <button type="button" @click="resetGuest" class="btn m-btn btn-brand m-btn--icon m-btn--pill m-btn--wide">
+                                                    <span>
+                                                        <i class="la la-refresh"></i>
+                                                        <span>Reset</span>
                                                     </span>
                                                 </button>
                                             </div>
@@ -465,7 +497,6 @@ export default {
             })
             .then(response => {
                 this.youSubmission = response.data.data.you;
-                this.youSubmission = response.data.data.you;
             })
         },
         filterSatkerSesmen() {
@@ -487,6 +518,33 @@ export default {
                 }
             })
             .then(response => {
+                this.guestSubmission = response.data.data.guest;
+            })
+        },
+        resetSatkerSesmenYou() {
+            $axios.get('/admin/reset/satker/sesmen/mou')
+            .then(response => {
+                this.filter.satkerSesmen.type = null;
+                this.filter.satkerSesmen.q = null;
+
+                this.youSubmission = response.data.data.you;
+            })
+        },
+        resetSatkerSesmen() {
+            $axios.get('/admin/reset/satker/sesmen/approval/mou')
+            .then(response => {
+                this.filter.satkerSesmenApproval.type = null;
+                this.filter.satkerSesmenApproval.q = null;
+
+                this.approvalSubmission = response.data.data.approval;
+            })
+        },
+        resetGuest() {
+            $axios.get('/admin/reset/guest/mou')
+            .then(response => {
+                this.filter.guest.type = null;
+                this.filter.guest.q = null;
+
                 this.guestSubmission = response.data.data.guest;
             })
         },

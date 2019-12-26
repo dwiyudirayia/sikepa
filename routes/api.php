@@ -87,9 +87,20 @@ Route::middleware('jwt')->group( function () {
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
         Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
+
+        Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
+        Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
+        Route::get('filter/guest/pks','SubmissionProposalController@filterGuestPKS');
+        Route::get('reset/satker/sesmen/approval/pks','SubmissionProposalController@resetSatkerSesmenApprovalPKS');
+        Route::get('reset/satker/sesmen/pks','SubmissionProposalController@resetSatkerSesmenYouPKS');
+        Route::get('reset/guest/pks','SubmissionProposalController@resetGuestPKS');
+
         Route::get('filter/satker/sesmen/approval/mou','SubmissionProposalController@filterSatkerSesmenApprovalMOU');
         Route::get('filter/satker/sesmen/mou','SubmissionProposalController@filterSatkerSesmenYouMOU');
         Route::get('filter/guest/mou','SubmissionProposalController@filterGuestMOU');
+        Route::get('reset/satker/sesmen/approval/mou','SubmissionProposalController@resetSatkerSesmenApprovalMOU');
+        Route::get('reset/satker/sesmen/mou','SubmissionProposalController@resetSatkerSesmenYouMOU');
+        Route::get('reset/guest/mou','SubmissionProposalController@resetGuestMOU');
 
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
         Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgdownloadAgencyProfile');
