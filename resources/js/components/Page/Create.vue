@@ -114,16 +114,16 @@
                     </select>
                     <span class="m-form__help">Pastikan Judul Terisi</span>
                 </div>
-                <div class="form-group m-form__group">
+                <!-- <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control" accept="image/x-png,image/jpeg">
                     <span v-if="$v.forms.image.$error && !$v.forms.image.required" class="m--font-danger">Field ini harus di isi</span>
                     <span v-else-if="$v.forms.image.$error && !$v.forms.image.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                </div> -->
+                <!-- <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist"> -->
                         <!--begin::Item-->
-                        <div class="m-accordion__item m-accordion__item--success">
+                        <!-- <div class="m-accordion__item m-accordion__item--success">
                             <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
                                 <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
                                 <span class="m-accordion__item-title">Tampilan Gambar</span>
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--last">
                     <div class="m-form__heading">
@@ -206,7 +206,7 @@ export default {
                 title: null,
                 short_content: null,
                 content: null,
-                image: null,
+                // image: null,
                 seo_title: null,
                 seo_meta_key: null,
                 seo_meta_desc: null,
@@ -215,7 +215,7 @@ export default {
             },
             section: null,
             category: null,
-            previewImage:null,
+            // previewImage:null,
         }
     },
     validations: {
@@ -229,9 +229,9 @@ export default {
             title: {
                 required,
             },
-            image: {
-                fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
-            }
+            // image: {
+            //     fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
+            // }
         }
     },
     created() {
@@ -242,21 +242,21 @@ export default {
         });
     },
     methods: {
-        onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            this.forms.image = files[0];
-            if (!files.length)
-                return;
-            this.createImage(files[0]);
-        },
-        createImage(file) {
-            let reader = new FileReader();
-            let vm = this;
-            reader.onload = (e) => {
-                vm.previewImage = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
+        // onImageChange(e) {
+        //     let files = e.target.files || e.dataTransfer.files;
+        //     this.forms.image = files[0];
+        //     if (!files.length)
+        //         return;
+        //     this.createImage(files[0]);
+        // },
+        // createImage(file) {
+        //     let reader = new FileReader();
+        //     let vm = this;
+        //     reader.onload = (e) => {
+        //         vm.previewImage = e.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
         store() {
             this.$v.forms.$touch();
 
@@ -271,7 +271,7 @@ export default {
                 formData.append('title', this.forms.title);
                 formData.append('short_content', this.forms.short_content);
                 formData.append('content', this.forms.content);
-                formData.append('image', this.forms.image);
+                // formData.append('image', this.forms.image);
                 formData.append('seo_title', this.forms.seo_title);
                 formData.append('seo_meta_key', this.forms.seo_meta_key);
                 formData.append('seo_meta_desc', this.forms.seo_meta_desc);

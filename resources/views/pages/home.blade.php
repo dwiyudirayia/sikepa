@@ -131,7 +131,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6">
-                <a href="chat.html" class="sr-btm">
+                <a href="https://tawk.to/chat/5dfc38a9d96992700fcd2204/default" class="sr-btm" target="_blank">
                     <div class="box-item">
                         <div class="caption">
                             <div class="icon">

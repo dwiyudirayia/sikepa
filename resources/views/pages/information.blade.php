@@ -106,7 +106,7 @@
                     <div class="caption-media no-bg">
                         <div class="box-media">
                             <div class="thumb">
-                                <video width="100%" height="100%" src="{{ asset('storage/photo_video_deputi_information/'.$data['photo_video']) }}"></video>
+                                <video width="100%" height="100%" controls src="{{ asset('storage/photo_video_deputi_information/'.$data['photo_video']) }}"></video>
                             </div>
                         </div>
                     </div>

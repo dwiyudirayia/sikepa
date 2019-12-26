@@ -118,16 +118,16 @@
                     </select>
                     <span class="m-form__help">Pastikan Judul Terisi</span>
                 </div>
-                <div class="form-group m-form__group">
+                <!-- <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Image</label>
                     <input type="file" v-on:change="onImageChange" class="form-control">
                     <span v-if="$v.forms.image.$error && !$v.forms.image.required" class="m--font-danger">Field ini harus di isi</span>
                     <span v-else-if="$v.forms.image.$error && !$v.forms.image.fileType" class="m--font-danger">Ektensi file harus .jpeg / .jpg / .png</span>
-                </div>
-                <div class="form-group m-form__group">
-                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist">
+                </div> -->
+                <!-- <div class="form-group m-form__group">
+                    <div class="m-accordion m-accordion--bordered" id="m_accordion_6" role="tablist"> -->
                         <!--begin::Item-->
-                        <div class="m-accordion__item m-accordion__item--success">
+                        <!-- <div class="m-accordion__item m-accordion__item--success">
                             <div class="m-accordion__item-head" role="tab" id="m_accordion_6_item_2_head" data-toggle="collapse" href="#m_accordion_6_item_2_body" aria-expanded="true">
                                 <span class="m-accordion__item-icon"><i class="la la-image"></i></span>
                                 <span class="m-accordion__item-title">Tampilan Gambar</span>
@@ -141,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="m-form__seperator m-form__seperator--first"></div>
                 <div class="m-form__section m-form__section--last">
                     <div class="m-form__heading">
@@ -212,9 +212,9 @@ export default {
             section: null,
             category: null,
             name: null,
-            previousImage: true,
-            previewImage: null,
-            currentlyImage: false,
+            // previousImage: true,
+            // previewImage: null,
+            // currentlyImage: false,
             selectedSection: null,
             selectedCategory: null,
         }
@@ -231,21 +231,6 @@ export default {
                 required
             },
         }
-
-        if (typeof this.forms.image === "string") {
-            tmpForm.image = {
-                required,
-            };
-        } else {
-            tmpForm.image = {
-                required,
-                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
-            };
-        }
-
-        return {
-            forms: tmpForm
-        };
     },
     mounted() {
         $axios.get(`/admin/page/${this.$route.params.id}/edit`)
@@ -264,23 +249,23 @@ export default {
         changeCategory(value) {
             this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
         },
-        onImageChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            this.forms.image = files[0];
-            if (!files.length)
-                return;
-            this.createImage(files[0]);
-            this.previousImage = false;
-            this.currentlyImage = true;
-        },
-        createImage(file) {
-            let reader = new FileReader();
-            let vm = this;
-            reader.onload = (e) => {
-                vm.previewImage = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
+        // onImageChange(e) {
+        //     let files = e.target.files || e.dataTransfer.files;
+        //     this.forms.image = files[0];
+        //     if (!files.length)
+        //         return;
+        //     this.createImage(files[0]);
+        //     this.previousImage = false;
+        //     this.currentlyImage = true;
+        // },
+        // createImage(file) {
+        //     let reader = new FileReader();
+        //     let vm = this;
+        //     reader.onload = (e) => {
+        //         vm.previewImage = e.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
         update() {
             this.$v.forms.$touch();
             if(this.$v.forms.$invalid) {
@@ -294,7 +279,7 @@ export default {
                 formData.append('title', this.forms.title);
                 formData.append('short_content', this.forms.short_content);
                 formData.append('content', this.forms.content);
-                formData.append('image', this.forms.image);
+                // formData.append('image', this.forms.image);
                 formData.append('seo_title', this.forms.seo_title);
                 formData.append('seo_meta_key', this.forms.seo_meta_key);
                 formData.append('seo_meta_desc', this.forms.seo_meta_desc);
