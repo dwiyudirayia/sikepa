@@ -388,6 +388,7 @@ class SubmissionProposalGuestController extends Controller
     }
     public function final(Request $request, $id) {
         try {
+            $user = auth()->user();
             DB::beginTransaction();
 
             $proposal = SubmissionProposalGuest::findOrFail($id);
