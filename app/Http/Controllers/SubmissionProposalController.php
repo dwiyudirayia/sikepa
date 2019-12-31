@@ -56,8 +56,8 @@ class SubmissionProposalController extends Controller
                 $query->whereNull('approval');
             })->where('type_guest_id', 2)->where('status_disposition', 3)->where('status_proposal', 1)->get();
         } elseif($user->roles[0]->id == 9) {
-            $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->get();
-            $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->get();
+            $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->where('status_disposition','<', 17)->get();
+            $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get();
         } else {
             $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
             $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 2)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
@@ -91,10 +91,10 @@ class SubmissionProposalController extends Controller
                     $query->whereNull('approval');
                 })->where('type_guest_id', 1)->where('status_disposition', 3)->where('status_proposal', 1)->get();
             } elseif($user->roles[0]->id == 9) {
-                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->get();
+                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get();
                 $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 1)->get();
             } else {
-                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+                $data['approval'] = SubmissionProposal::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->whereIn('status_disposition', $idRoles)->get();
                 $data['guest'] = SubmissionProposalGuest::with('country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('type_guest_id', 1)->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
 
             }
@@ -609,7 +609,7 @@ class SubmissionProposalController extends Controller
                 ]);
             }
 
-            $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+            $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                 'status' => 1,
                 'approval' => 2,
             ]);
@@ -705,7 +705,7 @@ class SubmissionProposalController extends Controller
         try {
             $proposal = SubmissionProposal::findOrFail($id);
 
-            $file = $proposal->agency_profile;
+            $file = $proposal->proposal;
             return response()->download(storage_path("/app/public/proposal_cooperation/".$file));
 
         } catch (\Throwable $th) {

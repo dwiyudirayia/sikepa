@@ -48,8 +48,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="approvalSubmission.length">
-                                        <tr v-for="(value, index) in approvalSubmission" :key="value.id">
+                                    <template v-if="youSubmission.length">
+                                        <tr v-for="(value, index) in youSubmission" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
@@ -65,6 +65,12 @@
                                                         <span>Download File Pengajuan</span>
                                                     </span>
                                                 </button>
+                                                <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'PKSProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-pencil-square"></i>
+                                                        <span>Detail Pengajuan</span>
+                                                    </span>
+                                                </router-link>
                                             </td>
                                         </tr>
                                     </template>
@@ -111,6 +117,12 @@
                                                         <span>Download File Pengajuan</span>
                                                     </span>
                                                 </button>
+                                                <!-- <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'PKSProposalSubmissionCooperationDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-pencil-square"></i>
+                                                        <span>Detail Pengajuan</span>
+                                                    </span>
+                                                </router-link> -->
                                             </td>
                                         </tr>
                                     </template>
@@ -169,7 +181,7 @@ export default {
         getData() {
             $axios.get(`/admin/pks/submission/cooperation/approve`)
             .then(response => {
-                this.youSubmission = response.data.data.you;
+                this.youSubmission = response.data.data.satker;
                 this.guestSubmission = response.data.data.guest;
 
                 this.$store.commit('proposal/clearPage');

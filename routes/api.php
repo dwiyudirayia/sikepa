@@ -103,7 +103,7 @@ Route::middleware('jwt')->group( function () {
         Route::get('reset/guest/mou','SubmissionProposalController@resetGuestMOU');
 
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
-        Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgdownloadAgencyProfile');
+        Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgencyProfile');
 
         Route::get('download/file/proposal/{id}/guest', 'SubmissionProposalGuestController@downloadProposalCooperationGuest');
         Route::get('download/file/agency/profile/{id}/guest', 'SubmissionProposalGuestController@downloadAgencyProfileCooperationGuest');

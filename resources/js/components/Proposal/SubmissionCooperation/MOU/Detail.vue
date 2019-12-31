@@ -49,23 +49,101 @@
                     </ul>
                 </div>
             </div>
+            <div class="row" v-if="$can('Tracking')">
+				<div class="col-md-12">
+					<div style="display:inline-block;width:100%;overflow-y:auto;">
+                        <ul class="timeline timeline-horizontal">
+                            <template v-for="value in sortDeputi">
+                                <li class="timeline-item">
+                                    <div class="timeline-badge" :class="value.class"><i class="glyphicon glyphicon-check"></i></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{ value.name }}</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>{{ value.reason }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                            <template v-for="value in sortTracking">
+                                <li class="timeline-item">
+                                    <div class="timeline-badge" :class="value.class"><i class="glyphicon glyphicon-check"></i></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{ value.name }}</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>{{ value.reason }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                            <!-- <li class="timeline-item">
+                                <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Mussum ipsum cacilds 2</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Mussum ipsum cacilds, vidis faiz elementum girarzis, nisi eros gostis.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Mussum ipsum cacilds 3</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipisci. Mé faiz elementum girarzis, nisi eros gostis.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-badge danger"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Mussum ipsum cacilds 4</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-badge warning"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Mussum ipsum cacilds 5</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Mussum ipsum cacilds 6</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.</p>
+                                    </div>
+                                </div>
+                            </li> -->
+                        </ul>
+				    </div>
+				</div>
+			</div>
             <div class="m-portlet__body">
-                <div class="text-center">
-                    <template v-for="value in sortDeputi">
-                        <template>
-                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
-                        </template>
-                    </template>
-                    <template v-for="(value, index) in sortTracking">
-                        <template v-if="index + 1 < sortTracking.length">
-                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />-
-                        </template>
-                        <template v-else>
-                            <button class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" :class="value.class" v-tooltip.top="value.label" />
-                        </template>
-                    </template>
-                </div>
-                <br>
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
                         <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
@@ -428,9 +506,12 @@
 import $axios from '@/api.js';
 import $axiosFormData from '@/apiformdata.js';
 import {gmapApi} from 'vue2-google-maps';
-
+import Editor from '@tinymce/tinymce-vue';
 export default {
     name: 'MOUProposalSubmissionCooperationDetail',
+    mponents: {
+        Editor
+    },
     data() {
         return {
             tabs: 1,
@@ -492,9 +573,11 @@ export default {
 
             let finalData = data.map((value, index) => {
                 return {
-                    id: value.id,
-                    label: value.role.name,
-                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : 'btn-metal'
+                    id: index+1,
+                    value: value.approval,
+                    class: value.approval == 3 ? 'danger' : value.approval == 1 ? 'success' : value.approval == 2 ? 'primary' : 'metal',
+                    reason: value.reason,
+                    name: value.role.name,
                 }
             });
             return finalData;
@@ -502,15 +585,15 @@ export default {
         sortTracking: function() {
             const data = this.tracking;
 
-            const value = Object.values(data).splice(1,8);
-            const label = ['Bagian Kerja Sama','Bagian Ortala','Sesmen','Menteri','Hukum','Sesmen Final','Menteri Final','Bagian Kerja Sama Final'];
+            const value = Object.values(data).splice(2,8);
 
             let finalData = value.map((value, index) => {
                 return {
                     id: index+1,
-                    label: label[index],
                     value: value.approval,
-                    class: value.approval == 0 ? 'btn-danger' : value.approval == 1 ? 'btn-success' : value.approval == 2 ? 'btn-primary' : 'btn-metal'
+                    class: value.approval == 3 ? 'danger' : value.approval == 1 ? 'success' : value.approval == 2 ? 'primary' : 'metal',
+                    reason: value.reason,
+                    name: value.role.name,
                 }
             });
 
@@ -565,7 +648,7 @@ export default {
             window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
         },
         downloadAgencyProfile() {
-           window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
         },
         showModalFile() {
             $('#file').modal('show');
@@ -1020,4 +1103,176 @@ export default {
 .context-menu {
     cursor: context-menu;
 }
+/* Timeline */
+.timeline,
+.timeline-horizontal {
+  list-style: none;
+  padding: 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 40px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -1.5px;
+}
+.timeline .timeline-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline .timeline-item:before,
+.timeline .timeline-item:after {
+  content: "";
+  display: table;
+}
+.timeline .timeline-item:after {
+  clear: both;
+}
+.timeline .timeline-item .timeline-badge {
+  color: #fff;
+  width: 54px;
+  height: 54px;
+  line-height: 52px;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #7c7c7c;
+  border: 3px solid #ffffff;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline .timeline-item .timeline-badge i,
+.timeline .timeline-item .timeline-badge .fa,
+.timeline .timeline-item .timeline-badge .glyphicon {
+  top: 2px;
+  left: 0px;
+}
+.timeline .timeline-item .timeline-badge.primary {
+  background-color: #1f9eba;
+}
+.timeline .timeline-item .timeline-badge.info {
+  background-color: #5bc0de;
+}
+.timeline .timeline-item .timeline-badge.success {
+  background-color: #59ba1f;
+}
+.timeline .timeline-item .timeline-badge.warning {
+  background-color: #d1bd10;
+}
+.timeline .timeline-item .timeline-badge.danger {
+  background-color: #ba1f1f;
+}
+.timeline .timeline-item .timeline-panel {
+  position: relative;
+  width: 46%;
+  float: left;
+  right: 16px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline-item .timeline-panel:before {
+  position: absolute;
+  top: 26px;
+  right: -16px;
+  display: inline-block;
+  border-top: 16px solid transparent;
+  border-left: 16px solid #c0c0c0;
+  border-right: 0 solid #c0c0c0;
+  border-bottom: 16px solid transparent;
+  content: " ";
+}
+.timeline .timeline-item .timeline-panel .timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p,
+.timeline .timeline-item .timeline-panel .timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-panel .timeline-body > p + p {
+  margin-top: 5px;
+}
+.timeline .timeline-item:last-child:nth-child(even) {
+  float: right;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel {
+  float: right;
+  left: 16px;
+}
+.timeline .timeline-item:nth-child(even) .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-horizontal {
+  list-style: none;
+  position: relative;
+  padding: 20px 0px 20px 0px;
+  display: inline-block;
+}
+.timeline-horizontal:before {
+  height: 3px;
+  top: auto;
+  bottom: 26px;
+  left: 56px;
+  right: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item {
+  display: table-cell;
+  height: 280px;
+  width: 20%;
+  min-width: 320px;
+  float: none !important;
+  padding-left: 0px;
+  padding-right: 20px;
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+.timeline-horizontal .timeline-item .timeline-panel {
+  top: auto;
+  bottom: 64px;
+  display: inline-block;
+  float: none !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline-item .timeline-panel:before {
+  top: auto;
+  bottom: -16px;
+  left: 28px !important;
+  right: auto;
+  border-right: 16px solid transparent !important;
+  border-top: 16px solid #c0c0c0 !important;
+  border-bottom: 0 solid #c0c0c0 !important;
+  border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline-item:before,
+.timeline-horizontal .timeline-item:after {
+  display: none;
+}
+.timeline-horizontal .timeline-item .timeline-badge {
+  top: auto;
+  bottom: 0px;
+  left: 43px;
+}
 </style>
+

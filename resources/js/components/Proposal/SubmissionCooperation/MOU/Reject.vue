@@ -48,8 +48,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="approvalSubmission.length">
-                                        <tr v-for="(value, index) in approvalSubmission" :key="value.id">
+                                    <template v-if="youSubmission.length">
+                                        <tr v-for="(value, index) in youSubmission" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
@@ -58,6 +58,14 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-pencil-square"></i>
+                                                        <span>Detail Pengajuan</span>
+                                                    </span>
+                                                </router-link>
+                                            </td>
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -82,6 +90,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <!-- <th style="vertical-align: middle;">Aksi</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,6 +104,14 @@
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <!-- <td style="vertical-align: middle;">
+                                                <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <span>
+                                                        <i class="la la-pencil-square"></i>
+                                                        <span>Detail Pengajuan</span>
+                                                    </span>
+                                                </router-link>
+                                            </td> -->
                                         </tr>
                                     </template>
                                     <template v-else>
@@ -148,7 +165,7 @@ export default {
     created() {
         $axios.get(`/admin/mou/submission/cooperation/reject`)
         .then(response => {
-            this.youSubmission = response.data.data.you;
+            this.youSubmission = response.data.data.satker;
             this.guestSubmission = response.data.data.guest;
 
             this.$store.commit('proposal/clearPage');

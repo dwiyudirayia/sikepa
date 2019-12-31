@@ -120,14 +120,12 @@
                             <select2 :options="data_select.regency_id" v-model="forms.regency_id" />
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    </div>
+                    </div>  
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Instansi</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.agencies_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select.agencies_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2 :options="data_select.agencies_id" v-model="$v.forms.agencies_id.$model" />
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.agencies_id.$error">
@@ -618,7 +616,7 @@ export default {
             if (!regex.test(value)) {
                 this.message = '';
             } else {
-                console.log('Hanya Dapat di Isi Oleh Angka');
+                alert('Hanya Dapat di Isi Oleh Angka');
             }
         },
         getRegencies() {
@@ -633,11 +631,11 @@ export default {
 
             if(ext=="pdf" || ext=="docx" || ext=="doc"){
                 this.forms.agency_profile = files;
-                document.getElementById("labelFileInstansi").innerHTML = files.value;
+                document.getElementById("labelFileInstansi").innerHTML = files.name;
             } else{
+                document.getElementById("labelFileInstansi").innerHTML = "";
                 alert('File Tidak Mendukung')
                 this.forms.agency_profile = null;
-                document.getElementById("labelFileInstansi").innerHTML = "";
             }
         },
         fileProposal() {
@@ -646,11 +644,11 @@ export default {
 
             if(ext == "pdf" || ext == "jpg" || ext == "mp4" || ext == "jpeg"){
                 this.forms.proposal = files;
-                document.getElementById("labelFileProposal").innerHTML = files.value;
+                document.getElementById("labelFileProposal").innerHTML = files.name;
             } else{
+                document.getElementById("labelFileProposal").innerHTML = "";
                 alert('File Tidak Mendukung')
                 this.forms.proposal = null;
-                document.getElementById("labelFileProposal").innerHTML = "";
             }
         },
         updateCoordinates(event) {

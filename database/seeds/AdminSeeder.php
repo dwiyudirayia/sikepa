@@ -15,8 +15,8 @@ class AdminSeeder extends Seeder
     {
         $permissionAdmin = ['Lihat User', 'Tambah User', 'Hapus User', 'Edit User', 'Admin', 'Ganti Status User', 'Mengubah Role User', 'Mengatur Role'];
         $permissionSatkerDeputi = ['Lihat Pengajuan Kerjasama','Monev'];
-        $permissionBagianKerjasama = ['Lihat Pengajuan Kerjasama','Monev', 'Bagian Kerjasama'];
-        $permissionSatkerSesmen = ['Lihat Pengajuan Kerjasama','Pengajuan Kerjasama', 'Satker Sesmen'];
+        $permissionBagianKerjasama = ['Lihat Pengajuan Kerjasama','Monev', 'Tracking', 'Bagian Kerjasama'];
+        $permissionSatkerSesmen = ['Lihat Pengajuan Kerjasama','Pengajuan Kerjasama', 'Satker Sesmen', 'Tracking'];
         $permissionOtherRoles = ['Lihat Pengajuan Kerjasama'];
 
         $roleAdmin = Role::find(1); //AMBIL ROLE BERDASARKAN ID

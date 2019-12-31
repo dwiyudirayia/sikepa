@@ -122,12 +122,14 @@ import MOUProposalSubmissionCooperationIndex from './components/Proposal/Submiss
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 import MOUProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/MOU/Detail';
 import MOUProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/MOU/YourDetail';
+import MOUProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
 
 import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
 import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
 import PKSProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/PKS/YourDetail';
+import PKSProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/PKS/YourDetailPreview';
 import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
 import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
 
@@ -1240,6 +1242,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/mou/submission/cooperation/:id/your/detail/preview',
+                    name: 'MOUProposalSubmissionCooperationYourDetailPreview',
+                    component: MOUProposalSubmissionCooperationYourDetailPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 //PKS
                 {
                     path: '/pks/submission/cooperation',
@@ -1277,6 +1287,14 @@ const router = new VueRouter({
                     path: '/pks/submission/cooperation/:id/your/detail',
                     name: 'PKSProposalSubmissionCooperationYourDetail',
                     component: PKSProposalSubmissionCooperationYourDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/pks/submission/cooperation/:id/your/detail/preview',
+                    name: 'PKSProposalSubmissionCooperationYourDetailPreview',
+                    component: PKSProposalSubmissionCooperationYourDetailPreview,
                     meta: {
                         requiresAuth: true
                     }

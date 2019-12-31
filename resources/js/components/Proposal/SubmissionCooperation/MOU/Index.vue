@@ -116,12 +116,28 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationYourDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                        <span>
-                                                            <i class="la la-eye"></i>
-                                                            <span>Detail Pengajuan</span>
-                                                        </span>
-                                                    </router-link>
+                                                    <template v-if="value.status_disposition === 9">
+                                                        <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
+                                                    <template v-else-if="value.status_disposition < 9 || value.status_disposition > 9">
+                                                        <router-link v-if="$can('Bagian Kerjasama') == false" :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                        <router-link v-if="$can('Bagian Kerjasama') && value.status_disposition != 9" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-pencil-square"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
                                                 </td>
                                             </tr>
                                         </template>
@@ -211,12 +227,28 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                        <span>
-                                                            <i class="la la-eye"></i>
-                                                            <span>Detail Pengajuan</span>
-                                                        </span>
-                                                    </router-link>
+                                                    <template v-if="value.status_disposition === 9">
+                                                        <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
+                                                    <template v-else-if="value.status_disposition < 9 || value.status_disposition > 9">
+                                                        <router-link v-if="$can('Bagian Kerjasama') == false" :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                        <router-link v-if="$can('Bagian Kerjasama') && value.status_disposition != 9" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-pencil-square"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
                                                 </td>
                                             </tr>
                                         </template>
@@ -308,12 +340,28 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }}</td>
                                                 <td>
-                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                        <span>
-                                                            <i class="la la-eye"></i>
-                                                            <span>Detail Pengajuan</span>
-                                                        </span>
-                                                    </router-link>
+                                                    <template v-if="value.status_disposition === 9">
+                                                        <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
+                                                    <template v-else-if="value.status_disposition < 9 || value.status_disposition > 9">
+                                                        <router-link v-if="$can('Bagian Kerjasama') == false" :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-eye"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                        <router-link v-if="$can('Bagian Kerjasama') && value.status_disposition != 9" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                            <span>
+                                                                <i class="la la-pencil-square"></i>
+                                                                <span>Detail Pengajuan</span>
+                                                            </span>
+                                                        </router-link>
+                                                    </template>
                                                 </td>
                                             </tr>
                                         </template>

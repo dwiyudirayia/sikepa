@@ -65,8 +65,11 @@ class PermissionSeeder extends Seeder
                 'name' => 'Chart Deputi Tumbuh Kembang Anak'
             ],
             17 => [
-                'name' => 'Bagian Kerjasama'
+                'name' => 'Tracking'
             ],
+            18 => [
+                'name' => 'Bagian Kerjasama'
+            ]
         ];
 
         foreach ($arrayPermissions as $key => $value) {

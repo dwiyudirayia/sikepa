@@ -74,7 +74,7 @@
                 <tr>
                     <td class="content">
 
-                        <p>klik tombol dibawah untuk proses pembayaran.</p>
+                        <p>klik tombol dibawah untuk proses verifikasi.</p>
 
                         <table>
                             <tr>

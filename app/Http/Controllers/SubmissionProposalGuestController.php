@@ -443,7 +443,7 @@ class SubmissionProposalGuestController extends Controller
                     'nomor' => $value
                 ]);
             }
-            $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+            $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                 'status' => 1,
                 'approval' => 2,
             ]);

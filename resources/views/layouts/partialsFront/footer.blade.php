@@ -31,10 +31,9 @@
                         <li><a href="#!"><span class="hover-line">kerjasama@kemenpppa.go.id</span></a></li>
                         <li>
                             <ul class="social-icon">
-                                <li><a href="#!" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
-                                <li><a href="#!" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
-                                <li><a href="#!" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
-                                <li><a href="#!" title="Google +"><i class="mdi mdi-google"></i></a></li>
+                                <li><a href="https://www.facebook.com/kppdanpa" title="Facebook"><i class="mdi mdi-facebook"></i></a></li>
+                                <li><a href="https://www.twitter.com/kpp_pa" title="Twitter"><i class="mdi mdi-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/kemenpppa" title="Instagram"><i class="mdi mdi-instagram"></i></a></li>
                             </ul>
                         </li>
                     </ul>

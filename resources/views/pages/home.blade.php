@@ -77,7 +77,7 @@
                             <div class="icon">
                                 <img src="{{ asset('assets/images/ic_handshake.svg') }}">
                             </div>
-                            <h5 class="title">Status kerjasama<br>yang diajukan</h5>
+                            <h5 class="title">Status Pengajuan<br>Kerjasama</h5>
                         </div>
                     </div>
                 </a>
@@ -89,7 +89,7 @@
                             <div class="icon">
                                 <img src="{{ asset('assets/images/ic_megaphone.svg') }}">
                             </div>
-                            <h5 class="title">Sebaran hasil<br>kerjasama</h5>
+                            <h5 class="title">Sebaran<br>Kerjasama</h5>
                         </div>
                     </div>
                 </a>

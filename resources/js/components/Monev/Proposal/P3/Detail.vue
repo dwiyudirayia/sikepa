@@ -143,7 +143,7 @@
                                                     <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" :value="value.problem_solving"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group row">
+                                            <!-- <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">Evaluasi:</label>
                                                 <div class="col-10">
                                                     <input class="form-control m-input" disabled="disabled" :value="evaluation(index)" type="text">
@@ -154,7 +154,7 @@
                                                 <div class="col-10">
                                                     <input class="form-control m-input" disabled="disabled" :value="recomendation(index)" type="text">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -253,34 +253,34 @@ export default {
                 this.activity = response.data.data.monev_activity;
             })
         },
-        evaluation(index) {
-            const evaluation = this.activity[index].result.evaluation;
+        // evaluation(index) {
+        //     const evaluation = this.activity[index].result.evaluation;
 
-            if(evaluation == 1)
-            {
-                return  "Sangat Tidak Memuaskan";
-            } else if(evaluation == 2) {
-                return  "Tidak Memuaskan";
-            } else if (evaluation == 3) {
-                return  "Sesuai Standar";
-            } else if (evaluation == 4) {
-                return  "Memuaskan";
-            } else {
-                return  "Sangat Memuaskan";
-            }
-        },
-        recomendation(index) {
-            const recomendation = this.activity[index].result.recomendation;
+        //     if(evaluation == 1)
+        //     {
+        //         return  "Sangat Tidak Memuaskan";
+        //     } else if(evaluation == 2) {
+        //         return  "Tidak Memuaskan";
+        //     } else if (evaluation == 3) {
+        //         return  "Sesuai Standar";
+        //     } else if (evaluation == 4) {
+        //         return  "Memuaskan";
+        //     } else {
+        //         return  "Sangat Memuaskan";
+        //     }
+        // },
+        // recomendation(index) {
+        //     const recomendation = this.activity[index].result.recomendation;
 
-            if(recomendation == 1)
-            {
-                return "Diadendum";
-            } else if(recomendation == 2) {
-                return "Dihentikan";
-            } else {
-                return "Dilanjutkan";
-            }
-        },
+        //     if(recomendation == 1)
+        //     {
+        //         return "Diadendum";
+        //     } else if(recomendation == 2) {
+        //         return "Dihentikan";
+        //     } else {
+        //         return "Dilanjutkan";
+        //     }
+        // },
     }
 }
 </script>

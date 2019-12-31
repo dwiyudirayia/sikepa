@@ -43,12 +43,12 @@
     <section class="content-wrap">
         <div class="container">
             <div class="main-title text-center sr-btm">
-                <h3 class="title" id="title-table">Data Keseluruhan</h3>
+                <h3 class="title" id="title-table">Daftar Kerjasama KPPA</h3>
             </div>
             <table class="table table-striped sr-btm">
                 <thead>
                     <tr>
-                        <th>Jenis kerjasama</th>
+                        <th>Judul MOU</th>
                         <th>Instansi</th>
                     </tr>
                 </thead>
