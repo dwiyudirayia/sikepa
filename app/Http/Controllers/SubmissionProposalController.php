@@ -129,7 +129,7 @@ class SubmissionProposalController extends Controller
                 ]);
             }
 
-            $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15, 16];
+            $userKPPA = [2, 9, 10, 11, 13, 14, 15, 16];
             foreach ($userKPPA as $key => $value) {
                 $proposal->tracking()->create([
                     'role_id' => $value,
@@ -275,7 +275,7 @@ class SubmissionProposalController extends Controller
                         $proposal->save();
                     }
                 }
-            } elseif($proposal->status_disposition == 12) {
+            } elseif($proposal->status_disposition == 11) {
 
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
@@ -298,8 +298,14 @@ class SubmissionProposalController extends Controller
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
-            } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
+            } elseif($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
+                $getRoleId = $user->roles[0]->id;
+                if($getRoleId == 11) {
+                    $roleId = 13;
+                } else {
+                    $roleId = 14;
+                }
+                $proposal->tracking()->where('role_id', $roleId)->update([
                     'status' => 1,
                     'approval' => 1,
                     'reason' => $request->reason,
@@ -390,7 +396,7 @@ class SubmissionProposalController extends Controller
                         $proposal->save();
                     }
                 }
-            } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
+            } elseif($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                     'status' => 1,
                     'approval' => 3,
@@ -401,7 +407,7 @@ class SubmissionProposalController extends Controller
                     'status_proposal' => 0
                 ]);
 
-            } elseif($proposal->status_disposition == 12) {
+            } elseif($proposal->status_disposition == 11) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 3,
@@ -424,7 +430,14 @@ class SubmissionProposalController extends Controller
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } else {
-                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                $getRoleId = $user->roles[0]->id;
+                if($getRoleId == 11) {
+                    $roleId = 13;
+                } else {
+                    $roleId = 14;
+                }
+
+                $proposal->tracking()->where('role_id', $roleId)->update([
                     'status' => 1,
                     'approval' => 3,
                     'reason' => $request->reason,

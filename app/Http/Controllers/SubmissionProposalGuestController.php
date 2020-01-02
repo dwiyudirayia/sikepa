@@ -97,7 +97,7 @@ class SubmissionProposalGuestController extends Controller
                 }
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
-            } elseif($proposal->status_disposition == 12) {
+            } elseif($proposal->status_disposition == 11) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 1,
@@ -118,8 +118,14 @@ class SubmissionProposalGuestController extends Controller
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
-            } elseif ($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
+            } elseif ($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
+                $getRoleId = $user->roles[0]->id;
+                if($getRoleId == 11) {
+                    $roleId = 13;
+                } else {
+                    $roleId = 14;
+                }
+                $proposal->tracking()->where('role_id', $roleId)->update([
                     'status' => 1,
                     'approval' => 1,
                     'reason' => $request->reason,
@@ -216,7 +222,7 @@ class SubmissionProposalGuestController extends Controller
                         Mail::to($proposal->email)->send(new RejectCooperation);
                     }
                 }
-            } elseif($proposal->status_disposition == 12) {
+            } elseif($proposal->status_disposition == 11) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 3,
@@ -250,8 +256,14 @@ class SubmissionProposalGuestController extends Controller
 
                 Mail::to($proposal->email)->send(new RejectCooperation);
 
-            } elseif($proposal->status_disposition > 13 && $proposal->status_disposition < 16) {
-                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
+            } elseif($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
+                $getRoleId = $user->roles[0]->id;
+                if($getRoleId == 11) {
+                    $roleId = 13;
+                } else {
+                    $roleId = 14;
+                }
+                $proposal->tracking()->where('role_id', $roleId)->update([
                     'status' => 1,
                     'approval' => 3,
                     'reason' => $request->reason,

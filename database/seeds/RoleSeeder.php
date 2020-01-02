@@ -47,18 +47,15 @@ class RoleSeeder extends Seeder
                 'name' => 'Sesmen',
             ],
             11 => [
-                'name' => 'Menteri'
-            ],
-            12 => [
                 'name' => 'Hukum'
             ],
-            13 => [
+            12 => [
                 'name' => 'Sesmen Final',
             ],
-            14 => [
-                'name' => 'Menteri Final'
+            13 => [
+                'name' => 'Menteri'
             ],
-            15 => [
+            14 => [
                 'name' => 'Bagian Kerja Sama Final'
             ]
         ];

@@ -36,9 +36,9 @@ class AdminSeeder extends Seeder
         $roleSatkerSesmen = Role::find(8);
         $roleSatkerSesmen->syncPermissions($permissionSatkerSesmen);
 
-        for ($x=10; $x <= 16; $x++) {
-            $roleSatkerDeputi = Role::find($x); //AMBIL ROLE BERDASARKAN ID
-            $roleSatkerDeputi->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
+        for ($x=10; $x <= 15; $x++) {
+            $roleOtherUser = Role::find($x); //AMBIL ROLE BERDASARKAN ID
+            $roleOtherUser->syncPermissions($permissionOtherRoles); //SET PERMISSION UNTUK ROLE TERSEBUT
         }
 
         $account = [
@@ -148,7 +148,7 @@ class AdminSeeder extends Seeder
                 'photo' => 'menteri/default.png',
                 'jabatan' => 'Menteri',
                 'email' => 'menteri@gmail.com',
-                'roles' => ['Menteri', 'Menteri Final']
+                'roles' => ['Menteri'],
             ],
             12 => [
                 'name' => 'Hukum',

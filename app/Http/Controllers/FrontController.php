@@ -218,7 +218,7 @@ class FrontController extends Controller
                 ]);
             }
 
-            $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15, 16];
+            $userKPPA = [2, 9, 10, 11, 13, 14, 15, 16];
             foreach ($userKPPA as $key => $value) {
                 $proposal->tracking()->create([
                     'role_id' => $value,

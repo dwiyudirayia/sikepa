@@ -43,7 +43,7 @@
                             <div class="step-btn">1</div>
                             <div id="step1" class="tab-pane">
                                 <div class="main-title text-center">
-                                    <h4 class="title">Formulir Jenis Kerjasama</h4>
+                                    <h4 class="title">Formulir Pengajuan Kerjasama</h4>
                                 </div>
                                 <div class="control-group">
                                     <div class="row">
@@ -51,20 +51,7 @@
                                             <div class="form-group">
                                                 <div class="form-input">
                                                     <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation">
-                                                    <label class="text-label">Usulan Judul Kerjasama</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="form-group">
-                                                <div class="form-input">
-                                                    <select class="form-control select2 required" id="type_guest_id" name="type_guest_id">
-                                                        <option value=""></option>
-                                                        @foreach ($data['type'] as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <label class="text-label">Jenis</label>
+                                                    <label class="text-label">Usulan Judul MOU</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +61,7 @@
                                                     <select class="form-control select2 required" id="type_of_cooperation_id" name="type_of_cooperation_id">
                                                         <option></option>
                                                     </select>
-                                                    <label class="text-label">Jenis kerjasama</label>
+                                                    <label class="text-label">Jenis Kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +70,7 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
                                                     </select>
-                                                    <label class="text-label">Permohonan kerjasama</label>
+                                                    <label class="text-label">Permohonan Kerjasama</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -535,31 +522,6 @@
                 placeholder: 'Pilih dan Sesuaikan',
             });
             var geocoder = new google.maps.Geocoder();
-            $('#type_guest_id').change(function() {
-                const value = $(this).val();
-                $.ajax({
-                    url: `/ajax/type/${value}`,
-                    method: 'GET',
-                    success: function(response) {
-                        $('#type_of_cooperation_id').html('');
-                        $('#type_of_cooperation_one_derivative_id').html('');
-                        $('#type_of_cooperation_two_derivative_id').html('');
-
-                        $('#type_of_cooperation_id').val('');
-                        $('#type_of_cooperation_one_derivative_id').val('');
-                        $('#type_of_cooperation_two_derivative_id').val('');
-                        let type = `<option value="">- Pilih dan Sesuaikan -</option>`;
-
-                        const data = response.data;
-
-                        $.map(data, function (value, index) {
-                            type += `<option value="${value.id}">${value.name}</option>`;
-                        });
-
-                        $('#type_of_cooperation_id').html(type);
-                    }
-                })
-            });
             $('#type_of_cooperation_id').change(function() {
                 const value = $(this).val();
 

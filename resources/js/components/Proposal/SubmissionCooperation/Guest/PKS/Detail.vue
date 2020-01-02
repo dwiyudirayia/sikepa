@@ -40,7 +40,7 @@
                                                         <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item context-menu" v-if="status_disposition == 16">
+                                                <li class="m-nav__item context-menu" v-if="status_disposition == 15">
                                                     <a class="m-nav__link" @click="downloadFileDraftTerakhir">
                                                         <i class="m-nav__link-icon la la-file-word-o"></i>
                                                         <span class="m-nav__link-text">Download File Draft</span>
@@ -186,15 +186,15 @@
                 <br> -->
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
                     </li>
-                    <li class="nav-item m-tabs__item" v-if="status_disposition == 12">
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 11">
                         <a class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
                     </li>
-                    <li class="nav-item m-tabs__item" v-if="status_disposition == 13">
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 12">
                         <a class="nav-link m-tabs__link" :class="{'active' : tabs === 3 }" data-toggle="tab" href="#m_tabs_9_3" role="tab"> Hukum</a>
                     </li>
-                    <li class="nav-item m-tabs__item" v-if="status_disposition == 16">
+                    <li class="nav-item m-tabs__item" v-if="status_disposition == 15">
                         <a class="nav-link m-tabs__link" :class="{'active' : tabs === 4 }" data-toggle="tab" href="#m_tabs_9_4" role="tab"> Final</a>
                     </li>
                 </ul>
@@ -272,7 +272,7 @@
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
                             </div>
                         </div>
-                        <template v-if="status_disposition == 12 || status_disposition == 13 || status_disposition == 16">
+                        <template v-if="status_disposition == 11 || status_disposition == 12 || status_disposition == 15">
                             <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
                                     <div class="row">
@@ -298,7 +298,7 @@
                             </div>
                         </template>
                     </div>
-                    <div class="tab-pane" :class="{'active' : tabs === 2 }"  id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 12">
+                    <div class="tab-pane" :class="{'active' : tabs === 2 }"  id="m_tabs_9_2" role="tabpanel" v-if="status_disposition == 11">
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Generate Barcode :</label>
                             <div class="col-lg">
@@ -335,7 +335,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_3" :class="{'active' : tabs === 3 }" role="tabpanel" v-if="status_disposition == 13">
+                    <div class="tab-pane" id="m_tabs_9_3" :class="{'active' : tabs === 3 }" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
@@ -367,7 +367,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" :class="{'active' : tabs === 4 }" v-if="status_disposition == 16">
+                    <div class="tab-pane" id="m_tabs_9_4" role="tabpanel" :class="{'active' : tabs === 4 }" v-if="status_disposition == 15">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -450,7 +450,7 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
-                        <div class="form-group" v-if="status_disposition == 12">
+                        <div class="form-group" v-if="status_disposition == 11">
                             <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
                             <editor
                             api-key="dzzffhe3e7rwi6o0yhr653apjdpwu2uyld4x4xppx02diki8"
@@ -605,7 +605,7 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
-                        <div class="form-group" v-if="status_disposition == 12">
+                        <div class="form-group" v-if="status_disposition == 11">
                             <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
                             <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
                         </div>
@@ -1139,7 +1139,7 @@ export default {
             });
         },
         showModalReject() {
-            if(this.status_disposition == 12 && this.status_barcode == 0) {
+            if(this.status_disposition == 11 && this.status_barcode == 0) {
                 alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
             } else {
                 this.forms.reason = '';
@@ -1148,7 +1148,7 @@ export default {
             }
         },
         showModalApprove() {
-            if(this.status_disposition == 12 && this.status_barcode == 0) {
+            if(this.status_disposition == 11 && this.status_barcode == 0) {
                 alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
             } else {
                 this.forms.reason = '';
