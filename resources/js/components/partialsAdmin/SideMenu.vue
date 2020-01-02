@@ -99,7 +99,7 @@
                         </ul>
                     </div>
                 </li>
-                <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/pks')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                <!-- <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/pks')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
                     <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-o"></i><span class="m-menu__link-text">PKS</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
@@ -114,7 +114,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
                 <li class="m-menu__item" aria-haspopup="true" v-if="$can('Pengajuan Kerjasama')">
                     <router-link to="/submission/cooperation/create" class="m-menu__link">
                         <i class="m-menu__link-icon fa fa-handshake"></i>

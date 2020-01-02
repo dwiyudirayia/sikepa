@@ -17,7 +17,7 @@
                         <thead>
                             <tr>
                                 <th style="vertical-align: middle; text-align:center;" rowspan="3">No.</th>
-                                <th style="vertical-align: middle; text-align:center;" colspan="5">Monitoring Administrasi Pelaksanaan MOU/PKS</th>
+                                <th style="vertical-align: middle; text-align:center;" colspan="5">Monitoring Administrasi Pelaksanaan MOU</th>
                                 <th style="vertical-align: middle; text-align:center;">Monitoring Kunjungan Lapangan</th>
                                 <th style="vertical-align: middle; text-align:center;" rowspan="3">Evaluasi</th>
                                 <th style="vertical-align: middle; text-align:center;" rowspan="3">Rekomendasi</th>

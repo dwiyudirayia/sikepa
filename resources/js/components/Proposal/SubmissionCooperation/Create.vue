@@ -120,7 +120,7 @@
                             <select2 :options="data_select.regency_id" v-model="forms.regency_id" />
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    </div>  
+                    </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Instansi</label>
@@ -338,10 +338,6 @@ export default {
             options:[
                 {
                     id: 1,
-                    name: 'PKS'
-                },
-                {
-                    id: 2,
                     name: 'MOU'
                 }
             ],
@@ -582,16 +578,9 @@ export default {
                     };
                     toastr.success(`${response.data.messages}`);
 
-
-                    if(this.forms.type_id == 1) {
-                        this.$router.push({
-                            path: '/pks/submission/cooperation'
-                        });
-                    } else {
-                        this.$router.push({
-                            path: '/mou/submission/cooperation'
-                        });
-                    }
+                    this.$router.push({
+                        path: '/mou/submission/cooperation'
+                    });
                 })
 
                 this.$v.$reset();

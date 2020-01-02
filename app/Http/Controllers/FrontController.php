@@ -233,11 +233,9 @@ class FrontController extends Controller
             $users = User::whereHas('roles', function(Builder $query) use ($deputi) {
                 $query->whereIn('id', [2,9]);
             })->get();
-            if($request->type_guest_id == 1) {
-                $path = 'PKSProposalSubmissionCooperationIndex';
-            } else {
-                $path = 'MOUProposalSubmissionCooperationIndex';
-            }
+
+            $path = 'MOUProposalSubmissionCooperationIndex';
+
             Notification::send($users, new DeputiNotificationGuest($path));
             Mail::to($request->email)->send(new NomorResi($proposal));
 

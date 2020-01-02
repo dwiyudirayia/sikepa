@@ -16,18 +16,6 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis</label>
-                    <div class="m-form__control">
-                        <select class="form-control" v-model="$v.forms.type_guest_id.$model">
-                            <option value="1">PKS</option>
-                            <option value="2">MOU</option>
-                        </select>
-                    </div>
-                    <template v-if="$v.forms.type_guest_id.$error">
-                        <span v-if="!$v.forms.type_guest_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Judul Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
@@ -322,7 +310,7 @@
                 <div class="m-form__seperator m-form__seperator--dashed"></div>
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Nomor MOU / PKS</h3>
+                        <h3 class="m-form__heading-title">Nomor MOU</h3>
                     </div>
                     <div class="form-group m-form__group" v-for="(value, index) in forms.nomor" :key="index">
                         <div class="text-right">
@@ -391,10 +379,6 @@ export default {
             options:[
                 {
                     id: 1,
-                    name: 'PKS'
-                },
-                {
-                    id: 2,
                     name: 'MOU'
                 }
             ],

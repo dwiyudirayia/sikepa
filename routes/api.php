@@ -63,7 +63,7 @@ Route::middleware('jwt')->group( function () {
 
         //MOU
         Route::get('mou/submission/cooperation', 'SubmissionProposalController@indexMOU');
-        Route::get('pks/submission/cooperation', 'SubmissionProposalController@indexPKS');
+        // Route::get('pks/submission/cooperation', 'SubmissionProposalController@indexPKS');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
@@ -81,19 +81,19 @@ Route::middleware('jwt')->group( function () {
         Route::post('submission/cooperation/final/{id}/guest', 'SubmissionProposalGuestController@final');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
-        Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
-        Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
+        // Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
+        // Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
         Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
 
-        Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
-        Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
-        Route::get('filter/guest/pks','SubmissionProposalController@filterGuestPKS');
-        Route::get('reset/satker/sesmen/approval/pks','SubmissionProposalController@resetSatkerSesmenApprovalPKS');
-        Route::get('reset/satker/sesmen/pks','SubmissionProposalController@resetSatkerSesmenYouPKS');
-        Route::get('reset/guest/pks','SubmissionProposalController@resetGuestPKS');
+        // Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
+        // Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
+        // Route::get('filter/guest/pks','SubmissionProposalController@filterGuestPKS');
+        // Route::get('reset/satker/sesmen/approval/pks','SubmissionProposalController@resetSatkerSesmenApprovalPKS');
+        // Route::get('reset/satker/sesmen/pks','SubmissionProposalController@resetSatkerSesmenYouPKS');
+        // Route::get('reset/guest/pks','SubmissionProposalController@resetGuestPKS');
 
         Route::get('filter/satker/sesmen/approval/mou','SubmissionProposalController@filterSatkerSesmenApprovalMOU');
         Route::get('filter/satker/sesmen/mou','SubmissionProposalController@filterSatkerSesmenYouMOU');
@@ -231,35 +231,35 @@ Route::middleware('jwt')->group( function () {
         Route::get('dashboard', 'DashboardController@index');
         Route::get('old/monev/filter/{year}', 'DashboardController@filterOldMonev');
 
-        Route::get('filter/kesetaraan/gender/pks/{year}', 'DashboardController@filterKesetaraanGenderPKS');
+        // Route::get('filter/kesetaraan/gender/pks/{year}', 'DashboardController@filterKesetaraanGenderPKS');
         Route::get('filter/kesetaraan/gender/mou/{year}', 'DashboardController@filterKesetaraanGenderMOU');
-        Route::get('filter/partisipasi/masyarakat/pks/{year}', 'DashboardController@filterPartisipasiMasyarakatPKS');
+        // Route::get('filter/partisipasi/masyarakat/pks/{year}', 'DashboardController@filterPartisipasiMasyarakatPKS');
         Route::get('filter/partisipasi/masyarakat/mou/{year}', 'DashboardController@filterPartisipasiMasyarakatMOU');
-        Route::get('filter/perlindungan/anak/pks/{year}', 'DashboardController@filterPerlindunganAnakPKS');
+        // Route::get('filter/perlindungan/anak/pks/{year}', 'DashboardController@filterPerlindunganAnakPKS');
         Route::get('filter/perlindungan/anak/mou/{year}', 'DashboardController@filterPerlindunganAnakMOU');
-        Route::get('filter/perlindungan/hak/perempuan/pks/{year}', 'DashboardController@filterPerlindunganHakPerempuanPKS');
+        // Route::get('filter/perlindungan/hak/perempuan/pks/{year}', 'DashboardController@filterPerlindunganHakPerempuanPKS');
         Route::get('filter/perlindungan/hak/perempuan/mou/{year}', 'DashboardController@filterPerlindunganHakPerempuanMOU');
-        Route::get('filter/perlindungan/tumbuh/kembang/anak/pks/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakPKS');
+        // Route::get('filter/perlindungan/tumbuh/kembang/anak/pks/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakPKS');
         Route::get('filter/perlindungan/tumbuh/kembang/anak/mou/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakMOU');
-        Route::get('filter/agencies/pks/{year}', 'DashboardController@filterAgenciesPKS');
+        // Route::get('filter/agencies/pks/{year}', 'DashboardController@filterAgenciesPKS');
         Route::get('filter/agencies/mou/{year}', 'DashboardController@filterAgenciesMOU');
-        Route::get('filter/submission/pks/{year}', 'DashboardController@filterSubmissionPKS');
+        // Route::get('filter/submission/pks/{year}', 'DashboardController@filterSubmissionPKS');
         Route::get('filter/submission/mou/{year}', 'DashboardController@filterSubmissionMOU');
         Route::get('filter/survey/{year}', 'DashboardController@filterSurvey');
 
-        Route::get('reset/kesetaraan/gender/pks', 'DashboardController@resetKesetaraanGenderPKS');
+        // Route::get('reset/kesetaraan/gender/pks', 'DashboardController@resetKesetaraanGenderPKS');
         Route::get('reset/kesetaraan/gender/mou', 'DashboardController@resetKesetaraanGenderMOU');
-        Route::get('reset/partisipasi/masyarakat/pks', 'DashboardController@resetPartisipasiMasyarakatPKS');
+        // Route::get('reset/partisipasi/masyarakat/pks', 'DashboardController@resetPartisipasiMasyarakatPKS');
         Route::get('reset/partisipasi/masyarakat/mou', 'DashboardController@resetPartisipasiMasyarakatMOU');
-        Route::get('reset/perlindungan/anak/pks', 'DashboardController@resetPerlindunganAnakPKS');
+        // Route::get('reset/perlindungan/anak/pks', 'DashboardController@resetPerlindunganAnakPKS');
         Route::get('reset/perlindungan/anak/mou', 'DashboardController@resetPerlindunganAnakMOU');
-        Route::get('reset/perlindungan/hak/perempuan/pks', 'DashboardController@resetPerlindunganHakPerempuanPKS');
+        // Route::get('reset/perlindungan/hak/perempuan/pks', 'DashboardController@resetPerlindunganHakPerempuanPKS');
         Route::get('reset/perlindungan/hak/perempuan/mou', 'DashboardController@resetPerlindunganHakPerempuanMOU');
-        Route::get('reset/perlindungan/tumbuh/kembang/anak/pks', 'DashboardController@resetPerlindunganTumbuhKembangAnakPKS');
+        // Route::get('reset/perlindungan/tumbuh/kembang/anak/pks', 'DashboardController@resetPerlindunganTumbuhKembangAnakPKS');
         Route::get('reset/perlindungan/tumbuh/kembang/anak/mou', 'DashboardController@resetPerlindunganTumbuhKembangAnakMOU');
-        Route::get('reset/agencies/pks', 'DashboardController@resetAgenciesPKS');
+        // Route::get('reset/agencies/pks', 'DashboardController@resetAgenciesPKS');
         Route::get('reset/agencies/mou', 'DashboardController@resetAgenciesMOU');
-        Route::get('reset/submission/pks', 'DashboardController@resetSubmissionPKS');
+        // Route::get('reset/submission/pks', 'DashboardController@resetSubmissionPKS');
         Route::get('reset/submission/mou', 'DashboardController@resetSubmissionMOU');
         Route::get('reset/survey', 'DashboardController@resetSurvey');
         //Information Deputi

@@ -87,9 +87,6 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
                                                         <option></option>
-                                                        <option>Perjanjian kerjasama</option>
-                                                        <option>Perpanjangan MOU/PKS</option>
-                                                        <option>Lain-lain</option>
                                                     </select>
                                                     <label class="text-label">Kesepahaman kerjasama</label>
                                                 </div>

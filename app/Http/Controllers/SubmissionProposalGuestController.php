@@ -57,11 +57,8 @@ class SubmissionProposalGuestController extends Controller
                             $query->where('id', $statusDisposition);
                         })->get();
 
-                        if($proposal->type_guest_id == 1) {
-                            $path = 'PKSProposalSubmissionCooperationIndex';
-                        } else {
-                            $path = 'MOUProposalSubmissionCooperationIndex';
-                        }
+                        $path = 'MOUProposalSubmissionCooperationIndex';
+
                         Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
 
                         Mail::to($proposal->email)->send(new ApproveCooperation);
@@ -90,11 +87,8 @@ class SubmissionProposalGuestController extends Controller
                     $query->whereIn('id', $currentRoleId);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
+
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
             } elseif($proposal->status_disposition == 11) {
@@ -110,11 +104,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
@@ -139,11 +129,8 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
+
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
 
@@ -160,11 +147,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new ApproveCooperation);
@@ -209,11 +192,8 @@ class SubmissionProposalGuestController extends Controller
                             $query->where('id', $statusDisposition);
                         })->get();
 
-                        if($proposal->type_guest_id == 1) {
-                            $path = 'PKSProposalSubmissionCooperationIndex';
-                        } else {
-                            $path = 'MOUProposalSubmissionCooperationIndex';
-                        }
+                        $path = 'MOUProposalSubmissionCooperationIndex';
+
                         Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                     } else {
                         $proposal->status_proposal = 0;
@@ -235,11 +215,7 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
@@ -290,11 +266,8 @@ class SubmissionProposalGuestController extends Controller
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                if($proposal->type_guest_id == 1) {
-                    $path = 'PKSProposalSubmissionCooperationIndex';
-                } else {
-                    $path = 'MOUProposalSubmissionCooperationIndex';
-                }
+                $path = 'MOUProposalSubmissionCooperationIndex';
+
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             }
 
@@ -360,11 +333,8 @@ class SubmissionProposalGuestController extends Controller
             $proposal->status_disposition = $proposal->status_disposition + 1;
             $proposal->save();
 
-            if($proposal->type_guest_id == 1) {
-                $path = 'PKSProposalSubmissionCooperationIndex';
-            } else {
-                $path = 'MOUProposalSubmissionCooperationIndex';
-            }
+            $path = 'MOUProposalSubmissionCooperationIndex';
+
             $users = User::whereHas('roles', function(Builder $query) {
                 $query->where('id', 11);
             })->get();
@@ -466,11 +436,8 @@ class SubmissionProposalGuestController extends Controller
                 $query->where('id', 9);
             })->get();
 
-            if($proposal->type_guest_id == 1) {
-                $path = 'PKSProposalSubmissionCooperationIndex';
-            } else {
-                $path = 'MOUProposalSubmissionCooperationIndex';
-            }
+            $path = 'MOUProposalSubmissionCooperationIndex';
+
             DB::commit();
             Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
             Mail::to($proposal->email)->send(new ApproveCooperationFinal);

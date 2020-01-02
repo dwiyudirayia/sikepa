@@ -14,7 +14,7 @@
             <div class="m-portlet__body">
                 <form @submit.prevent="update">
                     <div class="form-group m-form__group">
-                        <label>Upload File MOU PKS</label>
+                        <label>Upload File MOU</label>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Pilih File" :value="MOULabel">
                             <div class="input-group-append">

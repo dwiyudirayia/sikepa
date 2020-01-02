@@ -144,7 +144,7 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'PKSProposalSubmissionCooperationIndex',
+    name: 'MOUProposalSubmissionCooperationIndex',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -152,7 +152,7 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/pks/submission/cooperation'
+                    path: '/mou/submission/cooperation'
                 },
             ],
             approvalSubmission: [],

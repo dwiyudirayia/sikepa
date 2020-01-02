@@ -43,7 +43,7 @@
             <form class="m-form m-form--fit" @submit.prevent="update">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Monitoring Administrasi MOU/PKS</h3>
+                        <h3 class="m-form__heading-title">Monitoring Administrasi MOU</h3>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="exampleInputEmail1">Anggaran</label>

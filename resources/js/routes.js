@@ -126,15 +126,15 @@ import MOUProposalSubmissionCooperationYourDetailPreview from './components/Prop
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
 
-import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
-import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
-import PKSProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/PKS/YourDetail';
-import PKSProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/PKS/YourDetailPreview';
-import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
-import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
+// import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
+// import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
+// import PKSProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/PKS/YourDetail';
+// import PKSProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/PKS/YourDetailPreview';
+// import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
+// import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
 
 import MOUProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
-import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/PKS/Detail';
+// import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/PKS/Detail';
 // --- End Proposal --- //
 
 // --- Banner --- //
@@ -1160,14 +1160,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
-                {
-                    path: '/pks/submission/cooperation/:id/detail/guest',
-                    name: 'PKSProposalSubmissionCooperationDetailGuest',
-                    component: PKSProposalSubmissionCooperationDetaiGuest,
-                    meta:{
-                        requiresAuth: true
-                    }
-                },
+                // {
+                //     path: '/pks/submission/cooperation/:id/detail/guest',
+                //     name: 'PKSProposalSubmissionCooperationDetailGuest',
+                //     component: PKSProposalSubmissionCooperationDetaiGuest,
+                //     meta:{
+                //         requiresAuth: true
+                //     }
+                // },
                 //Proposal Subtance Cooperation
                 {
                     path: '/proposal/subtance/cooperation',
@@ -1251,54 +1251,54 @@ const router = new VueRouter({
                     }
                 },
                 //PKS
-                {
-                    path: '/pks/submission/cooperation',
-                    name: 'PKSProposalSubmissionCooperationIndex',
-                    component: PKSProposalSubmissionCooperationIndex,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/pks/submission/cooperation/approve',
-                    name: 'PKSProposalSubmissionCooperationApprove',
-                    component: PKSProposalSubmissionCooperationApprove,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/pks/submission/cooperation/reject',
-                    name: 'PKSProposalSubmissionCooperationReject',
-                    component: PKSProposalSubmissionCooperationReject,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/pks/submission/cooperation/:id/detail',
-                    name: 'PKSProposalSubmissionCooperationDetail',
-                    component: PKSProposalSubmissionCooperationDetail,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/pks/submission/cooperation/:id/your/detail',
-                    name: 'PKSProposalSubmissionCooperationYourDetail',
-                    component: PKSProposalSubmissionCooperationYourDetail,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/pks/submission/cooperation/:id/your/detail/preview',
-                    name: 'PKSProposalSubmissionCooperationYourDetailPreview',
-                    component: PKSProposalSubmissionCooperationYourDetailPreview,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
+                // {
+                //     path: '/pks/submission/cooperation',
+                //     name: 'PKSProposalSubmissionCooperationIndex',
+                //     component: PKSProposalSubmissionCooperationIndex,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/pks/submission/cooperation/approve',
+                //     name: 'PKSProposalSubmissionCooperationApprove',
+                //     component: PKSProposalSubmissionCooperationApprove,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/pks/submission/cooperation/reject',
+                //     name: 'PKSProposalSubmissionCooperationReject',
+                //     component: PKSProposalSubmissionCooperationReject,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/pks/submission/cooperation/:id/detail',
+                //     name: 'PKSProposalSubmissionCooperationDetail',
+                //     component: PKSProposalSubmissionCooperationDetail,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/pks/submission/cooperation/:id/your/detail',
+                //     name: 'PKSProposalSubmissionCooperationYourDetail',
+                //     component: PKSProposalSubmissionCooperationYourDetail,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
+                // {
+                //     path: '/pks/submission/cooperation/:id/your/detail/preview',
+                //     name: 'PKSProposalSubmissionCooperationYourDetailPreview',
+                //     component: PKSProposalSubmissionCooperationYourDetailPreview,
+                //     meta: {
+                //         requiresAuth: true
+                //     }
+                // },
                 //Banner Category
                 {
                     path: '/background/login',

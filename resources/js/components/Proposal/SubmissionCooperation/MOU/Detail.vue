@@ -307,7 +307,7 @@
                             <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
                         </div>
                         <div class="form-group m-form__group">
-                            <label>Draft Final MOU/PKS</label>
+                            <label>Draft Final MOU</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Pilih File" :value="draft">
                                 <div class="input-group-append">
@@ -360,7 +360,7 @@
                                     <input type="text" v-model="title_cooperation_final" class="form-control">
                                 </div>
                                 <div class="form-group m-form__group">
-                                    <label>Draft Final MOU/PKS</label>
+                                    <label>Draft Final MOU</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
                                         <div class="input-group-append">
