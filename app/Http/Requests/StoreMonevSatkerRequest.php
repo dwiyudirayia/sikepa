@@ -42,7 +42,7 @@ class StoreMonevSatkerRequest extends FormRequest
             'address' => $this->address,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'nominal' => $this->nominal,
+            // 'nominal' => $this->nominal,
             // 'purpose_objectives' => $this->purpose_objectives,
             'background' => $this->background,
             'time_period' => $this->time_period,

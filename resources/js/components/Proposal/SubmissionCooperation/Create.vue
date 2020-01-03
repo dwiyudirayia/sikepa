@@ -43,7 +43,7 @@
                     </div>
                     <span class="m-form__help">Tunjuk deputi yang diinginkan</span>
                 </div>
-                <div v-if="isNominal">
+                <!-- <div v-if="isNominal">
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Nominal</label>
                         <div class="m-form__control">
@@ -57,8 +57,8 @@
                         </div>
                         <span class="m-form__help">Ketikan Nominal Yang di Inginkan</span>
                     </div>
-                </div>
-                <div v-else>
+                </div> -->
+                <!-- <div v-else> -->
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Permohonan kerjasama</label>
                         <div class="m-form__control">
@@ -73,7 +73,7 @@
                         </div>
                         <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
-                </div>
+                <!-- </div> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
@@ -353,7 +353,7 @@ export default {
                 address: null,
                 latitude: null,
                 longitude: null,
-                nominal: null,
+                // nominal: null,
                 // purpose_objectives: null,
                 background: null,
                 time_period: null,
@@ -444,28 +444,28 @@ export default {
 
     },
     computed: {
-        plainValue() {
-            let val = 0;
-            if (this.forms.nominal) {
-                val = parseInt(this.forms.nominal.replace(/\./g, ''));
-                return val;
-            }
-            return null;
-        },
+        // plainValue() {
+        //     let val = 0;
+        //     if (this.forms.nominal) {
+        //         val = parseInt(this.forms.nominal.replace(/\./g, ''));
+        //         return val;
+        //     }
+        //     return null;
+        // },
     },
-    watch: {
-        "forms.nominal": function(newValue) {
-            let result = newValue;
-            if (newValue) {
-                result = newValue.toString()
-                .replace(/\D/g, '')
-                .replace(/^[0]/g, '')
-                .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            }
-            this.forms.nominal = result;
-            this.$emit('validate', this.plainValue);
-        }
-    },
+    // watch: {
+    //     "forms.nominal": function(newValue) {
+    //         let result = newValue;
+    //         if (newValue) {
+    //             result = newValue.toString()
+    //             .replace(/\D/g, '')
+    //             .replace(/^[0]/g, '')
+    //             .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    //         }
+    //         this.forms.nominal = result;
+    //         this.$emit('validate', this.plainValue);
+    //     }
+    // },
     methods: {
         onChangeTypeCooperationTwoDerivative() {
             const value = this.forms.type_of_cooperation_one_derivative_id;
@@ -502,7 +502,7 @@ export default {
                 formData.append('address', this.forms.address);
                 formData.append('latitude', this.forms.latitude);
                 formData.append('longitude', this.forms.longitude);
-                formData.append('nominal', this.forms.nominal);
+                // formData.append('nominal', this.forms.nominal);
                 // formData.append('purpose_objectives', this.forms.purpose_objectives);
                 formData.append('background', this.forms.background);
                 formData.append('time_period', this.forms.time_period);
@@ -551,16 +551,16 @@ export default {
                 lng: place.geometry.location.lng()
             }
         },
-        validate() {
-            const regex = new RegExp(/\D/g);
-            const value = this.forms.nominal.toString().replace(/\./g, '');
+        // validate() {
+        //     const regex = new RegExp(/\D/g);
+        //     const value = this.forms.nominal.toString().replace(/\./g, '');
 
-            if (!regex.test(value)) {
-                this.message = '';
-            } else {
-                alert('Hanya Dapat di Isi Oleh Angka');
-            }
-        },
+        //     if (!regex.test(value)) {
+        //         this.message = '';
+        //     } else {
+        //         alert('Hanya Dapat di Isi Oleh Angka');
+        //     }
+        // },
         getRegencies() {
             $axios.get(`/admin/submission/get/regencies/${this.forms.province_id}`)
             .then(response => {

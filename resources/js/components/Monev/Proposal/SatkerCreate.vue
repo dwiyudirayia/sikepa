@@ -43,7 +43,7 @@
                     </div>
                     <span class="m-form__help">Tunjuk deputi yang diinginkan</span>
                 </div>
-                <div v-if="isNominal">
+                <!-- <div v-if="isNominal">
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Nominal</label>
                         <div class="m-form__control">
@@ -57,27 +57,27 @@
                         </div>
                         <span class="m-form__help">Ketikan Nominal Yang di Inginkan</span>
                     </div>
-                </div>
-                <div v-else>
-                    <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Jenis Kerjasama</label>
-                        <div class="m-form__control">
-                            <select v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
-                                <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                            </select>
-                        </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                </div> -->
+                <!-- <div v-else> -->
+                <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Jenis Kerjasama</label>
+                    <div class="m-form__control">
+                        <select v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
+                            <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
+                        </select>
                     </div>
-                    <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
-                        <div class="m-form__control">
-                            <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control">
-                                <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                            </select>
-                        </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    </div>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
+                <div class="form-group m-form__group">
+                    <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
+                    <div class="m-form__control">
+                        <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control">
+                            <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
+                        </select>
+                    </div>
+                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                </div>
+                <!-- </div> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
@@ -406,7 +406,7 @@ export default {
                 address: null,
                 latitude: null,
                 longitude: null,
-                nominal: null,
+                // nominal: null,
                 // purpose_objectives: null,
                 background: null,
                 time_period: 1,
@@ -543,7 +543,7 @@ export default {
                 formData.append('address', this.forms.address);
                 formData.append('latitude', this.forms.latitude);
                 formData.append('longitude', this.forms.longitude);
-                formData.append('nominal', this.forms.nominal);
+                // formData.append('nominal', this.forms.nominal);
                 // formData.append('purpose_objectives', this.forms.purpose_objectives);
                 formData.append('background', this.forms.background);
                 formData.append('time_period', this.forms.time_period);

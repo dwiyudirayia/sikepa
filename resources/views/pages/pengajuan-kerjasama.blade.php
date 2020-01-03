@@ -346,7 +346,7 @@
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places&callback=initAutocomplete" async defer></script>
     <script>
         function initAutocomplete() {
             var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
@@ -365,20 +365,6 @@
             searchBox.addListener('places_changed', function() {
                 var places = searchBox.getPlaces();
 
-                for (var i = 0; i < places[0].address_components.length; i++) {
-                    for (var j = 0; j < places[0].address_components[i].types.length; j++) {
-                        if (places[0].address_components[i].types[j] == "postal_code") {
-                            $('#postal_code').val(`${places[0].address_components[i].long_name}`);
-                        }
-                    }
-                }
-                $('#loc-search').val(`${places[0].name}`);
-                $('#addressLabel').val(`${places[0].formatted_address}`);
-                $('#latitudeLabel').val(`${places[0].geometry.location.lat()}`);
-                $('#longitudeLabel').val(`${places[0].geometry.location.lng()}`);
-                $('#address').val(`${places[0].formatted_address}`);
-                $('#latitude').val(`${places[0].geometry.location.lat()}`);
-                $('#longitude').val(`${places[0].geometry.location.lng()}`);
                 if (places.length == 0) {
                     return;
                 }
@@ -392,7 +378,7 @@
                         console.log("Returned place contains no geometry");
                         return;
                     }
-                    var markerIcon = '/assets/images/marker-icon.svg';
+                    var markerIcon = '/images/marker-icon.svg';
                     /*
                     var icon = {
                         url: markerIcon,
@@ -402,7 +388,6 @@
                         scaledSize: new google.maps.Size(25, 25)
                     };
                     */
-
                     markers.push(new google.maps.Marker({
                         map: map,
                         icon: markerIcon,
@@ -488,13 +473,6 @@
     </script>
     <script>
         $(document).ready(function() {
-            initAutocomplete();
-            var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
-            var map = new google.maps.Map(document.getElementById('loc-result'), {
-                center: {lat:  -1.514896, lng: 120.3647036},
-                zoom: 4,
-                styles: mapstyles,
-            });
             $('.select2').select2({
                 width: '100%',
                 placeholder: 'Pilih dan Sesuaikan',
@@ -674,18 +652,18 @@
                 }
 
             });
-            $('#nominal').keyup(function(event) {
-                // skip for arrow keys
-                if(event.which >= 37 && event.which <= 40) return;
+            // $('#nominal').keyup(function(event) {
+            //     // skip for arrow keys
+            //     if(event.which >= 37 && event.which <= 40) return;
 
-                // format number
-                $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-                });
-            });
+            //     // format number
+            //     $(this).val(function(index, value) {
+            //     return value
+            //     .replace(/\D/g, "")
+            //     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            //     ;
+            //     });
+            // });
         });
     </script>
 @endsection
