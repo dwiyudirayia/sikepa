@@ -149,10 +149,10 @@
                             <label>Latar Belakang</label>
                             <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="background"></textarea>
                         </div>
-                        <div class="form-group m-form__group">
+                        <!-- <div class="form-group m-form__group">
                             <label>Maksud & Tujuan</label>
                             <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@ export default {
             agency_category: null,
             agency_name: null,
             agency_address: null,
-            purpose_objectives: null,
+            // purpose_objectives: null,
             background: null,
             latitude: null,
             longitude: null,
@@ -248,7 +248,7 @@ export default {
                 this.agency_category = response.data.data.agencies.name;
                 this.agency_name = response.data.data.agency_name;
                 this.agency_address = response.data.data.address;
-                this.purpose_objectives = response.data.data.purpose_objectives;
+                // this.purpose_objectives = response.data.data.purpose_objectives;
                 this.background = response.data.data.background;
                 this.latitude = parseFloat(response.data.data.latitude);
                 this.longitude = parseFloat(response.data.data.longitude);

@@ -244,14 +244,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group sr-btm">
+                                {{-- <div class="form-group sr-btm">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Maksud dan tujuan</p></div>
                                         <div class="col-lg-8 col-md-8">
                                             <div class="input-value"><b>{{ $data['data']['data']['purpose_objectives']}}</b></div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group sr-btm">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Usulan jangka waktu</p></div>

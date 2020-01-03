@@ -90,14 +90,13 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'agency_name' => $this->agency_name,
             'address' => $this->address,
             'email' => $this->email,
-            'purpose_objectives' => $this->purpose_objectives,
+            // 'purpose_objectives' => $this->purpose_objectives,
             'background' => $this->background,
             'status_proposal' => 1,
             'status_disposition' => 2,
             'time_period' => 1,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
-            'reject_dana' => $reject,
         ];
 
     }

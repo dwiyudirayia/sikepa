@@ -31,7 +31,7 @@ class CreateSubmissionProposalTable extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->string('nominal')->nullable();
-            $table->text('purpose_objectives');
+            // $table->text('purpose_objectives');
             $table->text('background');
             $table->tinyInteger('status_proposal');
             $table->tinyInteger('status_disposition');

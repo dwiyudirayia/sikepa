@@ -231,7 +231,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <!-- <div class="col-lg-6">
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Maksud & Tujuan</label>
                             <div class="m-form__control">
@@ -243,7 +243,7 @@
                                 </template>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-6">
                         <div class="form-group m-form__group">
                             <label for="exampleInputEmail1">Lama Pengajuan</label>
@@ -402,7 +402,7 @@ export default {
                 latitude: null,
                 longitude: null,
                 nominal: null,
-                purpose_objectives: null,
+                // purpose_objectives: null,
                 background: null,
                 time_period: 1,
                 email: null,
@@ -474,9 +474,9 @@ export default {
             longitude: {
                 required
             },
-            purpose_objectives: {
-                required
-            },
+            // purpose_objectives: {
+            //     required
+            // },
             background: {
                 required
             },
@@ -539,7 +539,7 @@ export default {
                 formData.append('latitude', this.forms.latitude);
                 formData.append('longitude', this.forms.longitude);
                 formData.append('nominal', this.forms.nominal);
-                formData.append('purpose_objectives', this.forms.purpose_objectives);
+                // formData.append('purpose_objectives', this.forms.purpose_objectives);
                 formData.append('background', this.forms.background);
                 formData.append('time_period', this.forms.time_period);
                 formData.append('email', this.forms.email);

@@ -266,12 +266,12 @@
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="background"></textarea>
                             </div>
                         </div>
-                        <div class="form-group m-form__group row">
+                        <!-- <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Maksud & Tujuan:</label>
                             <div class="col-10">
                                 <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" v-model="purpose_objectives"></textarea>
                             </div>
-                        </div>
+                        </div> -->
                         <template v-if="status_disposition == 11 || status_disposition == 12 || status_disposition == 15">
                             <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
@@ -675,7 +675,7 @@ export default {
             agency_category: null,
             agency_name: null,
             agency_address: null,
-            purpose_objectives: null,
+            // purpose_objectives: null,
             background: null,
             latitude: null,
             longitude: null,
@@ -1122,7 +1122,7 @@ export default {
                 this.agency_category = response.data.data.data.agencies.name;
                 this.agency_name = response.data.data.data.agency_name;
                 this.agency_address = response.data.data.data.address;
-                this.purpose_objectives = response.data.data.data.purpose_objectives;
+                // this.purpose_objectives = response.data.data.data.purpose_objectives;
                 this.background = response.data.data.data.background;
                 this.forms.id = response.data.data.data.id;
                 this.latitude = parseFloat(response.data.data.data.latitude);
