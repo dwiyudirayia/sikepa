@@ -6,7 +6,6 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreTypeOfCooperationTwoDerivative;
 use App\Http\Requests\UpdateTypeOfCooperationTwoDerivative;
 use App\TypeOfCooperationTwoDerivative;
-use App\TypeOfCooperation;
 use App\TypeOfCooperationOneDerivative;
 
 class TypeOfCooperationTwoDerivativeController extends Controller
@@ -50,15 +49,15 @@ class TypeOfCooperationTwoDerivativeController extends Controller
             return response()->json($this->notification->storeFailed($th));
         }
     }
-    public function create() {
-        try {
-            $data = TypeOfCooperation::all();
+    // public function create() {
+    //     try {
+    //         $data = TypeOfCooperation::all();
 
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
-    }
+    //         return response()->json($this->notification->generalSuccess($data));
+    //     } catch (\Throwable $th) {
+    //         return response()->json($this->notification->generalFailed($th));
+    //     }
+    // }
     /**
      * Display the specified resource.
      *
@@ -141,7 +140,7 @@ class TypeOfCooperationTwoDerivativeController extends Controller
     }
     public function createType($id) {
         try {
-            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
+            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_one_derivative_id', $id)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

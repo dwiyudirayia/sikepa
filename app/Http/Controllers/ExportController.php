@@ -102,12 +102,12 @@ class ExportController extends Controller
         }
     }
     public function downloadSummary($id) {
-        $data = SubmissionProposal::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->findOrFail($id);
+        $data = SubmissionProposal::with('deputi.role', 'reason.user', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->findOrFail($id);
         $pdf = PDF::loadView('export.summary-proposal', compact('data'));
         return $pdf->download('Rangkuman Jenis Kerjasama '.date('Y-m-d_H-i-s').'.pdf');
     }
     public function downloadSummaryGuest($id) {
-        $data = SubmissionProposalGuest::with('deputi.role', 'reason.user', 'country','agencies','typeOfCooperation', 'typeOfCooperationOne', 'typeOfCooperationTwo')->findOrFail($id);
+        $data = SubmissionProposalGuest::with('deputi.role', 'reason.user', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->findOrFail($id);
         $pdf = PDF::loadView('export.summary-proposal-guest', compact('data'));
         return $pdf->download('Rangkuman Jenis Kerjasama '.date('Y-m-d_H-i-s').'.pdf');
     }

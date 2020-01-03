@@ -15,12 +15,10 @@ class CreateSubmissionProposalTable extends Migration
     {
         Schema::create('submission_proposal', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('type_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('mailing_number')->nullable()->unique();
             $table->string('title_cooperation');
-            $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
             $table->mediumInteger('type_of_cooperation_two_derivative_id')->nullable();
             $table->integer('agencies_id');

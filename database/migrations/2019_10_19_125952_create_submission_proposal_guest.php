@@ -15,10 +15,8 @@ class CreateSubmissionProposalGuest extends Migration
     {
         Schema::create('submission_proposal_guest', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('type_guest_id');
             $table->string('mailing_number')->nullable()->unique();
             $table->string('title_cooperation');
-            $table->mediumInteger('type_of_cooperation_id');
             $table->mediumInteger('type_of_cooperation_one_derivative_id')->nullable();
             $table->mediumInteger('type_of_cooperation_two_derivative_id')->nullable();
             $table->integer('agencies_id');
@@ -28,7 +26,6 @@ class CreateSubmissionProposalGuest extends Migration
             $table->string('postal_code')->nullable();
             $table->double('latitude');
             $table->double('longitude');
-            $table->string('nominal')->nullable();
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('ktp')->nullable();

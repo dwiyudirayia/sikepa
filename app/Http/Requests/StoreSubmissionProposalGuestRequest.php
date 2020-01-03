@@ -25,7 +25,12 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'agency_profile' => 'required|image|mimes:pdf',
+            'proposal' => 'required',
+            'ktp' => 'required|image|mimes:pdf',
+            'proposal' => 'required|image|mimes:pdf',
+            'npwp' => 'image|mimes:pdf',
+            'siup' => 'image|mimes:pdf',
         ];
     }
     public function store() {
@@ -51,6 +56,8 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             $extention = $this->npwp->getClientOriginalExtension();
             $fileName = 'npwp-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
             $pathNPWP = $this->npwp->storeAs(strtotime("now"), $fileName, 'npwp_guest');
+        } else {
+            $pathNPWP = '';
         }
 
         if($this->hasFile('siup')) {
@@ -61,17 +68,9 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             $pathSIUP = '';
         }
 
-        if($this->type_of_cooperation_id == 1 || $this->type_of_cooperation_id == 2) {
-            $reject = Carbon::now()->addMinutes(10)->format('H:i');
-        } else {
-            $reject = null;
-        }
-
         return [
-            'type_guest_id' => $this->type_guest_id,
             'mailing_number' => "Surat-".strtotime("now"),
             'title_cooperation' => $this->title_cooperation,
-            'type_of_cooperation_id' => $this->type_of_cooperation_id,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id,
             'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id,
             'agencies_id' => $this->agencies_id,

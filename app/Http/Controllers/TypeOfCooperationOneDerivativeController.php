@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreTypeOfCooperationOneDerivative;
 use App\Http\Requests\UpdateTypeOfCooperationOneDerivative;
-use App\TypeOfCooperation;
 use App\TypeOfCooperationOneDerivative;
 
 class TypeOfCooperationOneDerivativeController extends Controller
@@ -31,15 +30,15 @@ class TypeOfCooperationOneDerivativeController extends Controller
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function createType($id) {
-        try {
-            $data = TypeOfCooperation::where('submission_type_id', $id)->get();
+    // public function createType($id) {
+    //     try {
+    //         $data = TypeOfCooperation::where('submission_type_id', $id)->get();
 
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
-    }
+    //         return response()->json($this->notification->generalSuccess($data));
+    //     } catch (\Throwable $th) {
+    //         return response()->json($this->notification->generalFailed($th));
+    //     }
+    // }
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +49,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
     {
         try {
             TypeOfCooperationOneDerivative::create($request->store());
-            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $request->type_of_cooperation_id)->get();
+            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_one_derivative_id', $request->type_of_cooperation_one_derivative_id)->get();
             return response()->json($this->notification->storeSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->storeFailed($th));
@@ -84,7 +83,6 @@ class TypeOfCooperationOneDerivativeController extends Controller
     {
         try {
             $data['data'] = TypeOfCooperationOneDerivative::findOrFail($id);
-            $data['select'] = TypeOfCooperation::all();
 
             return response()->json($this->notification->showSuccess($data));
         } catch (\Throwable $th) {
@@ -103,7 +101,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
     {
         try {
             TypeOfCooperationOneDerivative::where('id', $id)->update($request->update());
-            $array = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $request->type_of_cooperation_id)->get();
+            $array = TypeOfCooperationOneDerivative::where('type_of_cooperation_one_derivative_id', $request->type_of_cooperation_one_derivative_id)->get();
 
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
@@ -124,7 +122,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
             $data = TypeOfCooperationOneDerivative::findOrFail($id);
             $data->delete();
 
-            $array = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $data->type_of_cooperation_id)->get();
+            $array = TypeOfCooperationOneDerivative::where('type_of_cooperation_one_derivative_id', $data->type_of_cooperation_one_derivative_id)->get();
             return response()->json($this->notification->deleteSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));
@@ -132,7 +130,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
     }
     public function listTypeOfCooperationOne($id) {
         try {
-            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
+            $data = TypeOfCooperationOneDerivative::all();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));

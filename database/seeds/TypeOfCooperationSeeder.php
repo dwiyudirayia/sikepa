@@ -3,8 +3,8 @@
  <?php
 
 use App\SubmissionType;
+use App\TypeOfCooperationOneDerivative;
 use Illuminate\Database\Seeder;
-use App\TypeOfCooperation;
 use App\TypeOfCooperationTwoDerivative;
 
 class TypeOfCooperationSeeder extends Seeder
@@ -21,11 +21,11 @@ class TypeOfCooperationSeeder extends Seeder
         //     'updated_by' => 1,
         //     'name' => 'PKS',
         // ]);
-        $submissionType2 = SubmissionType::create([
-            'created_by' => 1,
-            'updated_by' => 1,
-            'name' => 'MOU',
-        ]);
+        // $submissionType2 = SubmissionType::create([
+        //     'created_by' => 1,
+        //     'updated_by' => 1,
+        //     'name' => 'MOU',
+        // ]);
 
         // $submissionType1->typeCooperation()->create([
         //     'created_by' => 1,
@@ -33,11 +33,11 @@ class TypeOfCooperationSeeder extends Seeder
         //     'name' => 'Permohonan Bantuan Dana',
         // ]);
 
-        $submissionType2->typeCooperation()->create([
-            'created_by' => 1,
-            'updated_by' => 1,
-            'name' => 'Permohonan Bantuan Dana',
-        ]);
+        // $submissionType2->typeCooperation()->create([
+        //     'created_by' => 1,
+        //     'updated_by' => 1,
+        //     'name' => 'Permohonan Bantuan Dana',
+        // ]);
 
         // $typeOfCoop1 = $submissionType1->typeCooperation()->create([
         //     'created_by' => 1,
@@ -45,11 +45,11 @@ class TypeOfCooperationSeeder extends Seeder
         //     'name' => 'Kerja Sama Substansi'
         // ]);
 
-        $typeOfCoop2 = $submissionType2->typeCooperation()->create([
-            'created_by' => 1,
-            'updated_by' => 1,
-            'name' => 'Kerja Sama Substansi'
-        ]);
+        // $typeOfCoop2 = $submissionType2->typeCooperation()->create([
+        //     'created_by' => 1,
+        //     'updated_by' => 1,
+        //     'name' => 'Kerja Sama Substansi'
+        // ]);
 
         // $typeOfCoopOneDerivative1 = $typeOfCoop1->typeOfCooperationOneDerivative()->create([
         //     'created_by' => 1,
@@ -57,7 +57,7 @@ class TypeOfCooperationSeeder extends Seeder
         //     'name' => 'Luar Negeri'
         // ]);
 
-        $typeOfCoopOneDerivative2 = $typeOfCoop2->typeOfCooperationOneDerivative()->create([
+        $typeOfCooperationOne1 = TypeOfCooperationOneDerivative::create([
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'Luar Negeri'
@@ -69,9 +69,7 @@ class TypeOfCooperationSeeder extends Seeder
         //     'updated_by' => 1,
         //     'name' => 'Nota Kesepahaman'
         // ]);
-
-        TypeOfCooperationTwoDerivative::create([
-            'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative2->id,
+        $typeOfCooperationOne1->typeOfCooperationTwoDerivative()->create([
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'Nota Kesepahaman'
@@ -83,7 +81,7 @@ class TypeOfCooperationSeeder extends Seeder
         //     'name' => 'Dalam Negeri'
         // ]);
 
-        $typeOfCoopOneDerivative2 =  $typeOfCoop2->typeOfCooperationOneDerivative()->create([
+        $typeOfCooperationOne2 = TypeOfCooperationOneDerivative::create([
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'Dalam Negeri'
@@ -111,24 +109,24 @@ class TypeOfCooperationSeeder extends Seeder
         // ]);
 
         TypeOfCooperationTwoDerivative::create([
-            'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative2->id,
+            'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'MOU'
         ]);
 
         TypeOfCooperationTwoDerivative::create([
-            'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative2->id,
+            'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'Perpanjangan'
         ]);
 
         TypeOfCooperationTwoDerivative::create([
-            'type_of_cooperation_one_derivative_id' => $typeOfCoopOneDerivative2->id,
+            'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Lainnya'
+            'name' => 'Adendum'
         ]);
     }
 }

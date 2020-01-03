@@ -79,30 +79,25 @@
     </table>
     <table>
         <tr>
-            <td><span class="text-table">Subtansi Kerjasama</span></td>
-            <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table">{{ $data->typeOfCooperation->name }}</span></td>
             <td><span class="text-table">Jenis Kerjasama</span></td>
             <td><span class="text-table"> : </span></td>
-            <td><span class="text-table"> {{ $data->typeOfCooperationOne->name }} </span></td>
-        </tr>
-        <tr>
+            <td width="250"><span class="text-table"> {{ $data->typeOfCooperationOne->name ?? "Kosong" }} </span></td>
             <td><span class="text-table">Kesepahaman Jenis Kerjasama</span></td>
             <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table">{{ $data->typeOfCooperationTwo->name }}</span></td>
+            <td><span class="text-table">{{ $data->typeOfCooperationTwo->name ?? "Kosong" }}</span></td>
+        </tr>
+        <tr>
             <td><span class="text-table">Negara</span></td>
             <td><span class="text-table"> : </span></td>
-            <td><span class="text-table"> {{ $data->country->country_name }} </span></td>
-        </tr>
-        <tr>
+            <td width="250"><span class="text-table"> {{ $data->country->country_name }} </span></td>
             <td><span class="text-table">Instansi</span></td>
             <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table">{{ $data->agencies->name }}</span></td>
-            <td><span class="text-table">Nama Instansi</span></td>
-            <td><span class="text-table"> : </span></td>
-            <td><span class="text-table">{{ $data->agency_name }}</span></td>
+            <td><span class="text-table">{{ $data->agencies->name }}</span></td>
         </tr>
         <tr>
+            <td><span class="text-table">Nama Instansi</span></td>
+            <td><span class="text-table"> : </span></td>
+            <td width="250"><span class="text-table">{{ $data->agency_name }}</span></td>
             <td><span class="text-table">Alamat Instansi</span></td>
             <td><span class="text-table"> : </span></td>
             <td><span class="text-table"> {{ $data->address }} </span></td>

@@ -123,15 +123,7 @@
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="control-group">
                                 <div class="main-title text-center sr-btm">
-                                    <h4 class="title">Formulir Jenis Kerjasama</h4>
-                                </div>
-                                <div class="form-group sr-btm">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4"><p>Usulan jenis kerjasama</p></div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperation']['name']}}</b></div>
-                                        </div>
-                                    </div>
+                                    <h4 class="title">Formulir Pengajuan Kerjasama</h4>
                                 </div>
                                 <div class="form-group sr-btm">
                                     <div class="row">
@@ -218,7 +210,7 @@
                             </div>
                             <div class="control-group">
                                 <div class="main-title text-center sr-btm">
-                                    <h4 class="title">Formulir Biodata Pemohon/Instansi</h4>
+                                    <h4 class="title">Data Pemohon</h4>
                                 </div>
                                 <div class="form-group sr-btm">
                                     <div class="row">

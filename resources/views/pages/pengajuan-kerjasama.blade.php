@@ -58,8 +58,11 @@
                                         <div class="col-lg-6 col-md-6" id="is-fund">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2 required" id="type_of_cooperation_id" name="type_of_cooperation_id">
-                                                        <option></option>
+                                                    <select class="form-control select2 required" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
+                                                        <option value=""></option>
+                                                        @foreach ($data['type_one'] as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <label class="text-label">Jenis Kerjasama</label>
                                                 </div>
@@ -68,27 +71,9 @@
                                         <div class="col-lg-6 col-md-6" id="is-typeof-one">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" id="type_of_cooperation_one_derivative_id" name="type_of_cooperation_one_derivative_id">
-                                                    </select>
-                                                    <label class="text-label">Permohonan Kerjasama</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6" id="is-nominal">
-                                            <div class="form-group">
-                                                <div class="form-input">
-                                                    <input class="form-control" name="nominal" id="nominal" type="text">
-                                                    <label class="text-label">Nominal</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6" id="is-typeof-two">
-                                            <div class="form-group">
-                                                <div class="form-input">
                                                     <select class="form-control select2" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
-                                                        <option></option>
                                                     </select>
-                                                    <label class="text-label">Kesepahaman kerjasama</label>
+                                                    <label class="text-label">Jenis Permohonan</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +86,7 @@
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label class="text-label">Instansi</label>
+                                                    <label class="text-label">Instansi Pemohon</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +178,7 @@
                             <div class="step-btn">2</div>
                             <div id="step2" class="tab-pane">
                                 <div class="main-title text-center">
-                                    <h4 class="title">Formulir Biodata Pemohon/Instansi</h4>
+                                    <h4 class="title">Data Pemohon</h4>
                                 </div>
                                 <div class="control-group">
                                     <div class="row">
@@ -229,7 +214,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload required" type="file" id="npwp" name="npwp">
+                                                    <input class="upload" type="file" id="npwp" name="npwp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="npwp" onclick="getFile()"></label>
                                                         <label class="icon" for="npwp"><i class="mdi mdi-upload"></i></label>
@@ -239,7 +224,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6" id="is-ministry">
+                                        <div class="col-lg-6 col-md-6 is-ministry">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
                                                     <input class="upload" type="file" name="siup" id="siup">
@@ -270,14 +255,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12 col-md-12">
+                                        {{-- <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
                                                     <textarea class="form-control required" name="purpose_objectives" id="" cols="30" rows="10"></textarea>
                                                     <label class="text-label">Maksud dan tujuan</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="form-input">
@@ -321,7 +306,6 @@
                                                     <div class="form-control">
                                                         <label class="input-upload" for="proposal" onclick="getFile()"></label>
                                                         <label class="icon" for="proposal"><i class="mdi mdi-upload"></i></label>
-
                                                     </div>
                                                     <label class="text-label">Proposal</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
@@ -339,7 +323,7 @@
                                 <div class="control-group">
                                     <div class="row">
                                         <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                                 @foreach ($data['deputi'] as $item)
                                                     <div class="checkbox">
                                                         <input type="checkbox" id="{{ $item['id'] }}" name="deputi[]" value="{{ $item['id'] }}">
@@ -465,9 +449,6 @@
                     ktp: {
                         required: true,
                     },
-                    npwp: {
-                        required: true,
-                    },
                     agency_profile: {
                         required: true,
                     },
@@ -519,52 +500,10 @@
                 placeholder: 'Pilih dan Sesuaikan',
             });
             var geocoder = new google.maps.Geocoder();
-            $('#type_of_cooperation_id').change(function() {
-                const value = $(this).val();
-
-                if(value == 1 || value == 2) {
-                    $('#is-nominal').show();
-                    $('#is-typeof-one').hide();
-                    $('#is-typeof-two').hide();
-                    $('#is-fund').attr('class', 'col-lg-12 col-md-12');
-                    $('#is-nominal').attr('class', 'col-lg-12 col-md-12');
-                    $('#is-typeof-one').attr('class', 'col-lg-12 col-md-12');
-                    $('#type_of_cooperation_one_derivative_id').val('');
-                    $('#type_of_cooperation_one_derivative_id').html('');
-                    $('#type_of_cooperation_two_derivative_id').val('');
-                    $('#type_of_cooperation_two_derivative_id').html('');
-                } else {
-                    $('#is-nominal').hide();
-                    $('#is-typeof-one').show();
-                    $('#is-typeof-two').show();
-                    $('#is-typeof-two').attr('class', 'col-lg-12 col-md-12');
-                    $('#nominal').val('');
-                    $('#type_of_cooperation_one_derivative_id').val('');
-                    $('#type_of_cooperation_one_derivative_id').html('');
-                    $('#type_of_cooperation_two_derivative_id').val('');
-                    $('#type_of_cooperation_two_derivative_id').html('');
-                }
-
-                $.ajax({
-                    url: `/ajax/typeone/${value}`,
-                    method: 'GET',
-                    success: function(response) {
-                        let typeOne = `<option value="">- Pilih dan Sesuaikan -</option>`;
-
-                        const data = response.data;
-
-                        $.map(data, function (value, index) {
-                            typeOne += `<option value="${value.id}">${value.name}</option>`;
-                        });
-
-                        $('#type_of_cooperation_one_derivative_id').html(typeOne);
-                    }
-                })
-            });
 
             $('#type_of_cooperation_one_derivative_id').change(function(e) {
                 const value = $(this).val();
-                if(value == 3 || value == 4) {
+                if(value == 2) {
                     $('.is-indonesian').show();
                     $('#countries_id').val('');
                     $('#province_id').val('');
@@ -729,9 +668,9 @@
                 const value = $(this).val();
 
                 if(value == 1) {
-                    $('#is-ministry').hide();
+                    $('.is-ministry').hide();
                 } else {
-                    $('#is-ministry').show();
+                    $('.is-ministry').show();
                 }
 
             });

@@ -54,7 +54,7 @@ Route::middleware('jwt')->group( function () {
         Route::resource('proposal/typeof/cooperation', 'TypeOfCooperationController');
         Route::resource('proposal/subtance/cooperation', 'SubtanceCooperationController');
         Route::resource('proposal/typeof/cooperation/one', 'TypeOfCooperationOneDerivativeController');
-        Route::get('proposal/typeof/cooperation/one/{id}/create', 'TypeOfCooperationOneDerivativeController@createType');
+        // Route::get('proposal/typeof/cooperation/one/{id}/create', 'TypeOfCooperationOneDerivativeController@createType');
         Route::get('proposal/typeof/cooperation/one/{id}/list', 'TypeOfCooperationOneDerivativeController@listTypeOfCooperationOne');
         Route::resource('proposal/typeof/cooperation/two', 'TypeOfCooperationTwoDerivativeController');
         Route::get('proposal/typeof/cooperation/two/{id}/create', 'TypeOfCooperationTwoDerivativeController@createType');
@@ -273,8 +273,8 @@ Route::middleware('jwt')->group( function () {
         Route::get('/deputi/information/download/file/{id}', 'DeputiInformationController@downloadFileDeputiInformation');
 
         //Submisison Cooperation
-        Route::get('type/{id}', 'SubmissionProposalController@type');
-        Route::get('typeone/{id}', 'SubmissionProposalController@typeOne');
+        // Route::get('type/{id}', 'SubmissionProposalController@type');
+        // Route::get('typeone/{id}', 'SubmissionProposalController@typeOne');
         Route::get('typetwo/{id}', 'SubmissionProposalController@typeTwo');
         Route::get('province/{id}', 'SubmissionProposalController@province');
         Route::get('regency/{id}', 'SubmissionProposalController@regency');

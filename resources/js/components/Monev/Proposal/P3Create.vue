@@ -26,29 +26,7 @@
                         <span v-if="!$v.forms.title_cooperation.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Subtansi Kerjasama</label>
-                    <div class="m-form__control">
-                        <select
-                            v-model="$v.forms.type_of_cooperation_id.$model"
-                            class="form-control"
-                        >
-                            <option
-                                v-for="(value, index) in data_select.type_of_cooperation_id"
-                                :key="index"
-                                :value="value.id"
-                            >
-                            {{ value.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <br>
-                    <template v-if="$v.forms.type_of_cooperation_id.$error">
-                        <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                    <br>
-                </div><div class="m-form__group form-group">
+                <div class="m-form__group form-group">
                     <label for="">Tujuan Deputi</label>
                     <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
@@ -411,9 +389,7 @@ export default {
                 nomor: [''],
                 deputi: [],
                 name: null,
-                type_guest_id: '1',
                 title_cooperation: null,
-                type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
                 type_of_cooperation_two_derivative_id: null,
                 agencies_id: null,
@@ -455,7 +431,6 @@ export default {
                         name: '5 Tahun',
                     }
                 ],
-                type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: [],
                 type_of_cooperation_two_derivative_id: [],
                 substance_cooperation_id: [],
@@ -475,13 +450,7 @@ export default {
             name: {
                 required
             },
-            type_guest_id: {
-                required
-            },
             title_cooperation: {
-                required
-            },
-            type_of_cooperation_id: {
                 required
             },
             country_id: {
@@ -523,7 +492,6 @@ export default {
     created() {
         $axios.get(`/admin/submission/cooperation/create`)
         .then(response => {
-            this.data_select.type_of_cooperation_id = response.data.data.typeof;
             this.data_select.agencies_id = response.data.data.agency;
             this.data_select.type_of_cooperation_one_derivative_id = response.data.data.typeof_one;
         });
@@ -557,10 +525,8 @@ export default {
                 $.each(this.forms.nomor, function(index, value) {
                     formData.append(`nomor[${index}]`, value);
                 });
-                formData.append('type_guest_id', this.forms.type_guest_id);
                 formData.append('name', this.forms.name);
                 formData.append('title_cooperation', this.forms.title_cooperation);
-                formData.append('type_of_cooperation_id', this.forms.type_of_cooperation_id);
                 formData.append('type_of_cooperation_one_derivative_id', this.forms.type_of_cooperation_one_derivative_id);
                 formData.append('type_of_cooperation_two_derivative_id', this.forms.type_of_cooperation_two_derivative_id);
                 formData.append('agencies_id', this.forms.agencies_id);

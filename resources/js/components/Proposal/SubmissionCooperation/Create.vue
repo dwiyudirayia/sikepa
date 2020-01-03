@@ -16,17 +16,6 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis</label>
-                    <div class="m-form__control">
-                        <select2 :options="data_select.type" v-model="$v.forms.type_id.$model"
-                        @input="onChangeTypeCooperation">
-                        </select2>
-                    </div>
-                    <template v-if="$v.forms.type_id.$error">
-                        <span v-if="!$v.forms.type_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Usulan Judul Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
@@ -37,18 +26,7 @@
                         <span v-if="!$v.forms.title_cooperation.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
-                <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis Kerjasama</label>
-                    <div class="m-form__control">
-                        <select2 :options="data_select.type_of_cooperation_id" v-model="$v.forms.type_of_cooperation_id.$model" @input="onChangeTypeCooperationOneDerivative" />
-                    </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <br>
-                    <template v-if="$v.forms.type_of_cooperation_id.$error">
-                        <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                    <br>
-                </div><div class="m-form__group form-group">
+                <div class="m-form__group form-group">
                     <label for="">Unit Yang Terlibat (Deputi)</label>
                     <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
@@ -363,9 +341,7 @@ export default {
             isIndonesian: false,
             forms: {
                 deputi: [],
-                type_id: null,
                 title_cooperation: null,
-                type_of_cooperation_id: null,
                 type_of_cooperation_one_derivative_id: null,
                 type_of_cooperation_two_derivative_id: null,
                 agencies_id: null,
@@ -408,7 +384,6 @@ export default {
                     }
                 ],
                 type: [],
-                type_of_cooperation_id: [],
                 type_of_cooperation_one_derivative_id: [],
                 type_of_cooperation_two_derivative_id: [],
                 substance_cooperation_id: [],
@@ -425,13 +400,7 @@ export default {
     },
     validations: {
         forms: {
-            type_id: {
-                required
-            },
             title_cooperation: {
-                required
-            },
-            type_of_cooperation_id: {
                 required
             },
             country_id: {
@@ -498,23 +467,9 @@ export default {
         }
     },
     methods: {
-        onChangeTypeCooperation() {
-            const value = this.forms.type_id;
-            $axios.get(`/admin/type/${value}`)
-            .then(response => {
-                this.data_select.type_of_cooperation_id = response.data.data;
-            })
-        },
-        onChangeTypeCooperationOneDerivative() {
-            const value = this.forms.type_of_cooperation_id;
-            $axios.get(`/admin/typeone/${value}`)
-            .then(response => {
-                this.data_select.type_of_cooperation_one_derivative_id = response.data.data;
-            })
-        },
         onChangeTypeCooperationTwoDerivative() {
             const value = this.forms.type_of_cooperation_one_derivative_id;
-            if(value == 1 || value == 2) {
+            if(value == 1) {
                 this.isIndonesian = false;
             } else {
                 this.isIndonesian = true;
@@ -532,12 +487,10 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                formData.append('type_id', this.forms.type_id);
                 $.each(this.forms.deputi, function(index, value) {
                     formData.append(`deputi[${index}]`, value);
                 });
                 formData.append('title_cooperation', this.forms.title_cooperation);
-                formData.append('type_of_cooperation_id', this.forms.type_of_cooperation_id);
                 formData.append('type_of_cooperation_one_derivative_id', this.forms.type_of_cooperation_one_derivative_id);
                 formData.append('type_of_cooperation_two_derivative_id', this.forms.type_of_cooperation_two_derivative_id);
                 formData.append('agencies_id', this.forms.agencies_id);

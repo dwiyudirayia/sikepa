@@ -16,19 +16,6 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Jenis Kerjasama</label>
-                    <div class="m-form__control">
-                        <select2
-                            v-model="$v.forms.type_of_cooperation_id.$model"
-                            :options="data_select"
-                        />
-                    </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <template v-if="$v.forms.type_of_cooperation_id.$error">
-                        <span v-if="!$v.forms.type_of_cooperation_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
-                    </template>
-                </div>
-                <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Nama Permohonan Kerjasama</label>
                     <div class="m-form__control">
                         <input type="text" v-model="$v.forms.name.$model" class="form-control" @blur="$v.forms.name.$touch()">
@@ -76,7 +63,6 @@ export default {
                 },
             ],
             forms: {
-                type_of_cooperation_id: null,
                 name: null,
             },
             data_select: null
@@ -84,9 +70,6 @@ export default {
     },
     validations: {
         forms: {
-            type_of_cooperation_id: {
-                required
-            },
             name: {
                 required,
             },

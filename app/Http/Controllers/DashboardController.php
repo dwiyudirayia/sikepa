@@ -46,8 +46,8 @@ class DashboardController extends Controller
             // $data['agencies_year_pks'] = array_values($groupedYearAgenciesPKS->toArray());
 
             //Instansi MOU
-            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_guest_id', 2)->get();
-            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_id', 2)->get();
+            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
             $mergeAgenciesMOU = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
             $groupedDataAgenciesMOU = $mergeAgenciesMOU->groupBy('agencies_id');
@@ -65,10 +65,10 @@ class DashboardController extends Controller
 
             $merge['data_deputi_kesetaraan_gender_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $merge['data_deputi_kesetaraan_gender_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             // $data['deputi_kesetaraan_gender_pks'] = array_merge($merge['data_deputi_kesetaraan_gender_guest_pks']->toArray(), $merge['data_deputi_kesetaraan_gender_pks']->toArray());
 
@@ -84,10 +84,10 @@ class DashboardController extends Controller
 
             $merge['data_deputi_partisipasi_masyarakat_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $merge['data_deputi_partisipasi_masyarakat_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             // $data['deputi_partisipasi_masyarakat_pks'] = array_merge($merge['data_deputi_partisipasi_masyarakat_guest_pks']->toArray(), $merge['data_deputi_partisipasi_masyarakat_pks']->toArray());
 
@@ -103,10 +103,10 @@ class DashboardController extends Controller
 
             $merge['data_deputi_perlindungan_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 5);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $merge['data_deputi_perlindungan_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 5);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             // $data['deputi_perlindungan_anak_pks'] = array_merge($merge['data_deputi_perlindungan_anak_guest_pks']->toArray(), $merge['data_deputi_perlindungan_anak_pks']->toArray());
 
@@ -122,10 +122,10 @@ class DashboardController extends Controller
 
             $merge['data_deputi_perlindungan_hak_perempuan_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $merge['data_deputi_perlindungan_hak_perempuan_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             // $data['deputi_perlindungan_hak_perempuan_pks'] = array_merge($merge['data_deputi_perlindungan_hak_perempuan_guest_pks']->toArray(), $merge['data_deputi_perlindungan_hak_perempuan_pks']->toArray());
 
@@ -141,10 +141,10 @@ class DashboardController extends Controller
 
             $merge['data_deputi_tumbuh_kembang_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $merge['data_deputi_tumbuh_kembang_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             // $data['deputi_tumbuh_kembang_anak_pks'] = array_merge($merge['data_deputi_tumbuh_kembang_anak_guest_pks']->toArray(), $merge['data_deputi_tumbuh_kembang_anak_pks']->toArray());
 
@@ -158,9 +158,9 @@ class DashboardController extends Controller
             // $data['submission_cooperation_pks'] = array_merge($merge['data_submission_cooperation_guest_pks']->toArray(), $merge['data_submission_cooperation_pks']->toArray());
 
             //Pengajuan Kerjasama Per Tahun MOU
-            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
-            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['submission_cooperation_mou'] = array_merge($merge['data_submission_cooperation_guest_mou']->toArray(), $merge['data_submission_cooperation_mou']->toArray());
 
@@ -168,26 +168,26 @@ class DashboardController extends Controller
             // $data['pks_approve'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
             // $data['pks_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
 
-            $data['mou_approve'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
-            $data['mou_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+            $data['mou_approve'] = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
+            $data['mou_approve_guest'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', 17)->get()->count();
 
             // $data['pks_reject'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 0)->get()->count();
             // $data['pks_reject_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 0)->get()->count();
 
-            $data['mou_reject'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 0)->get()->count();
-            $data['mou_reject_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 0)->get()->count();
+            $data['mou_reject'] = SubmissionProposal::where('status_proposal', 0)->get()->count();
+            $data['mou_reject_guest'] = SubmissionProposalGuest::where('status_proposal', 0)->get()->count();
 
             // $data['pks_process'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
             // $data['pks_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
 
-            $data['mou_process'] = SubmissionProposal::where('type_id', 2)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
-            $data['mou_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+            $data['mou_process'] = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
+            $data['mou_process_guest'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', '<', 17)->get()->count();
 
             // $data['pks_total'] = SubmissionProposal::where('type_id', 1)->get()->count();
             // $data['pks_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->get()->count();
 
-            $data['mou_total'] = SubmissionProposal::where('type_id', 2)->get()->count();
-            $data['mou_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 2)->get()->count();
+            $data['mou_total'] = SubmissionProposal::get()->count();
+            $data['mou_total_guest'] = SubmissionProposalGuest::get()->count();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -265,9 +265,9 @@ class DashboardController extends Controller
     // }
     public function filterSubmissionMOU($year) {
         try {
-            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
-            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['submission_cooperation_mou'] = array_merge($merge['data_submission_cooperation_guest_mou']->toArray(), $merge['data_submission_cooperation_mou']->toArray());
 
@@ -284,9 +284,9 @@ class DashboardController extends Controller
     }
     public function resetSubmissionMOU() {
         try {
-            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_guest_mou'] = SubmissionProposalGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
-            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['submission_cooperation_mou'] = array_merge($merge['data_submission_cooperation_guest_mou']->toArray(), $merge['data_submission_cooperation_mou']->toArray());
 
@@ -349,10 +349,10 @@ class DashboardController extends Controller
             // Kesetaraan Gender
             $data['data_deputi_kesetaraan_gender_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_kesetaraan_gender_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_kesetaraan_gender_mou'] = array_merge($data['data_deputi_kesetaraan_gender_guest_mou']->toArray(), $data['data_deputi_kesetaraan_gender_mou']->toArray());
 
@@ -373,10 +373,10 @@ class DashboardController extends Controller
             // Kesetaraan Gender
             $data['data_deputi_kesetaraan_gender_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_kesetaraan_gender_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 4);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_kesetaraan_gender_mou'] = array_merge($data['data_deputi_kesetaraan_gender_guest_mou']->toArray(), $data['data_deputi_kesetaraan_gender_mou']->toArray());
 
@@ -441,10 +441,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_partisipasi_masyarakat_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_partisipasi_masyarakat_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_partisipasi_masyarakat_mou'] = array_merge($data['data_deputi_partisipasi_masyarakat_guest_mou']->toArray(), $data['data_deputi_partisipasi_masyarakat_mou']->toArray());
 
@@ -464,10 +464,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_partisipasi_masyarakat_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_partisipasi_masyarakat_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_partisipasi_masyarakat_mou'] = array_merge($data['data_deputi_partisipasi_masyarakat_guest_mou']->toArray(), $data['data_deputi_partisipasi_masyarakat_mou']->toArray());
 
@@ -532,10 +532,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_perlindungan_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_perlindungan_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_perlindungan_anak_mou'] = array_merge($data['data_deputi_perlindungan_anak_guest_mou']->toArray(), $data['data_deputi_perlindungan_anak_mou']->toArray());
 
@@ -556,10 +556,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_perlindungan_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_perlindungan_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 3);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_perlindungan_anak_mou'] = array_merge($data['data_deputi_perlindungan_anak_guest_mou']->toArray(), $data['data_deputi_perlindungan_anak_mou']->toArray());
 
@@ -624,10 +624,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_perlindungan_hak_perempuan_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_perlindungan_hak_perempuan_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_perlindungan_hak_perempuan_mou'] = array_merge($data['data_deputi_perlindungan_hak_perempuan_guest_mou']->toArray(), $data['data_deputi_perlindungan_hak_perempuan_mou']->toArray());
 
@@ -648,10 +648,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_perlindungan_hak_perempuan_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_perlindungan_hak_perempuan_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 6);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_perlindungan_hak_perempuan_mou'] = array_merge($data['data_deputi_perlindungan_hak_perempuan_guest_mou']->toArray(), $data['data_deputi_perlindungan_hak_perempuan_mou']->toArray());
 
@@ -716,10 +716,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_tumbuh_kembang_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_tumbuh_kembang_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_tumbuh_kembang_anak_mou'] = array_merge($data['data_deputi_tumbuh_kembang_anak_guest_mou']->toArray(), $data['data_deputi_tumbuh_kembang_anak_mou']->toArray());
 
@@ -740,10 +740,10 @@ class DashboardController extends Controller
             // Partisipasi Masyarakat
             $data['data_deputi_tumbuh_kembang_anak_guest_mou'] = SubmissionProposalGuest::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_guest_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
             $data['data_deputi_tumbuh_kembang_anak_mou'] = SubmissionProposal::with('deputi.role')->groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->whereHas('deputi', function(Builder $q) {
                 $q->where('role_id', 7);
-            })->where('type_id', 2)->where('status_disposition', 17)->where('status_proposal', 1)->get();
+            })->where('status_disposition', 17)->where('status_proposal', 1)->get();
 
             $data['deputi_tumbuh_kembang_anak_mou'] = array_merge($data['data_deputi_tumbuh_kembang_anak_guest_mou']->toArray(), $data['data_deputi_tumbuh_kembang_anak_mou']->toArray());
 
@@ -789,8 +789,8 @@ class DashboardController extends Controller
     public function filterAgenciesMOU($year) {
         try {
             //Instansi PKS
-            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_guest_id', 2)->get();
-            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_id', 2)->get();
+            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
             $mergeAgencies = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
             $groupedAgencies = $mergeAgencies->where('year', $year)->groupBy('agencies_id');
@@ -804,8 +804,8 @@ class DashboardController extends Controller
     public function resetAgenciesMOU() {
         try {
             //Instansi PKS
-            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_guest_id', 2)->get();
-            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->where('type_id', 2)->get();
+            $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
             $mergeAgencies = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
             $groupedAgencies = $mergeAgencies->groupBy('agencies_id');

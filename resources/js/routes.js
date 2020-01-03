@@ -90,21 +90,21 @@ import PageEdit from './components/Page/Edit';
 // --- End Page ---//
 
 // --- Proposal ---//
-import ProposalCategoryIndex from './components/Proposal/Category/Index';
-import ProposalCategoryCreate from './components/Proposal/Category/Create';
-import ProposalCategoryEdit from './components/Proposal/Category/Edit';
+// import ProposalCategoryIndex from './components/Proposal/Category/Index';
+// import ProposalCategoryCreate from './components/Proposal/Category/Create';
+// import ProposalCategoryEdit from './components/Proposal/Category/Edit';
 
-import ProposalCooperationTargetIndex from './components/Proposal/CooperationTarget/Index';
-import ProposalCooperationTargetCreate from './components/Proposal/CooperationTarget/Create';
-import ProposalCooperationTargetEdit from './components/Proposal/CooperationTarget/Edit';
+// import ProposalCooperationTargetIndex from './components/Proposal/CooperationTarget/Index';
+// import ProposalCooperationTargetCreate from './components/Proposal/CooperationTarget/Create';
+// import ProposalCooperationTargetEdit from './components/Proposal/CooperationTarget/Edit';
 
 import ProposalSubmissionTypeIndex from './components/Proposal/SubmissionType/Index';
 import ProposalSubmissionTypeCreate from './components/Proposal/SubmissionType/Create';
 import ProposalSubmissionTypeEdit from './components/Proposal/SubmissionType/Edit';
 
-import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperation/Index';
-import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
-import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperation/Edit';
+// import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperation/Index';
+// import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
+// import ProposalTypeOfCooperationEdit from './components/Proposal/TypeOfCooperation/Edit';
 
 import ProposalTypeOfCooperationOneDerivativeListOne from './components/Proposal/TypeOfCooperation/TypeOfCooperationOneDerivative/ListTypeOfCooperationOne';
 import ProposalTypeOfCooperationOneDerivativeCreate from './components/Proposal/TypeOfCooperation/TypeOfCooperationOneDerivative/Create';
@@ -977,64 +977,64 @@ const router = new VueRouter({
                     }
                 },
                 //Proposal Type of Cooperation
-                {
-                    path: '/proposal/typeof/cooperation/:id/list',
-                    name: 'ProposalTypeOfCooperationIndex',
-                    component: ProposalTypeOfCooperationIndex,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                // {
+                //     path: '/proposal/typeof/cooperation/:id/list',
+                //     name: 'ProposalTypeOfCooperationIndex',
+                //     component: ProposalTypeOfCooperationIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                //         let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/proposal/typeof/cooperation/create',
-                    name: 'ProposalTypeOfCooperationCreate',
-                    component: ProposalTypeOfCooperationCreate,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/proposal/typeof/cooperation/create',
+                //     name: 'ProposalTypeOfCooperationCreate',
+                //     component: ProposalTypeOfCooperationCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                //         let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/proposal/typeof/cooperation/:id/edit',
-                    name: 'ProposalTypeOfCooperationEdit',
-                    component: ProposalTypeOfCooperationEdit,
-                    props: true,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/proposal/typeof/cooperation/:id/edit',
+                //     name: 'ProposalTypeOfCooperationEdit',
+                //     component: ProposalTypeOfCooperationEdit,
+                //     props: true,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                //         let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
                 //TypeOfCooperationOneDerivative
                 {
                     path: '/proposal/typeof/cooperation/list/:id/one',

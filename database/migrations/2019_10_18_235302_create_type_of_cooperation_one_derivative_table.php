@@ -15,7 +15,6 @@ class CreateTypeOfCooperationOneDerivativeTable extends Migration
     {
         Schema::create('type_of_cooperation_one_derivative', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->tinyInteger('type_of_cooperation_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');

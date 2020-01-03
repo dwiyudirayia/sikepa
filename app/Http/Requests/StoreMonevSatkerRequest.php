@@ -29,10 +29,8 @@ class StoreMonevSatkerRequest extends FormRequest
     }
     public function store() {
         return [
-            'type_id' => $this->type_id,
             'mailing_number' => "Surat-".strtotime("now"),
             'title_cooperation' => $this->title_cooperation,
-            'type_of_cooperation_id' => $this->type_of_cooperation_id == "null" ? null : $this->type_of_cooperation_id,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id == "null" ? null : $this->type_of_cooperation_one_derivative_id,
             'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id == "null" ? null : $this->type_of_cooperation_two_derivative_id,
             'agencies_id' => $this->agencies_id,

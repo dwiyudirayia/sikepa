@@ -8,7 +8,6 @@ use App\Article;
 use App\FAQ;
 use App\Testimoni;
 use App\Page;
-use App\TypeOfCooperation;
 use App\Country;
 use App\DeputiInformation;
 use App\FileDeputiInformation;
@@ -37,7 +36,7 @@ class FrontController extends Controller
 {
     public function filterMonitoringCooperation($data) {
         if($data['q'] != null) {
-            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperation','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking.role','nomor','law')->where('mailing_number', $data['q'])->first();
+            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking.role','nomor','law')->where('mailing_number', $data['q'])->first();
             if($monitoring['data'] != null) {
                 $monitoring['biro'] = $monitoring['data']['tracking'][0];
                 $data = array_values($monitoring['data']['tracking']->toArray());
@@ -169,7 +168,7 @@ class FrontController extends Controller
         return view('pages.our-contact');
     }
     public function submissionProposal() {
-        $data['type'] = SubmissionType::all();
+        $data['type_one'] = TypeOfCooperationOneDerivative::all();
         $data['country'] = Country::all();
         $data['agency'] = Agency::all();
         $data['deputi'] = [
@@ -208,78 +207,71 @@ class FrontController extends Controller
         return view('pages.status-kerjasama', compact('data'));
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
-        try {
-            DB::beginTransaction();
-            $proposal = SubmissionProposalGuest::create($request->store());
+        DB::beginTransaction();
+        $proposal = SubmissionProposalGuest::create($request->store());
 
-            foreach ($request->deputi as $key => $value) {
-                $proposal->deputi()->create([
-                    'role_id' => $value,
-                ]);
-            }
-
-            $userKPPA = [2, 9, 10, 11, 13, 14, 15, 16];
-            foreach ($userKPPA as $key => $value) {
-                $proposal->tracking()->create([
-                    'role_id' => $value,
-                ]);
-            }
-
-            Cookie::queue(Cookie::make('email', $request->email));
-
-            DB::commit();
-
-            $deputi = $request->deputi;
-            $users = User::whereHas('roles', function(Builder $query) use ($deputi) {
-                $query->whereIn('id', [2,9]);
-            })->get();
-
-            $path = 'MOUProposalSubmissionCooperationIndex';
-
-            Notification::send($users, new DeputiNotificationGuest($path));
-            Mail::to($request->email)->send(new NomorResi($proposal));
-
-            return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Jika Minat');
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-            DB::rollback();
-
-            return back()->with('error', 'Data Gagal di Simpan');
-        }
-    }
-    public function type($id) {
-        try {
-            $data = TypeOfCooperation::where('submission_type_id', $id)->get();
-
-            return response()->json([
-                'data' => $data,
-                'messages' => 'Data Berhasil di Ambil'
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'messages' => $th->getMessage(),
-                'status' => $th->getCode(),
+        foreach ($request->deputi as $key => $value) {
+            $proposal->deputi()->create([
+                'role_id' => $value,
             ]);
         }
-    }
-    public function typeOne($id) {
-        try {
-            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
 
-            return response()->json([
-                'data' => $data,
-                'messages' => 'Data Berhasil di Ambil'
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'messages' => $th->getMessage(),
-                'status' => $th->getCode(),
+        $userKPPA = [2, 9, 10, 11, 13, 14, 15, 16];
+        foreach ($userKPPA as $key => $value) {
+            $proposal->tracking()->create([
+                'role_id' => $value,
             ]);
         }
+
+        Cookie::queue(Cookie::make('email', $request->email));
+
+        DB::commit();
+
+        $deputi = $request->deputi;
+        $users = User::whereHas('roles', function(Builder $query) use ($deputi) {
+            $query->whereIn('id', [2,9]);
+        })->get();
+
+        $path = 'MOUProposalSubmissionCooperationIndex';
+
+        Notification::send($users, new DeputiNotificationGuest($path));
+        Mail::to($request->email)->send(new NomorResi($proposal));
+
+        return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Untuk Memberi Kritikan Pada Kami');
     }
+    // public function type($id) {
+    //     try {
+    //         $data = TypeOfCooperation::where('submission_type_id', $id)->get();
+
+    //         return response()->json([
+    //             'data' => $data,
+    //             'messages' => 'Data Berhasil di Ambil'
+    //         ]);
+    //     } catch (\Throwable $th) {
+    //         return response()->json([
+    //             'messages' => $th->getMessage(),
+    //             'status' => $th->getCode(),
+    //         ]);
+    //     }
+    // }
+    // public function typeOne($id) {
+    //     try {
+    //         $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_id', $id)->get();
+
+    //         return response()->json([
+    //             'data' => $data,
+    //             'messages' => 'Data Berhasil di Ambil'
+    //         ]);
+    //     } catch (\Throwable $th) {
+    //         return response()->json([
+    //             'messages' => $th->getMessage(),
+    //             'status' => $th->getCode(),
+    //         ]);
+    //     }
+    // }
     public function typeTwo($id) {
         try {
-            if($id == 1 || $id == 2) {
+            if($id == 1) {
                 $data['country'] = Country::where('id', '!=', '102')->get();
             } else {
                 $data['country'] = Country::where('id', '102')->get();
@@ -340,16 +332,16 @@ class FrontController extends Controller
         $data['approval_guest_domestic'] = SubmissionProposal::where('countries_id', 102)->get()->count();
         $data['country'] = Country::all();
 
-        $merge['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
-        $merge['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+        $merge['satker'] = SubmissionProposal::all();
+        $merge['guest'] = SubmissionProposalGuest::all();
 
         $data['data'] = array_merge($merge['satker']->toArray(), $merge['guest']->toArray());
 
         return view('pages.sebaran-kerjasama', compact('data'));
     }
     public function mapDistributionOfCooperation() {
-        $data['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
-        $data['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+        $data['satker'] = SubmissionProposal::all();
+        $data['guest'] = SubmissionProposalGuest::all();
 
         $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
 
@@ -358,8 +350,8 @@ class FrontController extends Controller
         ]);
     }
     public function filterMapDistributionOfCooperation(Request $request) {
-        $data['satker'] = SubmissionProposal::with('typeOfCooperation')->get();
-        $data['guest'] = SubmissionProposalGuest::with('typeOfCooperation')->get();
+        $data['satker'] = SubmissionProposal::all();
+        $data['guest'] = SubmissionProposalGuest::all();
 
         $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
 
