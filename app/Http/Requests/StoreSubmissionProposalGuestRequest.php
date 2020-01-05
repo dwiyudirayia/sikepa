@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\SubmissionProposalGuest;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
@@ -25,13 +26,30 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
     public function rules()
     {
         return [
-            'agency_profile' => 'required|image|mimes:pdf',
-            'proposal' => 'required',
-            'ktp' => 'required|image|mimes:pdf',
-            'proposal' => 'required|image|mimes:pdf',
-            'npwp' => 'image|mimes:pdf',
-            'siup' => 'image|mimes:pdf',
+            'title_cooperation' => 'required',
+            'agency_profile' => 'required|mimes:pdf,jpeg,png',
+            'ktp' => 'required|mimes:pdf,jpeg,png',
+            'proposal' => 'required|mimes:pdf,jpeg,png,mp4',
+            'npwp' => 'mimes:pdf,jpeg,png',
+            'siup' => 'mimes:pdf,jpeg,png',
         ];
+    }
+    public function generateBarcodeNumber() {
+        $number = mt_rand(1000000000, 9999999999); // better than rand()
+
+        // call the same function if the barcode exists already
+        if ($this->barcodeNumberExists($number)) {
+            return $this->generateBarcodeNumber();
+        }
+
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+
+    public function barcodeNumberExists($number) {
+        // query the database and return a boolean
+        // for instance, it might look like this in Laravel
+        return SubmissionProposalGuest::where('mailing_number', $number)->exists();
     }
     public function store() {
         if($this->hasFile('agency_profile')) {
@@ -69,7 +87,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
         }
 
         return [
-            'mailing_number' => "Surat-".strtotime("now"),
+            'mailing_number' => $this->generateBarcodeNumber(),
             'title_cooperation' => $this->title_cooperation,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id,
             'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id,
@@ -80,8 +98,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'postal_code' => $this->postal_code,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'nominal' => (int) Str::replaceArray('.', [''], $this->nominal),
-            'name' => $this->agency_name,
+            // 'nominal' => (int) Str::replaceArray('.', [''], $this->nominal),
             'department' => $this->department,
             'ktp' => $pathKTP,
             'npwp' => $pathNPWP,
@@ -90,7 +107,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'agency_name' => $this->agency_name,
             'address' => $this->address,
             'email' => $this->email,
-            // 'purpose_objectives' => $this->purpose_objectives,
+            'name' => $this->name,
             'background' => $this->background,
             'status_proposal' => 1,
             'status_disposition' => 2,

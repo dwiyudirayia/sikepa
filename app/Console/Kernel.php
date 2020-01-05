@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\RejectDana::class,
     ];
 
     /**
@@ -24,9 +23,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule
-            ->command('reject:dana')
-            ->everyMinute();
     }
 
     /**

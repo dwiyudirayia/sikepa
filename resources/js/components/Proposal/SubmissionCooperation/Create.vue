@@ -311,6 +311,10 @@ export default {
                 {
                     id: 7,
                     name: 'Deputi Bidang Tumbuh Kembang Anak'
+                },
+                {
+                    id: 11,
+                    name: 'Sesmen'
                 }
             ],
             options:[

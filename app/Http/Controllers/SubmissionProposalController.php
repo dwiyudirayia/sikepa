@@ -45,7 +45,7 @@ class SubmissionProposalController extends Controller
         });
 
         $idRoles = $mappingRole->all();
-        if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
+        if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3 || $user->roles[0]->id == 11) {
             $data['approval'] = SubmissionProposal::with('deputi','country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                 $query->where('role_id', $user->roles[0]->id);
                 $query->whereNull('approval');
@@ -195,23 +195,27 @@ class SubmissionProposalController extends Controller
             $deputi = [
                 0 => [
                     'id' => 3,
-                    'name' => 'Bidang Partisipasi Masyarakat',
+                    'name' => 'Deputi Bidang Partisipasi Masyarakat',
                 ],
                 1 => [
                     'id' => 4,
-                    'name' => 'Bidang Kesetaraan Gender',
+                    'name' => 'Deputi Bidang Kesetaraan Gender',
                 ],
                 2 => [
                     'id' => 5,
-                    'name' => 'Bidang Perlindungan Anak',
+                    'name' => 'Deputi Bidang Perlindungan Anak',
                 ],
                 3 => [
                     'id' => 6,
-                    'name' => 'Bidang Perlindungan Hak Perempuan',
+                    'name' => 'Deputi Bidang Perlindungan Hak Perempuan',
                 ],
                 4 => [
                     'id' => 7,
-                    'name' => 'Bidang Tumbuh Kembang Anak'
+                    'name' => 'Deputi Bidang Tumbuh Kembang Anak'
+                ],
+                5 => [
+                    'id' => 11,
+                    'name' => 'Sesmen'
                 ],
             ];
 

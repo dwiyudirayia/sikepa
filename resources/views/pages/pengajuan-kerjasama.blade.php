@@ -48,9 +48,9 @@
                                 <div class="control-group">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('title_cooperation') ? 'has-error' : '' }}">
                                                 <div class="form-input">
-                                                    <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation">
+                                                <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation" value="{{ old('title_cooperation') }}">
                                                     <label class="text-label">Usulan Judul MOU</label>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <input class="form-control required" name="nama" id="nama" type="text">
+                                                    <input class="form-control required" name="name" id="name" type="text">
                                                     <label class="text-label">Nama pemohon</label>
                                                 </div>
                                             </div>
@@ -364,6 +364,20 @@
             var markers = [];
             searchBox.addListener('places_changed', function() {
                 var places = searchBox.getPlaces();
+                for (var i = 0; i < places[0].address_components.length; i++) {
+                    for (var j = 0; j < places[0].address_components[i].types.length; j++) {
+                        if (places[0].address_components[i].types[j] == "postal_code") {
+                            $('#postal_code').val(`${places[0].address_components[i].long_name}`);
+                        }
+                    }
+                }
+                $('#loc-search').val(`${places[0].name}`);
+                $('#addressLabel').val(`${places[0].formatted_address}`);
+                $('#latitudeLabel').val(`${places[0].geometry.location.lat()}`);
+                $('#longitudeLabel').val(`${places[0].geometry.location.lng()}`);
+                $('#address').val(`${places[0].formatted_address}`);
+                $('#latitude').val(`${places[0].geometry.location.lat()}`);
+                $('#longitude').val(`${places[0].geometry.location.lng()}`);
 
                 if (places.length == 0) {
                     return;
@@ -477,7 +491,7 @@
                 width: '100%',
                 placeholder: 'Pilih dan Sesuaikan',
             });
-            var geocoder = new google.maps.Geocoder();
+            // var geocoder = new google.maps.Geocoder();
 
             $('#type_of_cooperation_one_derivative_id').change(function(e) {
                 const value = $(this).val();
@@ -516,15 +530,15 @@
 
                             $('#countries_id').html(countryTwo);
                             $('#countries_id').val('102');
-                            geocoder.geocode( { 'address': 'Indonesia'}, function(results, status) {
-                                if (status == google.maps.GeocoderStatus.OK) {
-                                    map.setCenter(results[0].geometry.location);
-                                    if (results[0].geometry.viewport)
-                                    map.fitBounds(results[0].geometry.viewport);
-                                } else {
-                                    alert("Geocode was not successful for the following reason: " + status);
-                                }
-                            });
+                            // geocoder.geocode( { 'address': 'Indonesia'}, function(results, status) {
+                            //     if (status == google.maps.GeocoderStatus.OK) {
+                            //         map.setCenter(results[0].geometry.location);
+                            //         if (results[0].geometry.viewport)
+                            //         map.fitBounds(results[0].geometry.viewport);
+                            //     } else {
+                            //         alert("Geocode was not successful for the following reason: " + status);
+                            //     }
+                            // });
                             $('#province_id').html(provinceTwo);
                             $('#type_of_cooperation_two_derivative_id').html(typeTwo);
                         }
@@ -589,28 +603,28 @@
                     $('#regency_id').html('');
                     $('#regency_id').val('');
                 }
-                geocoder.geocode( { 'address': text}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        if (results[0].geometry.viewport)
-                        map.fitBounds(results[0].geometry.viewport);
-                    } else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                });
+                // geocoder.geocode( { 'address': text}, function(results, status) {
+                //     if (status == google.maps.GeocoderStatus.OK) {
+                //         map.setCenter(results[0].geometry.location);
+                //         if (results[0].geometry.viewport)
+                //         map.fitBounds(results[0].geometry.viewport);
+                //     } else {
+                //         alert("Geocode was not successful for the following reason: " + status);
+                //     }
+                // });
             });
             $('#province_id').change(function(e) {
                 const value = $(this).val();
                 const text = $("#province_id option:selected").text();
-                geocoder.geocode( { 'address': text}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        if (results[0].geometry.viewport)
-                        map.fitBounds(results[0].geometry.viewport);
-                    } else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                });
+                // geocoder.geocode( { 'address': text}, function(results, status) {
+                //     if (status == google.maps.GeocoderStatus.OK) {
+                //         map.setCenter(results[0].geometry.location);
+                //         if (results[0].geometry.viewport)
+                //         map.fitBounds(results[0].geometry.viewport);
+                //     } else {
+                //         alert("Geocode was not successful for the following reason: " + status);
+                //     }
+                // });
 
                 $.ajax({
                     url: `/ajax/regency/${value}`,
@@ -630,17 +644,17 @@
             });
             $('#regency_id').change(function(){
                 const text = $("#province_id option:selected").text();
-                geocoder.geocode( { 'address': text}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        if (results[0].geometry.viewport)
-                        map.fitBounds(results[0].geometry.viewport);
+                // geocoder.geocode( { 'address': text}, function(results, status) {
+                //     if (status == google.maps.GeocoderStatus.OK) {
+                //         map.setCenter(results[0].geometry.location);
+                //         if (results[0].geometry.viewport)
+                //         map.fitBounds(results[0].geometry.viewport);
 
-                        map.setZoom(10);
-                    } else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                });
+                //         map.setZoom(10);
+                //     } else {
+                //         alert("Geocode was not successful for the following reason: " + status);
+                //     }
+                // });
             });
             $('#agencies_id').change(function() {
                 const value = $(this).val();

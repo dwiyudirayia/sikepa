@@ -62,22 +62,22 @@ class FrontController extends Controller
                 'email.unique' => 'Email Sudah Terdaftar Sebelumnya',
             ]);
             if ($validator->fails()) {
+                Cookie::queue(Cookie::forget('email'));
+
                 return back()
                         ->withErrors($validator)
                         ->withInput()
                         ->with('error', 'Data Gagal di Simpan');
-                Cookie::queue(Cookie::forget('email'));
             }
             $survey = SatisfactionSurvey::create([
                 'email' => $request->email,
                 'survey' => $request->survey,
                 'token' => (string) Str::uuid(),
             ]);
-
             Mail::to($survey->email)->send(new SurveyKepuasan($survey));
 
             DB::commit();
-            return redirect()->route('home')->with('success', 'Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. Nomor Registrasi Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.');
+            return redirect()->route('home')->with('success', "Terima kasih atas survey anda lakukan, tolong verifikasi survey anda yang telah kami kirim ke email anda.");
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', 'Data Gagal di Simpan');
@@ -88,7 +88,7 @@ class FrontController extends Controller
         SatisfactionSurvey::where('token', $token)->update([
             'verified' => 1,
         ]);
-
+        Cookie::queue(Cookie::forget('resi'));
         return view('pages.hasil-survey');
     }
     public function satisfactionSurvey() {
@@ -192,6 +192,10 @@ class FrontController extends Controller
                 'id' => 7,
                 'name' => 'Bidang Tumbuh Kembang Anak',
             ],
+            5 => [
+                'id' => 11,
+                'name' => 'Sesmen',
+            ],
         ];
 
         return view('pages.pengajuan-kerjasama', compact('data'));
@@ -222,9 +226,10 @@ class FrontController extends Controller
                 'role_id' => $value,
             ]);
         }
+        Cookie::queue(Cookie::make('email', $proposal->email));
+        Cookie::queue(Cookie::make('resi', $proposal->mailing_number));
 
-        Cookie::queue(Cookie::make('email', $request->email));
-
+        $resi = Cookie::queue(Cookie::forget('resi'));
         DB::commit();
 
         $deputi = $request->deputi;
@@ -237,7 +242,7 @@ class FrontController extends Controller
         Notification::send($users, new DeputiNotificationGuest($path));
         Mail::to($request->email)->send(new NomorResi($proposal));
 
-        return redirect()->route('satisfaction.survey')->with('success', 'Data Berhasil di Simpan! Silahkan Vote Survey Kepuasan Untuk Memberi Kritikan Pada Kami');
+        return redirect()->route('satisfaction.survey')->with('success', "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. $resi Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.");
     }
     // public function type($id) {
     //     try {
@@ -326,22 +331,22 @@ class FrontController extends Controller
         }
     }
     public function distributionOfCooperation() {
-        $data['approval_guest_overseas_guest'] = SubmissionProposalGuest::where('countries_id', '!=', 102)->get()->count();
-        $data['approval_guest_domestic_guest'] = SubmissionProposalGuest::where('countries_id', 102)->get()->count();
-        $data['approval_guest_overseas'] = SubmissionProposal::where('countries_id', '!=', '102')->get()->count();
-        $data['approval_guest_domestic'] = SubmissionProposal::where('countries_id', 102)->get()->count();
+        // $data['approval_guest_overseas_guest'] = SubmissionProposalGuest::where('countries_id', '!=', 102)->get()->count();
+        // $data['approval_guest_domestic_guest'] = SubmissionProposalGuest::where('countries_id', 102)->get()->count();
+        // $data['approval_guest_overseas'] = SubmissionProposal::where('countries_id', '!=', '102')->get()->count();
+        // $data['approval_guest_domestic'] = SubmissionProposal::where('countries_id', 102)->get()->count();
         $data['country'] = Country::all();
 
-        $merge['satker'] = SubmissionProposal::all();
-        $merge['guest'] = SubmissionProposalGuest::all();
+        // $merge['satker'] = SubmissionProposal::with('agencies')->get();
+        // $merge['guest'] = SubmissionProposalGuest::with('agencies')->get();
 
-        $data['data'] = array_merge($merge['satker']->toArray(), $merge['guest']->toArray());
+        // $data['data'] = array_merge($merge['satker']->toArray(), $merge['guest']->toArray());
 
         return view('pages.sebaran-kerjasama', compact('data'));
     }
     public function mapDistributionOfCooperation() {
-        $data['satker'] = SubmissionProposal::all();
-        $data['guest'] = SubmissionProposalGuest::all();
+        $data['satker'] = SubmissionProposal::with('agencies')->get();
+        $data['guest'] = SubmissionProposalGuest::with('agencies')->get();
 
         $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
 

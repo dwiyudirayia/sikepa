@@ -45,28 +45,68 @@
             <div class="main-title text-center sr-btm">
                 <h3 class="title" id="title-table">Daftar Kerjasama KPPA</h3>
             </div>
-            <table class="table table-striped sr-btm">
+            <table class="table table-striped sr-btm" id="table-data">
                 <thead>
                     <tr>
                         <th>Judul MOU</th>
-                        <th>Instansi</th>
+                        <th>Nama Instansi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="is-search-table">
-                    @forelse ($data['data'] as $item)
+                    {{-- @forelse ($data['data'] as $item)
                         <tr>
-                            <td title="Jenis kerjasama">{{ $item['type_of_cooperation']['name'] }}</td>
+                            <td title="Judul Kerjasama">{{ $item['title_cooperation'] }}</td>
                             <td title="Instansi">{{ $item['agency_name'] }}</td>
+                            <td title="Aksi">{{ $item['agency_name'] }}</td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="2" style="text-align:center;">Data Kosong</td>
                         </tr>
-                    @endforelse
+                    @endforelse --}}
                 </tbody>
             </table>
         </div>
     </section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-detail">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title" id="judul-mou"></h5>
+                                </div>
+                                <a class="close" href="javascript:;" data-dismiss="modal"><i class="mdi mdi-close"></i></a>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" id="jenis-instansi" disabled class="form-control">
+                                            <label class="text-label">Jenis Instansi</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" id="nama-instansi" disabled class="form-control">
+                                            <label class="text-label">Nama Instansi</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-input">
+                                            <input type="text" id="lama-pengajuan" disabled class="form-control">
+                                            <label class="text-label">Lama Pengajuan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="map-filter">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -164,9 +204,19 @@
             var infoWindowContent = data.map(content => {
                 return [`
                     <tr>
-                        <td>Judul Kerjasama</b>
+                        <td>Judul MOU</b>
                         <td>:</td>
                         <td>${content.title_cooperation}</td>
+                    </tr>
+                    <tr>
+                        <td>Instansi</b>
+                        <td>:</td>
+                        <td>${content.agencies.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Instansi</b>
+                        <td>:</td>
+                        <td>${content.agency_name}</td>
                     </tr>
                 `];
                     });
@@ -210,8 +260,20 @@
             data.map(value => {
                 tableData += `
                     <tr>
-                        <td title="Jenis kerjasama">${value.type_of_cooperation.name}</td>
+                        <td title="Judul Kerjasama">${value.title_cooperation}</td>
                         <td title="Instansi">${value.agency_name}</td>
+                        <td title="Aksi">
+                            <button
+                                class="btn btn-primary icon-revealed"
+                                id="show-modal-detail"
+                                data-judul-mou="${value.title_cooperation}"
+                                data-jenis-instansi="${value.agencies.name}"
+                                data-nama-instansi="${value.agency_name}"
+                                data-lama-pengajuan="${value.time_period}"
+                            >
+                                <span class="mdi mdi-eye"></span>
+                            </button>
+                        </td>
                     </tr>
                 `
             })
@@ -225,7 +287,7 @@
             $('#overseas').html(overseas.length);
             $('#domestic').html(domestic.length);
 
-            $('#title-table').html('Data Keseluruhan');
+            $('#title-table').html('Daftar Kerjasama KemenPPPA');
             $('#is-search-table').html(tableData);
         });
     }
@@ -306,7 +368,7 @@
                 data.map(value => {
                     tableData += `
                         <tr>
-                            <td title="Jenis kerjasama">${value.type_of_cooperation.name}</td>
+                            <td title="Judul Kerjasama">${value.title_cooperation}</td>
                             <td title="Instansi">${value.agency_name}</td>
                         </tr>
                     `
@@ -382,6 +444,13 @@
         $('#reset-filter').click(function() {
             initMap();
         })
+        $('#table-data').on('click', '#show-modal-detail', function() {
+            $('#modal-detail').modal('show');
+            $('#judul-mou').html($(this).data('judul-mou'));
+            $('#jenis-instansi').val($(this).data('jenis-instansi'));
+            $('#nama-instansi').val($(this).data('nama-instansi'));
+            $('#lama-pengajuan').val($(this).data('lama-pengajuan'));
+        });
     })
     </script>
 @endsection
