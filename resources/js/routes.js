@@ -98,9 +98,9 @@ import PageEdit from './components/Page/Edit';
 // import ProposalCooperationTargetCreate from './components/Proposal/CooperationTarget/Create';
 // import ProposalCooperationTargetEdit from './components/Proposal/CooperationTarget/Edit';
 
-import ProposalSubmissionTypeIndex from './components/Proposal/SubmissionType/Index';
-import ProposalSubmissionTypeCreate from './components/Proposal/SubmissionType/Create';
-import ProposalSubmissionTypeEdit from './components/Proposal/SubmissionType/Edit';
+// import ProposalSubmissionTypeIndex from './components/Proposal/SubmissionType/Index';
+// import ProposalSubmissionTypeCreate from './components/Proposal/SubmissionType/Create';
+// import ProposalSubmissionTypeEdit from './components/Proposal/SubmissionType/Edit';
 
 // import ProposalTypeOfCooperationIndex from './components/Proposal/TypeOfCooperation/Index';
 // import ProposalTypeOfCooperationCreate from './components/Proposal/TypeOfCooperation/Create';
@@ -114,9 +114,9 @@ import ProposalTypeOfCooperationTwoDerivativeListTwo from './components/Proposal
 import ProposalTypeOfCooperationTwoDerivativeCreate from './components/Proposal/TypeOfCooperation/TypeOfCooperationTwoDerivative/Create';
 import ProposalTypeOfCooperationTwoDerivativeEdit from './components/Proposal/TypeOfCooperation/TypeOfCooperationTwoDerivative/Edit';
 
-import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCooperation/Index';
-import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
-import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
+// import ProposalSubtanceCooperationIndex from './components/Proposal/SubtanceCooperation/Index';
+// import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
+// import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
 
 import MOUProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/MOU/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
@@ -751,17 +751,17 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                     },
-                    // beforeEnter: (to, from, next) => {
-                    //     const permission = store.state.user.authenticated.permission;
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
 
-                    //     let filterPermission = permission.filter(value => value === 'Admin');
+                        let filterPermission = permission.filter(value => value === 'Admin');
 
-                    //     if(filterPermission.length == 0) {
-                    //         return true;
-                    //     } else {
-                    //         next();
-                    //     }
-                    // },
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 //Faq
                 {
@@ -930,52 +930,52 @@ const router = new VueRouter({
                 //     }
                 // },
                 // Proposal Submission Type
-                {
-                    path: '/proposal/submission/type',
-                    name: 'ProposalSubmissionTypeIndex',
-                    component: ProposalSubmissionTypeIndex,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                // {
+                //     path: '/proposal/submission/type',
+                //     name: 'ProposalSubmissionTypeIndex',
+                //     component: ProposalSubmissionTypeIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                //         let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/proposal/submission/type/create',
-                    name: 'ProposalSubmissionTypeCreate',
-                    component: ProposalSubmissionTypeCreate,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/proposal/submission/type/create',
+                //     name: 'ProposalSubmissionTypeCreate',
+                //     component: ProposalSubmissionTypeCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                //         let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/proposal/submission/type/:id/edit',
-                    name: 'ProposalSubmissionTypeEdit',
-                    component: ProposalSubmissionTypeEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/proposal/submission/type/:id/edit',
+                //     name: 'ProposalSubmissionTypeEdit',
+                //     component: ProposalSubmissionTypeEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
                 //Proposal Type of Cooperation
                 // {
                 //     path: '/proposal/typeof/cooperation/:id/list',
@@ -1169,30 +1169,30 @@ const router = new VueRouter({
                 //     }
                 // },
                 //Proposal Subtance Cooperation
-                {
-                    path: '/proposal/subtance/cooperation',
-                    name: 'ProposalSubtanceCooperationIndex',
-                    component: ProposalSubtanceCooperationIndex,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/subtance/cooperation/create',
-                    name: 'ProposalSubtanceCooperationCreate',
-                    component: ProposalSubtanceCooperationCreate,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
-                {
-                    path: '/proposal/subtance/cooperation/:id/edit',
-                    name: 'ProposalSubtanceCooperationEdit',
-                    component: ProposalSubtanceCooperationEdit,
-                    meta: {
-                        requiresAuth: true,
-                    }
-                },
+                // {
+                //     path: '/proposal/subtance/cooperation',
+                //     name: 'ProposalSubtanceCooperationIndex',
+                //     component: ProposalSubtanceCooperationIndex,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/subtance/cooperation/create',
+                //     name: 'ProposalSubtanceCooperationCreate',
+                //     component: ProposalSubtanceCooperationCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
+                // {
+                //     path: '/proposal/subtance/cooperation/:id/edit',
+                //     name: 'ProposalSubtanceCooperationEdit',
+                //     component: ProposalSubtanceCooperationEdit,
+                //     meta: {
+                //         requiresAuth: true,
+                //     }
+                // },
                 //Proposal
                 {
                     path: '/mou/submission/cooperation',

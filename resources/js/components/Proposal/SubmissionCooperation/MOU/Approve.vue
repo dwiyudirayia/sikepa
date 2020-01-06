@@ -24,7 +24,7 @@
             <div class="m-portlet__body">
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
@@ -38,8 +38,8 @@
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
                                         <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Jenis Permohonan</th>
+                                        <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
@@ -51,9 +51,9 @@
                                     <template v-if="youSubmission.length">
                                         <tr v-for="(value, index) in youSubmission" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
@@ -90,8 +90,8 @@
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
                                         <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Jenis Permohonan</th>
+                                        <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
@@ -103,9 +103,9 @@
                                     <template v-if="guestSubmission.length">
                                         <tr v-for="(value, index) in guestSubmission" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>

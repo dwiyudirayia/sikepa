@@ -19,6 +19,7 @@
                     <label for="Nama Lengkap">Pilih Section</label>
                     <div class="m-form__control">
                         <select2-edit
+                        @input="changeSection"
                         :options="section"
                         v-model="$v.forms.section_id.$model"
                         class="form-control"
@@ -35,6 +36,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Kategori</label>
                     <select2-edit
+                    @input="changeCategory"
                     :options="category"
                     v-model="$v.forms.category_id.$model"
                     class="form-control"
@@ -240,11 +242,6 @@ export default {
             // }
         }
     },
-    watch: {
-        "forms.section_id" : function() {
-            console.log('asd');
-        }
-    },
     created() {
         $axios.get(`/admin/page/${this.$route.params.id}/edit`)
         .then(response => {
@@ -256,23 +253,22 @@ export default {
         });
     },
     methods: {
-        // changeSection(value) {
-
-        //     this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
-        //     this.selectedSection = this.forms.section_id;
-        //     const selected = this.forms.section_id;
-        //     $axios.get(`/admin/page/change/category/${selected}`)
-        //     .then(response => {
-        //         this.category = response.data.data;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     })
-        // },
-        // changeCategory(value) {
-        //     this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
-        //     this.selectedCategory = this.forms.category_id;
-        // },
+        changeSection(value) {
+            this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
+            this.selectedSection = this.forms.section_id;
+            const selected = this.forms.section_id;
+            $axios.get(`/admin/page/change/category/${selected}`)
+            .then(response => {
+                this.category = response.data.data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        changeCategory(value) {
+            this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
+            this.selectedCategory = this.forms.category_id;
+        },
         // onImageChange(e) {
         //     let files = e.target.files || e.dataTransfer.files;
         //     this.forms.image = files[0];

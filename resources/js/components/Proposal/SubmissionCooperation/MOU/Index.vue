@@ -93,8 +93,7 @@
                                         <tr>
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Jenis Permohonan</th>
                                             <th style="vertical-align: middle;">Usulan Judul Kerjasama</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
@@ -107,7 +106,6 @@
                                         <template v-if="youSubmission.length">
                                             <tr v-for="(value, index) in youSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
@@ -204,8 +202,7 @@
                                         <tr>
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Jenis Permohonan</th>
                                             <th style="vertical-align: middle;">Usulan Judul Kerjasama</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
@@ -218,7 +215,6 @@
                                         <template v-if="approvalSubmission.length">
                                             <tr v-for="(value, index) in approvalSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
@@ -317,8 +313,7 @@
                                         <tr>
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Jenis Permohonan</th>
                                             <th style="vertical-align: middle;">Usulan Judul Kerjasama</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
@@ -331,7 +326,6 @@
                                         <template v-if="approvalSubmission.length">
                                             <tr v-for="(value, index) in approvalSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
@@ -428,8 +422,7 @@
                                         <tr>
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                            <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                            <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                            <th style="vertical-align: middle;">Jenis Permohonan</th>
                                             <th style="vertical-align: middle;">Usulan Judul Kerjasama</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
@@ -442,7 +435,6 @@
                                         <template v-if="guestSubmission.length">
                                             <tr v-for="(value, index) in guestSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
@@ -496,15 +488,15 @@ export default {
             type: [],
             filter: {
                 satkerSesmenApproval: {
-                    type: null,
+                    type_one: null,
                     q: null,
                 },
                 satkerSesmen: {
-                    type: null,
+                    type_one: null,
                     q: null,
                 },
                 guest: {
-                    type: null,
+                    type_one: null,
                     q: null,
                 }
             },

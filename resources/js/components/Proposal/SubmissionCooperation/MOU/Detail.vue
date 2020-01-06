@@ -167,19 +167,13 @@
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Permohonan Kerjasama:</label>
-                            <div class="col-10">
-                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation">
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
                             <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjasama:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_one">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Kesepahaman Jenis Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Permohonan:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_two">
                             </div>
@@ -545,7 +539,6 @@ export default {
             nomor: [''],
             title_cooperation: null,
             title_cooperation_final: null,
-            type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
             country: null,
@@ -888,7 +881,6 @@ export default {
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
                 this.title_cooperation_final = response.data.data.title_cooperation;
-                this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
                 this.country = response.data.data.country.country_name;

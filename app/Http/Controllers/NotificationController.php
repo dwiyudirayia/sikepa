@@ -11,7 +11,7 @@ class NotificationController extends Controller
         $user = auth()->user(); //AMBIL USER YANG SEDANG LOGIN
         //KEMUDIAN YANG DI READ ADALAH HANYA NOTIFIKASI YANG STATUSNYA BELUM DIREAD
         //SECARA LANGSUNG KITA DAPAT MENGAMBIL DATA NYA MELALUI USER DENGAN MENGAKSES PROPERTY unreadNotifications.
-        return response()->json(['status' => 'success', 'data' => $user->unreadNotifications]);
+        return response()->json(['status' => 'success', 'data' => $user->notifications()->get()]);
     }
 
     public function store(Request $request)

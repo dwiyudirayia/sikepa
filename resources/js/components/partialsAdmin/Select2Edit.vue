@@ -27,20 +27,17 @@ export default {
         // emit event on change.
         .on('change', function () {
             vm.$emit('input', this.value)
-            console.log('1');
         })
         $(this.$el).val('').trigger('change.select2');
     },
     watch: {
         value: function (value) {
-            console.log('2');
             // update value
             $(this.$el)
             .val(value)
             .trigger('change')
         },
         options: function (options) {
-            console.log('3');
             let data = $.map(options, function (obj) {
                 obj.id = obj.id;
                 obj.text = obj.name;
@@ -51,7 +48,6 @@ export default {
                 data: data,
                 placeholder: 'Pilih dan Sesuaikan',
                 width: '100%',
-                allowClear:true
             })
             $(this.$el).val(this.value).trigger('change.select2');
         }

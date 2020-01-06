@@ -50,9 +50,9 @@ Route::middleware('jwt')->group( function () {
         Route::get('page/change/category/{id}', 'PageController@categoryPage');
 
         Route::resource('proposal/category', 'CategoryProposalController');
-        Route::resource('proposal/cooperation/target', 'CooperationTargetController');
-        Route::resource('proposal/submission/type', 'SubmissionTypeController');
-        Route::resource('proposal/typeof/cooperation', 'TypeOfCooperationController');
+        // Route::resource('proposal/cooperation/target', 'CooperationTargetController');
+        // Route::resource('proposal/submission/type', 'SubmissionTypeController');
+        // Route::resource('proposal/typeof/cooperation', 'TypeOfCooperationController');
         Route::resource('proposal/subtance/cooperation', 'SubtanceCooperationController');
         Route::resource('proposal/typeof/cooperation/one', 'TypeOfCooperationOneDerivativeController');
         // Route::get('proposal/typeof/cooperation/one/{id}/create', 'TypeOfCooperationOneDerivativeController@createType');

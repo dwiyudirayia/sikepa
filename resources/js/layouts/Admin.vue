@@ -155,28 +155,36 @@
                                                                     Pemberitahuan
                                                                 </a>
                                                             </li>
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_events" role="tab">Events</a>
+                                                            </li>
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_logs" role="tab">Logs</a>
+                                                            </li>
                                                         </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="topbar_notifications_notifications" role="tabpanel">
                                                                 <div class="m-scrollable m-scroller" data-scrollable="true" data-height="250" data-mobile-height="200" style="height: 200px; overflow: auto;">
                                                                     <div class="m-list-timeline m-list-timeline--skin-light">
                                                                         <div class="m-list-timeline__items">
-                                                                            <div class="m-list-timeline__item" v-for="(value, index) in notifications" :key="index">
+                                                                            <div
+                                                                                class="m-list-timeline__item"
+                                                                                v-for="(value, index) in notifications" :key="index"
+                                                                                :class="value.read_at == null ? '' : 'm-list-timeline__item--read'"
+                                                                            >
                                                                                 <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-                                                                                <router-link class="m-list-timeline__text" style="color:black;" :to="{name: value.data.path}" @click.native="readNotif(value)">{{ value.data.message }}</router-link>
+                                                                                <router-link
+                                                                                    class="m-list-timeline__text"
+                                                                                    :to="{name: value.data.path}" @click.native="readNotif(value)"
+                                                                                >
+                                                                                    {{ value.data.message }}
+                                                                                </router-link>
                                                                                 <span class="m-list-timeline__time">{{ value.created_at | formatDate }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="tab-pane" id="topbar_notifications_logs" role="tabpanel">
-                                                                <div class="m-stack m-stack--ver m-stack--general" style="min-height: 180px;">
-                                                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                                                                        <span class="">All caught up!<br>No new logs.</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>

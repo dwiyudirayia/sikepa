@@ -31,46 +31,21 @@ class UpdatePageRequest extends FormRequest
     }
     public function update()
     {
-        $data = Page::findOrFail($this->id);
+        // $data = Page::findOrFail($this->id);
 
-        if($this->image == $data->image)
-        {
-            return [
-                'updated_by' => auth()->user()->id,
-                'section_id' => (int)$this->section_id,
-                'category_id' => (int)$this->category_id,
-                'title' => $this->title,
-                'url' => Str::slug($this->title,"-"),
-                'short_content' => $this['short_content'],
-                'content' => $this['content'],
-                'seo_title' => $this->seo_title,
-                'seo_meta_key' => $this->seo_meta_key,
-                'seo_meta_desc' => $this->seo_meta_desc,
-                'publish' => (int)$this->publish,
-                'approved' => (int)$this->approved,
-            ];
-        } else {
-            $extFile = $this->image->getClientOriginalExtension();
-            $nameFile = 'page-photo'.'-'.date('Y-m-d').'-'.time().'.'.$extFile;
-            $name = $this->image->storeAs(strtotime(now()), $nameFile, 'page_photo');
-
-            Storage::disk('page_photo')->delete($data->image);
-
-            return [
-                'updated_by' => auth()->user()->id,
-                'section_id' => (int)$this->section_id,
-                'category_id' => (int)$this->category_id,
-                'title' => $this->title,
-                'url' => Str::slug($this->title,"-"),
-                'short_content' => $this['short_content'],
-                'content' => $this['content'],
-                'image' => $name,
-                'seo_title' => $this->seo_title,
-                'seo_meta_key' => $this->seo_meta_key,
-                'seo_meta_desc' => $this->seo_meta_desc,
-                'publish' => (int)$this->publish,
-                'approved' => (int)$this->approved,
-            ];
-        }
+        return [
+            'updated_by' => auth()->user()->id,
+            'section_id' => (int)$this->section_id,
+            'category_id' => (int)$this->category_id,
+            'title' => $this->title,
+            'url' => Str::slug($this->title,"-"),
+            'short_content' => $this['short_content'],
+            'content' => $this['content'],
+            'seo_title' => $this->seo_title,
+            'seo_meta_key' => $this->seo_meta_key,
+            'seo_meta_desc' => $this->seo_meta_desc,
+            'publish' => (int)$this->publish,
+            'approved' => (int)$this->approved,
+        ];
     }
 }

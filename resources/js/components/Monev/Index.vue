@@ -84,8 +84,8 @@
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
                                         <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Jenis Permohonan</th>
+                                        <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
@@ -97,9 +97,9 @@
                                     <template v-if="tableData.guest.length">
                                         <tr v-for="(value, index) in tableData.guest" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
@@ -169,8 +169,8 @@
                                     <tr>
                                         <th style="vertical-align: middle;">No</th>
                                         <th style="vertical-align: middle;">Jenis Kerjasama</th>
-                                        <th style="vertical-align: middle;">Permohonan Kerjasama</th>
-                                        <th style="vertical-align: middle;">Kesepahaman Jenis Kerjasama</th>
+                                        <th style="vertical-align: middle;">Jenis Permohonan</th>
+                                        <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
@@ -182,9 +182,9 @@
                                     <template v-if="tableData.satker.length">
                                         <tr v-for="(value, index) in tableData.satker" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
