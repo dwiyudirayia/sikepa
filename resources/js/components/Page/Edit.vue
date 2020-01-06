@@ -18,15 +18,13 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Section</label>
                     <div class="m-form__control">
-                        <Select2Edit
-                        @input="changeSection"
+                        <select2-edit
                         :options="section"
-                        :initSelected="selectedSection"
                         v-model="$v.forms.section_id.$model"
                         class="form-control"
                         @blur="$v.forms.section_id.$touch()"
                         >
-                        </Select2Edit>
+                        </select2-edit>
                     </div>
                     <template v-if="$v.forms.section_id.$error">
                         <span v-if="!$v.forms.section_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
@@ -36,15 +34,13 @@
                 </div>
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Pilih Kategori</label>
-                    <Select2Edit
-                    @input="changeCategory"
+                    <select2-edit
                     :options="category"
-                    :initSelected="selectedCategory"
                     v-model="$v.forms.category_id.$model"
                     class="form-control"
                     @blur="$v.forms.category_id.$touch()"
                     >
-                    </Select2Edit>
+                    </select2-edit>
                     <template v-if="$v.forms.category_id.$error">
                         <span v-if="!$v.forms.category_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -181,16 +177,14 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import { fileType } from '@/validators';
+// import { fileType } from '@/validators';
 import Editor from '@tinymce/tinymce-vue';
-import $axios from './../../api';
-import Select2Edit from './Select2Edit';
+import $axios from '@/api.js';
 import $axiosFormData from '@/apiformdata.js';
 
 export default {
     name: 'PageEdit',
     components: {
-        Select2Edit,
         Editor
     },
     data() {
@@ -208,7 +202,18 @@ export default {
                     path: `/page/${this.$route.params.id}/edit`
                 },
             ],
-            forms: {},
+            forms: {
+                section_id: null,
+                category_id: null,
+                title: null,
+                short_content: null,
+                content: null,
+                approved: null,
+                publish: null,
+                seo_title: null,
+                seo_meta_key: null,
+                seo_meta_desc: null,
+            },
             section: null,
             category: null,
             name: null,
@@ -219,36 +224,55 @@ export default {
             selectedCategory: null,
         }
     },
-    validations() {
-        const tmpForm = {
+    validations: {
+        forms: {
             section_id: {
-                required
+                required,
             },
             category_id: {
-                required
+                required,
             },
             title: {
-                required
+                required,
             },
+            // image: {
+            //     fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
+            // }
         }
     },
-    mounted() {
+    watch: {
+        "forms.section_id" : function() {
+            console.log('asd');
+        }
+    },
+    created() {
         $axios.get(`/admin/page/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
-            this.category = response.data.data.category;
+            // this.category = response.data.data.category;
             this.forms = response.data.data.data;
             this.selectedSection = response.data.data.data.section_id;
             this.selectedCategory = response.data.data.data.category_id;
         });
     },
     methods: {
-        changeSection(value) {
-            this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
-        },
-        changeCategory(value) {
-            this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
-        },
+        // changeSection(value) {
+
+        //     this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
+        //     this.selectedSection = this.forms.section_id;
+        //     const selected = this.forms.section_id;
+        //     $axios.get(`/admin/page/change/category/${selected}`)
+        //     .then(response => {
+        //         this.category = response.data.data;
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     })
+        // },
+        // changeCategory(value) {
+        //     this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);
+        //     this.selectedCategory = this.forms.category_id;
+        // },
         // onImageChange(e) {
         //     let files = e.target.files || e.dataTransfer.files;
         //     this.forms.image = files[0];
@@ -265,6 +289,17 @@ export default {
         //         vm.previewImage = e.target.result;
         //     };
         //     reader.readAsDataURL(file);
+        // },
+        // categoryPage() {
+        //     const value = this.forms.section_id;
+
+        //     $axios.get(`/admin/page/change/category/${value}`)
+        //     .then(response => {
+        //         console.log(response);
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     })
         // },
         update() {
             this.$v.forms.$touch();

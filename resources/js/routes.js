@@ -751,17 +751,17 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                     },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                    // beforeEnter: (to, from, next) => {
+                    //     const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Admin');
+                    //     let filterPermission = permission.filter(value => value === 'Admin');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
+                    //     if(filterPermission.length == 0) {
+                    //         return true;
+                    //     } else {
+                    //         next();
+                    //     }
+                    // },
                 },
                 //Faq
                 {

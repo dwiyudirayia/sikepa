@@ -60,14 +60,14 @@
                 </div> -->
                 <!-- <div v-else> -->
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Permohonan kerjasama</label>
+                        <label for="Nama Lengkap">Jenis Kerjsama</label>
                         <div class="m-form__control">
                             <select2 :options="data_select.type_of_cooperation_one_derivative_id" v-model="forms.type_of_cooperation_one_derivative_id" @input="onChangeTypeCooperationTwoDerivative" />
                         </div>
                         <span class="m-form__help">Pastikan Nama Permohonan kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
+                        <label for="Nama Lengkap">Jenis Permohonan</label>
                         <div class="m-form__control">
                             <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" />
                         </div>

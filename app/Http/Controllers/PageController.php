@@ -194,4 +194,13 @@ class PageController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
+    public function categoryPage($id) {
+        try {
+            $data = CategoryPage::where('section_id', $id)->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
 }
