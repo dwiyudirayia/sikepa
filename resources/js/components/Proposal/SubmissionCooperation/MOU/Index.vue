@@ -25,15 +25,15 @@
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <template v-if="$can('Satker Sesmen')">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Daftar Pengajuan Kerjasama Anda</a>
+                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_1" role="tab"><i class="la la-archive"></i> Data Pihak Satker Sesmen</a>
                         </li>
                     </template>
                     <template v-else>
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Pihak Internal Kemen PPPA</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan P3</a>
+                            <a class="nav-link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Pihak External</a>
                         </li>
                     </template>
                 </ul>
@@ -112,7 +112,7 @@
                                                 <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9">
                                                         <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -221,7 +221,7 @@
                                                 <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9">
                                                         <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -332,7 +332,7 @@
                                                 <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9">
                                                         <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -428,6 +428,7 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">Durasi</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -435,13 +436,14 @@
                                         <template v-if="guestSubmission.length">
                                             <tr v-for="(value, index) in guestSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_cooperation_two }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
-                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.country_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agencies }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.time_period }}</td>
+                                                <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.duration }}</td>
                                                 <td>
                                                     <router-link :to="{name: 'MOUProposalSubmissionCooperationDetailGuest', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>

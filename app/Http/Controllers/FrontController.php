@@ -229,7 +229,9 @@ class FrontController extends Controller
         Cookie::queue(Cookie::make('email', $proposal->email));
         Cookie::queue(Cookie::make('resi', $proposal->mailing_number));
 
-        $resi = Cookie::queue(Cookie::forget('resi'));
+        $resi = Cookie::get('resi');
+        $messages = "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. ".$resi." Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.";
+
         DB::commit();
 
         $deputi = $request->deputi;
@@ -242,7 +244,7 @@ class FrontController extends Controller
         Notification::send($users, new DeputiNotificationGuest($path));
         Mail::to($request->email)->send(new NomorResi($proposal));
 
-        return redirect()->route('satisfaction.survey')->with('success', "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. $resi Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.");
+        return redirect()->route('satisfaction.survey')->with('success', $messages);
     }
     // public function type($id) {
     //     try {

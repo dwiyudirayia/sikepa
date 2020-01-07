@@ -23,25 +23,19 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_tabs_2_1" role="tabpanel">
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Judul MOU:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="title_cooperation">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Permohonan Kerjasama:</label>
-                            <div class="col-10">
-                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation">
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjsama:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_one">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Kesepahaman Jenis Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Permohonan:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_two">
                             </div>
@@ -114,33 +108,27 @@
                                     <div class="m-portlet__body">
                                         <div class="kt-section__content">
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Anggaran:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Judul Kegiatan:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.budget|currency" type="text">
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.title_activity" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Target:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Tanggal Kegiatan:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.target" type="text">
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.implementation_date" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Capaian:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Lokasi:</label>
                                                 <div class="col-10">
-                                                    <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" :value="value.reach"></textarea>
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.location" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Masalah:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Penilaian:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.problem" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Upaya Penyelesaian:</label>
-                                                <div class="col-10">
-                                                    <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" :value="value.problem_solving"></textarea>
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.result_status" type="text">
                                                 </div>
                                             </div>
                                             <!-- <div class="form-group m-form__group row">
@@ -236,7 +224,6 @@ export default {
             $axios.get(`/admin/monev/detail/guest/${this.$route.params.id}`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
-                this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
                 this.country = response.data.data.country.country_name;

@@ -41,55 +41,43 @@
                 </div>
             </div>
             <form class="m-form m-form--fit" @submit.prevent="update">
-                <div class="m-form__section m-form__section--first">
-                    <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Monitoring Administrasi MOU</h3>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Anggaran</label>
-                        <div class="m-form__control">
-                            <input type="text" v-model="forms.budget" class="form-control" @input="validate()">
-                        </div>
-                        <span v-show="budget.error" class="m--font-danger">{{ budget.message }}</span>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Target</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.target" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Capaian</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.reach" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Permasalahan</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.problem" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Upaya Penyelesaian Masalah</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.problem_solving" class="form-control"></textarea>
-                        </div>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Judul Kegiatan</label>
+                    <div class="m-form__control">
+                        <input type="text" class="form-control" v-model="forms.title_activity">
                     </div>
                 </div>
-                <div class="m-form__seperator m-form__seperator--dashed"></div>
-                <div class="m-form__section m-form__section--last">
-                    <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Monitoring Kunjungan Lapangan</h3>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Laporan Kunjungan Lapangan</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.report" class="form-control"></textarea>
-                        </div>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Tanggal Kegiatan</label>
+                    <div class="m-form__control">
+                        <date-picker v-model="forms.implementation_date" valueType="format"  style="width: 100%;" lang="en"></date-picker>
                     </div>
                 </div>
-                <br>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Lokasi</label>
+                    <div class="m-form__control">
+                        <input type="text" class="form-control" v-model="forms.location">
+                    </div>
+                </div>
+                <div class="form-group m-form__group">
+                    <label>Deskripsi Kegiatan</label>
+                    <div class="m-form__control">
+                        <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities"></textarea>
+                    </div>
+                </div>
+                <div class="m-form__group form-group">
+                    <label for="">Nilai Kegiatan</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio">
+                            <input type="radio" v-model="forms.result_status" value="1"> Rekomendasi
+                            <span></span>
+                        </label>
+                        <label class="m-radio">
+                            <input type="radio" v-model="forms.result_status" value="0"> Tidak
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -162,22 +150,27 @@
 // import { required, email } from 'vuelidate/lib/validators';
 import $axiosFormData from '@/apiformdata.js';
 import $axios from '@/api.js';
+import DatePicker from 'vue2-datepicker';
+DatePicker.methods.displayPopup = function () {
+  this.position = {
+    left: 0,
+    top: '100%'
+  }
+}
 export default {
     name: 'MonevActivityP3Edit',
+    components: {
+        DatePicker
+    },
     data() {
         return {
             forms: {
-                budget: null,
-                target: null,
-                reach: null,
-                problem: null,
-                problem_solving: null,
-                report: null,
+                title_activity: null,
+                implementation_date: null,
+                location: null,
+                description_activities: null,
+                result_status: null,
                 file: null,
-            },
-            budget: {
-                message: null,
-                error: false,
             },
             documentation: [],
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -312,12 +305,11 @@ export default {
         getData() {
             $axios.get(`/admin/monev/activity/guest/${this.$route.params.id}/edit`)
             .then(response => {
-                this.forms.budget = response.data.data.budget
-                this.forms.target = response.data.data.target
-                this.forms.reach = response.data.data.reach
-                this.forms.problem = response.data.data.problem
-                this.forms.problem_solving = response.data.data.problem_solving
-                this.forms.report = response.data.data.report
+                this.forms.title_activity = response.data.data.title_activity;
+                this.forms.implementation_date = response.data.data.implementation_date;
+                this.forms.location = response.data.data.location;
+                this.forms.description_activities = response.data.data.description_activities;
+                this.forms.result_status = response.data.data.result_status;
                 this.documentation = response.data.data.documentation;
             })
         },

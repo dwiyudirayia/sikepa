@@ -230,39 +230,27 @@ export default {
             previewImage: null,
         }
     },
-    validations() {
-        const tmpForm = {
+    validations: {
+        forms: {
             section_id: {
-                required
+                required,
             },
             category_id: {
-                required
+                required,
             },
             title: {
-                required
+                required,
             },
+            image: {
+                fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
+            }
         }
-
-        if (typeof this.forms.image === "string") {
-            tmpForm.image = {
-                required,
-            };
-        } else {
-            tmpForm.image = {
-                required,
-                fileType: fileType('image/jpeg', 'image/jpg', 'image/png'),
-            };
-        }
-
-        return {
-            forms: tmpForm
-        };
     },
     created() {
         $axios.get(`/admin/article/${this.$route.params.id}/edit`)
         .then(response => {
             this.section = response.data.data.section;
-            this.category = response.data.data.category;
+            // this.category = response.data.data.category;
             this.forms = response.data.data.data;
             this.selectedSection = response.data.data.data.section_id;
             this.selectedCategory = response.data.data.data.category_id;
@@ -271,6 +259,15 @@ export default {
     methods: {
         changeSection(value) {
             this.forms.section_id = value == '' ? parseInt(this.selectedSection) : parseInt(value);
+            this.selectedSection = this.forms.section_id;
+            const selected = this.forms.section_id;
+            $axios.get(`/admin/article/change/category/${selected}`)
+            .then(response => {
+                this.category = response.data.data;
+            })
+            .catch(error => {
+                console.log(error);
+            })
         },
         changeCategory(value) {
             this.forms.category_id = value == '' ? parseInt(this.selectedCategory) : parseInt(value);

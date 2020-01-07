@@ -23,25 +23,19 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="m_tabs_2_1" role="tabpanel">
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Judul Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Judul MOU:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="title_cooperation">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Permohonan Kerjasama:</label>
-                            <div class="col-10">
-                                <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation">
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Kerjsama:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_one">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Kesepahaman Jenis Kerjasama:</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Jenis Permohonan:</label>
                             <div class="col-10">
                                 <input class="form-control m-input" disabled="disabled" :value="type_of_cooperation_two">
                             </div>
@@ -114,36 +108,30 @@
                                     <div class="m-portlet__body">
                                         <div class="kt-section__content">
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Anggaran:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Judul Kegiatan:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.budget|currency" type="text">
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.title_activity" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Target:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Tanggal Kegiatan:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.target" type="text">
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.implementation_date" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Capaian:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Lokasi:</label>
                                                 <div class="col-10">
-                                                    <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" :value="value.reach"></textarea>
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.location" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Masalah:</label>
+                                                <label for="example-text-input" class="col-2 col-form-label">Penilaian:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.problem" type="text">
+                                                    <input class="form-control m-input" disabled="disabled" :value="value.result_status" type="text">
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Upaya Penyelesaian:</label>
-                                                <div class="col-10">
-                                                    <textarea class="form-control m-input" cols="30" rows="10" disabled="disabled" :value="value.problem_solving"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
+                                            <!-- <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">Evaluasi:</label>
                                                 <div class="col-10">
                                                     <input class="form-control m-input" disabled="disabled" :value="evaluation(index)" type="text">
@@ -154,7 +142,7 @@
                                                 <div class="col-10">
                                                     <input class="form-control m-input" disabled="disabled" :value="recomendation(index)" type="text">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +164,7 @@
                                     <div class="m-portlet__body">
                                         <div class="row">
                                             <div v-for="item in value.documentation" :key="item.id" class="col-lg-4">
-                                                <img :src="`/storage/activity_documentation/${item.file}`" height="100">
+                                                <img :src="`/storage/activity_documentation_guest/${item.file}`" height="100">
                                             </div>
                                         </div>
                                     </div>

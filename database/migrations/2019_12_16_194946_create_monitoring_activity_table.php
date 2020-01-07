@@ -16,12 +16,12 @@ class CreateMonitoringActivityTable extends Migration
         Schema::create('monitoring_activity', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('submission_proposal_id');
-            $table->integer('budget')->nullable();
-            $table->text('target')->nullable();
-            $table->text('reach')->nullable();
-            $table->text('problem')->nullable();
-            $table->text('problem_solving')->nullable();
-            $table->text('report')->nullable();
+            $table->string('title_activity')->nullable();
+            $table->date('implementation_date')->nullable();
+            $table->string('location')->nullable();
+            $table->text('description_activities')->nullable();
+            // $table->text('problem_solving')->nullable();
+            // $table->text('report')->nullable();
             $table->tinyInteger('result_status')->default(0);
             $table->timestamps();
         });

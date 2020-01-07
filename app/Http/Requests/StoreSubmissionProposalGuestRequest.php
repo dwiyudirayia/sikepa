@@ -114,6 +114,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'time_period' => 1,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
+            'expired_at' => Carbon::now()->addYears($this->time_period),
         ];
 
     }

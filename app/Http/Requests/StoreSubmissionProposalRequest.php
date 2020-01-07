@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
 class StoreSubmissionProposalRequest extends FormRequest
@@ -76,6 +77,7 @@ class StoreSubmissionProposalRequest extends FormRequest
             // 'time_period_to' => $this->time_period_to,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
+            'expired_at' => Carbon::now()->addYears($this->time_period),
         ];
     }
 }

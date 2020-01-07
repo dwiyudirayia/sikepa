@@ -72,33 +72,21 @@
                     <table class="table m-table m-table--head-bg-brand">
                         <thead>
                             <tr>
-                                <th style="vertical-align: middle; text-align:center;" rowspan="3">No.</th>
-                                <th style="vertical-align: middle; text-align:center;" colspan="5">Monitoring Administrasi Pelaksanaan MOU</th>
-                                <th style="vertical-align: middle; text-align:center;">Monitoring Kunjungan Lapangan</th>
-                                <th style="vertical-align: middle; text-align:center;" rowspan="3">Aksi</th>
-                            </tr>
-                            <tr>
-                                <th style="vertical-align: middle; text-align:center;" colspan="3">Perkembangan Program Kerjasama</th>
-                                <th style="vertical-align: middle; text-align:center;" rowspan="2">Permasalahan</th>
-                                <th style="vertical-align: middle; text-align:center;" rowspan="2">Upaya Penyelesaian Masalah</th>
-                                <th style="vertical-align: middle; text-align:center;" rowspan="2">Laporan Kunjungan Lapangan</th>
-                            </tr>
-                            <tr>
-                                <th style="vertical-align: middle; text-align:center;">Anggaran</th>
-                                <th style="vertical-align: middle; text-align:center;">Target</th>
-                                <th style="vertical-align: middle; text-align:center;" >Capaian</th>
-                            </tr>
+                                <th style="vertical-align: middle; text-align:center;">No</th>
+                                <th style="vertical-align: middle; text-align:center;">Judul Kegiatan</th>
+                                <th style="vertical-align: middle; text-align:center;">Tanggal Pelaksanaan</th>
+                                <th style="vertical-align: middle; text-align:center;">Lokasi</th>
+                                <th style="vertical-align: middle; text-align:center;">Penilaian</th>
+                                <th style="vertical-align: middle; text-align:center;">Aksi</th>                            </tr>
                         </thead>
                         <tbody>
                             <template v-if="data.length">
                                 <tr v-for="(value, index) in data" :key="value.id">
                                     <td>{{ index+1 }}</td>
-                                    <td>{{ value.budget }}</td>
-                                    <td>{{ value.target }}</td>
-                                    <td>{{ value.reach }}</td>
-                                    <td>{{ value.problem }}</td>
-                                    <td>{{ value.problem_solving }}</td>
-                                    <td>{{ value.report }}</td>
+                                    <td>{{ value.title_activity }}</td>
+                                    <td>{{ value.implementation_date }}</td>
+                                    <td>{{ value.location }}</td>
+                                    <td>{{ value.result_status }}</td>
                                     <td>
                                         <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Monev'">
                                             <span>
@@ -106,10 +94,16 @@
                                                 <span>Hapus Monev</span>
                                             </span>
                                         </button>
-                                        <router-link :to="{name: 'ResultMonevActivitySatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
+                                        <!-- <router-link :to="{name: 'ResultMonevActivitySatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
                                             <span>
                                                 <i class="la la-pencil-square"></i>
                                                 <span>Nilai Kegiatan</span>
+                                            </span>
+                                        </router-link> -->
+                                        <router-link :to="{name: 'ResultMonevActivitySatkerEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai Kegiatan'">
+                                            <span>
+                                                <i class="la la-pencil"></i>
+                                                <span>Edit Kegiatan</span>
                                             </span>
                                         </router-link>
                                     </td>

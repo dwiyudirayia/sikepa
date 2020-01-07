@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use App\Agency;
 use App\Country;
 use App\DeputiPIC;
+use App\Http\Resources\SubmissionProposalGuestResource;
 use App\LawFileSubmissionProposal;
 use App\Mail\OfflineMeeting;
 use App\Province;
@@ -69,7 +70,7 @@ class SubmissionProposalController extends Controller
         }
         else {
             $data['approval'] = SubmissionProposal::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
-            $data['guest'] = SubmissionProposalGuest::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
+            $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
         }
         $data['you'] = SubmissionProposal::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
         $data['type'] = TypeOfCooperationOneDerivative::all();
@@ -245,64 +246,119 @@ class SubmissionProposalController extends Controller
             return response()->json($this->notification->showFailed($th));
         }
     }
-    public function approve(Request $request) {
+    public function continue() {
         try {
             DB::beginTransaction();
             $user = auth()->user();
-            $proposal = SubmissionProposal::findOrFail($request->id);
-            if($proposal->status_disposition == 3) {
+            $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
 
+            if($proposal->status_disposition == 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 1,
+                    'approval' => 2,
                     'reason' => $request->reason,
                 ]);
 
-                $deputi = DeputiPIC::where('submission_proposal_id', $request->id)->get();
-                $sumStatus = DeputiPIC::where('submission_proposal_id', $request->id)->sum('status');
-                $sumApproval = DeputiPIC::where('submission_proposal_id', $request->id)->sum('approval');
+                $deputi = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->get();
+                $sumStatus = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->sum('status');
+                $sumApproval = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->sum('approval');
 
                 $countRowProposal = $deputi->count();
 
                 if($sumStatus == $countRowProposal) {
-                    if($sumApproval > 0) {
-                        $proposal->status_disposition = 9;
-                        $proposal->save();
+                    // if($sumApproval > 0) {
+                    $proposal->status_disposition = 9;
+                    $proposal->save();
 
-                        $statusDisposition = $proposal->status_disposition;
-                        $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                            $query->where('id', $statusDisposition);
-                        })->get();
+                    $statusDisposition = $proposal->status_disposition;
+                    $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                        $query->where('id', $statusDisposition);
+                    })->get();
 
-                        $path = 'MOUProposalSubmissionCooperationIndex';
+                    $path = 'MOUProposalSubmissionCooperationIndex';
 
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                    } else {
-                        $proposal->status_proposal = 0;
-                        $proposal->save();
-                    }
+                    Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
+
+                    //     Mail::to($proposal->email)->send(new ApproveCooperation);
+                    // } else {
+                    //     $proposal->status_proposal = 0;
+                    //     $proposal->save();
+
+                    //     Mail::to($proposal->email)->send(new RejectCooperation);
+                    // }
                 }
-            } elseif($proposal->status_disposition == 11) {
+            } elseif($proposal->status_disposition == 2) {
+                $collectDeputi = collect($proposal->deputi->toArray());
+                $mapDeputi = $collectDeputi->map(function($item, $key) {
+                    return $item['role_id'];
+                });
+                $currentRoleId = $mapDeputi->all();
 
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
-                    'approval' => 1,
+                    'approval' => 2,
                     'reason' => $request->reason,
                 ]);
 
-                SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $users = User::whereHas('roles', function(Builder $query) use ($currentRoleId) {
+                    $query->whereIn('id', $currentRoleId);
+                })->get();
+
+                $path = 'MOUProposalSubmissionCooperationIndex';
+
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
+                // Mail::to($proposal->email)->send(new ApproveCooperation);
+            } elseif($proposal->status_disposition == 11) {
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 2,
+                    'reason' => $request->reason,
+                ]);
+
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
 
-                $data = SubmissionProposal::with('user')->findOrFail($request->id);
+                $path = 'MOUProposalSubmissionCooperationIndex';
+
+                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
+                Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
+            } else {
+                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
+                    'status' => 1,
+                    'approval' => 2,
+                    'reason' => $request->reason,
+                ]);
+
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $statusDisposition = $proposal->status_disposition + 1;
+                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                    $query->where('id', $statusDisposition);
+                })->get();
 
                 $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
-            } elseif($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
+                // Mail::to($proposal->email)->send(new ApproveCooperation);
+            }
+
+            $data = [];
+            DB::commit();
+            return response()->json($this->notification->updateSuccess($data));
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function approve(Request $request) {
+        try {
+            DB::beginTransaction();
+            $user = auth()->user();
+            $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
+            if ($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {
                     $roleId = 13;
@@ -315,9 +371,10 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
 
                 $statusDisposition = $proposal->status_disposition + 1;
+
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
@@ -325,25 +382,8 @@ class SubmissionProposalController extends Controller
                 $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-
-            } else {
-                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
-                    'status' => 1,
-                    'approval' => 1,
-                    'reason' => $request->reason,
-                ]);
-
-                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
-                $statusDisposition = $proposal->status_disposition + 1;
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                    $query->where('id', $statusDisposition);
-                })->get();
-
-                $path = 'MOUProposalSubmissionCooperationIndex';
-
-                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
+                // Mail::to($proposal->email)->send(new ApproveCooperation);
             }
-
 
             $data = [];
             DB::commit();
@@ -358,95 +398,26 @@ class SubmissionProposalController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
 
-            $proposal = SubmissionProposal::findOrFail($request->id);
-
-            if($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
-                $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
-                    'status' => 1,
-                    'approval' => 3,
-                    'reason' => $request->reason,
-                ]);
-
-                $deputi = DeputiPIC::where('submission_proposal_id', $request->id)->get();
-                $sumStatus = DeputiPIC::where('submission_proposal_id', $request->id)->sum('status');
-                $sumApproval = DeputiPIC::where('submission_proposal_id', $request->id)->sum('approval');
-
-                $countRowProposal = $deputi->count();
-
-                if($sumStatus == $countRowProposal) {
-                    if($sumApproval > 0) {
-                        $proposal->status_disposition = 9;
-                        $proposal->save();
-
-                        $statusDisposition = $proposal->status_disposition;
-                        $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                            $query->where('id', $statusDisposition);
-                        })->get();
-
-                        $path = 'MOUProposalSubmissionCooperationIndex';
-
-                        Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                    } else {
-                        $proposal->status_proposal = 0;
-                        $proposal->save();
-                    }
-                }
-            } elseif($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
-                $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
-                    'status' => 1,
-                    'approval' => 3,
-                    'reason' => $request->reason,
-                ]);
-
-                SubmissionProposal::where('id', $request->id)->update([
-                    'status_proposal' => 0
-                ]);
-
-            } elseif($proposal->status_disposition == 11) {
-                $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
-                    'status' => 1,
-                    'approval' => 3,
-                    'reason' => $request->reason,
-                ]);
-
-                SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
-                $statusDisposition = $proposal->status_disposition + 1;
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                    $query->where('id', $statusDisposition);
-                })->get();
-
-                $data = SubmissionProposal::with('user')->findOrFail($request->id);
-
-                $path = 'MOUProposalSubmissionCooperationIndex';
-
-                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                Mail::to($data->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
-            } else {
+            $proposal = SubmissionProposalGuest::findOrFail($request->id
+            if($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {
                     $roleId = 13;
                 } else {
                     $roleId = 14;
                 }
-
                 $proposal->tracking()->where('role_id', $roleId)->update([
                     'status' => 1,
                     'approval' => 3,
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
+                SubmissionProposalGuest::where('id', $request->id)->update([
+                    'status_proposal' => 0
+                ]);
 
-                $statusDisposition = $proposal->status_disposition + 1;
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
-                    $query->where('id', $statusDisposition);
-                })->get();
-
-                $path = 'MOUProposalSubmissionCooperationIndex';
-
-                Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
+                Mail::to($proposal->email)->send(new RejectCooperation);
             }
-
             $data = [];
             DB::commit();
             return response()->json($this->notification->updateSuccess($data));

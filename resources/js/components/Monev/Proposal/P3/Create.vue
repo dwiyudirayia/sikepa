@@ -15,75 +15,64 @@
                 </div>
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
-                <div class="m-form__section m-form__section--first">
-                    <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Monitoring Administrasi MOU/PKS</h3>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Anggaran</label>
-                        <div class="m-form__control">
-                            <input type="text" v-model="forms.budget" class="form-control" @input="validate()">
-                        </div>
-                        <span v-show="budget.error" class="m--font-danger">{{ budget.message }}</span>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Target</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.target" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Capaian</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.reach" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Permasalahan</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.problem" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Upaya Penyelesaian Masalah</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.problem_solving" class="form-control"></textarea>
-                        </div>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Judul Kegiatan</label>
+                    <div class="m-form__control">
+                        <input type="text" class="form-control" v-model="forms.title_activity">
                     </div>
                 </div>
-                <div class="m-form__seperator m-form__seperator--dashed"></div>
-                <div class="m-form__section m-form__section--last">
-                    <div class="m-form__heading">
-                        <h3 class="m-form__heading-title">Monitoring Kunjungan Lapangan</h3>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Tanggal Kegiatan</label>
+                    <div class="m-form__control">
+                        <date-picker v-model="forms.implementation_date" valueType="format"  style="width: 100%;" lang="en"></date-picker>
                     </div>
+                </div>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputEmail1">Lokasi</label>
+                    <div class="m-form__control">
+                        <input type="text" class="form-control" v-model="forms.location">
+                    </div>
+                </div>
+                <div class="form-group m-form__group">
+                    <label>Deskripsi Kegiatan</label>
+                    <div class="m-form__control">
+                        <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities"></textarea>
+                    </div>
+                </div>
+                <div class="m-form__group form-group">
+                    <label for="">Nilai Kegiatan</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio">
+                            <input type="radio" v-model="forms.result_status" value="1"> Rekomendasi
+                            <span></span>
+                        </label>
+                        <label class="m-radio">
+                            <input type="radio" v-model="forms.result_status" value="0"> Tidak
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                <div
+                    v-for="(item, index) in forms.file" :key="index"
+                >
                     <div class="form-group m-form__group">
-                        <label for="exampleInputEmail1">Laporan Kunjungan Lapangan</label>
-                        <div class="m-form__control">
-                            <textarea v-model="forms.report" class="form-control"></textarea>
+                        <div class="text-right">
+                            <i
+                                v-if="index == forms.file.length - 1"
+                                class="la la-plus fa-2x"
+                                @click="addExtraFile"
+                            />
+                            <i
+                                v-if="forms.file.length != 1"
+                                class="la la-minus fa-2x"
+                                @click="removeExtraFile(index)"
+                            />
                         </div>
-                    </div>
-                    <div
-                        v-for="(item, index) in forms.file" :key="index"
-                    >
-                        <div class="form-group m-form__group">
-                            <div class="text-right">
-                                <i
-                                    v-if="index == forms.file.length - 1"
-                                    class="la la-plus fa-2x"
-                                    @click="addExtraFile"
-                                />
-                                <i
-                                    v-if="forms.file.length != 1"
-                                    class="la la-minus fa-2x"
-                                    @click="removeExtraFile(index)"
-                                />
-                            </div>
-                            <label for="exampleInputEmail1">Pilih File Dokumentasi</label>
-                            <div></div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile" ref="file_monev_activity" @change="fileDocumentation(index)">
-                                <label class="custom-file-label" for="customFile" :id="`label_file_monev_activity_${index}`">Choose file</label>
-                            </div>
+                        <label for="exampleInputEmail1">Pilih File Dokumentasi</label>
+                        <div></div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile" ref="file_monev_activity" @change="fileDocumentation(index)">
+                            <label class="custom-file-label" for="customFile" :id="`label_file_monev_activity_${index}`">Choose file</label>
                         </div>
                     </div>
                 </div>
@@ -107,17 +96,26 @@
 <script>
 // import { required, email } from 'vuelidate/lib/validators';
 import $axiosFormData from '@/apiformdata.js';
+import DatePicker from 'vue2-datepicker';
+DatePicker.methods.displayPopup = function () {
+  this.position = {
+    left: 0,
+    top: '100%'
+  }
+}
 export default {
     name: 'MonevActivityP3Create',
+    components: {
+        DatePicker
+    },
     data() {
         return {
             forms: {
-                budget: null,
-                target: null,
-                reach: null,
-                problem: null,
-                problem_solving: null,
-                report: null,
+                title_activity: null,
+                implementation_date: null,
+                location: null,
+                description_activities: null,
+                result_status: null,
                 file: [''],
             },
             budget: {
@@ -163,27 +161,20 @@ export default {
         }
     },
     methods: {
-        validate() {
-            const regex = new RegExp(/\D/g);
-            const value = this.forms.budget.toString().replace(/\./g, '');
-
-            if (!regex.test(value)) {
-                this.budget.message = '';
-                this.budget.error = false;
-            } else {
-                this.budget.message = 'Hanya Dapat di Isi Oleh Angka';
-                this.budget.error = true;
-            }
-        },
         store() {
             let formData = new FormData();
             formData.append('id', this.$route.params.id);
-            formData.append('budget', this.forms.budget);
-            formData.append('target', this.forms.target);
-            formData.append('reach', this.forms.reach);
-            formData.append('problem', this.forms.problem);
-            formData.append('problem_solving', this.forms.problem_solving);
-            formData.append('report', this.forms.report);
+            formData.append('title_activity', this.forms.title_activity);
+            formData.append('implementation_date', this.forms.implementation_date);
+            formData.append('location', this.forms.location);
+            formData.append('description_activities', this.forms.description_activities);
+            formData.append('result_status', this.forms.result_status);
+            // formData.append('budget', this.forms.budget);
+            // formData.append('target', this.forms.target);
+            // formData.append('reach', this.forms.reach);
+            // formData.append('problem', this.forms.problem);
+            // formData.append('problem_solving', this.forms.problem_solving);
+            // formData.append('report', this.forms.report);
 
             this.forms.file.forEach((value, index) => {
                 formData.append(`file[${index}]`, value)

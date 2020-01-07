@@ -181,4 +181,13 @@ class ArticleController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
+    public function categoryArticle($id) {
+        try {
+            $data = CategoryArticle::where('section_id', $id)->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
 }

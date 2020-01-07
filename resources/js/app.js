@@ -12,6 +12,7 @@ import vSelect from 'vue-select';
 import Permissions from './mixins/permission';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import '@/filters';
+import moment from 'moment';
 
 //Partial Layout Admin
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';

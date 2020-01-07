@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMonevActivitySatkerGuestRequest;
 use App\Http\Requests\StoreMonevActivitySatkerRequest;
 use App\Http\Requests\StoreMonevP3Request;
 use App\Http\Requests\StoreMonevSatkerRequest;
+use App\Http\Resources\SubmissionProposalGuestResource;
 use App\LawFileSubmissionProposal;
 use App\LawFileSubmissionProposalGuest;
 use App\MonitoringActivity;
@@ -36,14 +37,14 @@ class MonevController extends Controller
             $user = auth()->user();
             if($user->roles[0]->id == 9) {
                 $data['approval'] = SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get());
             } else {
                 $data['approval'] = SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
-                })->where('status_disposition', 17)->where('status_proposal', 1)->get();
+                })->where('status_disposition', 17)->where('status_proposal', 1)->get());
             }
 
             return response()->json($this->notification->generalSuccess($data));
@@ -716,12 +717,11 @@ class MonevController extends Controller
     public function updateActivityGuest(Request $request, $id) {
         try {
             MonitoringActivityGuest::where('id', $id)->update([
-                'budget' => (int) Str::replaceArray('.', [''], $request->budget),
-                'target' => $request->target,
-                'reach' => $request->reach,
-                'problem' => $request->problem,
-                'problem_solving' => $request->problem_solving,
-                'report' => $request->report,
+                'title_activity' => $request->title_activity,
+                'implementation_date' => $request->implementation_date,
+                'location' => $request->location,
+                'description_activities' => $request->description_activities,
+                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',
@@ -737,12 +737,11 @@ class MonevController extends Controller
     public function updateActivitySatker(Request $request, $id) {
         try {
             MonitoringActivity::where('id', $id)->update([
-                'budget' => (int) Str::replaceArray('.', [''], $request->budget),
-                'target' => $request->target,
-                'reach' => $request->reach,
-                'problem' => $request->problem,
-                'problem_solving' => $request->problem_solving,
-                'report' => $request->report,
+                'title_activity' => $request->title_activity,
+                'implementation_date' => $request->implementation_date,
+                'location' => $request->location,
+                'description_activities' => $request->description_activities,
+                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',

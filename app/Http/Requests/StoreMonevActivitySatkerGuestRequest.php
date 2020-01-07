@@ -30,13 +30,11 @@ class StoreMonevActivitySatkerGuestRequest extends FormRequest
     }
     public function store() {
         return [
-            'submission_proposal_guest_id' => $this->id,
-            'budget' => (int) Str::replaceArray('.', [''], $this->budget),
-            'target' => $this->target,
-            'reach' => $this->reach,
-            'problem' => $this->problem,
-            'problem_solving' => $this->problem_solving,
-            'report' => $this->report,
+            'title_activity' => $this->title_activity,
+            'implementation_date' => $this->implementation_date,
+            'location' => $this->location,
+            'description_activities' => $this->description_activities,
+            'result_status' => (int) $this->result_status,
         ];
     }
 }

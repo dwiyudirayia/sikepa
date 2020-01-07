@@ -48,6 +48,7 @@ Route::middleware('jwt')->group( function () {
         Route::resource('category/page', 'CategoryPageController');
         Route::resource('page', 'PageController');
         Route::get('page/change/category/{id}', 'PageController@categoryPage');
+        Route::get('article/change/category/{id}', 'ArticleController@categoryArticle');
 
         Route::resource('proposal/category', 'CategoryProposalController');
         // Route::resource('proposal/cooperation/target', 'CooperationTargetController');

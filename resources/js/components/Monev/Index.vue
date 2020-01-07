@@ -1,6 +1,19 @@
 <template>
     <div>
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-warning alert-dismissible fade show" role="alert" v-if="checkYearGuest + checkYearSatker > 0">
+            <div class="m-alert__icon">
+                <i class="flaticon-exclamation-1"></i>
+                <span></span>
+            </div>
+            <div class="m-alert__text">
+                <strong>Perhatian!</strong> Masa Berlaku MOU Ada Beberapa Yang Hampir Habis
+            </div>
+            <div class="m-alert__close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        </div>
         <div class="m-portlet">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -70,10 +83,10 @@
             <div class="m-portlet__body">
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Daftar Persetujuan Pengajuan P3</a>
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_2" role="tab"><i class="la la-file"></i> Pihak External</a>
                     </li>
                     <li class="nav-item m-tabs__item">
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Daftar Persetujuan Pengajuan Satker Sesmen</a>
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_8_3" role="tab"><i class="la la-file-archive-o"></i> Pihak Internal Kemen PPPA</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -90,6 +103,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Durasi</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -97,13 +111,16 @@
                                     <template v-if="tableData.guest.length">
                                         <tr v-for="(value, index) in tableData.guest" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
                                             <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
-                                            <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.country_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agencies }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <span class="m-badge m-badge--wide" :class="value.year_duration == 0 ? 'm-badge--danger' : 'm-badge--success'">{{ value.duration }}</span>
+                                            </td>
                                             <td style="vertical-align: middle;">
                                                 <router-link :to="{name: 'MonevActivityP3Create', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
@@ -175,6 +192,7 @@
                                         <th style="vertical-align: middle;">Instansi</th>
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Durasi</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -182,13 +200,16 @@
                                     <template v-if="tableData.satker.length">
                                         <tr v-for="(value, index) in tableData.satker" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_one == null ? "Kosong" : value.type_of_cooperation_one.name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation_two == null ? "Kosong" : value.type_of_cooperation_two.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
+                                            <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
                                             <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
-                                            <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                            <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.country_name }}</td>
+                                            <td style="vertical-align: middle;">{{ value.agencies }}</td>
                                             <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                             <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                            <td style="vertical-align: middle;">
+                                                <span class="m-badge m-badge--wide" :class="value.year_duration == 0 ? 'm-badge--danger' : 'm-badge--success'">{{ value.duration }}</span>
+                                            </td>
                                             <td style="vertical-align: middle;">
                                                 <router-link :to="{name: 'MonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
@@ -283,6 +304,18 @@ export default {
     },
     created() {
         this.getData();
+    },
+    computed: {
+        checkYearGuest() {
+            const data = this.tableData.guest;
+
+            return data.filter(value => value.year_duration == 0).length;
+        },
+        checkYearSatker() {
+            const data = this.tableData.satker;
+
+            return data.filter(value => value.year_duration == 0).length;
+        }
     },
     methods: {
         downloadSummaryMonevSatker(id) {
