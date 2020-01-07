@@ -120,4 +120,20 @@ class AgencyController extends Controller
             return response()->json($this->notification->deleteFailed($th));
         }
     }
+    public function isGoverment($id) {
+        try {
+            $data = Agency::findOrFail($id);
+
+            return response()->json([
+                'data' => $data,
+                'status' => 200,
+                'messages' => 'Data Berhasil di Ambil'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => $th->getCode(),
+            'messages' => 'Data Gagal di Ambil'
+            ]);
+        }
+    }
 }

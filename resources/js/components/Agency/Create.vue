@@ -24,6 +24,19 @@
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
+                <div class="m-form__group form-group">
+                    <label for="">Status</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio">
+                            <input type="radio" v-model="$v.forms.status.$model" value="1"> Pemerintahan
+                            <span></span>
+                        </label>
+                        <label class="m-radio">
+                            <input type="radio" v-model="$v.forms.status.$model" value="0"> Non Pemerintahan
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -48,6 +61,7 @@ export default {
         return {
             forms: {
                 name: null,
+                status: null,
             },
             breadcrumbTitle: 'Intansi',
             breadcrumbLink: [
@@ -68,6 +82,9 @@ export default {
     validations: {
         forms: {
             name: {
+                required
+            },
+            status: {
                 required
             },
         }

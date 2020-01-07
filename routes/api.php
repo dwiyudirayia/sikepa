@@ -75,6 +75,8 @@ Route::middleware('jwt')->group( function () {
         Route::post('submission/reason/approve/guest', 'SubmissionProposalGuestController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
         Route::post('submission/reason/reject/guest', 'SubmissionProposalGuestController@reject');
+        Route::post('submission/reason/continue', 'SubmissionProposalController@continue');
+        Route::post('submission/reason/continue/guest', 'SubmissionProposalGuestController@continue');
         Route::post('submission/cooperation/law/{id}', 'SubmissionProposalController@law');
         Route::post('submission/cooperation/law/{id}/guest', 'SubmissionProposalGuestController@law');
         Route::delete('deputi/pic/guest/{id}', 'SubmissionProposalGuestController@destroyDeputiPIC');

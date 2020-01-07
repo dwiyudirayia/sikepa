@@ -246,11 +246,11 @@ class SubmissionProposalController extends Controller
             return response()->json($this->notification->showFailed($th));
         }
     }
-    public function continue() {
+    public function continue(Request $request) {
         try {
             DB::beginTransaction();
             $user = auth()->user();
-            $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
+            $proposal = SubmissionProposal::with('deputi.role')->findOrFail($request->id);
 
             if($proposal->status_disposition == 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
@@ -300,7 +300,7 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
                 $users = User::whereHas('roles', function(Builder $query) use ($currentRoleId) {
                     $query->whereIn('id', $currentRoleId);
                 })->get();
@@ -316,7 +316,7 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
@@ -333,7 +333,7 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
                 $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
@@ -357,7 +357,7 @@ class SubmissionProposalController extends Controller
         try {
             DB::beginTransaction();
             $user = auth()->user();
-            $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
+            $proposal = SubmissionProposal::with('deputi.role')->findOrFail($request->id);
             if ($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {
@@ -371,7 +371,7 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
+                $track = SubmissionProposal::where('id', $request->id)->increment('status_disposition', 1);
 
                 $statusDisposition = $proposal->status_disposition + 1;
 
@@ -398,7 +398,7 @@ class SubmissionProposalController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
 
-            $proposal = SubmissionProposalGuest::findOrFail($request->id
+            $proposal = SubmissionProposal::findOrFail($request->id
             if($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {
@@ -412,7 +412,7 @@ class SubmissionProposalController extends Controller
                     'reason' => $request->reason,
                 ]);
 
-                SubmissionProposalGuest::where('id', $request->id)->update([
+                SubmissionProposal::where('id', $request->id)->update([
                     'status_proposal' => 0
                 ]);
 

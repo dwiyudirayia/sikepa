@@ -71,7 +71,7 @@
                                         <div class="col-lg-6 col-md-6" id="is-typeof-one">
                                             <div class="form-group">
                                                 <div class="form-input">
-                                                    <select class="form-control select2" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
+                                                    <select class="form-control select2 required" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
                                                     </select>
                                                     <label class="text-label">Jenis Permohonan</label>
                                                 </div>
@@ -211,7 +211,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6 is-ministry">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
                                                     <input class="upload" type="file" id="npwp" name="npwp">
@@ -245,7 +245,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-goverment">
                                             <div class="form-group">
                                                 <div class="form-input">
                                                     <input class="form-control required" id="email" name="email" type="email">
@@ -659,11 +659,24 @@
             $('#agencies_id').change(function() {
                 const value = $(this).val();
 
-                if(value == 1) {
-                    $('.is-ministry').hide();
-                } else {
-                    $('.is-ministry').show();
-                }
+                $.ajax({
+                    url: `/agency/check/goverment/${value}`,
+                    method: 'GET',
+                    success: function(response) {
+
+                        if(response.data.status == 1) {
+                            $('.is-ministry').hide();
+                            $('#npwp').attr("class", "upload");
+                            $('#siup').attr("class", "upload");
+                            $('#is-goverment').attr("class", "col-lg-12 col-md-12")
+                        } else {
+                            $('.is-ministry').show();
+                            $('#npwp').attr("class", "upload required");
+                            $('#siup').attr("class", "upload required");
+                            $('#is-goverment').attr("class", "col-lg-6 col-md-6")
+                        }
+                    }
+                })
 
             });
             // $('#nominal').keyup(function(event) {

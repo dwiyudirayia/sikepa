@@ -25,18 +25,21 @@ class UpdateAgencyRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'status' => 'required',
         ];
     }
     public function attributes()
     {
         return [
             'name' => 'Nama Instansi',
+            'status' => 'Status',
         ];
     }
     public function messages()
     {
         return [
             'name.required' => ':attribute Harus di Isi',
+            'status.required' => ':attribute Harus di Isi',
         ];
     }
     public function update()
@@ -44,6 +47,7 @@ class UpdateAgencyRequest extends FormRequest
         return [
             'updated_by' => auth()->user()->id,
             'name' => $this->name,
+            'status' => $this->status,
         ];
     }
 }

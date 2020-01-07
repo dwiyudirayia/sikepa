@@ -26,6 +26,9 @@ const agency = {
         }
     },
     mutations: {
+        updateStatus(state, payload) {
+            state.forms.status = payload;
+        },
         updateName(state, payload) {
             state.forms.name = payload;
         },

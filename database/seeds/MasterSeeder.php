@@ -16,6 +16,7 @@ class MasterSeeder extends Seeder
             'created_by' => 1,
             'updated_by' => 1,
             'name' => 'Kementerian',
+            'status' => 1,
         ]);
     }
 }

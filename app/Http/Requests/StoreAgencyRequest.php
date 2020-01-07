@@ -25,18 +25,21 @@ class StoreAgencyRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'status' => 'required',
         ];
     }
     public function attributes()
     {
         return [
             'name' => 'Nama Instansi',
+            'status' => 'Status',
         ];
     }
     public function messages()
     {
         return [
             'name.required' => ':attribute Harus di Isi',
+            'status.required' => ':attribute Harus di Isi',
         ];
     }
     public function store()
@@ -44,6 +47,7 @@ class StoreAgencyRequest extends FormRequest
         return [
             'created_by' => auth()->user()->id,
             'name' => $this->name,
+            'status' => $this->status,
         ];
     }
 }

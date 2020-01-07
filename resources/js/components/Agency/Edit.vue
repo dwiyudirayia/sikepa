@@ -25,6 +25,19 @@
                         <span v-if="!$v.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
+                <div class="m-form__group form-group">
+                    <label for="">Status</label>
+                    <div class="m-radio-inline">
+                        <label class="m-radio">
+                            <input type="radio" v-model="$v.status.$model" value="1"> Pemerintahan
+                            <span></span>
+                        </label>
+                        <label class="m-radio">
+                            <input type="radio" v-model="$v.status.$model" value="0"> Non Pemerintahan
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -67,6 +80,9 @@ export default {
         name: {
             required
         },
+        status: {
+            required
+        },
     },
     created() {
         this.$store.dispatch('agency/edit', this.$route.params.id);
@@ -78,6 +94,14 @@ export default {
             },
             set(value) {
                 this.$store.commit('agency/updateName', value)
+            }
+        },
+        status: {
+            get() {
+                return this.$store.state.agency.forms.status;
+            },
+            set(value) {
+                this.$store.commit('agency/updateStatus', value)
             }
         },
         id: {

@@ -18,6 +18,7 @@ class CreateAgenciesTables extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->string('name');
+            $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
         });
