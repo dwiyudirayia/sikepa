@@ -96,6 +96,7 @@ export default {
                 $axios.put(`/admin/proposal/typeof/cooperation/one/${this.$route.params.id}`, this.forms)
                 .then(response => {
                     this.$store.commit('proposal/notification', response);
+                    this.$router.push({ name: 'ProposalTypeOfCooperationOneDerivativeListOne'});
                 })
             }
         },

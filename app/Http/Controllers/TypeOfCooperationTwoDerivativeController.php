@@ -140,7 +140,7 @@ class TypeOfCooperationTwoDerivativeController extends Controller
     }
     public function createType($id) {
         try {
-            $data = TypeOfCooperationOneDerivative::where('type_of_cooperation_one_derivative_id', $id)->get();
+            $data = TypeOfCooperationOneDerivative::all();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

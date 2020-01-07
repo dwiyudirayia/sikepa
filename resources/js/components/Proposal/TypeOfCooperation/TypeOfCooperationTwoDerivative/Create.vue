@@ -16,7 +16,7 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Permohonan Kerjasama</label>
+                    <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
                         <select2
                             v-model="$v.forms.type_of_cooperation_one_derivative_id.$model"

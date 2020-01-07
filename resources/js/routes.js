@@ -1037,7 +1037,7 @@ const router = new VueRouter({
                 // },
                 //TypeOfCooperationOneDerivative
                 {
-                    path: '/proposal/typeof/cooperation/list/:id/one',
+                    path: '/proposal/typeof/cooperation/list/one',
                     name: 'ProposalTypeOfCooperationOneDerivativeListOne',
                     component: ProposalTypeOfCooperationOneDerivativeListOne,
                     meta: {

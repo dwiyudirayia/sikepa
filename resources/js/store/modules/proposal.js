@@ -1,5 +1,4 @@
 import $axios from './../../api';
-import router from '@/routes.js';
 
 const proposal = {
     namespaced: true,
@@ -185,9 +184,9 @@ const proposal = {
                 })
             })
         },
-        indexListTypeofCooperationListOne({ commit }, id) {
+        indexListTypeofCooperationListOne({ commit }) {
             return new Promise((resolve, reject) => {
-                $axios.get(`/admin/proposal/typeof/cooperation/one/${id}/list`)
+                $axios.get(`/admin/proposal/typeof/cooperation/one/list/cooperation`)
                 .then(response => {
                     commit('updateData', response);
                     commit('clearPage');

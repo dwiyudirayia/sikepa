@@ -86,7 +86,7 @@ export default {
                 return;
             } else {
                 this.$store.dispatch('proposal/storeListTypeofCooperationListOne', this.forms);
-                this.$router.push({ name: 'ProposalTypeOfCooperationOneDerivativeListOne', params: this.forms.type_of_cooperation_id });
+                this.$router.push({ name: 'ProposalTypeOfCooperationOneDerivativeListOne'});
             }
         },
         getDataSelect() {

@@ -11,15 +11,15 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Permohonan Kerjasama</span>
+                            <span>Daftar Jenis Kerjasama</span>
                         </h2>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/proposal/typeof/cooperation/one/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Permohonan Kerjasama Proposal'">
+                    <router-link to="/proposal/typeof/cooperation/one/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Jenis Kerjasama'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Permohonan Kerjasama</span>
+                            <span>Tambah Jenis Kerjasama</span>
                         </span>
                     </router-link>
                 </div>
@@ -42,22 +42,22 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeListTwo', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Lihat Daftar Kesepahaman Kerjasama'">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeListTwo', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Lihat Daftar Permohonan Kerjasama'">
                                             <span>
                                                 <i class="la la-list"></i>
                                                 <span>Daftar Kesepahaman Kerjasama</span>
                                             </span>
                                         </router-link>
-                                        <router-link :to="{name: 'ProposalTypeOfCooperationOneDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Permohonan Kerjasama Proposal'">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationOneDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Jenis Kerjasama'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit Permohonan Kerjasama</span>
+                                                <span>Edit Jenis Kerjasama</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Permohonan Kerjasama Proposal'">
+                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Jenis Kerjasama Proposal'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus Permohonan Kerjasama</span>
+                                                <span>Hapus Jenis Kerjasama</span>
                                             </span>
                                         </button>
                                     </div>
@@ -90,7 +90,7 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Daftar Permohonan Kerjasama',
+                    label: 'Daftar Jenis Kerjasama',
                     path: `/proposal/typeof/cooperation/list/${this.$route.params.id}/one`
                 },
             ]
@@ -115,7 +115,7 @@ export default {
         next();
     },
     created() {
-        this.$store.dispatch('proposal/indexListTypeofCooperationListOne', this.$route.params.id);
+        this.$store.dispatch('proposal/indexListTypeofCooperationListOne');
     },
     methods: {
         destroy(id) {
@@ -139,6 +139,7 @@ export default {
                         'success'
                     );
                     this.destroy(id);
+                    this.$store.dispatch('proposal/indexListTypeofCooperationListOne');
                 }
             })
         },

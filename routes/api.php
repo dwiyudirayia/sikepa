@@ -57,7 +57,7 @@ Route::middleware('jwt')->group( function () {
         Route::resource('proposal/subtance/cooperation', 'SubtanceCooperationController');
         Route::resource('proposal/typeof/cooperation/one', 'TypeOfCooperationOneDerivativeController');
         // Route::get('proposal/typeof/cooperation/one/{id}/create', 'TypeOfCooperationOneDerivativeController@createType');
-        Route::get('proposal/typeof/cooperation/one/{id}/list', 'TypeOfCooperationOneDerivativeController@listTypeOfCooperationOne');
+        Route::get('proposal/typeof/cooperation/one/list/cooperation', 'TypeOfCooperationOneDerivativeController@listTypeOfCooperationOne');
         Route::resource('proposal/typeof/cooperation/two', 'TypeOfCooperationTwoDerivativeController');
         Route::get('proposal/typeof/cooperation/two/{id}/create', 'TypeOfCooperationTwoDerivativeController@createType');
         Route::get('proposal/typeof/cooperation/two/{id}/list', 'TypeOfCooperationTwoDerivativeController@listTypeOfCooperationTwo');
