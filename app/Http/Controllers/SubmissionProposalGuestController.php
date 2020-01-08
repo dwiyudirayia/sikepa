@@ -180,7 +180,7 @@ class SubmissionProposalGuestController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
 
-            $proposal = SubmissionProposalGuest::findOrFail($request->id
+            $proposal = SubmissionProposalGuest::findOrFail($request->id);
             if($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {

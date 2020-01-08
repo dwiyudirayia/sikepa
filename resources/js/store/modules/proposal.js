@@ -184,17 +184,17 @@ const proposal = {
                 })
             })
         },
-        indexListTypeofCooperationListOne({ commit }) {
-            return new Promise((resolve, reject) => {
-                $axios.get(`/admin/proposal/typeof/cooperation/one/list/cooperation`)
-                .then(response => {
-                    commit('updateData', response);
-                    commit('clearPage');
+        // indexListTypeofCooperationListOne({ commit }) {
+        //     return new Promise((resolve, reject) => {
+        //         $axios.get(`/admin/proposal/typeof/cooperation/one/list/cooperation`)
+        //         .then(response => {
+        //             commit('updateData', response);
+        //             commit('clearPage');
 
-                    resolve(response);
-                })
-            });
-        },
+        //             resolve(response);
+        //         })
+        //     });
+        // },
         storeListTypeofCooperationListOne({ commit }, forms) {
             $axios.post('/admin/proposal/typeof/cooperation/one', forms)
             .then(response => {

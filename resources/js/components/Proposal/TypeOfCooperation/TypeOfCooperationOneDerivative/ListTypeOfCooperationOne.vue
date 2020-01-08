@@ -28,8 +28,8 @@
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['proposal/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['proposal/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="data.data.length != 0">
+                            <div class="m-widget5__item" v-for="value in data.data" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -71,12 +71,23 @@
                     </div>
                 </div>
             </div>
+            <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ data.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="data" @pagination-change-page="getData"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 </template>
 
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'ListTypeOfCooperationOne',
     data() {
@@ -93,7 +104,8 @@ export default {
                     label: 'Daftar Jenis Kerjasama',
                     path: `/proposal/typeof/cooperation/list/${this.$route.params.id}/one`
                 },
-            ]
+            ],
+            data: {},
         }
     },
     computed: {
@@ -114,12 +126,18 @@ export default {
         this.$store.commit('paramsTwo', from.params.id);
         next();
     },
-    created() {
-        this.$store.dispatch('proposal/indexListTypeofCooperationListOne');
+    mounted() {
+        this.getData();
     },
     methods: {
+        getData(page = 1) {
+            $axios.get(`/admin/proposal/typeof/cooperation/one/list/cooperation?page=`+page)
+            .then(response => {
+                this.data = response.data.data;
+            })
+        },
         destroy(id) {
-            this.$store.dispatch('proposal/destroyListTypeofCooperationListOne', id);
+            this.$store.dispatch('proposal/destroyListTypeofCooperationListOne', id).then(() => this.getData(this.data.current_page));
         },
         confirmDelete(id)
         {
@@ -139,7 +157,6 @@ export default {
                         'success'
                     );
                     this.destroy(id);
-                    this.$store.dispatch('proposal/indexListTypeofCooperationListOne');
                 }
             })
         },

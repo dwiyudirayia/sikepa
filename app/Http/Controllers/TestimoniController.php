@@ -24,8 +24,7 @@ class TestimoniController extends Controller
     public function index()
     {
         try {
-            $getPermissions = auth()->user()->getPermissionNames();
-            $data = Testimoni::all();
+            $data = Testimoni::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -118,9 +117,9 @@ class TestimoniController extends Controller
             $data->save();
 
             $currentData = Testimoni::all();
-            return response()->json($this->notification->deleteSuccess($currentData));
+            return response()->json($this->notification->updateSuccess($currentData));
         } catch (\Throwable $th) {
-            return response()->json($this->notification->deleteFailed($th));
+            return response()->json($this->notification->updateFailed($th));
         }
     }
 }

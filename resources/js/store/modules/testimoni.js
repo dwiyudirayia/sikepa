@@ -46,17 +46,6 @@ const testimoni = {
         },
     },
     actions: {
-        index({ commit }, id) {
-            return new Promise((resolve, reject) => {
-                $axios.get(`/admin/testimoni`)
-                .then(response => {
-                    commit('updateData', response);
-                    commit('clearPage');
-
-                    resolve(response);
-                });
-            });
-        },
         storeTestimoni({ commit }, forms) {
             $axios.post('/admin/testimoni', forms)
             .then(response => {

@@ -21,7 +21,7 @@ class DeputiInformationController extends Controller
 
     public function index() {
         try {
-            $data = DeputiInformation::all();
+            $data = DeputiInformation::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

@@ -98,10 +98,11 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('faq/store', this.forms);
-                this.$v.$reset();
+                this.$store.dispatch('faq/store', this.forms).them(() => {
+                    this.$v.$reset();
+                    this.$router.push({ name: 'FaqIndex' });
+                });
             }
-            this.$router.push({ name: 'FaqIndex' });
         }
     },
 }

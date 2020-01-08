@@ -23,7 +23,7 @@ class FAQController extends Controller
     public function index()
     {
         try {
-            $data = FAQ::all();
+            $data = FAQ::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -114,7 +114,7 @@ class FAQController extends Controller
             $data = FAQ::findOrFail($id);
             $data->delete();
 
-            $currentData = FAQ::all();
+            $currentData = FAQ::paginate(10);
             return response()->json($this->notification->deleteSuccess($currentData));
         } catch (\Throwable $th) {
             return response()->json($this->notification->deleteFailed($th));

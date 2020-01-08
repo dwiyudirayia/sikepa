@@ -30,8 +30,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-if="data.length">
-                                <tr v-for="(item, index) in data" :key="item.id">
+                            <template v-if="data.data.length">
+                                <tr v-for="(item, index) in data.data" :key="item.id">
                                     <td style="vertical-align: middle;">{{ index+1 }}</td>
                                     <td style="vertical-align: middle;">{{ item.title }}</td>
                                     <td style="vertical-align: middle;">
@@ -59,6 +59,16 @@
                     </table>
                 </div>
             </div>
+            <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ data.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="data" @pagination-change-page="getData"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -81,12 +91,12 @@ export default {
             data: [],
         }
     },
-    created() {
+    mounted() {
         this.getData();
     },
     methods: {
-        getData() {
-            $axios.get(`/admin/deputi/information`)
+        getData(page = 1) {
+            $axios.get(`/admin/deputi/information?page=`+page)
             .then(response => {
                 this.data = response.data.data;
             })
@@ -131,7 +141,7 @@ export default {
                 };
 
                 toastr.success(`${response.data.messages}`);
-                this.data = response.data.data;
+                this.getData(this.data.current_page);
             })
             .catch(error => {
                 toastr.options = {

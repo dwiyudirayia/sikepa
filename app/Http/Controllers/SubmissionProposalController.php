@@ -16,6 +16,7 @@ use App\DeputiPIC;
 use App\Http\Resources\SubmissionProposalGuestResource;
 use App\LawFileSubmissionProposal;
 use App\Mail\OfflineMeeting;
+use App\Mail\RejectCooperation;
 use App\Province;
 use App\Regency;
 use Illuminate\Http\Request;
@@ -69,8 +70,8 @@ class SubmissionProposalController extends Controller
             })->where('status_disposition', 3)->where('status_proposal', 1)->orWhere('status_disposition', $user->roles[0]->id)->get();
         }
         else {
-            $data['approval'] = SubmissionProposal::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get();
-            $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
+            $data['approval'] = SubmissionProposal::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->paginate(2);
+            $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->paginate(2));
         }
         $data['you'] = SubmissionProposal::with('country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get();
         $data['type'] = TypeOfCooperationOneDerivative::all();
@@ -398,7 +399,7 @@ class SubmissionProposalController extends Controller
             DB::beginTransaction();
             $user = auth()->user();
 
-            $proposal = SubmissionProposal::findOrFail($request->id
+            $proposal = SubmissionProposal::findOrFail($request->id);
             if($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
                 if($getRoleId == 11) {

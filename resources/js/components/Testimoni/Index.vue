@@ -26,7 +26,7 @@
             </div>
             <div class="m-portlet__body no-pedding">
                 <div class="list-section">
-                    <div class="list-section__item" v-for="value in this.$store.getters['testimoni/getData']" :key="value.id">
+                    <div class="list-section__item" v-for="value in data.data" :key="value.id">
                         <div class="section__content image-box">
                             <div class="section__widget">
                                 <div class="section__img">
@@ -70,6 +70,16 @@
                     </div>
                 </div>
             </div>
+            <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ data.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="data" @pagination-change-page="getTestimoni"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -86,7 +96,8 @@ export default {
                     label: 'Testimoni',
                     path: '/testimoni'
                 },
-            ]
+            ],
+            data: {},
         }
     },
     computed: {
@@ -103,12 +114,18 @@ export default {
             return this.$store.getters['testimoni/getShowNotification'];
         }
     },
-    created() {
-        this.$store.dispatch('testimoni/index');
+    mounted() {
+        this.getTestimoni();
     },
     methods: {
+        getTestimoni(page = 1) {
+            $axios.get(`/admin/testimoni?page=` + page)
+            .then(response => {
+                this.data = response.data.data;
+            });
+        },
         destroy(id) {
-            this.$store.dispatch('testimoni/destroyTestimoni', id);
+            this.$store.dispatch('testimoni/destroyTestimoni', id).then(() => this.getTestimoni(this.data.current_page));
         },
         confirmDelete(id)
         {
@@ -134,7 +151,7 @@ export default {
         changeStatus(id) {
             $axios.put(`/admin/testimoni/change/status/${id}`)
             .then(response => {
-                this.$store.dispatch('testimoni/index');
+                this.getTestimoni(this.data.current_page);
 
                 toastr.options = {
                     "closeButton": false,
@@ -158,6 +175,7 @@ export default {
                 toastr.success(`Berhasil Update Status`);
             })
             .catch(error => {
+                console.log(error);
                 toastr.options = {
                     "closeButton": false,
                     "debug": false,

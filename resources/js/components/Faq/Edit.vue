@@ -120,11 +120,11 @@ export default {
             if(this.$v.question.$invalid || this.$v.answere.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('faq/update');
-                this.$v.$reset();
+                this.$store.dispatch('faq/update').then(() => {
+                    this.$router.push('/faq')
+                    this.$v.$reset();
+                });
             }
-
-            this.$router.push('/faq')
         }
     },
 }

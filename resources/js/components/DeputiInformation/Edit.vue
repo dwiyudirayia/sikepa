@@ -47,7 +47,7 @@
                         <input type="text" v-model="$v.forms.title.$model" class="form-control" @blur="$v.forms.title.$touch()">
                     </div>
                     <template v-if="$v.forms.title.$error">
-                        <span v-if="!$v.forms.title.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.title.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -56,7 +56,7 @@
                         <textarea type="text" v-model="$v.forms.text_contact.$model" class="form-control" @blur="$v.forms.text_contact.$touch()"></textarea>
                     </div>
                     <template v-if="$v.forms.text_contact.$error">
-                        <span v-if="!$v.forms.text_contact.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.text_contact.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -66,9 +66,9 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_contact" @change="photoContact">
                         <label class="custom-file-label" for="customFile" id="label_photo_contact">Choose file</label>
                     </div>
-                    <span v-if="typeof this.forms.photo_contact === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_contact }}</span>
-                    <span v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
-                    <span v-else-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <p v-if="typeof this.forms.photo_contact === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_contact }}</p>
+                    <p v-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.required" class="m--font-danger d-block">Field Ini Harus di Isi</p>
+                    <p v-else-if="$v.forms.photo_contact.$error && !$v.forms.photo_contact.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</p>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Informasi Deputi</label>
@@ -76,7 +76,7 @@
                         <textarea type="text" v-model="$v.forms.text_information.$model" class="form-control" @blur="$v.forms.text_information.$touch()"></textarea>
                     </div>
                     <template v-if="$v.forms.text_information.$error">
-                        <span v-if="!$v.forms.text_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.text_information.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -99,7 +99,7 @@
                         </editor>
                     </div>
                     <template v-if="$v.forms.full_text_information.$error">
-                        <span v-if="!$v.forms.full_text_information.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.full_text_information.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
@@ -109,9 +109,9 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_information" @change="photoInformation">
                         <label class="custom-file-label" for="customFile" id="label_photo_information">Choose file</label>
                     </div>
-                    <span v-if="typeof this.forms.photo_information === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_information }}</span>
-                    <span v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
-                    <span v-else-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <p v-if="typeof this.forms.photo_information === 'string'" class="m-form__help">File Saat Ini :{{ forms.photo_information }}</p>
+                    <p v-if="$v.forms.photo_information.$error && !$v.forms.photo_information.required" class="m--font-danger d-block">Field Ini Harus di Isi</p>
+                    <p v-else-if="$v.forms.photo_information.$error && !$v.forms.photo_information.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</p>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Syarat Kerjasama</label>
@@ -119,7 +119,7 @@
                         <textarea type="text" v-model="$v.forms.text_requirement.$model" class="form-control" @blur="$v.forms.text_requirement.$touch()"></textarea>
                     </div>
                     <template v-if="$v.forms.text_requirement.$error">
-                        <span v-if="!$v.forms.text_requirement.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                        <p v-if="!$v.forms.text_requirement.required" class="m--font-danger">Field Ini Harus di Isi</p>
                     </template>
                     <br>
                 </div>
@@ -130,9 +130,9 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_requirement" @change="photoRequirement">
                         <label class="custom-file-label" for="customFile" id="label_photo_requirement">Choose file</label>
                     </div>
-                    <span class="m-form__help">File Saat Ini :{{ forms.photo_requirement }}</span>
-                    <span v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
-                    <span v-else-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</span>
+                    <p class="m-form__help">File Saat Ini :{{ forms.photo_requirement }}</p>
+                    <p v-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.required" class="m--font-danger d-block">Field Ini Harus di Isi</p>
+                    <p v-else-if="$v.forms.photo_requirement.$error && !$v.forms.photo_requirement.fileType" class="m--font-danger d-block">Ektensi file harus .jpeg / .jpg / .png</p>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Text Pada Video Tutorial</label>
@@ -164,16 +164,16 @@
                         <input type="file" class="custom-file-input" id="customFile" ref="photo_video" @change="photoVideo">
                         <label class="custom-file-label" for="customFile" id="label_photo_video">Choose file</label>
                     </div>
-                    <span v-if="typeof this.forms.photo_video === 'string'" class="m-form__help">Video Saat Ini :{{ forms.photo_video }}</span>
-                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
-                    <span v-else-if="$v.forms.photo_video.$error && !$v.forms.photo_video.fileType" class="m--font-danger d-block">Ektensi file harus .mp4</span>
+                    <p v-if="typeof this.forms.photo_video === 'string'" class="m-form__help">Video Saat Ini :{{ forms.photo_video }}</p>
+                    <p v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</p>
+                    <p v-else-if="$v.forms.photo_video.$error && !$v.forms.photo_video.fileType" class="m--font-danger d-block">Ektensi file harus .mp4</p>
                 </div>
                 <div class="form-group m-form__group" v-else>
                     <label>Video Tutorial</label>
                     <div class="m-form__control">
                         <input type="text" v-model="forms.photo_video" class="form-control">
                     </div>
-                    <span v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</span>
+                    <p v-if="$v.forms.photo_video.$error && !$v.forms.photo_video.required" class="m--font-danger d-block">Field Ini Harus di Isi</p>
                 </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">

@@ -23,7 +23,7 @@ class AgencyController extends Controller
     public function index()
     {
         try {
-            $data = Agency::all();
+            $data = Agency::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

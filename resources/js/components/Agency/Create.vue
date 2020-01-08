@@ -98,10 +98,11 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('agency/store', this.forms);
-                this.$v.$reset();
+                this.$store.dispatch('agency/store', this.forms).then(() => {
+                    this.$v.$reset();
+                    this.$router.push({ name: 'AgencyIndex' });
+                });
             }
-            this.$router.push({ name: 'AgencyIndex' });
         }
     },
 }

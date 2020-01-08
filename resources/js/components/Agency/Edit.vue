@@ -120,11 +120,11 @@ export default {
             if(this.$v.name.$invalid || this.$v.address.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('agency/update');
-                this.$v.$reset();
+                this.$store.dispatch('agency/update').then(() => {
+                    this.$v.$reset();
+                    this.$router.push('/proposal/agency')
+                });
             }
-
-            this.$router.push('/proposal/agency')
         }
     },
 }

@@ -23,7 +23,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
     public function index()
     {
         try {
-            $data = TypeOfCooperationOneDerivative::all();
+            $data = TypeOfCooperationOneDerivative::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -130,7 +130,7 @@ class TypeOfCooperationOneDerivativeController extends Controller
     }
     public function listTypeOfCooperationOne() {
         try {
-            $data = TypeOfCooperationOneDerivative::all();
+            $data = TypeOfCooperationOneDerivative::paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

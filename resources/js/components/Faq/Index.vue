@@ -30,8 +30,8 @@
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
 
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['faq/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['faq/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="data.data.length != 0">
+                            <div class="m-widget5__item" v-for="value in data.data" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -67,10 +67,21 @@
                     </div>
                 </div>
             </div>
+            <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ data.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="data" @pagination-change-page="getData"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'FaqIndex',
     data() {
@@ -82,7 +93,8 @@ export default {
                     label: 'FAQ',
                     path: '/faq'
                 },
-            ]
+            ],
+            data: {},
         }
     },
     computed: {
@@ -100,11 +112,17 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('faq/index');
+        this.getData();
     },
     methods: {
+        getData(page = 1) {
+            $axios.get('/admin/faq?page=' + page)
+            .then(response => {
+                this.data = response.data.data;
+            });
+        },
         destroy(id) {
-            this.$store.dispatch('faq/destroy', id);
+            this.$store.dispatch('faq/destroy', id).then(() => this.getData(this.data.current_page));
         },
         confirmDelete(id)
         {

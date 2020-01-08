@@ -28,10 +28,9 @@
                 <!--begin::Content-->
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
-
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['agency/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['agency/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="dataArray.data.length != 0">
+                            <div class="m-widget5__item" v-for="value in dataArray.data" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -67,10 +66,21 @@
                     </div>
                 </div>
             </div>
+           <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ dataArray.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="dataArray" @pagination-change-page="getAgency"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'AgencyIndex',
     data() {
@@ -82,7 +92,8 @@ export default {
                     label: 'Intansi',
                     path: '/agency'
                 },
-            ]
+            ],
+            dataArray: {},
         }
     },
     props: ['data', 'title'],
@@ -101,11 +112,19 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('agency/index');
+        this.getAgency();
     },
     methods: {
+        getAgency(page = 1) {
+            $axios.get('/admin/agency?page='+page)
+            .then(response => {
+                this.dataArray = response.data.data;
+            });
+        },
         destroy(id) {
-            this.$store.dispatch('agency/destroy', id);
+            this.$store.dispatch('agency/destroy', id).then(() => {
+                this.getTestimoni(this.dataArray.current_page);
+            });
         },
         confirmDelete(id)
         {

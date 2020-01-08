@@ -27,6 +27,7 @@
         "es6-promise": "^4.2.8",
         "laravel-echo": "^1.6.1",
         "laravel-mix-alias": "^1.0.2",
+        "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.24.0",
         "pusher-js": "^5.0.2",
         "v-tooltip": "^2.0.2",

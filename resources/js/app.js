@@ -37,7 +37,8 @@ Vue.component('notification-error', NotificationError);
 Vue.component('select2', Select2);
 Vue.component('select2-edit', Select2Edit);
 Vue.component('select2-multiple', Select2Multiple);
-Vue.component('v-select', vSelect)
+Vue.component('v-select', vSelect);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.use(vuevalidate);
 Vue.use(VTooltip);

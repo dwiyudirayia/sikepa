@@ -131,7 +131,7 @@ class TypeOfCooperationTwoDerivativeController extends Controller
     }
     public function listTypeOfCooperationTwo($id) {
         try {
-            $data = TypeOfCooperationTwoDerivative::where('type_of_cooperation_one_derivative_id', $id)->get();
+            $data = TypeOfCooperationTwoDerivative::where('type_of_cooperation_one_derivative_id', $id)->paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
