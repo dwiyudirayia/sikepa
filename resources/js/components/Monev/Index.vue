@@ -1,13 +1,13 @@
 <template>
     <div>
         <breadcrumb :data="breadcrumbLink" :title="breadcrumbTitle"></breadcrumb>
-        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-warning alert-dismissible fade show" role="alert" v-if="checkYearGuest + checkYearSatker > 0">
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-warning alert-dismissible fade show" role="alert">
             <div class="m-alert__icon">
                 <i class="flaticon-exclamation-1"></i>
                 <span></span>
             </div>
             <div class="m-alert__text">
-                <strong>Perhatian!</strong> Masa Berlaku MOU Ada Beberapa Yang Hampir Habis
+                <strong>Perhatian!</strong> Masa berlaku MOU ada beberapa yang hampir habis
             </div>
             <div class="m-alert__close">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -108,8 +108,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="tableData.guest.length">
-                                        <tr v-for="(value, index) in tableData.guest" :key="value.id">
+                                    <template v-if="tableData.guest.data.length">
+                                        <tr v-for="(value, index) in tableData.guest.data" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
@@ -197,8 +197,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="tableData.satker.length">
-                                        <tr v-for="(value, index) in tableData.satker" :key="value.id">
+                                    <template v-if="tableData.satker.data.length">
+                                        <tr v-for="(value, index) in tableData.satker.data" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
@@ -307,14 +307,17 @@ export default {
     },
     computed: {
         checkYearGuest() {
-            const data = this.tableData.guest;
+            const data = this.tableData.guest.data;
 
-            return data.filter(value => value.year_duration == 0).length;
+            const filter = data.filter(value => value.year_duration == 0).length;
+
+            return filter;
         },
         checkYearSatker() {
-            const data = this.tableData.satker;
+            const data = this.tableData.satker.data;
 
-            return data.filter(value => value.year_duration == 0).length;
+            const filter = data.filter(value => value.year_duration == 0).length;
+            return filter;
         }
     },
     methods: {

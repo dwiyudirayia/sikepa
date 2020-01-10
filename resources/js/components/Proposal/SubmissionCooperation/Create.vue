@@ -64,14 +64,12 @@
                         <div class="m-form__control">
                             <select2 :options="data_select.type_of_cooperation_one_derivative_id" v-model="forms.type_of_cooperation_one_derivative_id" @input="onChangeTypeCooperationTwoDerivative" />
                         </div>
-                        <span class="m-form__help">Pastikan Nama Permohonan kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Jenis Permohonan</label>
                         <div class="m-form__control">
                             <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" />
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                 <!-- </div> -->
                 <div class="form-group m-form__group">
@@ -90,14 +88,12 @@
                         <div class="m-form__control">
                             <select2 :options="data_select.province_id" v-model="forms.province_id" @input="getRegencies"/>
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Kabupaten / Kota</label>
                         <div class="m-form__control">
                             <select2 :options="data_select.regency_id" v-model="forms.regency_id" />
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                 </div>
                 <div class="form-group m-form__group">
@@ -105,7 +101,6 @@
                     <div class="m-form__control">
                         <select2 :options="data_select.agencies_id" v-model="$v.forms.agencies_id.$model" />
                     </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     <template v-if="$v.forms.agencies_id.$error">
                         <span v-if="!$v.forms.agencies_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -224,8 +219,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Proposal</label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileProposal" ref="fileProposal" @change="fileProposal()">
+                                <label class="custom-file-label" for="customFile" id="labelFileProposal">{{ proposalLabel }}</label>
+                            </div>
+                            <span class="m-form__help">Pastikan Ekstensi File <strong>.pdf, .jpeg, .jpg dan .mp4</strong></span>
+                        </div>
+                    </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group m-form__group">
@@ -246,18 +251,9 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInstansi" ref="fileInstansi" @change="fileProfileInstansi()">
-                                <label class="custom-file-label" for="fileInstansi" id="labelFileInstansi">Pilih file</label>
+                                <label class="custom-file-label" for="fileInstansi" id="labelFileInstansi">{{ agencyProfileLabel }}</label>
                             </div>
                             <span class="m-form__help">Pastikan Ekstensi File <strong>.docx, .doc dan .pdf</strong></span>
-                        </div>
-                        <div class="form-group m-form__group">
-                            <label for="exampleInputEmail1">Proposal</label>
-                            <div></div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileProposal" ref="fileProposal" @change="fileProposal()">
-                                <label class="custom-file-label" for="customFile" id="labelFileProposal">Pilih file</label>
-                            </div>
-                            <span class="m-form__help">Pastikan Ekstensi File <strong>.pdf, .jpeg, .jpg dan .mp4</strong></span>
                         </div>
                     </div>
                 </div>
@@ -343,6 +339,8 @@ export default {
                 lng:106.6894293
             },
             isIndonesian: false,
+            proposalLabel: 'Pilih File',
+            agencyProfileLabel: 'Pilih File',
             forms: {
                 deputi: [],
                 title_cooperation: null,
@@ -442,7 +440,7 @@ export default {
     created() {
         $axios.get(`/admin/submission/cooperation/create`)
         .then(response => {
-            this.data_select.type = response.data.data.type;
+            this.data_select.type_of_cooperation_one_derivative_id = response.data.data.type_two;
             this.data_select.agencies_id = response.data.data.agencies;
         });
 
@@ -577,10 +575,10 @@ export default {
 
             if(ext=="pdf" || ext=="docx" || ext=="doc"){
                 this.forms.agency_profile = files;
-                document.getElementById("labelFileInstansi").innerHTML = files.name;
+                this.agencyProfileLabel = files.name;
             } else{
-                document.getElementById("labelFileInstansi").innerHTML = "";
                 alert('File Tidak Mendukung')
+                this.agencyProfileLabel = 'Pilih File';
                 this.forms.agency_profile = null;
             }
         },
@@ -590,10 +588,10 @@ export default {
 
             if(ext == "pdf" || ext == "jpg" || ext == "mp4" || ext == "jpeg"){
                 this.forms.proposal = files;
-                document.getElementById("labelFileProposal").innerHTML = files.name;
+                this.proposalLabel = files.name;
             } else{
-                document.getElementById("labelFileProposal").innerHTML = "";
                 alert('File Tidak Mendukung')
+                this.proposalLabel = 'Pilih File';
                 this.forms.proposal = null;
             }
         },

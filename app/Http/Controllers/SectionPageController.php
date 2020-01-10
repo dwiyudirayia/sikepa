@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Http\Requests\StoreSectionPageRequest;
 use App\Http\Requests\UpdateSectionPageRequest;
+use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SectionPage;
 
 class SectionPageController extends Controller
@@ -124,9 +124,8 @@ class SectionPageController extends Controller
     {
         $data = SectionPage::where('name', $name)->where('deleted_at', null)->get();
 
-        if($data->isNotEmpty())
-        {
-            return response()->json(['isExist'=> true]);
+        if ($data->isNotEmpty()) {
+            return response()->json(['isExist' => true]);
         }
 
         return response()->json(['isExist' => false]);
@@ -134,15 +133,13 @@ class SectionPageController extends Controller
     public function checkNameSectionEdit($name, $id)
     {
         $checkSameValueOnId = SectionPage::where('id', $id)->where('name', $name)->where('deleted_at', null)->get();
-        if($checkSameValueOnId->count() == 1)
-        {
+        if ($checkSameValueOnId->count() == 1) {
             return response()->json(['isExist' => false]);
         }
 
         $checkAllData = SectionPage::where('name', $name)->where('deleted_at', null)->get();
 
-        if($checkAllData->count() > 0)
-        {
+        if ($checkAllData->count() > 0) {
             return response()->json(['isExist' => true]);
         }
 

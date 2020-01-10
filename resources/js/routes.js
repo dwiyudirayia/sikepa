@@ -122,6 +122,7 @@ import MOUProposalSubmissionCooperationIndex from './components/Proposal/Submiss
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
 import MOUProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/MOU/Detail';
 import MOUProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/MOU/YourDetail';
+import MOUProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
@@ -1246,6 +1247,14 @@ const router = new VueRouter({
                     path: '/mou/submission/cooperation/:id/your/detail/preview',
                     name: 'MOUProposalSubmissionCooperationYourDetailPreview',
                     component: MOUProposalSubmissionCooperationYourDetailPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/mou/submission/cooperation/:id/your/detail/guest/preview',
+                    name: 'MOUProposalSubmissionCooperationYourDetailGuestPreview',
+                    component: MOUProposalSubmissionCooperationYourDetailGuestPreview,
                     meta: {
                         requiresAuth: true
                     }

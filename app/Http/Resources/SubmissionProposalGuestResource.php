@@ -26,6 +26,7 @@ class SubmissionProposalGuestResource extends JsonResource
             'time_period' => $this->time_period,
             'year_duration' => (int) Carbon::createFromDate($this->created_at->format('Y'), $this->created_at->format('m'), $this->created_at->format('d'))->diff($this->expired_at)->format('%y'),
             'duration' => Carbon::createFromDate($this->created_at->format('Y'), $this->created_at->format('m'), $this->created_at->format('d'))->diff($this->expired_at)->format('%y Tahun %m Bulan dan %d Hari'),
+            'status_disposition' => $this->status_disposition,
         ];
     }
 }

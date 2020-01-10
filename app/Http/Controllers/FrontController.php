@@ -32,12 +32,14 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cookie;
 use Validator;
+
 class FrontController extends Controller
 {
-    public function filterMonitoringCooperation($data) {
-        if($data['q'] != null) {
-            $monitoring['data'] = SubmissionProposalGuest::with('country','province','regency','agencies','typeOfCooperationOne','typeOfCooperationTwo','deputi.role','tracking.role','nomor','law')->where('mailing_number', $data['q'])->first();
-            if($monitoring['data'] != null) {
+    public function filterMonitoringCooperation($data)
+    {
+        if ($data['q'] != null) {
+            $monitoring['data'] = SubmissionProposalGuest::with('country', 'province', 'regency', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'deputi.role', 'tracking.role', 'nomor', 'draft')->where('mailing_number', $data['q'])->first();
+            if ($monitoring['data'] != null) {
                 $monitoring['biro'] = $monitoring['data']['tracking'][0];
                 $data = array_values($monitoring['data']['tracking']->toArray());
                 $monitoring['user_kppa'] = array_splice($data, 1, 8);
@@ -51,13 +53,14 @@ class FrontController extends Controller
         }
         dd($monitoring['biro']);
     }
-    public function storeSatisfactionSurvey(Request $request) {
+    public function storeSatisfactionSurvey(Request $request)
+    {
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email|unique:satisfaction_survey|max:255',
                 'survey' => 'required',
-            ],[
+            ], [
                 'email.required' => 'Email Harus di Isi',
                 'email.unique' => 'Email Sudah Terdaftar Sebelumnya',
             ]);
@@ -65,9 +68,9 @@ class FrontController extends Controller
                 Cookie::queue(Cookie::forget('email'));
 
                 return back()
-                        ->withErrors($validator)
-                        ->withInput()
-                        ->with('error', 'Data Gagal di Simpan');
+                    ->withErrors($validator)
+                    ->withInput()
+                    ->with('error', 'Data Gagal di Simpan');
             }
             $survey = SatisfactionSurvey::create([
                 'email' => $request->email,
@@ -83,7 +86,8 @@ class FrontController extends Controller
             return back()->with('error', 'Data Gagal di Simpan');
         }
     }
-    public function updateSatisfactionSurvey($token) {
+    public function updateSatisfactionSurvey($token)
+    {
 
         SatisfactionSurvey::where('token', $token)->update([
             'verified' => 1,
@@ -91,12 +95,14 @@ class FrontController extends Controller
         Cookie::queue(Cookie::forget('resi'));
         return view('pages.hasil-survey');
     }
-    public function satisfactionSurvey() {
+    public function satisfactionSurvey()
+    {
         return view('pages.survey-kepuasan');
     }
-    public function filterFAQ($data) {
+    public function filterFAQ($data)
+    {
 
-        if($data['q'] == null) {
+        if ($data['q'] == null) {
             $faq = FAQ::all();
         } else {
             $faq = FAQ::where('question', $data['q'])->orWhere('answere', $data['q'])->get();
@@ -112,7 +118,8 @@ class FrontController extends Controller
 
         return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
     }
-    public function page($slug) {
+    public function page($slug)
+    {
         $data = Page::where('url', $slug)->firstOrFail();
 
         return view('pages.page', compact('data'));
@@ -143,8 +150,9 @@ class FrontController extends Controller
     // public function submission() {
     //     return view('pages.submission');
     // }
-    public function faq(Request $request) {
-        if($request->q) {
+    public function faq(Request $request)
+    {
+        if ($request->q) {
             $data['q'] = $request->q;
         } else {
             $data['q'] = null;
@@ -154,20 +162,24 @@ class FrontController extends Controller
 
         return view('pages.faq', compact('data'));
     }
-    public function article() {
+    public function article()
+    {
         $article = Article::where('approved', 1)->where('publish', 1)->paginate(9);
 
         return view('pages.article', compact('article'));
     }
-    public function articleDetail($slug) {
+    public function articleDetail($slug)
+    {
         $article = Article::where('url', $slug)->firstOrFail();
 
         return view('pages.single-article', compact('article'));
     }
-    public function ourContact() {
+    public function ourContact()
+    {
         return view('pages.our-contact');
     }
-    public function submissionProposal() {
+    public function submissionProposal()
+    {
         $data['type_one'] = TypeOfCooperationOneDerivative::all();
         $data['country'] = Country::all();
         $data['agency'] = Agency::all();
@@ -200,8 +212,9 @@ class FrontController extends Controller
 
         return view('pages.pengajuan-kerjasama', compact('data'));
     }
-    public function monitoringResultCooperation(Request $request) {
-        if($request->q) {
+    public function monitoringResultCooperation(Request $request)
+    {
+        if ($request->q) {
             $data['q'] = $request->q;
         } else {
             $data['q'] = null;
@@ -210,7 +223,8 @@ class FrontController extends Controller
 
         return view('pages.status-kerjasama', compact('data'));
     }
-    public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request) {
+    public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request)
+    {
         DB::beginTransaction();
         $proposal = SubmissionProposalGuest::create($request->store());
 
@@ -220,23 +234,24 @@ class FrontController extends Controller
             ]);
         }
 
-        $userKPPA = [2, 9, 10, 11, 13, 14, 15, 16];
+        $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15];
         foreach ($userKPPA as $key => $value) {
             $proposal->tracking()->create([
                 'role_id' => $value,
             ]);
         }
+        Cookie::forget('email');
         Cookie::queue(Cookie::make('email', $proposal->email));
-        Cookie::queue(Cookie::make('resi', $proposal->mailing_number));
 
-        $resi = Cookie::get('resi');
-        $messages = "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. ".$resi." Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.";
+        $resi = $proposal->mailing_number;
+
+        $messages = "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. " . $resi . " Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.";
 
         DB::commit();
 
         $deputi = $request->deputi;
-        $users = User::whereHas('roles', function(Builder $query) use ($deputi) {
-            $query->whereIn('id', [2,9]);
+        $users = User::whereHas('roles', function (Builder $query) use ($deputi) {
+            $query->whereIn('id', [2, 9]);
         })->get();
 
         $path = 'MOUProposalSubmissionCooperationIndex';
@@ -276,9 +291,10 @@ class FrontController extends Controller
     //         ]);
     //     }
     // }
-    public function typeTwo($id) {
+    public function typeTwo($id)
+    {
         try {
-            if($id == 1) {
+            if ($id == 1) {
                 $data['country'] = Country::where('id', '!=', '102')->get();
             } else {
                 $data['country'] = Country::where('id', '102')->get();
@@ -298,9 +314,10 @@ class FrontController extends Controller
             ]);
         }
     }
-    public function province($id) {
+    public function province($id)
+    {
         try {
-            if($id == 102) {
+            if ($id == 102) {
                 $data = Province::all();
             } else {
                 $data = [];
@@ -317,7 +334,8 @@ class FrontController extends Controller
             ]);
         }
     }
-    public function regency($id) {
+    public function regency($id)
+    {
         try {
             $data = Regency::where('province_id', $id)->get();
 
@@ -332,7 +350,8 @@ class FrontController extends Controller
             ]);
         }
     }
-    public function distributionOfCooperation() {
+    public function distributionOfCooperation()
+    {
         // $data['approval_guest_overseas_guest'] = SubmissionProposalGuest::where('countries_id', '!=', 102)->get()->count();
         // $data['approval_guest_domestic_guest'] = SubmissionProposalGuest::where('countries_id', 102)->get()->count();
         // $data['approval_guest_overseas'] = SubmissionProposal::where('countries_id', '!=', '102')->get()->count();
@@ -346,7 +365,8 @@ class FrontController extends Controller
 
         return view('pages.sebaran-kerjasama', compact('data'));
     }
-    public function mapDistributionOfCooperation() {
+    public function mapDistributionOfCooperation()
+    {
         $data['satker'] = SubmissionProposal::with('agencies')->get();
         $data['guest'] = SubmissionProposalGuest::with('agencies')->get();
 
@@ -356,7 +376,8 @@ class FrontController extends Controller
             'data' => $merge,
         ]);
     }
-    public function filterMapDistributionOfCooperation(Request $request) {
+    public function filterMapDistributionOfCooperation(Request $request)
+    {
         $data['satker'] = SubmissionProposal::all();
         $data['guest'] = SubmissionProposalGuest::all();
 
@@ -364,17 +385,15 @@ class FrontController extends Controller
 
         $collectMerge = collect($merge);
 
-        if($request->country_id) {
+        if ($request->country_id) {
             $filtered = $collectMerge->where('countries_id', $request->country_id);
         }
 
-        if($request->province_id)
-        {
+        if ($request->province_id) {
             $filtered = $collectMerge->where('province_id', $request->province_id);
         }
 
-        if($request->regency_id)
-        {
+        if ($request->regency_id) {
             $filtered = $collectMerge->where('regency_id', $request->regency_id);
         }
 
@@ -384,17 +403,20 @@ class FrontController extends Controller
             'data' => $result,
         ]);
     }
-    public function deputyInformation($slug) {
+    public function deputyInformation($slug)
+    {
         $data = DeputiInformation::with('file')->where('url', $slug)->firstOrFail();
 
         return view('pages.information', compact('data'));
     }
-    public function deputyInformationDetail($slug) {
+    public function deputyInformationDetail($slug)
+    {
         $data = DeputiInformation::where('url', $slug)->firstOrFail();
 
         return view('pages.single-information', compact('data'));
     }
-    public function storeSuggest(Request $request) {
+    public function storeSuggest(Request $request)
+    {
         try {
             $suggest = Suggestion::create([
                 'name' => $request->name,
@@ -406,13 +428,13 @@ class FrontController extends Controller
             return back()->with('error', 'Saran Anda Gagal ditambahkan');
         }
     }
-    public function downloadFileInformation($id) {
+    public function downloadFileInformation($id)
+    {
         try {
             $deputi = FileDeputiInformation::findOrFail($id);
 
             $file = $deputi->file;
-            return response()->download(storage_path("/app/public/file_deputi_information/".$file));
-
+            return response()->download(storage_path("/app/public/file_deputi_information/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
@@ -420,19 +442,19 @@ class FrontController extends Controller
             ]);
         }
     }
-    public function downloadFileCooperation($id) {
-        try {
-            $data = SubmissionProposalGuest::with('law')->findOrFail($id);
-            // dd($data);
-            $file = $data->law->draft;
-            return response()->download(storage_path("/app/public/law_draft_guest/".$file));
+    // public function downloadFileCooperation($id)
+    // {
+    //     try {
+    //         $data = SubmissionProposalGuest::with('law')->findOrFail($id);
 
-        } catch (\Throwable $th) {
-            dd($th);
-            return response()->json([
-                'messages' => 'Download Gagal',
-                'status' => $th->getCode()
-            ]);
-        }
-    }
+    //         $file = $data->law->draft;
+    //         return response()->download(storage_path("/app/public/law_draft_guest/" . $file));
+    //     } catch (\Throwable $th) {
+    //         dd($th);
+    //         return response()->json([
+    //             'messages' => 'Download Gagal',
+    //             'status' => $th->getCode()
+    //         ]);
+    //     }
+    // }
 }

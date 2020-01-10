@@ -50,9 +50,12 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group {{ $errors->has('title_cooperation') ? 'has-error' : '' }}">
                                                 <div class="form-input">
-                                                <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation" value="{{ old('title_cooperation') }}">
+                                                    <input type="text" class="form-control required" id="title_cooperation" name="title_cooperation" value="{{ old('title_cooperation') }}">
                                                     <label class="text-label">Usulan Judul MOU</label>
                                                 </div>
+                                                @if($errors->has('title_cooperation'))
+                                                    <p style="color:red;">{{ $errors->first('title_cooperation') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6" id="is-fund">
@@ -78,7 +81,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('agencies_id') ? 'has-error' : '' }}">
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="agencies_id" name="agencies_id">
                                                         <option></option>
@@ -88,6 +91,9 @@
                                                     </select>
                                                     <label class="text-label">Instansi Pemohon</label>
                                                 </div>
+                                                @if($errors->has('agencies_id'))
+                                                    <p style="color:red;">{{ $errors->first('agencies_id') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +205,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('ktp') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
                                                     <input class="upload required" id="ktp" type="file" name="ktp">
                                                     <div class="form-control">
@@ -209,10 +215,13 @@
                                                     <label class="text-label">KTP Pemohon</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                @if($errors->has('ktp'))
+                                                    <p style="color:red;">{{ $errors->first('ktp') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 is-ministry">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('npwp') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
                                                     <input class="upload" type="file" id="npwp" name="npwp">
                                                     <div class="form-control">
@@ -225,7 +234,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 is-ministry">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('siup ') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
                                                     <input class="upload" type="file" name="siup" id="siup">
                                                     <div class="form-control">
@@ -235,6 +244,9 @@
                                                     <label class="text-label">SIUP/akta pendirian organisasi/lainnya</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                @if($errors->has('siup'))
+                                                    <p style="color:red;">{{ $errors->first('siup') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
@@ -297,10 +309,13 @@
                                                     <label class="text-label">Profil instansi</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                @if($errors->has('agency_profile'))
+                                                    <p style="color:red;">{{ $errors->first('agency_profile') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('proposal') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
                                                     <input class="upload required" type="file" id="proposal" name="proposal">
                                                     <div class="form-control">
@@ -310,6 +325,9 @@
                                                     <label class="text-label">Proposal</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                @if($errors->has('proposal'))
+                                                    <p style="color:red;">{{ $errors->first('proposal') }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -323,7 +341,7 @@
                                 <div class="control-group">
                                     <div class="row">
                                         <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
-                                            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                                            <div class="form-group">
                                                 @foreach ($data['deputi'] as $item)
                                                     <div class="checkbox">
                                                         <input type="checkbox" id="{{ $item['id'] }}" name="deputi[]" value="{{ $item['id'] }}">

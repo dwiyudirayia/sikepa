@@ -22,9 +22,12 @@ class SubmissionProposalGuest extends Model
     public function agencies() {
         return $this->belongsTo(Agency::class);
     }
-    // public function typeOfCooperation() {
-    //     return $this->belongsTo(TypeOfCooperation::class);
-    // }
+    public function draft() {
+        return $this->hasMany(FileDraftGuest::class);
+    }
+    public function notulen() {
+        return $this->hasMany(FileNotulenGuest::class);
+    }
     public function typeOfCooperationOne() {
         return $this->belongsTo(TypeOfCooperationOneDerivative::class, 'type_of_cooperation_one_derivative_id');
     }

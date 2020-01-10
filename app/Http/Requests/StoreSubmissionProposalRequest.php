@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\SubmissionProposal;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,23 @@ class StoreSubmissionProposalRequest extends FormRequest
             'proposal' => 'required',
         ];
     }
+    public function generateBarcodeNumber() {
+        $number = mt_rand(1000000000, 9999999999); // better than rand()
+
+        // call the same function if the barcode exists already
+        if ($this->barcodeNumberExists($number)) {
+            return $this->generateBarcodeNumber();
+        }
+
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+
+    public function barcodeNumberExists($number) {
+        // query the database and return a boolean
+        // for instance, it might look like this in Laravel
+        return SubmissionProposal::where('mailing_number', $number)->exists();
+    }
     public function store()
     {
         if($this->hasFile('agency_profile')) {
@@ -54,7 +72,7 @@ class StoreSubmissionProposalRequest extends FormRequest
 
         return [
             'created_by' => auth()->user()->id,
-            'mailing_number' => "Surat-".strtotime("now"),
+            'mailing_number' => $this->generateBarcodeNumber(),
             'title_cooperation' => $this->title_cooperation,
             'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id == 'null' ? null : $this->type_of_cooperation_one_derivative_id,
             'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id == 'null' ? null : $this->type_of_cooperation_two_derivative_id,

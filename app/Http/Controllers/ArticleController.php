@@ -21,7 +21,7 @@ class ArticleController extends Controller
     public function listCategoryArticle($id)
     {
         try {
-            $data = Article::where('category_id', $id)->get();
+            $data = Article::where('category_id', $id)->paginate(10);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

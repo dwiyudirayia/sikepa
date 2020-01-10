@@ -22,7 +22,7 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item context-menu" v-if="status_disposition == 2">
+                                                <li class="m-nav__item context-menu" v-if="status_disposition == 2 || status_disposition == 15">
                                                     <a class="m-nav__link" @click="modalEditDeputiPIC">
                                                         <i class="m-nav__link-icon la la-users"></i>
                                                         <span class="m-nav__link-text">Edit Tujuan Deputi</span>
@@ -37,7 +37,19 @@
                                                 <li class="m-nav__item  context-menu">
                                                     <a class="m-nav__link" @click="showModalGuestFile">
                                                         <i class="m-nav__link-icon la la-archive"></i>
-                                                        <span class="m-nav__link-text">Daftar File</span>
+                                                        <span class="m-nav__link-text">Daftar File Pemohon</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item  context-menu">
+                                                    <a class="m-nav__link" @click="showModalGuestFileDraft">
+                                                        <i class="m-nav__link-icon la la-file-archive-o"></i>
+                                                        <span class="m-nav__link-text">Daftar File Draft</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-nav__item  context-menu">
+                                                    <a class="m-nav__link" @click="showModalGuestFileNotulen">
+                                                        <i class="m-nav__link-icon la la-file-pdf-o"></i>
+                                                        <span class="m-nav__link-text">Daftar File Notulen</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item context-menu" v-if="status_disposition == 15">
@@ -55,7 +67,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row" v-if="$can('Tracking')">
+            <div class="row px-5" v-if="$can('Tracking')">
 				<div class="col-md-12">
 					<div style="display:inline-block;width:100%;overflow-y:auto;">
                         <ul class="timeline timeline-horizontal">
@@ -165,7 +177,7 @@
             <div class="m-portlet__body">
                 <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item m-tabs__item" @click="tabs = 1">
-                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_9_1" role="tab" :class="{'active' : tabs === 1 }"> Rangkuman</a>
                     </li>
                     <li class="nav-item m-tabs__item" v-if="status_disposition == 11">
                         <a class="nav-link m-tabs__link" :class="{'active' : tabs === 2 }" data-toggle="tab" href="#m_tabs_9_2" role="tab"> Proses Offline</a>
@@ -257,7 +269,7 @@
                                 </div>
                             </div>
                         </template>
-                        <template v-else>
+                        <template v-else-if="status_disposition == 13 || status_disposition == 14">
                             <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
                                     <div class="row">
@@ -265,6 +277,18 @@
                                         <div class="col-lg-7">
                                             <button type="button" @click="showModalReject" class="btn btn-danger">Tolak</button>
                                             <button type="button" @click="showModalApprove" class="btn btn-success">Terima</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions--solid">
+                                    <div class="row">
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-7">
+                                            <button type="button" @click="showModalContinue" class="btn btn-brand">Teruskan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +320,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" v-if="status_disposition != 11">
                             <div class="m-form__actions m-form__actions--solid">
                                 <div class="row">
                                     <div class="col-lg-5"></div>
@@ -307,12 +331,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit"  v-else>
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="showModalContinue" class="btn btn-brand">Teruskan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" :class="{'active' : tabs === 3 }"  id="m_tabs_9_3" role="tabpanel" v-if="status_disposition == 12">
                         <div class="form-group m-form__group">
                             <label>Notulen Rapat Terakhir</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Pilih File" :value="notulen">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="notulenLabel">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="handleExploreNotulen">Browse</button>
                                 </div>
@@ -322,7 +356,7 @@
                         <div class="form-group m-form__group">
                             <label>Draft Final MOU</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Pilih File" :value="draft">
+                                <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button" @click="handleExploreDraft">Browse</button>
                                 </div>
@@ -340,7 +374,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="m_tabs_9_4" :class="{'active' : tabs === 4 }" role="tabpanel" v-if="status_disposition == 14">
+                    <div class="tab-pane" id="m_tabs_9_4" :class="{'active' : tabs === 4 }" role="tabpanel" v-if="status_disposition == 15">
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
@@ -372,6 +406,15 @@
                                 <input type="text" v-model="title_cooperation_final" class="form-control">
                             </div>
                             <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Lama Pengajuan</label>
+                            <div class="m-form__control">
+                                <select2
+                                    v-model="time_period_final"
+                                    :options="data_select.time_period"
+                                />
+                            </div>
+                        </div>
+                            <!-- <div class="form-group m-form__group">
                                 <label>Revisi Notulen Rapat Terakhir</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Pilih File" :value="notulenLabel">
@@ -390,7 +433,7 @@
                                     </div>
                                 </div>
                                 <input type="file" class="custom-file-input" style="display:none;" ref="draftFinal" id="customFile" @change="handleDraft">
-                            </div>
+                            </div> -->
                             <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                                 <div class="m-form__actions m-form__actions--solid">
                                     <div class="row">
@@ -412,7 +455,30 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Persetujuan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Form Tanggapan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="message-text" class="form-control-label">Alasan</label>
+                            <input type="hidden" v-model="forms.id" class="form-control">
+                            <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="approve" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-continue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Tanggapan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -444,7 +510,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="approve" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
+                        <button type="button" @click="extContinue" :disabled="disabled" class="btn btn-primary">{{ text_button }}</button>
                     </div>
                 </div>
             </div>
@@ -542,20 +608,22 @@
                                         <span class="m--font-brand context-menu" @click="downloadKTP">Download</span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="vertical-align: middle;">4</td>
-                                    <td style="vertical-align: middle;">NPWP</td>
-                                    <td>
-                                        <span class="m--font-brand context-menu" @click="downloadNPWP">Download</span>
-                                    </td>
-                                </tr>
-                                <tr v-if="agency_category == 'Kementerian'">
-                                    <td style="vertical-align: middle;">5</td>
-                                    <td style="vertical-align: middle;">SIUP</td>
-                                    <td>
-                                        <span class="m--font-brand context-menu" @click="downloadSIUP">Download</span>
-                                    </td>
-                                </tr>
+                                <template v-if="isGoverment == 0">
+                                    <tr>
+                                        <td style="vertical-align: middle;">4</td>
+                                        <td style="vertical-align: middle;">NPWP</td>
+                                        <td>
+                                            <span class="m--font-brand context-menu" @click="downloadNPWP">Download</span>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="agency_category == 'Kementerian'">
+                                        <td style="vertical-align: middle;">5</td>
+                                        <td style="vertical-align: middle;">SIUP</td>
+                                        <td>
+                                            <span class="m--font-brand context-menu" @click="downloadSIUP">Download</span>
+                                        </td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -567,7 +635,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Penolakan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Form Tanggapan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -578,10 +646,6 @@
                             <input type="hidden" v-model="forms.id" class="form-control">
                             <textarea class="form-control" placeholder="Masukan Alasan Anda" v-model="forms.reason" id="message-text"></textarea>
                         </div>
-                        <div class="form-group" v-if="status_disposition == 11">
-                            <label for="message-text" class="form-control-label">Keterangan Untuk Rapat</label>
-                            <textarea v-model="forms.keterangan_pesan" class="form-control" id="keterangan_pesan" cols="30" rows="10"></textarea>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -591,6 +655,108 @@
             </div>
         </div>
         <!--end::Modal-->
+        <div class="modal fade" id="modal-file-draft" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">File Draft</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-if="modalDraftFile.length">
+                                    <tr v-for="(value, index) in modalDraftFile" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.name }}</td>
+                                        <td>
+                                            <span class="m--font-brand context-menu" @click="downloadDraftFile(value.id)">Download File</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template v-else>
+                                    <tr>
+                                        <td colspan="3" class="text-center">Data Kosong</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Pilih File Draft </label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleDraft">
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ draftLabel }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="storeDraftFile" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-file-notulen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">File Notulen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama</th>
+                                    <th style="vertical-align: middle;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-if="modalNotulenFile.length">
+                                    <tr v-for="(value, index) in modalNotulenFile" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.name }}</td>
+                                        <td>
+                                            <span class="m--font-brand context-menu" @click="downloadNotulenFile(value.id)">Download File</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template v-else>
+                                    <tr>
+                                        <td colspan="3" class="text-center">Data Kosong</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Pilih File Notulen </label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleNotulen">
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ notulenLabel }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="storeNotulenFile" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -607,15 +773,37 @@ export default {
     },
     data() {
         return {
+            data_select: {
+                time_period: [
+                    {
+                        id: 1,
+                        name: '1 Tahun',
+                    },
+                    {
+                        id: 2,
+                        name: '2 Tahun',
+                    },
+                    {
+                        id: 3,
+                        name: '3 Tahun',
+                    },
+                    {
+                        id: 4,
+                        name: '4 Tahun',
+                    },
+                    {
+                        id: 5,
+                        name: '5 Tahun',
+                    }
+                ],
+            },
             tabs: 1,
             addDeputi: [],
             text_button: 'Submit',
-            notulen: null,
             notulenFile: null,
-            notulenLabel: null,
-            draft: null,
+            notulenLabel: 'Choose file',
             draftFile: null,
-            draftLabel: null,
+            draftLabel: 'Choose file',
             disabled: false,
             forms: {
                 reason: null,
@@ -640,6 +828,7 @@ export default {
             nomor: [''],
             title_cooperation: null,
             title_cooperation_final: null,
+            time_period_final: null,
             type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
@@ -649,15 +838,16 @@ export default {
             agency_category: null,
             agency_name: null,
             agency_address: null,
-            // purpose_objectives: null,
+            isGoverment: null,
             background: null,
             latitude: null,
             longitude: null,
             status_disposition: null,
             tracking: [],
             status_barcode: null,
-            law: null,
             roles: this.$store.state.user,
+            modalDraftFile: [],
+            modalNotulenFile: [],
         }
     },
     computed: {
@@ -670,8 +860,8 @@ export default {
             let finalData = value.map((value, index) => {
                 return {
                     id: index+1,
-                    value: value,
-                    class: value == 3 ? 'danger' : value == 1 ? 'success' : value == 2 ? 'primary' : 'metal',
+                    value: value.id,
+                    class: value.approval == 3 ? 'danger' : value.approval == 1 ? 'success' : value.approval == 2 ? 'primary' : 'metal',
                     reason: value.reason,
                     name: value.role.name,
                 }
@@ -696,6 +886,7 @@ export default {
         },
         sortTracking: function() {
             const data = this.tracking;
+            const label = ['Bagian Kerjasama', 'Bagian Ortala', 'Sesmen', 'Hukum', 'Sesmen Final', 'Menteri', 'Bagian Kerjasama Final']
 
             const value = Object.values(data).splice(1,8);
 
@@ -705,7 +896,7 @@ export default {
                     value: value.approval,
                     class: value.approval == 3 ? 'danger' : value.approval == 1 ? 'success' : value.approval == 2 ? 'primary' : 'metal',
                     reason: value.reason,
-                    name: value.role.name,
+                    name: label[index],
                 }
             });
 
@@ -725,37 +916,150 @@ export default {
                 return "btn btn-success m-btn m-btn--icon";
             }
         },
-        disableFileNotulen() {
-            if(this.notulen == null || this.notulen == "") {
-                return {
-                    disable: false,
-                    style: 'btn btn-danger'
-                };
-            } else {
-                return {
-                    disable: true,
-                    style: 'btn btn-success'
-                };
-            }
-        },
-        disableFileDraft() {
-            if(this.draft == null || this.draft == "") {
-                return {
-                    disable: false,
-                    style: 'btn btn-danger'
-                };
-            } else {
-                return {
-                    disable: true,
-                    style: 'btn btn-success'
-                };
-            }
-        }
     },
     created() {
         this.getData();
     },
     methods: {
+        storeDraftFile() {
+            let formData = new FormData();
+
+            formData.append('id', this.$route.params.id);
+            formData.append('draft', this.draftFile);
+
+            $axiosFormData.post('/admin/store/file/guest/draft', formData)
+            .then(response => {
+                this.modalDraftFile = response.data.data;
+
+                this.draftFile = null;
+                this.draftLabel = 'Choose File';
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`File Draft Baru Berhasil di Tambahkan`);
+            })
+        },
+        storeNotulenFile() {
+            let formData = new FormData();
+
+            formData.append('id', this.$route.params.id);
+            formData.append('notulen', this.notulenFile);
+
+            $axiosFormData.post('/admin/store/file/guest/notulen', formData)
+            .then(response => {
+                this.modalNotulenFile = response.data.data;
+
+                this.notulenFile = null;
+                this.notulenLabel = 'Choose File';
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`File Notulen Baru Berhasil di Tambahkan`);
+            })
+        },
+        downloadDraftFile(id) {
+            window.location.href = `/api/admin/download/file/guest/draft/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+        },
+        downloadNotulenFile(id) {
+            window.location.href = `/api/admin/download/file/guest/notulen/${id}?token=${localStorage.getItem('token')}`;
+        },
+        showModalGuestFileDraft() {
+            $('#modal-file-draft').modal('show');
+        },
+        showModalGuestFileNotulen() {
+            $('#modal-file-notulen').modal('show')
+        },
+        extContinue() {
+            $axios.post(`/admin/submission/reason/continue/guest`, this.forms)
+            .then(response => {
+                this.disabled = true;
+                this.text_button = 'Loading ...';
+                $('#modal-continue').modal('hide');
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.success(`Pengajuan Berhasil diteruskan`);
+
+                this.$router.push({
+                    name: 'MOUProposalSubmissionCooperationIndex'
+                });
+            })
+            .catch(error => {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "progressBar": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error(`Pengajuan Gagal diteruskan`);
+            })
+            this.text_button = 'Submit';
+            this.disabled = false;
+        },
         showModalGuestFile() {
             $('#guest-file').modal('show');
         },
@@ -976,8 +1280,7 @@ export default {
                 formData.append(`nomor[${key}]`, value);
             });
             formData.append('title_cooperation_final', this.title_cooperation_final);
-            formData.append('notulen', this.notulenFile);
-            formData.append('draft', this.draftFile);
+            formData.append('time_period_final', this.time_period_final);
 
             $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}/guest`, formData)
             .then(response => {
@@ -1070,20 +1373,18 @@ export default {
             let files = e.target.files || e.dataTransfer.files;
 
             this.notulenFile = files[0];
-
-            this.notulen = this.$refs.notulen.value;
+            this.notulenLabel = files[0].name;
         },
         uploadDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
 
             this.draftFile = files[0];
-
-            this.draft = this.$refs.draft.value;
-
+            this.draftLabel = files[0].name;
         },
         getData() {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/guest`)
             .then(response => {
+                this.isGoverment = response.data.data.data.agencies.status;
                 this.title_cooperation = response.data.data.data.title_cooperation;
                 this.title_cooperation_final = response.data.data.data.title_cooperation;
                 this.type_of_cooperation_one = response.data.data.data.type_of_cooperation_one == null ? "Kosong" : response.data.data.data.type_of_cooperation_one.name;
@@ -1102,12 +1403,11 @@ export default {
                 this.tracking = response.data.data.data.tracking;
                 this.status_disposition = response.data.data.data.status_disposition;
                 this.status_barcode = response.data.data.data.status_barcode;
-                this.draft = response.data.data.data.law == null ? null : response.data.data.data.law.draft;
-                this.draftLabel = response.data.data.data.law == null ? null : response.data.data.data.law.draft;
-                this.notulen = response.data.data.data.law == null ? null : response.data.data.data.law.notulen;
-                this.notulenLabel = response.data.data.data.law == null ? null : response.data.data.data.law.notulen;
                 this.deputi = response.data.data.data.deputi;
-                this.notInDeputi = response.data.data.deputi
+                this.notInDeputi = response.data.data.deputi_not_in
+                this.modalDraftFile = response.data.data.data.draft;
+                this.modalNotulenFile = response.data.data.data.notulen;
+                this.time_period_final = response.data.data.data.time_period;
             });
         },
         showModalReject() {
@@ -1126,6 +1426,15 @@ export default {
                 this.forms.reason = '';
 
                 $('#modal-approve').modal('show');
+            }
+        },
+        showModalContinue() {
+            if(this.status_disposition == 11 && this.status_barcode == 0) {
+                alert('Anda Belum Generate Barcode & Download Format Untuk Rapat');
+            } else {
+                this.forms.reason = '';
+
+                $('#modal-continue').modal('show');
             }
         },
         approve() {

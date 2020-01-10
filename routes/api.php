@@ -16,7 +16,7 @@ Route::get('refresh', 'LoginController@refresh');
 Route::get('get/photo', 'LoginController@getPhoto');
 
 Route::post('me', 'LoginController@me');
-Route::middleware('jwt')->group( function () {
+Route::middleware('jwt')->group(function () {
     Route::prefix('admin')->group(function () {
         //Barcode
         Route::get('generate/barcode/{id}', 'BarcodeController@generate');
@@ -69,8 +69,8 @@ Route::middleware('jwt')->group( function () {
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
-        Route::get('submission/cooperation/{id}/detail','SubmissionProposalController@detail');
-        Route::get('submission/cooperation/{id}/detail/guest','SubmissionProposalController@detailGuest');
+        Route::get('submission/cooperation/{id}/detail', 'SubmissionProposalController@detail');
+        Route::get('submission/cooperation/{id}/detail/guest', 'SubmissionProposalController@detailGuest');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/approve/guest', 'SubmissionProposalGuestController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
@@ -81,6 +81,8 @@ Route::middleware('jwt')->group( function () {
         Route::post('submission/cooperation/law/{id}/guest', 'SubmissionProposalGuestController@law');
         Route::delete('deputi/pic/guest/{id}', 'SubmissionProposalGuestController@destroyDeputiPIC');
         Route::post('deputi/pic/guest', 'SubmissionProposalGuestController@storeDeputiPIC');
+        Route::delete('deputi/pic/{id}', 'SubmissionProposalController@destroyDeputiPIC');
+        Route::post('deputi/pic', 'SubmissionProposalController@storeDeputiPIC');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
         Route::post('submission/cooperation/final/{id}/guest', 'SubmissionProposalGuestController@final');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
@@ -89,8 +91,23 @@ Route::middleware('jwt')->group( function () {
         // Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
+        // Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
+        // Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
+
+        Route::get('download/file/guest/draft/{id}', 'SubmissionProposalGuestController@fileDraftMOU');
+        Route::get('download/file/guest/notulen/{id}', 'SubmissionProposalGuestController@fileNotulenMOU');
+
         Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
-        Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
+        Route::get('download/file/notulen/{id}', 'SubmissionProposalController@fileNotulenMOU');
+
+        Route::post('store/file/guest/draft', 'SubmissionProposalGuestController@storeDraft');
+        Route::post('store/file/guest/notulen', 'SubmissionProposalGuestController@storeNotulen');
+
+        Route::post('store/file/draft', 'SubmissionProposalController@storeDraft');
+        Route::post('store/file/notulen', 'SubmissionProposalController@storeNotulen');
+
+        Route::get('download/cooperation/success/guest/draft/{id}', 'SubmissionProposalGuestController@downloadDraftMOUSuccess');
+        Route::get('download/cooperation/success/draft/{id}', 'SubmissionProposalController@downloadDraftMOUSuccess');
 
         // Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
         // Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
@@ -99,12 +116,12 @@ Route::middleware('jwt')->group( function () {
         // Route::get('reset/satker/sesmen/pks','SubmissionProposalController@resetSatkerSesmenYouPKS');
         // Route::get('reset/guest/pks','SubmissionProposalController@resetGuestPKS');
 
-        Route::get('filter/satker/sesmen/approval/mou','SubmissionProposalController@filterSatkerSesmenApprovalMOU');
-        Route::get('filter/satker/sesmen/mou','SubmissionProposalController@filterSatkerSesmenYouMOU');
-        Route::get('filter/guest/mou','SubmissionProposalController@filterGuestMOU');
-        Route::get('reset/satker/sesmen/approval/mou','SubmissionProposalController@resetSatkerSesmenApprovalMOU');
-        Route::get('reset/satker/sesmen/mou','SubmissionProposalController@resetSatkerSesmenYouMOU');
-        Route::get('reset/guest/mou','SubmissionProposalController@resetGuestMOU');
+        Route::get('filter/satker/sesmen/approval/mou', 'SubmissionProposalController@filterSatkerSesmenApprovalMOU');
+        Route::get('filter/satker/sesmen/mou', 'SubmissionProposalController@filterSatkerSesmenYouMOU');
+        Route::get('filter/guest/mou', 'SubmissionProposalController@filterGuestMOU');
+        Route::get('reset/satker/sesmen/approval/mou', 'SubmissionProposalController@resetSatkerSesmenApprovalMOU');
+        Route::get('reset/satker/sesmen/mou', 'SubmissionProposalController@resetSatkerSesmenYouMOU');
+        Route::get('reset/guest/mou', 'SubmissionProposalController@resetGuestMOU');
 
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
         Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgencyProfile');

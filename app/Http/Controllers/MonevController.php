@@ -6,6 +6,8 @@ use App\Http\Requests\StoreMonevActivitySatkerGuestRequest;
 use App\Http\Requests\StoreMonevActivitySatkerRequest;
 use App\Http\Requests\StoreMonevP3Request;
 use App\Http\Requests\StoreMonevSatkerRequest;
+use App\Http\Resources\SubmissionProposalCollection;
+use App\Http\Resources\SubmissionProposalGuestCollection;
 use App\Http\Resources\SubmissionProposalGuestResource;
 use App\LawFileSubmissionProposal;
 use App\LawFileSubmissionProposalGuest;
@@ -36,15 +38,15 @@ class MonevController extends Controller
         try {
             $user = auth()->user();
             if($user->roles[0]->id == 9) {
-                $data['approval'] = SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 17)->where('status_proposal', 1)->get());
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
-                $data['approval'] = SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
-                })->where('status_disposition', 17)->where('status_proposal', 1)->get();
-                $data['guest'] = SubmissionProposalGuestResource::collection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                })->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
-                })->where('status_disposition', 17)->where('status_proposal', 1)->get());
+                })->where('status_disposition', 16)->where('status_proposal', 1)->get());
             }
 
             return response()->json($this->notification->generalSuccess($data));

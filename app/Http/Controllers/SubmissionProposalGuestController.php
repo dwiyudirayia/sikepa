@@ -3,22 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\DeputiPICGuest;
-use App\LawFileSubmissionProposalGuest;
-use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
-use App\Mail\ApproveCooperation;
+use App\FileDraftGuest;
+use App\FileNotulenGuest;
 use App\Mail\ApproveCooperationFinal;
 use App\Mail\OfflineMeetingGuest;
 use App\Mail\RejectCooperation;
-use App\ReasonSubmissionCooperationGuest;
+use App\Notifications\DispositionNotification;
+use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposalGuest;
-use Illuminate\Http\Request;
+use App\User;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
-use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\DispositionNotification;
 use Mail;
-use Illuminate\Support\Str;
 
 class SubmissionProposalGuestController extends Controller
 {
@@ -28,13 +26,13 @@ class SubmissionProposalGuestController extends Controller
     {
         $this->notification = $notification;
     }
-    public function continue() {
+    function continue (Request $request) {
         try {
             DB::beginTransaction();
             $user = auth()->user();
             $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
 
-            if($proposal->status_disposition == 3) {
+            if ($proposal->status_disposition == 3) {
                 $proposal->deputi()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 2,
@@ -43,35 +41,25 @@ class SubmissionProposalGuestController extends Controller
 
                 $deputi = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->get();
                 $sumStatus = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->sum('status');
-                $sumApproval = DeputiPICGuest::where('submission_proposal_guest_id', $request->id)->sum('approval');
 
                 $countRowProposal = $deputi->count();
 
-                if($sumStatus == $countRowProposal) {
-                    // if($sumApproval > 0) {
+                if ($sumStatus == $countRowProposal) {
                     $proposal->status_disposition = 9;
                     $proposal->save();
 
                     $statusDisposition = $proposal->status_disposition;
-                    $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                    $users = User::whereHas('roles', function (Builder $query) use ($statusDisposition) {
                         $query->where('id', $statusDisposition);
                     })->get();
 
                     $path = 'MOUProposalSubmissionCooperationIndex';
 
                     Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-
-                    //     Mail::to($proposal->email)->send(new ApproveCooperation);
-                    // } else {
-                    //     $proposal->status_proposal = 0;
-                    //     $proposal->save();
-
-                    //     Mail::to($proposal->email)->send(new RejectCooperation);
-                    // }
                 }
-            } elseif($proposal->status_disposition == 2) {
+            } elseif ($proposal->status_disposition == 2) {
                 $collectDeputi = collect($proposal->deputi->toArray());
-                $mapDeputi = $collectDeputi->map(function($item, $key) {
+                $mapDeputi = $collectDeputi->map(function ($item, $key) {
                     return $item['role_id'];
                 });
                 $currentRoleId = $mapDeputi->all();
@@ -83,7 +71,7 @@ class SubmissionProposalGuestController extends Controller
                 ]);
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
-                $users = User::whereHas('roles', function(Builder $query) use ($currentRoleId) {
+                $users = User::whereHas('roles', function (Builder $query) use ($currentRoleId) {
                     $query->whereIn('id', $currentRoleId);
                 })->get();
 
@@ -91,7 +79,7 @@ class SubmissionProposalGuestController extends Controller
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
                 // Mail::to($proposal->email)->send(new ApproveCooperation);
-            } elseif($proposal->status_disposition == 11) {
+            } elseif ($proposal->status_disposition == 11) {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
                     'approval' => 2,
@@ -100,7 +88,7 @@ class SubmissionProposalGuestController extends Controller
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                $users = User::whereHas('roles', function (Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
 
@@ -117,7 +105,7 @@ class SubmissionProposalGuestController extends Controller
 
                 $track = SubmissionProposalGuest::where('id', $request->id)->increment('status_disposition', 1);
                 $statusDisposition = $proposal->status_disposition + 1;
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                $users = User::whereHas('roles', function (Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
 
@@ -135,14 +123,15 @@ class SubmissionProposalGuestController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
-    public function approve(Request $request) {
+    public function approve(Request $request)
+    {
         try {
             DB::beginTransaction();
             $user = auth()->user();
             $proposal = SubmissionProposalGuest::with('deputi.role')->findOrFail($request->id);
             if ($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
-                if($getRoleId == 11) {
+                if ($getRoleId == 11) {
                     $roleId = 13;
                 } else {
                     $roleId = 14;
@@ -157,7 +146,7 @@ class SubmissionProposalGuestController extends Controller
 
                 $statusDisposition = $proposal->status_disposition + 1;
 
-                $users = User::whereHas('roles', function(Builder $query) use ($statusDisposition) {
+                $users = User::whereHas('roles', function (Builder $query) use ($statusDisposition) {
                     $query->where('id', $statusDisposition);
                 })->get();
 
@@ -175,15 +164,16 @@ class SubmissionProposalGuestController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
-    public function reject(Request $request) {
+    public function reject(Request $request)
+    {
         try {
             DB::beginTransaction();
             $user = auth()->user();
 
             $proposal = SubmissionProposalGuest::findOrFail($request->id);
-            if($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
+            if ($proposal->status_disposition > 12 && $proposal->status_disposition < 15) {
                 $getRoleId = $user->roles[0]->id;
-                if($getRoleId == 11) {
+                if ($getRoleId == 11) {
                     $roleId = 13;
                 } else {
                     $roleId = 14;
@@ -195,7 +185,7 @@ class SubmissionProposalGuestController extends Controller
                 ]);
 
                 SubmissionProposalGuest::where('id', $request->id)->update([
-                    'status_proposal' => 0
+                    'status_proposal' => 0,
                 ]);
 
                 Mail::to($proposal->email)->send(new RejectCooperation);
@@ -208,50 +198,33 @@ class SubmissionProposalGuestController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
-    public function law(Request $request, $id) {
+    public function law(Request $request, $id)
+    {
         try {
             DB::beginTransaction();
             $proposal = SubmissionProposalGuest::findOrFail($id);
             $user = auth()->user();
 
-            if($request->hasFile('notulen')) {
+            if ($request->hasFile('notulen')) {
                 $extention = $request->notulen->getClientOriginalExtension();
-                $fileName = 'law-notulen'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $fileName = 'law-notulen' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
                 $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
 
-                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'notulen' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'notulen' => $path
-                    ]);
-                }
+                $proposal->notulen()->create([
+                    'created_by' => auth()->user()->id,
+                    'name' => $path,
+                ]);
             }
 
-            if($request->hasFile('draft')) {
+            if ($request->hasFile('draft')) {
                 $extention = $request->draft->getClientOriginalExtension();
-                $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+                $fileName = 'law-draft' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
                 $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
 
-                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                }
+                $proposal->draft()->create([
+                    'created_by' => auth()->user()->id,
+                    'name' => $path,
+                ]);
             }
 
             $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
@@ -264,7 +237,7 @@ class SubmissionProposalGuestController extends Controller
 
             $path = 'MOUProposalSubmissionCooperationIndex';
 
-            $users = User::whereHas('roles', function(Builder $query) {
+            $users = User::whereHas('roles', function (Builder $query) {
                 $query->where('id', 11);
             })->get();
 
@@ -272,7 +245,7 @@ class SubmissionProposalGuestController extends Controller
 
             DB::commit();
             return response()->json([
-                'messages' => 'Data Berhasil Diperbaharui'
+                'messages' => 'Data Berhasil Diperbaharui',
             ]);
         } catch (\Throwable $th) {
             DB::rollback();
@@ -282,76 +255,120 @@ class SubmissionProposalGuestController extends Controller
             ]);
         }
     }
-    public function fileDraftMOU($id) {
+    public function fileDraftMOU($id)
+    {
         try {
-            $proposal = SubmissionProposalGuest::with('law')->findOrFail($id);
+            $proposal = FileDraftGuest::findOrFail($id);
 
-            $draft = $proposal->law->draft;
-            return response()->download(storage_path("/app/public/law_draft_guest/".$draft));
-
+            $draft = $proposal->name;
+            return response()->download(storage_path("/app/public/law_draft_guest/" . $draft));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }
-    public function final(Request $request, $id) {
+    public function fileNotulenMOU($id)
+    {
         try {
-            $user = auth()->user();
+            $proposal = FileNotulenGuest::findOrFail($id);
+
+            $draft = $proposal->name;
+            return response()->download(storage_path("/app/public/law_notulen_guest/" . $draft));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadDraftMOUSuccess($id)
+    {
+        try {
+            $data = FileDraftGuest::where('submission_proposal_guest_id', $id)->get();
+
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_guest/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function storeDraft(Request $request)
+    {
+        try {
             DB::beginTransaction();
+            $proposal = SubmissionProposalGuest::findOrFail($request->id);
+
+            $extention = $request->draft->getClientOriginalExtension();
+            $fileName = 'law-draft' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
+            $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
+
+            $proposal->draft()->create([
+                'created_by' => auth()->user()->id,
+                'name' => $path,
+            ]);
+
+            DB::commit();
+
+            $data = FileDraftGuest::where('submission_proposal_guest_id', $request->id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeNotulen(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $proposal = SubmissionProposalGuest::findOrFail($request->id);
+
+            $extention = $request->notulen->getClientOriginalExtension();
+            $fileName = 'law-notulen' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
+            $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
+
+            $proposal->notulen()->create([
+                'created_by' => auth()->user()->id,
+                'name' => $path,
+            ]);
+
+            DB::commit();
+
+            $data = FileNotulenGuest::where('submission_proposal_guest_id', $request->id)->get();
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    function final (Request $request, $id) {
+        try {
+            DB::beginTransaction();
+            $user = auth()->user();
 
             $proposal = SubmissionProposalGuest::findOrFail($id);
             $proposal->title_cooperation = $request->title_cooperation_final;
+            $proposal->time_period = $request->time_period_final;
             $proposal->save();
-            if($request->hasFile('notulen')) {
-
-                $extention = $request->notulen->getClientOriginalExtension();
-
-                $fileName = 'law-notulen'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
-
-                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'notulen' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'notulen' => $path
-                    ]);
-                }
-            }
-
-            if($request->hasFile('draft')) {
-
-                $extention = $request->draft->getClientOriginalExtension();
-
-                $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
-
-                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                }
-            }
 
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([
                     'created_by' => auth()->user()->id,
-                    'nomor' => $value
+                    'nomor' => $value,
                 ]);
             }
             $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
@@ -361,7 +378,7 @@ class SubmissionProposalGuestController extends Controller
 
             $track = SubmissionProposalGuest::where('id', $proposal->id)->increment('status_disposition', 1);
 
-            $users = User::whereHas('roles', function(Builder $query) {
+            $users = User::whereHas('roles', function (Builder $query) {
                 $query->where('id', 9);
             })->get();
 
@@ -380,7 +397,8 @@ class SubmissionProposalGuestController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
-    public function destroyDeputiPIC($id) {
+    public function destroyDeputiPIC($id)
+    {
         try {
             $deputi = DeputiPICGuest::findOrFail($id);
             $deputi->delete();
@@ -396,7 +414,8 @@ class SubmissionProposalGuestController extends Controller
             ]);
         }
     }
-    public function storeDeputiPIC(Request $request) {
+    public function storeDeputiPIC(Request $request)
+    {
         try {
             foreach ($request->data as $key => $value) {
                 $deputiPIC = DeputiPICGuest::updateOrCreate([
@@ -416,73 +435,73 @@ class SubmissionProposalGuestController extends Controller
             ]);
         }
     }
-    public function downloadProposalCooperationGuest($id) {
+    public function downloadProposalCooperationGuest($id)
+    {
         try {
             $proposal = SubmissionProposalGuest::findOrFail($id);
 
             $file = $proposal->proposal;
-            return response()->download(storage_path("/app/public/proposal_cooperation_guest/".$file));
-
+            return response()->download(storage_path("/app/public/proposal_cooperation_guest/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }
-    public function downloadAgencyProfileCooperationGuest($id) {
+    public function downloadAgencyProfileCooperationGuest($id)
+    {
         try {
             $proposal = SubmissionProposalGuest::findOrFail($id);
 
             $file = $proposal->agency_profile;
-            return response()->download(storage_path("/app/public/agency_profile_cooperation_guest/".$file));
-
+            return response()->download(storage_path("/app/public/agency_profile_cooperation_guest/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }
-    public function downloadKTPGuest($id) {
+    public function downloadKTPGuest($id)
+    {
         try {
             $proposal = SubmissionProposalGuest::findOrFail($id);
 
             $file = $proposal->ktp;
-            return response()->download(storage_path("/app/public/ktp_guest/".$file));
-
+            return response()->download(storage_path("/app/public/ktp_guest/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }
-    public function downloadNPWPGuest($id) {
+    public function downloadNPWPGuest($id)
+    {
         try {
             $proposal = SubmissionProposalGuest::findOrFail($id);
 
             $file = $proposal->npwp;
-            return response()->download(storage_path("/app/public/npwp_guest/".$file));
-
+            return response()->download(storage_path("/app/public/npwp_guest/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }
-    public function downloadSIUPGuest($id) {
+    public function downloadSIUPGuest($id)
+    {
         try {
             $proposal = SubmissionProposalGuest::findOrFail($id);
 
             $file = $proposal->siup;
-            return response()->download(storage_path("/app/public/siup_guest/".$file));
-
+            return response()->download(storage_path("/app/public/siup_guest/" . $file));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
-                'status' => $th->getCode()
+                'status' => $th->getCode(),
             ]);
         }
     }

@@ -98,7 +98,7 @@ export default {
             if(this.$v.forms.$invalid) {
                 return;
             } else {
-                this.$store.dispatch('faq/store', this.forms).them(() => {
+                this.$store.dispatch('faq/store', this.forms).then(() => {
                     this.$v.$reset();
                     this.$router.push({ name: 'FaqIndex' });
                 });

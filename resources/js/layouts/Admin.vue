@@ -155,12 +155,6 @@
                                                                     Pemberitahuan
                                                                 </a>
                                                             </li>
-                                                            <li class="nav-item m-tabs__item">
-                                                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_events" role="tab">Events</a>
-                                                            </li>
-                                                            <li class="nav-item m-tabs__item">
-                                                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_logs" role="tab">Logs</a>
-                                                            </li>
                                                         </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane active" id="topbar_notifications_notifications" role="tabpanel">

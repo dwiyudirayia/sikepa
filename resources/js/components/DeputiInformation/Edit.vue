@@ -28,7 +28,7 @@
                                                 <li class="m-nav__item">
                                                     <a class="m-nav__link" v-tooltip.top="'Lihat Daftar File'" @click="showModalFile">
                                                         <i class="m-nav__link-icon la la-file"></i>
-                                                        <span class="m-nav__link-text">File</span>
+                                                        <span class="m-nav__link-text">Daftar FileFile</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -212,14 +212,14 @@
                                         <td style="vertical-align: middle;">{{ index+1 }}</td>
                                         <td style="vertical-align: middle;">{{ value.name }}</td>
                                         <td>
-                                            <span class="m--font-danger " @click="hapusFileDeputiInformation(value.id)">Hapus</span>
+                                            <span class="m--font-danger context-menu" @click="hapusFileDeputiInformation(value.id)">Hapus</span>
                                             <span class="m--font-brand context-menu" @click="downloadFileDeputiInformation(value.id)">Download File</span>
                                         </td>
                                     </tr>
                                 </template>
                                 <template v-else>
                                     <tr>
-                                        <td colspan="9" class="text-center">Data Kosong</td>
+                                        <td colspan="3" class="text-center">Data Kosong</td>
                                     </tr>
                                 </template>
                             </tbody>

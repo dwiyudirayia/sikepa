@@ -118,15 +118,11 @@
                             <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="title_cooperation">
                         </div>
                         <div class="form-group m-form__group">
-                            <label>Pemohonan Kerjasama</label>
-                            <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation">
-                        </div>
-                        <div class="form-group m-form__group">
                             <label>Jenis Kerjasama</label>
                             <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation_one">
                         </div>
                         <div class="form-group m-form__group">
-                            <label>Kesepahaman Jenis Kerjasama</label>
+                            <label>Jenis Permohonan</label>
                             <input class="form-control m-input" disabled="disabled" placeholder="Disabled input" :value="type_of_cooperation_two">
                         </div>
                         <div class="form-group m-form__group">
@@ -179,7 +175,6 @@ export default {
                 },
             ],
             title_cooperation: null,
-            type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
             country: null,
@@ -239,7 +234,6 @@ export default {
             $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
-                this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
                 this.country = response.data.data.country.country_name;

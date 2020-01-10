@@ -28,8 +28,8 @@
                 <div class="tab-content">
                     <div class="tab-pane active show" id="m_widget5_tab3_content" aria-expanded="false">
                         <!--begin::m-widget5-->
-                        <div class="m-widget5" v-if="this.$store.getters['article/getData'].length != 0">
-                            <div class="m-widget5__item" v-for="value in this.$store.getters['article/getData']" :key="value.id">
+                        <div class="m-widget5" v-if="data.data.length != 0">
+                            <div class="m-widget5__item" v-for="value in data.data" :key="value.id">
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__section">
                                         <h4 class="m-widget5__title">
@@ -85,11 +85,22 @@
                     </div>
                 </div>
             </div>
+            <div class="m-portlet__foot">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        Total Record : <strong>{{ data.total }}</strong>
+                    </div>
+                    <div class="col-lg-6">
+                        <pagination :data="data" @pagination-change-page="getData"></pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import $axios from '@/api.js';
 export default {
     name: 'ListCategoryArticle',
     data() {
@@ -106,7 +117,8 @@ export default {
                     path: `/category/${this.$route.params.id}/article`
                 },
             ],
-            breadcrumbTitle: 'Kategori'
+            breadcrumbTitle: 'Kategori',
+            data: {},
         }
     },
     computed: {
@@ -123,10 +135,16 @@ export default {
             return this.$store.getters['article/getShowNotification'];
         }
     },
-    created() {
-        this.$store.dispatch('article/listCategoryArticle', this.$route.params.id)
+    mounted() {
+        this.getData();
     },
     methods: {
+        getData(page = 1) {
+            $axios.get(`/admin/list/category/article/${this.$route.params.id}?page=` + page)
+            .then(response => {
+                this.data = response.data.data;
+            });
+        },
         destroy(id) {
             this.$store.dispatch('article/destroyArticle', id);
         },
