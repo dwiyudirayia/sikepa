@@ -41,21 +41,15 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item  context-menu">
-                                                    <a class="m-nav__link" @click="showModalGuestFileDraft">
+                                                    <a class="m-nav__link" @click="showModalGuestFileDraft" v-if="status_disposition == 15">
                                                         <i class="m-nav__link-icon la la-file-archive-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Draft</span>
                                                     </a>
                                                 </li>
                                                 <li class="m-nav__item  context-menu">
-                                                    <a class="m-nav__link" @click="showModalGuestFileNotulen">
+                                                    <a class="m-nav__link" @click="showModalGuestFileNotulen" v-if="status_disposition == 15">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Notulen</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-nav__item context-menu" v-if="status_disposition == 15">
-                                                    <a class="m-nav__link" @click="downloadFileDraftTerakhir">
-                                                        <i class="m-nav__link-icon la la-file-word-o"></i>
-                                                        <span class="m-nav__link-text">Download File Draft</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -1178,9 +1172,6 @@ export default {
         },
         downloadSummary() {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/guest/?token=${localStorage.getItem('token')}`;
-        },
-        downloadFileDraftTerakhir() {
-            window.location.href = `/api/admin/download/file/draft/${this.$route.params.id}/guest/?token=${localStorage.getItem('token')}`;
         },
         hukum() {
             let formData = new FormData();

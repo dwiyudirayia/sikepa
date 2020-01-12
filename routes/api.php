@@ -21,6 +21,8 @@ Route::middleware('jwt')->group(function () {
         //Barcode
         Route::get('generate/barcode/{id}', 'BarcodeController@generate');
         Route::get('generate/barcode/{id}/guest', 'BarcodeController@generateGuest');
+        Route::get('generate/barcode/{id}/adendum', 'BarcodeController@generateAdendum');
+        Route::get('generate/barcode/{id}/guest/adendum', 'BarcodeController@generateGuestAdendum');
 
         Route::resource('notification', 'NotificationController')->except(['create', 'destroy']);
         Route::post('logout', 'LoginController@logout');
@@ -65,32 +67,55 @@ Route::middleware('jwt')->group(function () {
 
         //MOU
         Route::get('mou/submission/cooperation', 'SubmissionProposalController@indexMOU');
+        Route::get('adendum/submission/cooperation', 'AdendumController@indexMOU');
         // Route::get('pks/submission/cooperation', 'SubmissionProposalController@indexPKS');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
         Route::get('submission/cooperation/{id}/detail', 'SubmissionProposalController@detail');
         Route::get('submission/cooperation/{id}/detail/guest', 'SubmissionProposalController@detailGuest');
+        Route::get('submission/cooperation/{id}/detail/adendum', 'AdendumController@detail');
+        Route::get('submission/cooperation/{id}/detail/guest/adendum', 'AdendumController@detailGuest');
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/approve/guest', 'SubmissionProposalGuestController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
         Route::post('submission/reason/reject/guest', 'SubmissionProposalGuestController@reject');
+
+        Route::post('submission/reason/approve/adendum', 'AdendumController@approve');
+        Route::post('submission/reason/approve/guest/adendum', 'AdendumController@approveGuest');
+        Route::post('submission/reason/reject/adendum', 'AdendumController@reject');
+        Route::post('submission/reason/reject/guest/adendum', 'AdendumController@rejectGuest');
+        Route::post('submission/reason/continue/adendum', 'AdendumController@continue');
+        Route::post('submission/reason/continue/guest/adendum', 'AdendumController@continueGuest');
+
         Route::post('submission/reason/continue', 'SubmissionProposalController@continue');
         Route::post('submission/reason/continue/guest', 'SubmissionProposalGuestController@continue');
+        Route::get('submission/proposal/success', 'SubmissionProposalController@successMOU');
+        Route::get('submission/proposal/success/{id}', 'SubmissionProposalController@findMOUSuccess');
         Route::post('submission/cooperation/law/{id}', 'SubmissionProposalController@law');
         Route::post('submission/cooperation/law/{id}/guest', 'SubmissionProposalGuestController@law');
+
+        Route::post('submission/cooperation/law/{id}/adendum', 'AdendumController@law');
+        Route::post('submission/cooperation/law/{id}/guest/adendum', 'AdendumController@lawGuest');
+
         Route::delete('deputi/pic/guest/{id}', 'SubmissionProposalGuestController@destroyDeputiPIC');
         Route::post('deputi/pic/guest', 'SubmissionProposalGuestController@storeDeputiPIC');
+        Route::delete('deputi/pic/guest/adendum/{id}', 'AdendumController@destroyDeputiPICGuest');
+        Route::post('deputi/pic/guest/adendum', 'AdendumController@storeDeputiPICGuest');
         Route::delete('deputi/pic/{id}', 'SubmissionProposalController@destroyDeputiPIC');
         Route::post('deputi/pic', 'SubmissionProposalController@storeDeputiPIC');
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
         Route::post('submission/cooperation/final/{id}/guest', 'SubmissionProposalGuestController@final');
+        Route::post('submission/cooperation/final/{id}/adendum', 'AdendumController@final');
+        Route::post('submission/cooperation/final/{id}/guest/adendum', 'AdendumController@finalGuest');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
         // Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
         // Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
+        Route::get('download/format/word/{id}/adendum', 'ExportController@downloadFormatMOUWordAdendum');
+        Route::get('download/format/word/{id}/guest/adendum', 'ExportController@downloadFormatMOUWordGuestAdendum');
         // Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
         // Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
 
@@ -105,6 +130,20 @@ Route::middleware('jwt')->group(function () {
 
         Route::post('store/file/draft', 'SubmissionProposalController@storeDraft');
         Route::post('store/file/notulen', 'SubmissionProposalController@storeNotulen');
+
+        //
+        Route::get('download/file/guest/draft/{id}/adendum', 'AdendumController@fileDraftMOU');
+        Route::get('download/file/guest/notulen/{id}/adendum', 'AdendumController@fileNotulenMOU');
+
+        Route::get('download/file/draft/{id}/adendum', 'AdendumController@fileDraftMOU');
+        Route::get('download/file/notulen/{id}/adendum', 'AdendumController@fileNotulenMOU');
+
+        Route::post('store/file/guest/draft/adendum', 'AdendumController@storeDraft');
+        Route::post('store/file/guest/notulen/adendum', 'AdendumController@storeNotulen');
+
+        Route::post('store/file/draft/adendum', 'AdendumController@storeDraft');
+        Route::post('store/file/notulen/adendum', 'AdendumController@storeNotulen');
+        //
 
         Route::get('download/cooperation/success/guest/draft/{id}', 'SubmissionProposalGuestController@downloadDraftMOUSuccess');
         Route::get('download/cooperation/success/draft/{id}', 'SubmissionProposalController@downloadDraftMOUSuccess');
@@ -132,8 +171,18 @@ Route::middleware('jwt')->group(function () {
         Route::get('download/file/npwp/{id}/guest', 'SubmissionProposalGuestController@downloadNPWPGuest');
         Route::get('download/file/siup/{id}/guest', 'SubmissionProposalGuestController@downloadSIUPGuest');
 
+        Route::get('download/file/proposal/{id}/guest/adendum', 'AdendumController@downloadProposalCooperationGuest');
+        Route::get('download/file/agency/profile/{id}/guest/adendum', 'AdendumController@downloadAgencyProfileCooperationGuest');
+        Route::get('download/file/ktp/{id}/guest/adendum', 'AdendumController@downloadKTPGuest');
+        Route::get('download/file/npwp/{id}/guest/adendum', 'AdendumController@downloadNPWPGuest');
+        Route::get('download/file/siup/{id}/guest/adendum', 'AdendumController@downloadSIUPGuest');
+
         Route::get('download/summary/cooperation/{id}', 'ExportController@downloadSummary');
         Route::get('download/summary/cooperation/{id}/guest', 'ExportController@downloadSummaryGuest');
+        Route::get('download/summary/cooperation/{id}/adendum', 'ExportController@downloadSummaryAdendum');
+        Route::get('download/summary/cooperation/{id}/guest/adendum', 'ExportController@downloadSummaryGuestAdendum');
+        Route::get('download/summary/cooperation/{id}/extension', 'ExportController@downloadSummaryExtension');
+        Route::get('download/summary/cooperation/{id}/guest/extension', 'ExportController@downloadSummaryGuestExtension');
 
         Route::post('submission/cooperation', 'SubmissionProposalController@store');
         //Change Status Article

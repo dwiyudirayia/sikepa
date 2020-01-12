@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AdendumGuest;
 use App\Agency;
 use Illuminate\Http\Request;
 use App\Article;
@@ -10,7 +11,9 @@ use App\Testimoni;
 use App\Page;
 use App\Country;
 use App\DeputiInformation;
+use App\ExtensionGuest;
 use App\FileDeputiInformation;
+use App\FileDraftGuest;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
 use App\Mail\NomorResi;
 use App\Mail\SurveyKepuasan;
@@ -20,7 +23,6 @@ use App\Regency;
 use App\SatisfactionSurvey;
 use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
-use App\SubmissionType;
 use App\Suggestion;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
@@ -210,6 +212,8 @@ class FrontController extends Controller
             ],
         ];
 
+        $data['mou'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', 16)->where('type_of_cooperation_one_derivative_id', 2)->where('type_of_cooperation_two_derivative_id', 2)->get();
+
         return view('pages.pengajuan-kerjasama', compact('data'));
     }
     public function monitoringResultCooperation(Request $request)
@@ -226,7 +230,13 @@ class FrontController extends Controller
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request)
     {
         DB::beginTransaction();
-        $proposal = SubmissionProposalGuest::create($request->store());
+        if($request->type_of_cooperation_two_derivative_id == 2) {
+            $proposal = SubmissionProposalGuest::create($request->storeMOU());
+        } elseif ($request->type_of_cooperation_two_derivative_id == 3) {
+            $proposal = ExtensionGuest::create($request->storeNotulen());
+        } else {
+            $proposal = AdendumGuest::create($request->storeAdendum());
+        }
 
         foreach ($request->deputi as $key => $value) {
             $proposal->deputi()->create([
@@ -442,19 +452,35 @@ class FrontController extends Controller
             ]);
         }
     }
-    // public function downloadFileCooperation($id)
-    // {
-    //     try {
-    //         $data = SubmissionProposalGuest::with('law')->findOrFail($id);
+    public function downloadFileCooperation($id)
+    {
+        try {
+            $data = FileDraftGuest::where('submission_proposal_id', $id)->get();
 
-    //         $file = $data->law->draft;
-    //         return response()->download(storage_path("/app/public/law_draft_guest/" . $file));
-    //     } catch (\Throwable $th) {
-    //         dd($th);
-    //         return response()->json([
-    //             'messages' => 'Download Gagal',
-    //             'status' => $th->getCode()
-    //         ]);
-    //     }
-    // }
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_guest/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function findMOUSuccess($id) {
+        try {
+            $data = SubmissionProposalGuest::findOrFail($id);
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Data Berhasil di Ambil.',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Data Gagal di Ambil.',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
 }

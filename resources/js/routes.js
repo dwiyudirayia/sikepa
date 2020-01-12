@@ -118,14 +118,25 @@ import ProposalTypeOfCooperationTwoDerivativeEdit from './components/Proposal/Ty
 // import ProposalSubtanceCooperationCreate from './components/Proposal/SubtanceCooperation/Create';
 // import ProposalSubtanceCooperationEdit from './components/Proposal/SubtanceCooperation/Edit';
 
-import MOUProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/MOU/Index';
 import ProposalSubmissionCooperationCreate from './components/Proposal/SubmissionCooperation/Create';
+//MOU
+import MOUProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/MOU/Index';
 import MOUProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/MOU/Detail';
 import MOUProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/MOU/YourDetail';
 import MOUProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
+
+//Adendum
+import AdendumProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Adendum/Index';
+import AdendumProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Adendum/Detail';
+import AdendumProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/Adendum/YourDetail';
+// import AdendumProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/Adendum/YourDetailPreview';
+import AdendumProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/Adendum/YourDetailPreview';
+import AdendumProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/Adendum/Approve';
+import AdendumProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/Adendum/Reject';
+import AdendumProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/Adendum/Detail';
 
 // import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
 // import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
@@ -134,7 +145,7 @@ import MOUProposalSubmissionCooperationReject from './components/Proposal/Submis
 // import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
 // import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
 
-import MOUProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
+import MOUProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
 // import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/PKS/Detail';
 // --- End Proposal --- //
 
@@ -1156,7 +1167,15 @@ const router = new VueRouter({
                 {
                     path: '/mou/submission/cooperation/:id/detail/guest',
                     name: 'MOUProposalSubmissionCooperationDetailGuest',
-                    component: MOUProposalSubmissionCooperationDetaiGuest,
+                    component: MOUProposalSubmissionCooperationDetailGuest,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/detail/guest',
+                    name: 'AdendumProposalSubmissionCooperationDetailGuest',
+                    component: AdendumProposalSubmissionCooperationDetailGuest,
                     meta: {
                         requiresAuth: true
                     }
@@ -1219,6 +1238,32 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                //
+                {
+                    path: '/adendum/submission/cooperation',
+                    name: 'AdendumProposalSubmissionCooperationIndex',
+                    component: AdendumProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/approve',
+                    name: 'AdendumProposalSubmissionCooperationApprove',
+                    component: AdendumProposalSubmissionCooperationApprove,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/reject',
+                    name: 'AdendumProposalSubmissionCooperationReject',
+                    component: AdendumProposalSubmissionCooperationReject,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                //
                 {
                     path: '/submission/cooperation/create',
                     name: 'ProposalSubmissionCooperationCreate',
@@ -1814,3 +1859,4 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router;
+

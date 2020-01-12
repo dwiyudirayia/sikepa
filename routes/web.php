@@ -39,6 +39,7 @@ Route::get('/ajax/typeone/{id}', 'FrontController@typeOne');
 Route::get('/ajax/typetwo/{id}', 'FrontController@typeTwo');
 Route::get('/ajax/province/{id}', 'FrontController@province');
 Route::get('/ajax/regency/{id}', 'FrontController@regency');
+Route::get('/ajax/show/mou/success/{id}', 'FrontController@findMOUSuccess');
 
 Route::get('/page/{slug}', 'FrontController@page')->name('page');
 Route::get('/information/{slug}', 'FrontController@deputyInformation')->name('information');

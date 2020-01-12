@@ -43,9 +43,6 @@ class SubmissionProposalGuest extends Model
     public function nomor() {
         return $this->hasMany(NomorApprovalSubmissionCooperationGuest::class);
     }
-    public function law() {
-        return $this->hasOne(LawFileSubmissionProposalGuest::class);
-    }
     public function monevActivity() {
         return $this->hasMany(MonitoringActivityGuest::class);
     }

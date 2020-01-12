@@ -11,7 +11,7 @@ export default {
     mounted: function () {
         var data = $.map(this.options, function (obj) {
             obj.id = obj.id;
-            obj.text = obj.name || obj.country_name;
+            obj.text = obj.name || obj.country_name || obj.title_cooperation;
 
             return obj;
         });
@@ -42,7 +42,7 @@ export default {
             // update options
             var data = $.map(newVal, function (obj) {
                 obj.id = obj.id;
-                obj.text = obj.name || obj.country_name;
+                obj.text = obj.name || obj.country_name || obj.title_cooperation;
 
                 return obj;
             });

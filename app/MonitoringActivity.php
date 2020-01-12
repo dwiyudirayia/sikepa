@@ -14,15 +14,18 @@ class MonitoringActivity extends Model
         'location',
         'description_activities',
         'result_status',
-        ];
+    ];
 
-    public function proposal() {
+    public function proposal()
+    {
         return $this->belongsTo(SubmissionProposal::class);
     }
-    public function documentation() {
+    public function documentation()
+    {
         return $this->hasMany(MonitoringActivityDocumentation::class);
     }
-    public function result() {
+    public function result()
+    {
         return $this->belongsTo(MonitoringActivityResult::class);
     }
 }

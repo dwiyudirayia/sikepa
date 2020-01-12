@@ -99,20 +99,22 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">Durasi</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="youSubmission.length">
-                                            <tr v-for="(value, index) in youSubmission" :key="value.id">
+                                        <template v-if="youSubmission.data.length">
+                                            <tr v-for="(value, index) in youSubmission.data" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
-                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.country_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agencies }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.duration }}</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
                                                         <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -210,20 +212,22 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">Durasi</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="approvalSubmission.length">
-                                            <tr v-for="(value, index) in approvalSubmission" :key="value.id">
+                                        <template v-if="approvalSubmission.data.length">
+                                            <tr v-for="(value, index) in approvalSubmission.data" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
+                                                <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
                                                 <td style="vertical-align: middle;">{{ value.title_cooperation }}</td>
-                                                <td style="vertical-align: middle;">{{ value.country.country_name }}</td>
-                                                <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.country_name }}</td>
+                                                <td style="vertical-align: middle;">{{ value.agencies }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.duration }}</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
                                                         <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -257,6 +261,13 @@
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ approvalSubmission.data.length }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">

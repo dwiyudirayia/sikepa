@@ -80,6 +80,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-12 col-md-12" id="is-not-mou" style="display:none">
+                                            <div class="form-group {{ $errors->has('submission_proposal_guest_id') ? 'has-error' : '' }}">
+                                                <div class="form-input">
+                                                    <select class="form-control select2 required" id="submission_proposal_guest_id" name="submission_proposal_guest_id">
+                                                        <option></option>
+                                                        @foreach ($data['mou'] as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->title_cooperation }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <label class="text-label">Judul Kerjasama Sebelumnya</label>
+                                                </div>
+                                                @if($errors->has('submission_proposal_guest_id'))
+                                                    <p style="color:red;">{{ $errors->first('submission_proposal_guest_id') }}</p>
+                                                @endif
+                                            </div>
+                                        </div>
                                         <div class="col-lg-12 col-md-12">
                                             <div class="form-group {{ $errors->has('agencies_id') ? 'has-error' : '' }}">
                                                 <div class="form-input">
@@ -562,6 +578,8 @@
                         }
                     })
                 } else {
+                    $('#is-not-mou').hide();
+                    $('#is-not-mou').val('');
                     $('.is-indonesian').hide();
                     $('#province_id').val('');
                     $('#regency_id').val('');
@@ -594,6 +612,59 @@
                     })
                 }
             })
+            $('#type_of_cooperation_two_derivative_id').change(function(e) {
+                const value = $(this).val();
+
+                if(value == 3 || value == 4) {
+                    $('#is-not-mou').show();
+                } else {
+                    $('#is-not-mou').hide();
+                    $('#agencies_id').val('').trigger('change');
+                    $('#loc-search').val('');
+                    $('#address').val('');
+                    $('#addressLabel').val('');
+                    $('#latitude').val('');
+                    $('#latitudeLabel').val('');
+                    $('#longitudeLabel').val('');
+                    $('#longitude').val('');
+                    $('#name').val('');
+                    $('#department').val('');
+                    $('#no_telp').val('');
+                    $('#background').val('');
+                    $('#countries_id').val('');
+                    $('#province_id').val('');
+                    $('#regency_id').val('');
+                }
+            });
+            $('#submission_proposal_guest_id').change(function(e) {
+                const value = $(this).val();
+
+                $.ajax({
+                    url: `/ajax/show/mou/success/${value}`,
+                    method: `GET`,
+                    success: function(response) {
+                        $('#agencies_id').val(response.data.agencies_id).trigger('change');
+                        $('#countries_id').val(response.data.countries_id);
+                        $('#province_id').val(response.data.province_id).trigger('change');
+                        $('#loc-search').val(response.data.agency_name);
+                        $('#address').val(response.data.address);
+                        $('#addressLabel').val(response.data.address);
+                        $('#latitude').val(response.data.latitude);
+                        $('#latitudeLabel').val(response.data.latitude);
+                        $('#longitudeLabel').val(response.data.longitude);
+                        $('#longitude').val(response.data.longitude);
+                        $('#name').val(response.data.name);
+                        $('#department').val(response.data.department);
+                        $('#no_telp').val(response.data.no_telp);
+                        $('#background').val(response.data.background);
+                        $('#postal_code').val(response.data.postal_code);
+                        $('#email').val(response.data.email);
+                        setTimeout(function(){
+                            $('#regency_id').val(response.data.regency_id).trigger('change');
+                        }, 1000);
+                    },
+                })
+            });
             $('#countries_id').change(function(e) {
                 const value = $(this).val();
                 const text = $("#countries_id option:selected").text();
@@ -633,16 +704,6 @@
             });
             $('#province_id').change(function(e) {
                 const value = $(this).val();
-                const text = $("#province_id option:selected").text();
-                // geocoder.geocode( { 'address': text}, function(results, status) {
-                //     if (status == google.maps.GeocoderStatus.OK) {
-                //         map.setCenter(results[0].geometry.location);
-                //         if (results[0].geometry.viewport)
-                //         map.fitBounds(results[0].geometry.viewport);
-                //     } else {
-                //         alert("Geocode was not successful for the following reason: " + status);
-                //     }
-                // });
 
                 $.ajax({
                     url: `/ajax/regency/${value}`,
@@ -660,28 +721,14 @@
                     }
                 })
             });
-            $('#regency_id').change(function(){
-                const text = $("#province_id option:selected").text();
-                // geocoder.geocode( { 'address': text}, function(results, status) {
-                //     if (status == google.maps.GeocoderStatus.OK) {
-                //         map.setCenter(results[0].geometry.location);
-                //         if (results[0].geometry.viewport)
-                //         map.fitBounds(results[0].geometry.viewport);
-
-                //         map.setZoom(10);
-                //     } else {
-                //         alert("Geocode was not successful for the following reason: " + status);
-                //     }
-                // });
-            });
             $('#agencies_id').change(function() {
                 const value = $(this).val();
-
+                console.log(value);
                 $.ajax({
-                    url: `/agency/check/goverment/${value}`,
+                    url: '/agency/check/goverment/' + value,
                     method: 'GET',
                     success: function(response) {
-
+                        console.log(response.data.status);
                         if(response.data.status == 1) {
                             $('.is-ministry').hide();
                             $('#npwp').attr("class", "upload");

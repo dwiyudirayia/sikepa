@@ -286,19 +286,10 @@ class MonevController extends Controller
                 $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
                 $path = $request->file_pengajuan->storeAs($proposal->id, $fileName, 'law_draft_guest');
 
-                $checkTable = LawFileSubmissionProposalGuest::where('submission_proposal_guest_id', $proposal->id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                }
+                $proposal->draft()->create([
+                    'created_by' => auth()->user()->id,
+                    'name' => $path,
+                ]);
             }
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([
@@ -334,19 +325,10 @@ class MonevController extends Controller
                 $fileName = 'law-draft'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
                 $path = $request->file_pengajuan->storeAs($proposal->id, $fileName, 'law_draft');
 
-                $checkTable = LawFileSubmissionProposal::where('submission_proposal_id', $proposal->id)->get();
-
-                if($checkTable->count() == 0) {
-                    $proposal->law()->create([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                } else {
-                    $proposal->law()->update([
-                        'created_by' => auth()->user()->id,
-                        'draft' => $path
-                    ]);
-                }
+                $proposal->draft()->create([
+                    'created_by' => auth()->user()->id,
+                    'name' => $path,
+                ]);
             }
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([

@@ -57,7 +57,7 @@ class StoreSubmissionProposalRequest extends FormRequest
         // for instance, it might look like this in Laravel
         return SubmissionProposal::where('mailing_number', $number)->exists();
     }
-    public function store()
+    public function storeMOU()
     {
         if($this->hasFile('agency_profile')) {
             $extention = $this->agency_profile->getClientOriginalExtension();
@@ -98,4 +98,89 @@ class StoreSubmissionProposalRequest extends FormRequest
             'expired_at' => Carbon::now()->addYears($this->time_period),
         ];
     }
+    public function storeAdendum()
+    {
+        if($this->hasFile('agency_profile')) {
+            $extention = $this->agency_profile->getClientOriginalExtension();
+            $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_adendum');
+        }
+        if($this->hasFile('proposal')) {
+            $extention = $this->proposal->getClientOriginalExtension();
+            $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_adendum');
+        }
+
+        return [
+            'created_by' => auth()->user()->id,
+            'mailing_number' => $this->generateBarcodeNumber(),
+            'title_cooperation' => $this->title_cooperation,
+            'submission_proposal_id' => $this->submission_proposal_id,
+            'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id == 'null' ? null : $this->type_of_cooperation_one_derivative_id,
+            'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id == 'null' ? null : $this->type_of_cooperation_two_derivative_id,
+            'agencies_id' => $this->agencies_id,
+            'countries_id' => $this->country_id,
+            'province_id' => $this->province_id == 'null' ? null : $this->province_id,
+            'regency_id' => $this->regency_id == 'null' ? null : $this->regency_id,
+            'postal_code' => $this->postal_code,
+            'agency_name' => $this->agency_name,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            // 'nominal' => $this->nominal,
+            // 'purpose_objectives' => $this->purpose_objectives,
+            'background' => $this->background,
+            'status_proposal' => 1,
+            'status_disposition' => 3,
+            'time_period' => $this->time_period,
+            // 'time_period_of' => $this->time_period_of,
+            // 'time_period_to' => $this->time_period_to,
+            'agency_profile' => $pathAgency,
+            'proposal' => $pathProposal,
+            'expired_at' => Carbon::now()->addYears($this->time_period),
+        ];
+    }
+    public function storeExtension()
+    {
+        if($this->hasFile('agency_profile')) {
+            $extention = $this->agency_profile->getClientOriginalExtension();
+            $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_notulen');
+        }
+        if($this->hasFile('proposal')) {
+            $extention = $this->proposal->getClientOriginalExtension();
+            $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
+            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_notulen');
+        }
+
+        return [
+            'created_by' => auth()->user()->id,
+            'mailing_number' => $this->generateBarcodeNumber(),
+            'title_cooperation' => $this->title_cooperation,
+            'submission_proposal_id' => $this->submission_proposal_id,
+            'type_of_cooperation_one_derivative_id' => $this->type_of_cooperation_one_derivative_id == 'null' ? null : $this->type_of_cooperation_one_derivative_id,
+            'type_of_cooperation_two_derivative_id' => $this->type_of_cooperation_two_derivative_id == 'null' ? null : $this->type_of_cooperation_two_derivative_id,
+            'agencies_id' => $this->agencies_id,
+            'countries_id' => $this->country_id,
+            'province_id' => $this->province_id == 'null' ? null : $this->province_id,
+            'regency_id' => $this->regency_id == 'null' ? null : $this->regency_id,
+            'postal_code' => $this->postal_code,
+            'agency_name' => $this->agency_name,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            // 'nominal' => $this->nominal,
+            // 'purpose_objectives' => $this->purpose_objectives,
+            'background' => $this->background,
+            'status_proposal' => 1,
+            'status_disposition' => 3,
+            'time_period' => $this->time_period,
+            // 'time_period_of' => $this->time_period_of,
+            // 'time_period_to' => $this->time_period_to,
+            'agency_profile' => $pathAgency,
+            'proposal' => $pathProposal,
+            'expired_at' => Carbon::now()->addYears($this->time_period),
+        ];
+    }
+
 }

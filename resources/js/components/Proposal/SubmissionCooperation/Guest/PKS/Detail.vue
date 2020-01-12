@@ -40,12 +40,6 @@
                                                         <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item context-menu" v-if="status_disposition == 15">
-                                                    <a class="m-nav__link" @click="downloadFileDraftTerakhir">
-                                                        <i class="m-nav__link-icon la la-file-word-o"></i>
-                                                        <span class="m-nav__link-text">Download File Draft</span>
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -902,9 +896,6 @@ export default {
         },
         downloadSummary() {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/guest/?token=${localStorage.getItem('token')}`;
-        },
-        downloadFileDraftTerakhir() {
-            window.location.href = `/api/admin/download/file/draft/${this.$route.params.id}/guest/?token=${localStorage.getItem('token')}`;
         },
         hukum() {
             let formData = new FormData();

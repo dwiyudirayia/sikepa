@@ -40,13 +40,13 @@
                                                         <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item  context-menu">
+                                                <li class="m-nav__item  context-menu" v-if="status_disposition == 15">
                                                     <a class="m-nav__link" @click="showModalGuestFileDraft">
                                                         <i class="m-nav__link-icon la la-file-archive-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Draft</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item  context-menu">
+                                                <li class="m-nav__item  context-menu" v-if="status_disposition == 15">
                                                     <a class="m-nav__link" @click="showModalGuestFileNotulen">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Notulen</span>

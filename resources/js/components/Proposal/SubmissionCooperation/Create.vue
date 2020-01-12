@@ -68,7 +68,13 @@
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Jenis Permohonan</label>
                         <div class="m-form__control">
-                            <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" />
+                            <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" @input="onChangeIsNotMOU"/>
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group" v-if="(forms.type_of_cooperation_two_derivative_id == 3 || forms.type_of_cooperation_two_derivative_id == 4) && forms.type_of_cooperation_one_derivative_id == 2">
+                        <label for="Nama Lengkap">Judul Kerjasama Sebelumnya</label>
+                        <div class="m-form__control">
+                            <select2 :options="data_select.mouSuccess" v-model="forms.submission_proposal_id" @input="findMOUSuccess"/>
                         </div>
                     </div>
                 <!-- </div> -->
@@ -116,7 +122,7 @@
                                 :zoom="7"
                                 style="width:100%;  height: 680px;"
                             >
-                            <GmapMarker
+                            <!-- <GmapMarker
                                 v-if="this.forms.latitude"
                                 label="★"
                                 :position="{
@@ -125,21 +131,20 @@
                                 }"
                                 :draggable="true"
                                 @dragend="updateCoordinates"
-                            />
-                            <!-- <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position" :draggable="true" @dragend="updateCoordinates">
-                            </gmap-marker> -->
+                            /> -->
+                            <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position" :draggable="true" @dragend="updateCoordinates">
+                            </gmap-marker>
                             </gmap-map>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group m-form__group">
+                        <div class="form-group m-form__group" v-if="(forms.type_of_cooperation_two_derivative_id == 3 || forms.type_of_cooperation_two_derivative_id == 4) && forms.type_of_cooperation_one_derivative_id == 2">
                             <label for="Nama Lengkap">Pilih di Google Maps</label>
                             <div class="m-form__control">
                                 <GmapAutocomplete @place_changed="setPlace" class="form-control">
                                 </GmapAutocomplete>
                             </div>
-                            <span class="m-form__help">Ketik Nama Yang di Tuju. Jika Tidak Ada Maka Pilih Menggunakan Fitur Map Yang ada Di Samping</span>
                         </div>
                         <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Nama Instansi</label>
@@ -346,6 +351,7 @@ export default {
                 title_cooperation: null,
                 type_of_cooperation_one_derivative_id: null,
                 type_of_cooperation_two_derivative_id: null,
+                submission_proposal_id: null,
                 agencies_id: null,
                 country_id: null,
                 province_id: null,
@@ -363,6 +369,7 @@ export default {
                 proposal: null,
             },
             data_select: {
+                mouSuccess: [],
                 time_period: [
                     {
                         id: 1,
@@ -469,6 +476,28 @@ export default {
     //     }
     // },
     methods: {
+        findMOUSuccess() {
+            $axios.get(`/admin/submission/proposal/success/${this.forms.submission_proposal_id}`)
+            .then(response => {
+                this.forms.agencies_id = response.data.data.agencies_id;
+                this.forms.country_id = response.data.data.countries_id;
+                this.forms.province_id = response.data.data.province_id;
+                setTimeout(() => {
+                    this.forms.regency_id = response.data.data.regency_id;
+                }, 1000);
+                this.forms.postal_code = response.data.data.postal_code;
+                this.forms.agency_name = response.data.data.agency_name;
+                this.forms.address = response.data.data.address;
+                this.forms.latitude = response.data.data.latitude;
+                this.forms.longitude = response.data.data.longitude;
+                this.forms.background = response.data.data.background;
+                this.forms.time_period = response.data.data.time_period;
+                this.markers[0].position = {
+                    lat: response.data.data.latitude,
+                    lng: response.data.data.longitude,
+                }
+            })
+        },
         onChangeTypeCooperationTwoDerivative() {
             const value = this.forms.type_of_cooperation_one_derivative_id;
             if(value == 1) {
@@ -483,6 +512,19 @@ export default {
                 this.data_select.province_id = response.data.data.province;
             })
         },
+        onChangeIsNotMOU() {
+            const value = this.forms.type_of_cooperation_two_derivative_id;
+
+            if(value == 3 || value == 4) {
+                $axios.get(`/admin/submission/proposal/success`)
+                .then(response => {
+                    this.data_select.mouSuccess = response.data.data;
+                })
+            } else {
+                this.data_select.mouSuccess = [];
+                this.forms.submission_proposal_id = null;
+            }
+        },
         store() {
             let formData = new FormData();
             this.$v.forms.$touch();
@@ -493,6 +535,7 @@ export default {
                     formData.append(`deputi[${index}]`, value);
                 });
                 formData.append('title_cooperation', this.forms.title_cooperation);
+                formData.append('submission_proposal_id', this.forms.submission_proposal_id);
                 formData.append('type_of_cooperation_one_derivative_id', this.forms.type_of_cooperation_one_derivative_id);
                 formData.append('type_of_cooperation_two_derivative_id', this.forms.type_of_cooperation_two_derivative_id);
                 formData.append('agencies_id', this.forms.agencies_id);
@@ -547,8 +590,7 @@ export default {
             this.forms.latitude = place.geometry.location.lat();
             this.forms.longitude = place.geometry.location.lng();
             this.forms.address = place.formatted_address;
-
-            this.centerMaps = {
+            this.markers[0].position = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             }

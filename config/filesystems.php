@@ -189,6 +189,111 @@ return [
             'root' => storage_path('app/public/page_photo'),
             'visibility' => 'public',
         ],
+        //
+        'barcode_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'ktp_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ktp_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'npwp_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/npwp_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'siup_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/siup_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'law_draft_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        //
+        'barcode_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'ktp_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ktp_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'npwp_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/npwp_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'siup_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/siup_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        'law_draft_guest_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_guest_notulen'),
+            'visibility' => 'public',
+        ],
+        //
+        'proposal_cooperation_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_adendum'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_adendum'),
+            'visibility' => 'public',
+        ],
+        //
+        'proposal_cooperation_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_notulen'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_notulen' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_notulen'),
+            'visibility' => 'public',
+        ],
+        //
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

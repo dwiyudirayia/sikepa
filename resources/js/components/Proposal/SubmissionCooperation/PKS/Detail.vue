@@ -34,12 +34,6 @@
                                                         <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item context-menu" v-if="status_disposition == 16" @click="downloadFileDraftTerakhir">
-                                                    <a class="m-nav__link">
-                                                        <i class="m-nav__link-icon la la-file-word-o"></i>
-                                                        <span class="m-nav__link-text">Download File Draft</span>
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -754,20 +748,6 @@ export default {
                 // For Firefox it is necessary to delay revoking the ObjectURL
                 window.URL.revokeObjectURL(data)
             }, 100)
-        },
-        downloadFileDraftTerakhir() {
-            // axios.get(`/api/admin/download/file/draft/${this.$route.params.id}`, {
-            //     responseType: 'arraybuffer',
-            //     headers: {
-            //         'Authorization': localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') :'',
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then(response => {
-            //     this.downloadFileWord(response, 'File')
-            // })
-
-            window.location.href = `/api/admin/download/file/draft/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
         },
         final() {
             let formData = new FormData();
