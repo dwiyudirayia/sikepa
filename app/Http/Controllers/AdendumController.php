@@ -6,7 +6,10 @@ use App\Adendum;
 use App\AdendumGuest;
 use App\DeputiPICAdendum;
 use App\DeputiPICAdendumGuest;
+use App\FileDraftAdendum;
 use App\FileDraftAdendumGuest;
+use App\FileNotulen;
+use App\FileNotulenAdendum;
 use App\FileNotulenAdendumGuest;
 use App\Http\Resources\SubmissionProposalCollection;
 use App\Http\Resources\SubmissionProposalGuestCollection;
@@ -14,6 +17,8 @@ use App\Mail\ApproveCooperationFinal;
 use App\Mail\OfflineMeetingGuest;
 use App\Mail\RejectCooperation;
 use App\Notifications\DispositionNotification;
+use App\Notifications\SatkerSesmenFinalNotification;
+use App\Notifications\SatkerSesmenRejectNotification;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\TypeOfCooperationOneDerivative;
@@ -58,7 +63,9 @@ class AdendumController extends Controller
                 $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
-                })->where('status_disposition', 3)->where('status_proposal', 1)->orWhereIn('status_disposition', $idRoles)->get());
+                })->where('status_disposition', 3)->where('status_proposal', 1)->orWhere->orWhere(function ($query) use ($idRoles) {
+                    $query->whereIn('status_disposition', $idRoles)->where('status_proposal', 1);
+                })->get());
                 $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
@@ -80,7 +87,6 @@ class AdendumController extends Controller
     public function detail($id)
     {
         try {
-            dd($id);
             $data = Adendum::with('deputi.role', 'tracking.role', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'country', 'province', 'regency', 'draft', 'notulen')->findOrFail($id);
 
             $collectDeputi = collect($data['deputi']);
@@ -629,13 +635,17 @@ class AdendumController extends Controller
                 Adendum::where('id', $request->id)->update([
                     'status_proposal' => 0,
                 ]);
-
-                Mail::to($proposal->email)->send(new RejectCooperation);
+                $users = User::whereHas('roles', function (Builder $query) {
+                    $query->where('id', 8);
+                })->get();
+                $path = "AdendumProposalSubmissionCooperationReject";
+                Notification::send($users, new SatkerSesmenRejectNotification(auth()->user(), $path));
             }
             $data = [];
             DB::commit();
             return response()->json($this->notification->updateSuccess($data));
         } catch (\Throwable $th) {
+            dd($th);
             DB::rollback();
             return response()->json($this->notification->updateFailed($th));
         }
@@ -650,7 +660,7 @@ class AdendumController extends Controller
             if ($request->hasFile('notulen')) {
                 $extention = $request->notulen->getClientOriginalExtension();
                 $fileName = 'law-notulen' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
-                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
+                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_adendum');
 
                 $proposal->notulen()->create([
                     'created_by' => auth()->user()->id,
@@ -661,7 +671,7 @@ class AdendumController extends Controller
             if ($request->hasFile('draft')) {
                 $extention = $request->draft->getClientOriginalExtension();
                 $fileName = 'law-draft' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
-                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
+                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_adendum');
 
                 $proposal->draft()->create([
                     'created_by' => auth()->user()->id,
@@ -707,7 +717,7 @@ class AdendumController extends Controller
             if ($request->hasFile('notulen')) {
                 $extention = $request->notulen->getClientOriginalExtension();
                 $fileName = 'law-notulen' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
-                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest');
+                $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_guest_adendum');
 
                 $proposal->notulen()->create([
                     'created_by' => auth()->user()->id,
@@ -718,7 +728,7 @@ class AdendumController extends Controller
             if ($request->hasFile('draft')) {
                 $extention = $request->draft->getClientOriginalExtension();
                 $fileName = 'law-draft' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
-                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest');
+                $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_guest_adendum');
 
                 $proposal->draft()->create([
                     'created_by' => auth()->user()->id,
@@ -796,6 +806,46 @@ class AdendumController extends Controller
             return response()->json($this->notification->updateFailed($th));
         }
     }
+    public function final(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $user = auth()->user();
+
+            $proposal = Adendum::findOrFail($id);
+            $proposal->title_cooperation = $request->title_cooperation_final;
+            $proposal->time_period = $request->time_period_final;
+            $proposal->save();
+
+            foreach ($request->nomor as $key => $value) {
+                $proposal->nomor()->updateOrCreate([
+                    'created_by' => auth()->user()->id,
+                    'nomor' => $value,
+                ]);
+            }
+            $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
+                'status' => 1,
+                'approval' => 2,
+            ]);
+
+            $track = Adendum::where('id', $proposal->id)->increment('status_disposition', 1);
+
+
+            DB::commit();
+            $user = User::findOrFail($proposal->created_by);
+
+            Notification::send($user, new SatkerSesmenFinalNotification);
+
+            return response()->json([
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
     public function fileNotulenMOUGuest($id)
     {
         try {
@@ -817,6 +867,34 @@ class AdendumController extends Controller
 
             $draft = $proposal->name;
             return response()->download(storage_path("/app/public/law_draft_guest_adendum/" . $draft));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function fileNotulenMOU($id)
+    {
+        try {
+            $proposal = FileNotulenAdendum::findOrFail($id);
+
+            $draft = $proposal->name;
+            return response()->download(storage_path("/app/public/law_notulen_adendum/" . $draft));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function fileDraftMOU($id)
+    {
+        try {
+            $proposal = FileDraftAdendum::findOrFail($id);
+
+            $draft = $proposal->name;
+            return response()->download(storage_path("/app/public/law_draft_adendum/" . $draft));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => 'Download Gagal',
@@ -879,6 +957,144 @@ class AdendumController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeDraft(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $proposal = Adendum::findOrFail($request->id);
+
+            $extention = $request->draft->getClientOriginalExtension();
+            $fileName = 'law-draft' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
+            $path = $request->draft->storeAs($proposal->id, $fileName, 'law_draft_adendum');
+
+            $proposal->draft()->create([
+                'created_by' => auth()->user()->id,
+                'name' => $path,
+            ]);
+
+            DB::commit();
+
+            $data = FileDraftAdendum::where('adendum_id', $request->id)->get();
+
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeNotulen(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $proposal = Adendum::findOrFail($request->id);
+
+            $extention = $request->notulen->getClientOriginalExtension();
+            $fileName = 'law-notulen' . '-' . date('Y-m-d') . '-' . time() . '.' . $extention;
+            $path = $request->notulen->storeAs($proposal->id, $fileName, 'law_notulen_adendum');
+
+            $proposal->notulen()->create([
+                'created_by' => auth()->user()->id,
+                'name' => $path,
+            ]);
+
+            DB::commit();
+
+            $data = FileNotulenAdendum::where('adendum_id', $request->id)->get();
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Berhasil',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function downloadAgencyProfile($id)
+    {
+        try {
+            $proposal = Adendum::findOrFail($id);
+
+            $file = $proposal->agency_profile;
+            return response()->download(storage_path("/app/public/agency_profile_cooperation_adendum/" . $file));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadProposal($id)
+    {
+        try {
+            $proposal = Adendum::findOrFail($id);
+
+            $file = $proposal->proposal;
+            return response()->download(storage_path("/app/public/proposal_cooperation_adendum/" . $file));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Download Gagal',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function proposalApproveMOU()
+    {
+        try {
+            $data['you'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            $data['guest'] = AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOU()
+    {
+        try {
+            $data['you'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+            $data['guest'] = AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function downloadDraftMOUSuccess($id)
+    {
+        try {
+            $data = FileDraftAdendum::where('adendum_id', $id)->get();
+
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_adendum/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadDraftMOUSuccessGuest($id)
+    {
+        try {
+            $data = FileDraftAdendum::where('adendum_guest_id', $id)->get();
+
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_guest_adendum/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
         }
     }
 }

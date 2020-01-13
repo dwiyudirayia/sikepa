@@ -40,13 +40,13 @@
                                                         <span class="m-nav__link-text">Daftar File</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item  context-menu">
+                                                <li class="m-nav__item  context-menu" v-if="status_disposition == 15">
                                                     <a class="m-nav__link" @click="showModalGuestFileDraft">
                                                         <i class="m-nav__link-icon la la-file-archive-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Draft</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-nav__item  context-menu">
+                                                <li class="m-nav__item  context-menu" v-if="status_disposition == 15">
                                                     <a class="m-nav__link" @click="showModalGuestFileNotulen">
                                                         <i class="m-nav__link-icon la la-file-pdf-o"></i>
                                                         <span class="m-nav__link-text">Daftar File Notulen</span>
@@ -335,7 +335,7 @@
                             <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
                         </div>
                         <div class="form-group m-form__group">
-                            <label>Draft Final MOU</label>
+                            <label>Draft Final Adendum</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Pilih File" :value="draftLabel">
                                 <div class="input-group-append">
@@ -359,7 +359,7 @@
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomor MOU</h3>
+                                    <h3 class="m-form__heading-title">Nomor Adendum</h3>
                                 </div>
                                 <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
                                     <div class="text-right">
@@ -633,7 +633,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleDraft">
-                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">Choose file</label>
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ draftLabel }}</label>
                             </div>
                         </div>
                     </div>
@@ -684,7 +684,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleNotulen">
-                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">Choose file</label>
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ notulenLabel }}</label>
                             </div>
                         </div>
                     </div>
@@ -705,7 +705,7 @@ import {gmapApi} from 'vue2-google-maps';
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
-    name: 'MOUProposalSubmissionCooperationDetail',
+    name: 'AdendumProposalSubmissionCooperationDetail',
     components: {
         Editor
     },
@@ -755,12 +755,12 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/mou/submission/cooperation'
+                    path: '/adendum/submission/cooperation'
                 },
                 {
                     id: 2,
                     label: 'Detail Pengajuan Kerjasama',
-                    path: `/mou/submission/cooperation/${this.$route.params.id}/detail`
+                    path: `/adendum/submission/cooperation/${this.$route.params.id}/detail`
                 },
             ],
             deputi: [],
@@ -948,7 +948,7 @@ export default {
             formData.append('id', this.$route.params.id);
             formData.append('draft', this.draftFile);
 
-            $axiosFormData.post('/admin/store/file/draft', formData)
+            $axiosFormData.post('/admin/store/file/draft/adendum', formData)
             .then(response => {
                 this.modalDraftFile = response.data.data;
 
@@ -983,7 +983,7 @@ export default {
             formData.append('id', this.$route.params.id);
             formData.append('notulen', this.notulenFile);
 
-            $axiosFormData.post('/admin/store/file/notulen', formData)
+            $axiosFormData.post('/admin/store/file/notulen/adendum', formData)
             .then(response => {
                 this.modalNotulenFile = response.data.data;
 
@@ -1013,10 +1013,10 @@ export default {
             })
         },
         downloadDraftFile(id) {
-            window.location.href = `/api/admin/download/file/draft/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/draft/${id}/adendum?token=${localStorage.getItem('token')}`;
         },
         downloadNotulenFile(id) {
-            window.location.href = `/api/admin/download/file/notulen/${id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/notulen/${id}/adendum?token=${localStorage.getItem('token')}`;
         },
         showModalGuestFileDraft() {
             $('#modal-file-draft').modal('show');
@@ -1025,7 +1025,7 @@ export default {
             $('#modal-file-notulen').modal('show')
         },
         extContinue() {
-            $axios.post(`/admin/submission/reason/continue`, this.forms)
+            $axios.post(`/admin/submission/reason/continue/adendum`, this.forms)
             .then(response => {
                 this.disabled = true;
                 this.text_button = 'Loading ...';
@@ -1053,7 +1053,7 @@ export default {
                 toastr.success(`Pengajuan Berhasil diteruskan`);
 
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -1082,10 +1082,10 @@ export default {
             this.disabled = false;
         },
         downloadProposal() {
-            window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/proposal/${this.$route.params.id}/adendum?token=${localStorage.getItem('token')}`;
         },
         downloadAgencyProfile() {
-            window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/agency/profile/${this.$route.params.id}/adendum?token=${localStorage.getItem('token')}`;
         },
         showModalFile() {
             $('#file').modal('show');
@@ -1100,7 +1100,7 @@ export default {
             }
         },
         downloadSummary() {
-            window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/adendum?token=${localStorage.getItem('token')}`;
         },
         hukum() {
             let formData = new FormData();
@@ -1108,7 +1108,7 @@ export default {
             formData.append('draft', this.draftFile);
             formData.append('notulen', this.notulenFile);
 
-            $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}`, formData)
+            $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}/adendum`, formData)
             .then(response => {
                 toastr.options = {
                     "closeButton": false,
@@ -1131,7 +1131,7 @@ export default {
 
                 toastr.success(`Data Berhasil di Perbaharui`);
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -1156,12 +1156,12 @@ export default {
 
                 toastr.error(`Data Gagal di Perbaharui`);
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
         },
         downloadFormatWord() {
-            axios.get(`/api/admin/download/format/word/${this.$route.params.id}`, {
+            axios.get(`/api/admin/download/format/word/${this.$route.params.id}/adendum`, {
                 responseType: 'arraybuffer',
                 headers: {
                     'Authorization': localStorage.getItem('token') != 'null' ? 'Bearer ' + localStorage.getItem('token') :'',
@@ -1204,7 +1204,7 @@ export default {
             formData.append('title_cooperation_final', this.title_cooperation_final);
             formData.append('time_period_final', this.time_period_final);
 
-            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}`, formData)
+            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}/adendum`, formData)
             .then(response => {
 
                 toastr.options = {
@@ -1228,7 +1228,7 @@ export default {
 
                 toastr.success(`Data Berhasil di Perbaharui`);
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -1266,13 +1266,13 @@ export default {
             let files = e.target.files || e.dataTransfer.files;
             this.notulenFile = files[0];
 
-            this.notulenLabel = this.$refs.notulenFinal.value;
+            this.notulenLabel = files[0].name;
         },
         handleDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
             this.draftFile = files[0];
 
-            this.draftLabel = this.$refs.draftFinal.value;
+            this.draftLabel = files[0].name;
         },
         addExtraNomor() {
             this.nomor.push('');
@@ -1303,7 +1303,7 @@ export default {
             this.draftLabel = files[0].name;
         },
         getData() {
-            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
+            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/adendum`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
                 this.title_cooperation_final = response.data.data.title_cooperation;
@@ -1354,7 +1354,7 @@ export default {
             }
         },
         approve() {
-            $axios.post(`/admin/submission/reason/approve`, this.forms)
+            $axios.post(`/admin/submission/reason/approve/adendum`, this.forms)
             .then(response => {
                 this.disabled = true;
                 this.text_button = 'Loading ...';
@@ -1382,7 +1382,7 @@ export default {
                 toastr.success(`Pengajuan Berhasil diterima`);
 
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -1412,7 +1412,7 @@ export default {
             this.disabled = false;
         },
         reject() {
-            $axios.post(`/admin/submission/reason/reject`, this.forms)
+            $axios.post(`/admin/submission/reason/reject/adendum`, this.forms)
             .then(response => {
                 this.disabled = true;
                 this.text_button = 'Loading ...';
@@ -1439,7 +1439,7 @@ export default {
 
                 toastr.success(`Pengajuan Berhasil ditolak`);
                 this.$router.push({
-                    name: 'MOUProposalSubmissionCooperationIndex'
+                    name: 'AdendumProposalSubmissionCooperationIndex'
                 });
             })
             .catch(error => {
@@ -1469,7 +1469,7 @@ export default {
             this.disabled = false;
         },
         generateBarcode(id) {
-            $axios.get(`/admin/generate/barcode/${this.$route.params.id}`)
+            $axios.get(`/admin/generate/barcode/${this.$route.params.id}/adendum`)
             .then(response => {
                 this.getData();
                 toastr.options = {

@@ -242,7 +242,7 @@ export default {
     },
     methods: {
         getData() {
-            $axios.get(`/admin/mou/submission/cooperation/approve`)
+            $axios.get(`/admin/mou/submission/cooperation/approve/adendum`)
             .then(response => {
                 this.youSubmission = response.data.data.you;
                 this.approvalSubmission = response.data.data.satker;
@@ -252,10 +252,10 @@ export default {
             })
         },
         downloadFileDraft(id) {
-            window.location.href = `/api/admin/download/cooperation/success/draft/${id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/cooperation/success/draft/${id}/adendum?token=${localStorage.getItem('token')}`;
         },
         downloadFileDraftGuest(id) {
-            window.location.href = `/api/admin/download/cooperation/success/guest/draft/${id}?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/cooperation/success/guest/draft/${id}/adendum?token=${localStorage.getItem('token')}`;
         }
     }
 }

@@ -179,10 +179,13 @@ class SubmissionProposalController extends Controller
             DB::beginTransaction();
             if($request->type_of_cooperation_two_derivative_id == 3) {
                 $proposal = Extension::create($request->storeExtension());
+                $path = 'ExtensionProposalSubmissionCooperationIndex';
             } elseif ($request->type_of_cooperation_two_derivative_id == 4) {
                 $proposal = Adendum::create($request->storeAdendum());
+                $path = 'AdendumProposalSubmissionCooperationIndex';
             } else {
                 $proposal = SubmissionProposal::create($request->storeMOU());
+                $path = 'MOUProposalSubmissionCooperationIndex';
             }
 
             foreach ($request->deputi as $key => $value) {
@@ -204,8 +207,6 @@ class SubmissionProposalController extends Controller
             $users = User::whereHas('roles', function (Builder $query) use ($deputi) {
                 $query->whereIn('id', $deputi);
             })->get();
-
-            $path = 'MOUProposalSubmissionCooperationIndex';
 
             Notification::send($users, new SatkerSesmenNotification(auth()->user(), $path));
             return response()->json([
@@ -578,7 +579,7 @@ class SubmissionProposalController extends Controller
             ]);
         }
     }
-    function final (Request $request, $id) {
+    function final(Request $request, $id) {
         // dd($request->all());
         try {
             DB::beginTransaction();
@@ -603,7 +604,9 @@ class SubmissionProposalController extends Controller
 
             $track = SubmissionProposal::where('id', $proposal->id)->increment('status_disposition', 1);
 
-            Notification::send($proposal->created_by, new SatkerSesmenFinalNotification);
+            $user = User::findOrFail($proposal->created_by);
+
+            Notification::send($user, new SatkerSesmenFinalNotification);
 
             $data = [];
 

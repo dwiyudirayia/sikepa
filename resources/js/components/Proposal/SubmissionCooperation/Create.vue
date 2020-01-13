@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group m-form__group" v-if="(forms.type_of_cooperation_two_derivative_id == 3 || forms.type_of_cooperation_two_derivative_id == 4) && forms.type_of_cooperation_one_derivative_id == 2">
+                        <div class="form-group m-form__group">
                             <label for="Nama Lengkap">Pilih di Google Maps</label>
                             <div class="m-form__control">
                                 <GmapAutocomplete @place_changed="setPlace" class="form-control">
@@ -491,7 +491,6 @@ export default {
                 this.forms.latitude = response.data.data.latitude;
                 this.forms.longitude = response.data.data.longitude;
                 this.forms.background = response.data.data.background;
-                this.forms.time_period = response.data.data.time_period;
                 this.markers[0].position = {
                     lat: response.data.data.latitude,
                     lng: response.data.data.longitude,

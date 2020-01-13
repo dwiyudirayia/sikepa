@@ -1180,6 +1180,14 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
+                {
+                    path: '/adendum/submission/cooperation/:id/detail',
+                    name: 'AdendumProposalSubmissionCooperationDetail',
+                    component: AdendumProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
                 // {
                 //     path: '/pks/submission/cooperation/:id/detail/guest',
                 //     name: 'PKSProposalSubmissionCooperationDetailGuest',

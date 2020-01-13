@@ -226,7 +226,7 @@ export default {
         },
     },
     created() {
-        $axios.get(`/admin/mou/submission/cooperation/reject`)
+        $axios.get(`/admin/mou/submission/cooperation/reject/adendum`)
         .then(response => {
             this.youSubmission = response.data.data.satker;
             this.guestSubmission = response.data.data.guest;

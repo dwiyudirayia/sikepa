@@ -62,8 +62,8 @@ class BarcodeController extends Controller
 
             $mailingNumber = $data->mailing_number;
             $result = QrCode::format('png')->size(200)->errorCorrection('H')->generate($mailingNumber);
-            $outputFile = "/adendum/$data->id/barcode-$mailingNumber.png";
-            Storage::disk('barcode')->put("$outputFile", $result);
+            $outputFile = "/$data->id/barcode-$mailingNumber.png";
+            Storage::disk('barcode_adendum')->put("$outputFile", $result);
             return response()->json([
                 'data' => $data,
                 'messages' => 'Barcode Berhasil di Generate'
@@ -83,8 +83,8 @@ class BarcodeController extends Controller
 
             $mailingNumber = $data->mailing_number;
             $result = QrCode::format('png')->size(200)->errorCorrection('H')->generate($mailingNumber);
-            $outputFile = "/guest/adendum/$data->id/barcode-$mailingNumber.png";
-            Storage::disk('barcode_guest')->put("$outputFile", $result);
+            $outputFile = "/$data->id/barcode-$mailingNumber.png";
+            Storage::disk('barcode_guest_adendum')->put("$outputFile", $result);
             return response()->json([
                 'data' => $data,
                 'messages' => 'Barcode Berhasil di Generate'

@@ -986,7 +986,7 @@ export default {
             })
         },
         downloadDraftFile(id) {
-            window.location.href = `/api/admin/download/file/guest/draft/${this.$route.params.id}/adendum?token=${localStorage.getItem('token')}`;
+            window.location.href = `/api/admin/download/file/guest/draft/${id}/adendum?token=${localStorage.getItem('token')}`;
         },
         downloadNotulenFile(id) {
             window.location.href = `/api/admin/download/file/guest/notulen/${id}/adendum?token=${localStorage.getItem('token')}`;
@@ -1336,13 +1336,13 @@ export default {
             let files = e.target.files || e.dataTransfer.files;
             this.notulenFile = files[0];
 
-            this.notulenLabel = this.$refs.notulenFinal.value;
+            this.notulenLabel = files[0].name;
         },
         handleDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
             this.draftFile = files[0];
 
-            this.draftLabel = this.$refs.draftFinal.value;
+            this.draftLabel = files[0].name;
         },
         addExtraNomor() {
             this.nomor.push('');

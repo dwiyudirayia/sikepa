@@ -282,7 +282,16 @@ return [
             'root' => storage_path('app/public/agency_profile_cooperation_adendum'),
             'visibility' => 'public',
         ],
-        //
+        'law_notulen_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_adendum'),
+            'visibility' => 'public',
+        ],
+        'law_draft_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_adendum'),
+            'visibility' => 'public',
+        ],
         'proposal_cooperation_notulen' => [
             'driver' => 'local',
             'root' => storage_path('app/public/proposal_cooperation_notulen'),
@@ -291,6 +300,11 @@ return [
         'agency_profile_cooperation_notulen' => [
             'driver' => 'local',
             'root' => storage_path('app/public/agency_profile_cooperation_notulen'),
+            'visibility' => 'public',
+        ],
+        'barcode_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_adendum'),
             'visibility' => 'public',
         ],
         //

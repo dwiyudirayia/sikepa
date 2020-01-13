@@ -110,6 +110,8 @@ Route::middleware('jwt')->group(function () {
         Route::post('submission/cooperation/final/{id}/guest/adendum', 'AdendumController@finalGuest');
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
+        Route::get('mou/submission/cooperation/approve/adendum', 'AdendumController@proposalApproveMOU');
+        Route::get('mou/submission/cooperation/reject/adendum', 'AdendumController@proposalRejectMOU');
         // Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
         // Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
@@ -132,14 +134,14 @@ Route::middleware('jwt')->group(function () {
         Route::post('store/file/notulen', 'SubmissionProposalController@storeNotulen');
 
         //
-        Route::get('download/file/guest/draft/{id}/adendum', 'AdendumController@fileDraftMOU');
-        Route::get('download/file/guest/notulen/{id}/adendum', 'AdendumController@fileNotulenMOU');
+        Route::get('download/file/guest/draft/{id}/adendum', 'AdendumController@fileDraftMOUGuest');
+        Route::get('download/file/guest/notulen/{id}/adendum', 'AdendumController@fileNotulenMOUGuest');
 
         Route::get('download/file/draft/{id}/adendum', 'AdendumController@fileDraftMOU');
         Route::get('download/file/notulen/{id}/adendum', 'AdendumController@fileNotulenMOU');
 
-        Route::post('store/file/guest/draft/adendum', 'AdendumController@storeDraft');
-        Route::post('store/file/guest/notulen/adendum', 'AdendumController@storeNotulen');
+        Route::post('store/file/guest/draft/adendum', 'AdendumController@storeDraftGuest');
+        Route::post('store/file/guest/notulen/adendum', 'AdendumController@storeNotulenGuest');
 
         Route::post('store/file/draft/adendum', 'AdendumController@storeDraft');
         Route::post('store/file/notulen/adendum', 'AdendumController@storeNotulen');
@@ -147,6 +149,8 @@ Route::middleware('jwt')->group(function () {
 
         Route::get('download/cooperation/success/guest/draft/{id}', 'SubmissionProposalGuestController@downloadDraftMOUSuccess');
         Route::get('download/cooperation/success/draft/{id}', 'SubmissionProposalController@downloadDraftMOUSuccess');
+        Route::get('download/cooperation/success/guest/draft/{id}/adendum', 'AdendumController@downloadDraftMOUSuccessGuest');
+        Route::get('download/cooperation/success/draft/{id}/adendum', 'AdendumController@downloadDraftMOUSuccess');
 
         // Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
         // Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
@@ -164,6 +168,8 @@ Route::middleware('jwt')->group(function () {
 
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
         Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgencyProfile');
+        Route::get('download/file/proposal/{id}/adendum', 'SubmissionProposalController@downloadProposal');
+        Route::get('download/file/agency/profile/{id}/adendum', 'SubmissionProposalController@downloadAgencyProfile');
 
         Route::get('download/file/proposal/{id}/guest', 'SubmissionProposalGuestController@downloadProposalCooperationGuest');
         Route::get('download/file/agency/profile/{id}/guest', 'SubmissionProposalGuestController@downloadAgencyProfileCooperationGuest');

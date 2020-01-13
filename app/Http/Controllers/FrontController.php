@@ -232,10 +232,13 @@ class FrontController extends Controller
         DB::beginTransaction();
         if($request->type_of_cooperation_two_derivative_id == 2) {
             $proposal = SubmissionProposalGuest::create($request->storeMOU());
+            $path = 'MOUProposalSubmissionCooperationIndex';
         } elseif ($request->type_of_cooperation_two_derivative_id == 3) {
-            $proposal = ExtensionGuest::create($request->storeNotulen());
+            $proposal = ExtensionGuest::create($request->storeExtension());
+            $path = 'ExtensionProposalSubmissionCooperationIndex';
         } else {
             $proposal = AdendumGuest::create($request->storeAdendum());
+            $path = 'AdendumProposalSubmissionCooperationIndex';
         }
 
         foreach ($request->deputi as $key => $value) {
@@ -263,8 +266,6 @@ class FrontController extends Controller
         $users = User::whereHas('roles', function (Builder $query) use ($deputi) {
             $query->whereIn('id', [2, 9]);
         })->get();
-
-        $path = 'MOUProposalSubmissionCooperationIndex';
 
         Notification::send($users, new DeputiNotificationGuest($path));
         Mail::to($request->email)->send(new NomorResi($proposal));

@@ -633,7 +633,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleDraft">
-                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">Choose file</label>
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ draftLabel }}</label>
                             </div>
                         </div>
                     </div>
@@ -684,7 +684,7 @@
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleNotulen">
-                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">Choose file</label>
+                                <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ notulenLabel }}</label>
                             </div>
                         </div>
                     </div>
@@ -1266,13 +1266,13 @@ export default {
             let files = e.target.files || e.dataTransfer.files;
             this.notulenFile = files[0];
 
-            this.notulenLabel = this.$refs.notulenFinal.value;
+            this.notulenLabel = files[0].name;
         },
         handleDraft(e) {
             let files = e.target.files || e.dataTransfer.files;
             this.draftFile = files[0];
 
-            this.draftLabel = this.$refs.draftFinal.value;
+            this.draftLabel = files[0].name;
         },
         addExtraNomor() {
             this.nomor.push('');

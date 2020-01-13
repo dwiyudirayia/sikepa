@@ -50,6 +50,6 @@ class Adendum extends Model
         return $this->hasMany(FileNotulenAdendum::class);
     }
     public function nomor() {
-        return $this->hasMany(NomorApprovalSubmissionCooperation::class);
+        return $this->hasMany(NomorAdendum::class);
     }
 }
