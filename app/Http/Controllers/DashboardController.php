@@ -52,11 +52,28 @@ class DashboardController extends Controller
             //Instansi MOU
             $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
             $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            //Instansi Adendum
+            $merge['data_deputi_agencies_guest_adendum'] = AdendumGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_adendum'] = Adendum::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            //Instansi Perpanjangan
+            $merge['data_deputi_agencies_guest_extension'] = ExtensionGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_extension'] = Extension::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
             $mergeAgenciesMOU = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
+
+            $mergeAgenciesAdendum = collect(array_merge($merge['data_deputi_agencies_guest_adendum']->toArray(), $merge['data_deputi_agencies_adendum']->toArray()));
+
+            $mergeAgenciesExtension = collect(array_merge($merge['data_deputi_agencies_guest_extension']->toArray(), $merge['data_deputi_agencies_extension']->toArray()));
+
             $groupedDataAgenciesMOU = $mergeAgenciesMOU->groupBy('agencies_id');
+            $groupedDataAgenciesAdendum = $mergeAgenciesAdendum->groupBy('agencies_id');
+            $groupedDataAgenciesExtension = $mergeAgenciesExtension->groupBy('agencies_id');
             $groupedYearAgenciesMOU = $mergeAgenciesMOU->groupBy('year');
+
             $data['agencies_mou'] = array_values($groupedDataAgenciesMOU->toArray());
+            $data['agencies_adendum'] = array_values($groupedDataAgenciesAdendum->toArray());
+            $data['agencies_extension'] = array_values($groupedDataAgenciesExtension->toArray());
+
             $data['agencies_year_mou'] = array_values($groupedYearAgenciesMOU->toArray());
 
             // Kesetaraan Gender
@@ -167,6 +184,18 @@ class DashboardController extends Controller
             $merge['data_submission_cooperation_mou'] = SubmissionProposal::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 16)->where('status_proposal', 1)->get();
 
             $data['submission_cooperation_mou'] = array_merge($merge['data_submission_cooperation_guest_mou']->toArray(), $merge['data_submission_cooperation_mou']->toArray());
+
+            $merge['data_submission_cooperation_guest_adendum'] = AdendumGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 16)->where('status_proposal', 1)->get();
+
+            $merge['data_submission_cooperation_adendum'] = Adendum::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 16)->where('status_proposal', 1)->get();
+
+            $data['submission_cooperation_adendum'] = array_merge($merge['data_submission_cooperation_guest_adendum']->toArray(), $merge['data_submission_cooperation_adendum']->toArray());
+
+            $merge['data_submission_cooperation_guest_extension'] = ExtensionGuest::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 16)->where('status_proposal', 1)->get();
+
+            $merge['data_submission_cooperation_extension'] = Extension::groupBy('year')->select(DB::raw('count(*) as data, year(created_at) year'))->where('status_disposition', 16)->where('status_proposal', 1)->get();
+
+            $data['submission_cooperation_extension'] = array_merge($merge['data_submission_cooperation_guest_extension']->toArray(), $merge['data_submission_cooperation_extension']->toArray());
 
             //Widget
             // $data['pks_approve'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
@@ -811,10 +840,25 @@ class DashboardController extends Controller
             $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
             $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
-            $mergeAgencies = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
-            $groupedAgencies = $mergeAgencies->where('year', $year)->groupBy('agencies_id');
+            $merge['data_deputi_agencies_guest_adendum'] = AdendumGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_adendum'] = Adendum::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
-            $result = array_values($groupedAgencies->toArray());
+            $merge['data_deputi_agencies_guest_extension'] = ExtensionGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_extension'] = Extension::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+
+            $mergeAgenciesMOU = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
+
+            $mergeAgenciesAdendum = collect(array_merge($merge['data_deputi_agencies_guest_adendum']->toArray(), $merge['data_deputi_agencies_adendum']->toArray()));
+
+            $mergeAgenciesExtension = collect(array_merge($merge['data_deputi_agencies_guest_extension']->toArray(), $merge['data_deputi_agencies_extension']->toArray()));
+
+            $groupedAgenciesMOU = $mergeAgenciesMOU->where('year', $year)->groupBy('agencies_id');
+            $groupedAgenciesAdendum = $mergeAgenciesAdendum->where('year', $year)->groupBy('agencies_id');
+            $groupedAgenciesExtension = $mergeAgenciesExtension->where('year', $year)->groupBy('agencies_id');
+
+            $result['mou'] = array_values($groupedAgenciesMOU->toArray());
+            $result['adendum'] = array_values($groupedAgenciesAdendum->toArray());
+            $result['extension'] = array_values($groupedAgenciesExtension->toArray());
             return response()->json($this->notification->generalSuccess($result));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -822,14 +866,28 @@ class DashboardController extends Controller
     }
     public function resetAgenciesMOU() {
         try {
-            //Instansi PKS
+            //Instansi MOU
             $merge['data_deputi_agencies_guest_mou'] = SubmissionProposalGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
             $merge['data_deputi_agencies_mou'] = SubmissionProposal::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
-            $mergeAgencies = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
-            $groupedAgencies = $mergeAgencies->groupBy('agencies_id');
+            $merge['data_deputi_agencies_guest_adendum'] = AdendumGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_adendum'] = Adendum::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
 
-            $result = array_values($groupedAgencies->toArray());
+            $merge['data_deputi_agencies_guest_extension'] = ExtensionGuest::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+            $merge['data_deputi_agencies_extension'] = Extension::with('agencies')->select(DB::raw('*,year(created_at) year'))->get();
+
+            $mergeAgenciesMOU = collect(array_merge($merge['data_deputi_agencies_guest_mou']->toArray(), $merge['data_deputi_agencies_mou']->toArray()));
+            $mergeAgenciesAdendum = collect(array_merge($merge['data_deputi_agencies_guest_adendum']->toArray(), $merge['data_deputi_agencies_adendum']->toArray()));
+            $mergeAgenciesExtension = collect(array_merge($merge['data_deputi_agencies_guest_extension']->toArray(), $merge['data_deputi_agencies_extension']->toArray()));
+            
+            $groupedAgenciesMOU = $mergeAgenciesMOU->groupBy('agencies_id');
+            $groupedAgenciesAdendum = $mergeAgenciesAdendum->groupBy('agencies_id');
+            $groupedAgenciesExtension = $mergeAgenciesExtension->groupBy('agencies_id');
+
+            $result['mou'] = array_values($groupedAgenciesMOU->toArray());
+            $result['adendum'] = array_values($groupedAgenciesAdendum->toArray());
+            $result['extension'] = array_values($groupedAgenciesExtension->toArray());
+
             return response()->json($this->notification->generalSuccess($result));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
