@@ -24,8 +24,4 @@ class MonitoringActivity extends Model
     {
         return $this->hasMany(MonitoringActivityDocumentation::class);
     }
-    public function result()
-    {
-        return $this->belongsTo(MonitoringActivityResult::class);
-    }
 }

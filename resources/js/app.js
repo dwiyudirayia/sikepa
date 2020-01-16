@@ -12,7 +12,6 @@ import vSelect from 'vue-select';
 import Permissions from './mixins/permission';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import '@/filters';
-import moment from 'moment';
 
 //Partial Layout Admin
 import NotificationValidation from './components/partialsAdmin/NotificationValidation';
@@ -45,7 +44,7 @@ Vue.use(VTooltip);
 Vue.mixin(Permissions)
 
 VTooltip.options.defaultClass = 'tooltip';
-
+Vue.config.devtools = true;
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyB0CuuQ5YQNoIc91Ser9cbum8gYy0oOf4w',

@@ -44,12 +44,15 @@ class Extension extends Model
         return $this->hasMany(FileNotulenExtension::class);
     }
     public function nomor() {
-        return $this->hasMany(NomorApprovalSubmissionCooperation::class);
+        return $this->hasMany(NomorExtension::class);
     }
     public function deputi() {
         return $this->hasMany(DeputiPICExtension::class);
     }
     public function monevActivity() {
         return $this->hasMany(MonitoringActivityExtension::class);
+    }
+    public function report() {
+        return $this->hasOne(ReportExtension::class);
     }
 }

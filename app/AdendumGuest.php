@@ -46,4 +46,7 @@ class AdendumGuest extends Model
     public function monevActivity() {
         return $this->hasMany(MonitoringActivityAdendumGuest::class);
     }
+    public function report() {
+        return $this->hasOne(ReportAdendumGuest::class);
+    }
 }

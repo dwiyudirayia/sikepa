@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Adendum;
+use App\AdendumGuest;
+use App\Extension;
+use App\ExtensionGuest;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SatisfactionSurvey;
 use App\SubmissionProposalGuest;
@@ -168,26 +172,41 @@ class DashboardController extends Controller
             // $data['pks_approve'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
             // $data['pks_approve_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
 
+
+
             $data['mou_approve'] = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
             $data['mou_approve_guest'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
+            $data['mou_reject'] = SubmissionProposal::where('status_proposal', 0)->get()->count();
+            $data['mou_reject_guest'] = SubmissionProposalGuest::where('status_proposal', 0)->get()->count();
+            $data['mou_process'] = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['mou_process_guest'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['mou_total'] = SubmissionProposal::get()->count();
+            $data['mou_total_guest'] = SubmissionProposalGuest::get()->count();
+
+            $data['adendum_approve'] = Adendum::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
+            $data['adendum_approve_guest'] = AdendumGuest::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
+            $data['adendum_reject'] = Adendum::where('status_proposal', 0)->get()->count();
+            $data['adendum_reject_guest'] = AdendumGuest::where('status_proposal', 0)->get()->count();
+            $data['adendum_process'] = Adendum::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['adendum_process_guest'] = AdendumGuest::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['adendum_total'] = Adendum::get()->count();
+            $data['adendum_total_guest'] = AdendumGuest::get()->count();
+
+            $data['extension_approve'] = Extension::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
+            $data['extension_approve_guest'] = ExtensionGuest::where('status_proposal', 1)->where('status_disposition', 16)->get()->count();
+            $data['extension_reject'] = Extension::where('status_proposal', 0)->get()->count();
+            $data['extension_reject_guest'] = ExtensionGuest::where('status_proposal', 0)->get()->count();
+            $data['extension_process'] = Extension::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['extension_process_guest'] = ExtensionGuest::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
+            $data['extension_total'] = Extension::get()->count();
+            $data['extension_total_guest'] = ExtensionGuest::get()->count();
 
             // $data['pks_reject'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 0)->get()->count();
             // $data['pks_reject_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 0)->get()->count();
-
-            $data['mou_reject'] = SubmissionProposal::where('status_proposal', 0)->get()->count();
-            $data['mou_reject_guest'] = SubmissionProposalGuest::where('status_proposal', 0)->get()->count();
-
             // $data['pks_process'] = SubmissionProposal::where('type_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
             // $data['pks_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
-
-            $data['mou_process'] = SubmissionProposal::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
-            $data['mou_process_guest'] = SubmissionProposalGuest::where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
-
             // $data['pks_total'] = SubmissionProposal::where('type_id', 1)->get()->count();
             // $data['pks_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->get()->count();
-
-            $data['mou_total'] = SubmissionProposal::get()->count();
-            $data['mou_total_guest'] = SubmissionProposalGuest::get()->count();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

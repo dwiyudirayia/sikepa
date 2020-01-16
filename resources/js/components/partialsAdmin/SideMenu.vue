@@ -99,6 +99,22 @@
                         </ul>
                     </div>
                 </li>
+                <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/extension')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-text"></i><span class="m-menu__link-text">Perpanjangan</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
+                        <ul class="m-menu__subnav">
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/extension/submission/cooperation/approve" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Terima</span></router-link>
+                            </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/extension/submission/cooperation/reject" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tolak</span></router-link>
+                            </li>
+                            <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/extension/submission/cooperation" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Proses</span></router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/adendum')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
                     <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-o"></i><span class="m-menu__link-text">Adendum</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
@@ -168,12 +184,36 @@
                         </ul>
                     </div>
                 </li>
-                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true" :class="{'router-link-exact-active': subOpenMenu('/monev')}">
-                    <router-link class="m-menu__link" to="/monev">
+                <li class="m-menu__section ">
+                    <h4 class="m-menu__section-text">Monitoring Evaluasi</h4>
+                    <i class="m-menu__section-icon flaticon-more-v2"></i>
+                </li>
+                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true" :class="{'router-link-exact-active': subOpenMenu('/monev/mou')}">
+                    <router-link class="m-menu__link" to="/monev/mou">
                         <i class="m-menu__link-icon la la-pencil-square"></i>
                         <span class="m-menu__link-title">
                             <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">MONEV</span><span class="m-menu__link-badge"></span>
+                                <span class="m-menu__link-text">MONEV MOU</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true" :class="{'router-link-exact-active': subOpenMenu('/monev/adendum')}">
+                    <router-link class="m-menu__link" to="/monev/adendum">
+                        <i class="m-menu__link-icon la la-sticky-note"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">MONEV Adendum</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Monev')" class="m-menu__item" aria-haspopup="true" :class="{'router-link-exact-active': subOpenMenu('/monev/extension')}">
+                    <router-link class="m-menu__link" to="/monev/extension">
+                        <i class="m-menu__link-icon flaticon-notes"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">MONEV Perpanjangan</span><span class="m-menu__link-badge"></span>
                             </span>
                         </span>
                     </router-link>

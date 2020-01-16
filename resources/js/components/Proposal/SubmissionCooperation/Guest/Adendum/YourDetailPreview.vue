@@ -315,7 +315,7 @@ export default {
     },
     methods: {
         getData() {
-            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/guest`)
+            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/guest/adendum`)
             .then(response => {
                 this.title_cooperation = response.data.data.data.title_cooperation;
                 this.title_cooperation_final = response.data.data.data.title_cooperation;

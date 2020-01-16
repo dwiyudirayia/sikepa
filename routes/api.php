@@ -21,8 +21,12 @@ Route::middleware('jwt')->group(function () {
         //Barcode
         Route::get('generate/barcode/{id}', 'BarcodeController@generate');
         Route::get('generate/barcode/{id}/guest', 'BarcodeController@generateGuest');
+
         Route::get('generate/barcode/{id}/adendum', 'BarcodeController@generateAdendum');
         Route::get('generate/barcode/{id}/guest/adendum', 'BarcodeController@generateGuestAdendum');
+
+        Route::get('generate/barcode/{id}/extension', 'BarcodeController@generateExtension');
+        Route::get('generate/barcode/{id}/guest/extension', 'BarcodeController@generateGuestExtension');
 
         Route::resource('notification', 'NotificationController')->except(['create', 'destroy']);
         Route::post('logout', 'LoginController@logout');
@@ -68,14 +72,20 @@ Route::middleware('jwt')->group(function () {
         //MOU
         Route::get('mou/submission/cooperation', 'SubmissionProposalController@indexMOU');
         Route::get('adendum/submission/cooperation', 'AdendumController@indexMOU');
+        Route::get('extension/submission/cooperation', 'ExtensionController@indexMOU');
         // Route::get('pks/submission/cooperation', 'SubmissionProposalController@indexPKS');
         Route::get('submission/cooperation/create', 'SubmissionProposalController@create');
         Route::get('submission/cooperation/two/{id}/derivative', 'SubmissionProposalController@changeSelectTwoDerivative');
         Route::get('submission/get/regencies/{id}', 'SubmissionProposalController@getRegecies');
         Route::get('submission/cooperation/{id}/detail', 'SubmissionProposalController@detail');
         Route::get('submission/cooperation/{id}/detail/guest', 'SubmissionProposalController@detailGuest');
+
         Route::get('submission/cooperation/{id}/detail/adendum', 'AdendumController@detail');
         Route::get('submission/cooperation/{id}/detail/guest/adendum', 'AdendumController@detailGuest');
+
+        Route::get('submission/cooperation/{id}/detail/extension', 'ExtensionController@detail');
+        Route::get('submission/cooperation/{id}/detail/guest/extension', 'ExtensionController@detailGuest');
+
         Route::post('submission/reason/approve', 'SubmissionProposalController@approve');
         Route::post('submission/reason/approve/guest', 'SubmissionProposalGuestController@approve');
         Route::post('submission/reason/reject', 'SubmissionProposalController@reject');
@@ -88,6 +98,13 @@ Route::middleware('jwt')->group(function () {
         Route::post('submission/reason/continue/adendum', 'AdendumController@continue');
         Route::post('submission/reason/continue/guest/adendum', 'AdendumController@continueGuest');
 
+        Route::post('submission/reason/approve/extension', 'ExtensionController@approve');
+        Route::post('submission/reason/approve/guest/extension', 'ExtensionController@approveGuest');
+        Route::post('submission/reason/reject/extension', 'ExtensionController@reject');
+        Route::post('submission/reason/reject/guest/extension', 'ExtensionController@rejectGuest');
+        Route::post('submission/reason/continue/extension', 'ExtensionController@continue');
+        Route::post('submission/reason/continue/guest/extension', 'ExtensionController@continueGuest');
+
         Route::post('submission/reason/continue', 'SubmissionProposalController@continue');
         Route::post('submission/reason/continue/guest', 'SubmissionProposalGuestController@continue');
         Route::get('submission/proposal/success', 'SubmissionProposalController@successMOU');
@@ -98,26 +115,52 @@ Route::middleware('jwt')->group(function () {
         Route::post('submission/cooperation/law/{id}/adendum', 'AdendumController@law');
         Route::post('submission/cooperation/law/{id}/guest/adendum', 'AdendumController@lawGuest');
 
+        Route::post('submission/cooperation/law/{id}/extension', 'ExtensionController@law');
+        Route::post('submission/cooperation/law/{id}/guest/extension', 'ExtensionController@lawGuest');
+
         Route::delete('deputi/pic/guest/{id}', 'SubmissionProposalGuestController@destroyDeputiPIC');
         Route::post('deputi/pic/guest', 'SubmissionProposalGuestController@storeDeputiPIC');
-        Route::delete('deputi/pic/guest/adendum/{id}', 'AdendumController@destroyDeputiPICGuest');
-        Route::post('deputi/pic/guest/adendum', 'AdendumController@storeDeputiPICGuest');
         Route::delete('deputi/pic/{id}', 'SubmissionProposalController@destroyDeputiPIC');
         Route::post('deputi/pic', 'SubmissionProposalController@storeDeputiPIC');
+
+        Route::delete('deputi/pic/guest/adendum/{id}', 'AdendumController@destroyDeputiPICGuest');
+        Route::post('deputi/pic/guest/adendum', 'AdendumController@storeDeputiPICGuest');
+        Route::delete('deputi/pic/adendum/{id}', 'AdendumController@destroyDeputiPIC');
+        Route::post('deputi/pic/adendum', 'AdendumController@storeDeputiPIC');
+
+        Route::delete('deputi/pic/guest/extension/{id}', 'ExtensionController@destroyDeputiPICGuest');
+        Route::post('deputi/pic/guest/extension', 'ExtensionController@storeDeputiPICGuest');
+        Route::delete('deputi/pic/extension/{id}', 'ExtensionController@destroyDeputiPIC');
+        Route::post('deputi/pic/extension', 'ExtensionController@storeDeputiPIC');
+
         Route::post('submission/cooperation/final/{id}', 'SubmissionProposalController@final');
         Route::post('submission/cooperation/final/{id}/guest', 'SubmissionProposalGuestController@final');
+
         Route::post('submission/cooperation/final/{id}/adendum', 'AdendumController@final');
         Route::post('submission/cooperation/final/{id}/guest/adendum', 'AdendumController@finalGuest');
+
+        Route::post('submission/cooperation/final/{id}/extension', 'ExtensionController@final');
+        Route::post('submission/cooperation/final/{id}/guest/extension', 'ExtensionController@finalGuest');
+
         Route::get('mou/submission/cooperation/approve', 'SubmissionProposalController@proposalApproveMOU');
         Route::get('mou/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectMOU');
-        Route::get('mou/submission/cooperation/approve/adendum', 'AdendumController@proposalApproveMOU');
-        Route::get('mou/submission/cooperation/reject/adendum', 'AdendumController@proposalRejectMOU');
+
+        Route::get('adendum/submission/cooperation/approve', 'AdendumController@proposalApproveMOU');
+        Route::get('adendum/submission/cooperation/reject', 'AdendumController@proposalRejectMOU');
+
+        Route::get('extension/submission/cooperation/approve', 'ExtensionController@proposalApproveMOU');
+        Route::get('extension/submission/cooperation/reject', 'ExtensionController@proposalRejectMOU');
         // Route::get('pks/submission/cooperation/approve', 'SubmissionProposalController@proposalApprovePKS');
         // Route::get('pks/submission/cooperation/reject', 'SubmissionProposalController@proposalRejectPKS');
         Route::get('download/format/word/{id}', 'ExportController@downloadFormatMOUWord');
         Route::get('download/format/word/{id}/guest', 'ExportController@downloadFormatMOUWordGuest');
+
         Route::get('download/format/word/{id}/adendum', 'ExportController@downloadFormatMOUWordAdendum');
         Route::get('download/format/word/{id}/guest/adendum', 'ExportController@downloadFormatMOUWordGuestAdendum');
+
+        Route::get('download/format/word/{id}/extension', 'ExportController@downloadFormatMOUWordExtension');
+        Route::get('download/format/word/{id}/guest/extension', 'ExportController@downloadFormatMOUWordGuestExtension');
+
         // Route::get('download/file/draft/{id}', 'SubmissionProposalController@fileDraftMOU');
         // Route::get('download/file/draft/{id}/guest', 'SubmissionProposalGuestController@fileDraftMOU');
 
@@ -146,11 +189,26 @@ Route::middleware('jwt')->group(function () {
         Route::post('store/file/draft/adendum', 'AdendumController@storeDraft');
         Route::post('store/file/notulen/adendum', 'AdendumController@storeNotulen');
         //
+        Route::get('download/file/guest/draft/{id}/extension', 'ExtensionController@fileDraftMOUGuest');
+        Route::get('download/file/guest/notulen/{id}/extension', 'ExtensionController@fileNotulenMOUGuest');
+
+        Route::get('download/file/draft/{id}/extension', 'ExtensionController@fileDraftMOU');
+        Route::get('download/file/notulen/{id}/extension', 'ExtensionController@fileNotulenMOU');
+
+        Route::post('store/file/guest/draft/extension', 'ExtensionController@storeDraftGuest');
+        Route::post('store/file/guest/notulen/extension', 'ExtensionController@storeNotulenGuest');
+
+        Route::post('store/file/draft/extension', 'ExtensionController@storeDraft');
+        Route::post('store/file/notulen/extension', 'ExtensionController@storeNotulen');
 
         Route::get('download/cooperation/success/guest/draft/{id}', 'SubmissionProposalGuestController@downloadDraftMOUSuccess');
         Route::get('download/cooperation/success/draft/{id}', 'SubmissionProposalController@downloadDraftMOUSuccess');
+
         Route::get('download/cooperation/success/guest/draft/{id}/adendum', 'AdendumController@downloadDraftMOUSuccessGuest');
         Route::get('download/cooperation/success/draft/{id}/adendum', 'AdendumController@downloadDraftMOUSuccess');
+
+        Route::get('download/cooperation/success/guest/draft/{id}/extension', 'ExtensionController@downloadDraftMOUSuccessGuest');
+        Route::get('download/cooperation/success/draft/{id}/extension', 'ExtensionController@downloadDraftMOUSuccess');
 
         // Route::get('filter/satker/sesmen/approval/pks','SubmissionProposalController@filterSatkerSesmenApprovalPKS');
         // Route::get('filter/satker/sesmen/pks','SubmissionProposalController@filterSatkerSesmenYouPKS');
@@ -166,10 +224,18 @@ Route::middleware('jwt')->group(function () {
         Route::get('reset/satker/sesmen/mou', 'SubmissionProposalController@resetSatkerSesmenYouMOU');
         Route::get('reset/guest/mou', 'SubmissionProposalController@resetGuestMOU');
 
+        Route::get('filter/satker/sesmen/approval/adendum', 'SubmissionProposalController@filterSatkerSesmenApprovalMOU');
+        Route::get('filter/satker/sesmen/adendum', 'SubmissionProposalController@filterSatkerSesmenYouMOU');
+        Route::get('filter/guest/adendum', 'SubmissionProposalController@filterGuestMOU');
+        Route::get('reset/satker/sesmen/approval/adendum', 'SubmissionProposalController@resetSatkerSesmenApprovalMOU');
+        Route::get('reset/satker/sesmen/adendum', 'SubmissionProposalController@resetSatkerSesmenYouMOU');
+        Route::get('reset/guest/adendum', 'SubmissionProposalController@resetGuestMOU');
+
         Route::get('download/file/proposal/{id}', 'SubmissionProposalController@downloadProposal');
         Route::get('download/file/agency/profile/{id}', 'SubmissionProposalController@downloadAgencyProfile');
-        Route::get('download/file/proposal/{id}/adendum', 'SubmissionProposalController@downloadProposal');
-        Route::get('download/file/agency/profile/{id}/adendum', 'SubmissionProposalController@downloadAgencyProfile');
+
+        Route::get('download/file/proposal/{id}/adendum', 'AdendumController@downloadProposal');
+        Route::get('download/file/agency/profile/{id}/adendum', 'AdendumController@downloadAgencyProfile');
 
         Route::get('download/file/proposal/{id}/guest', 'SubmissionProposalGuestController@downloadProposalCooperationGuest');
         Route::get('download/file/agency/profile/{id}/guest', 'SubmissionProposalGuestController@downloadAgencyProfileCooperationGuest');
@@ -183,10 +249,18 @@ Route::middleware('jwt')->group(function () {
         Route::get('download/file/npwp/{id}/guest/adendum', 'AdendumController@downloadNPWPGuest');
         Route::get('download/file/siup/{id}/guest/adendum', 'AdendumController@downloadSIUPGuest');
 
+        Route::get('download/file/proposal/{id}/guest/extension', 'ExtensionController@downloadProposalCooperationGuest');
+        Route::get('download/file/agency/profile/{id}/guest/extension', 'ExtensionController@downloadAgencyProfileCooperationGuest');
+        Route::get('download/file/ktp/{id}/guest/extension', 'ExtensionController@downloadKTPGuest');
+        Route::get('download/file/npwp/{id}/guest/extension', 'ExtensionController@downloadNPWPGuest');
+        Route::get('download/file/siup/{id}/guest/extension', 'ExtensionController@downloadSIUPGuest');
+
         Route::get('download/summary/cooperation/{id}', 'ExportController@downloadSummary');
         Route::get('download/summary/cooperation/{id}/guest', 'ExportController@downloadSummaryGuest');
+
         Route::get('download/summary/cooperation/{id}/adendum', 'ExportController@downloadSummaryAdendum');
         Route::get('download/summary/cooperation/{id}/guest/adendum', 'ExportController@downloadSummaryGuestAdendum');
+
         Route::get('download/summary/cooperation/{id}/extension', 'ExportController@downloadSummaryExtension');
         Route::get('download/summary/cooperation/{id}/guest/extension', 'ExportController@downloadSummaryGuestExtension');
 
@@ -263,19 +337,6 @@ Route::middleware('jwt')->group(function () {
 
         //Monev
         Route::get('monev', 'MonevController@index');
-        Route::post('monev', 'MonevController@store');
-        Route::get('monev/{id}/edit', 'MonevController@edit');
-        Route::put('monev/{id}', 'MonevController@update');
-        Route::delete('monev/{id}/nomor/{nomor}', 'MonevController@destroyNomor');
-        Route::delete('monev/{id}/parties/{parties}', 'MonevController@destroyParties');
-        Route::get('monev/activity/{id}/create', 'MonevController@createActivity');
-        Route::get('monev/activity/{id}', 'MonevController@showActivity');
-        Route::post('monev/activity', 'MonevController@storeActivity');
-        Route::delete('monev/activity/{id}', 'MonevController@deleteActivity');
-        Route::get('monev/list/activity/{id}', 'MonevController@listMonevActivity');
-        Route::delete('monev/list/activity/{id}', 'MonevController@destroyListMonevActivity');
-        Route::post('monev/import', 'ImportController@importOldMOU');
-        Route::post('monev/old/file/mou/{id}', 'MonevController@uploadOldMOU');
         Route::post('monev/p3', 'MonevController@storeP3');
         Route::post('monev/satker', 'MonevController@storeSatker');
         Route::post('monev/activity/satker', 'MonevController@storeActivitySatker');
@@ -283,8 +344,8 @@ Route::middleware('jwt')->group(function () {
         Route::get('list/monev/activity/satker/{id}', 'MonevController@listActivitySatker');
         Route::get('show/monev/activity/satker/{id}', 'MonevController@showActivitySatker');
         Route::get('show/monev/activity/guest/{id}', 'MonevController@showActivityGuest');
-        Route::post('result/monev/activity/satker', 'MonevController@storeResultActivitySatker');
-        Route::post('result/monev/activity/guest', 'MonevController@storeResultActivityGuest');
+        Route::post('monev/report/satker', 'MonevController@storeReport');
+        Route::post('monev/report/guest', 'MonevController@storeReportGuest');
         Route::get('list/monev/activity/guest/{id}', 'MonevController@listActivityGuest');
         Route::delete('list/monev/activity/satker/{id}', 'MonevController@destroyActivitySatker');
         Route::delete('list/monev/activity/guest/{id}', 'MonevController@destroyActivityGuest');
@@ -302,6 +363,64 @@ Route::middleware('jwt')->group(function () {
         Route::post('store/file/activity/satker', 'MonevController@storeImageSatker');
         Route::put('monev/activity/guest/{id}', 'MonevController@updateActivityGuest');
         Route::put('monev/activity/satker/{id}', 'MonevController@updateActivitySatker');
+
+        //Monev Adendum
+        Route::get('adendum/monev', 'MonevAdendumController@index');
+        Route::post('adendum/monev/p3', 'MonevAdendumController@storeP3');
+        Route::post('adendum/monev/satker', 'MonevAdendumController@storeSatker');
+        Route::post('adendum/monev/activity/satker', 'MonevAdendumController@storeActivitySatker');
+        Route::post('adendum/monev/activity/guest', 'MonevAdendumController@storeActivityGuest');
+        Route::get('adendum/list/monev/activity/satker/{id}', 'MonevAdendumController@listActivitySatker');
+        Route::get('adendum/show/monev/activity/satker/{id}', 'MonevAdendumController@showActivitySatker');
+        Route::get('adendum/show/monev/activity/guest/{id}', 'MonevAdendumController@showActivityGuest');
+        Route::post('adendum/monev/report/satker', 'MonevAdendumController@storeReport');
+        Route::post('adendum/monev/report/guest', 'MonevAdendumController@storeReportGuest');
+        Route::get('adendum/list/monev/activity/guest/{id}', 'MonevAdendumController@listActivityGuest');
+        Route::delete('adendum/list/monev/activity/satker/{id}', 'MonevAdendumController@destroyActivitySatker');
+        Route::delete('adendum/list/monev/activity/guest/{id}', 'MonevAdendumController@destroyActivityGuest');
+        Route::get('adendum/download/monev/activity/satker/{id}', 'MonevAdendumController@downloadSummarySatker');
+        Route::get('adendum/download/monev/activity/guest/{id}', 'MonevAdendumController@downloadSummaryGuest');
+        Route::get('adendum/monev/detail/guest/{id}', 'MonevAdendumController@detailMonevGuest');
+        Route::get('adendum/monev/detail/satker/{id}', 'MonevAdendumController@detailMonevSatker');
+        Route::get('adendum/monev/activity/sakter/{id}/edit', 'MonevAdendumController@editSatker');
+        Route::get('adendum/monev/activity/guest/{id}/edit', 'MonevAdendumController@editGuest');
+        Route::get('adendum/download/image/activity/guest/{id}', 'MonevAdendumController@downloadImageGuest');
+        Route::get('adendum/download/image/activity/satker/{id}', 'MonevAdendumController@downloadImageSatker');
+        Route::delete('adendum/image/activity/guest/{id}', 'MonevAdendumController@destroyImageGuest');
+        Route::delete('adendum/image/activity/satker/{id}', 'MonevAdendumController@destroyImageSatker');
+        Route::post('adendum/store/file/activity/guest', 'MonevAdendumController@storeImageGuest');
+        Route::post('adendum/store/file/activity/satker', 'MonevAdendumController@storeImageSatker');
+        Route::put('adendum/monev/activity/guest/{id}', 'MonevAdendumController@updateActivityGuest');
+        Route::put('adendum/monev/activity/satker/{id}', 'MonevAdendumController@updateActivitySatker');
+
+        //Monev Perpanjangan
+        Route::get('extension/monev', 'MonevExtensionController@index');
+        Route::post('extension/monev/p3', 'MonevExtensionController@storeP3');
+        Route::post('extension/monev/satker', 'MonevExtensionController@storeSatker');
+        Route::post('extension/monev/activity/satker', 'MonevExtensionController@storeActivitySatker');
+        Route::post('extension/monev/activity/guest', 'MonevExtensionController@storeActivityGuest');
+        Route::get('extension/list/monev/activity/satker/{id}', 'MonevExtensionController@listActivitySatker');
+        Route::get('extension/show/monev/activity/satker/{id}', 'MonevExtensionController@showActivitySatker');
+        Route::get('extension/show/monev/activity/guest/{id}', 'MonevExtensionController@showActivityGuest');
+        Route::post('extension/monev/report/satker', 'MonevExtensionController@storeReport');
+        Route::post('extension/monev/report/guest', 'MonevExtensionController@storeReportGuest');
+        Route::get('extension/list/monev/activity/guest/{id}', 'MonevExtensionController@listActivityGuest');
+        Route::delete('extension/list/monev/activity/satker/{id}', 'MonevExtensionController@destroyActivitySatker');
+        Route::delete('extension/list/monev/activity/guest/{id}', 'MonevExtensionController@destroyActivityGuest');
+        Route::get('extension/download/monev/activity/satker/{id}', 'MonevExtensionController@downloadSummarySatker');
+        Route::get('extension/download/monev/activity/guest/{id}', 'MonevExtensionController@downloadSummaryGuest');
+        Route::get('extension/monev/detail/guest/{id}', 'MonevExtensionController@detailMonevGuest');
+        Route::get('extension/monev/detail/satker/{id}', 'MonevExtensionController@detailMonevSatker');
+        Route::get('extension/monev/activity/sakter/{id}/edit', 'MonevExtensionController@editSatker');
+        Route::get('extension/monev/activity/guest/{id}/edit', 'MonevExtensionController@editGuest');
+        Route::get('extension/download/image/activity/guest/{id}', 'MonevExtensionController@downloadImageGuest');
+        Route::get('extension/download/image/activity/satker/{id}', 'MonevExtensionController@downloadImageSatker');
+        Route::delete('extension/image/activity/guest/{id}', 'MonevExtensionController@destroyImageGuest');
+        Route::delete('extension/image/activity/satker/{id}', 'MonevExtensionController@destroyImageSatker');
+        Route::post('extension/store/file/activity/guest', 'MonevExtensionController@storeImageGuest');
+        Route::post('extension/store/file/activity/satker', 'MonevExtensionController@storeImageSatker');
+        Route::put('extension/monev/activity/guest/{id}', 'MonevExtensionController@updateActivityGuest');
+        Route::put('extension/monev/activity/satker/{id}', 'MonevExtensionController@updateActivitySatker');
 
         //Dashboard
         Route::get('dashboard', 'DashboardController@index');

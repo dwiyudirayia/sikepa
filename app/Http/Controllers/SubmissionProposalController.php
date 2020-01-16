@@ -146,7 +146,7 @@ class SubmissionProposalController extends Controller
     {
         try {
             foreach ($request->data as $key => $value) {
-                $deputiPIC = DeputiPIC::updateOrCreate([
+                $deputiPIC = DeputiPIC::create([
                     'role_id' => $value,
                     'submission_proposal_id' => $request->id,
                 ]);

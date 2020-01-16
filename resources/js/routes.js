@@ -30,19 +30,44 @@ import BackgroundLoginIndex from './components/BackgroundLogin/Index';
 import BackgroundLoginEdit from './components/BackgroundLogin/Edit';
 
 //monev
-import MonitoringEvaluasiIndex from './components/Monev/Index';
-import MonitoringP3Create from './components/Monev/Proposal/P3Create';
-import MonitoringSatkerCreate from './components/Monev/Proposal/SatkerCreate';
-import MonevActivitySatkerCreate from './components/Monev/Proposal/Satker/Create';
-import ListMonevActivitySatker from './components/Monev/Proposal/Satker/List';
-import ResultMonevActivitySatker from './components/Monev/Proposal/Satker/Result';
-import DetailMonevSatker from './components/Monev/Proposal/Satker/Detail';
-import ResultMonevActivityGuest from './components/Monev/Proposal/P3/Result';
-import MonevActivityP3Create from './components/Monev/Proposal/P3/Create';
-import ListMonevActivityGuest from './components/Monev/Proposal/P3/List';
-import DetailMonevGuest from './components/Monev/Proposal/P3/Detail';
-import ResultMonevActivitySatkerEdit from './components/Monev/Proposal/Satker/Edit';
-import ResultMonevActivityGuestEdit from './components/Monev/Proposal/P3/Edit';
+import MonitoringEvaluasiIndex from './components/Monev/MOU/Index';
+import MonitoringP3Create from './components/Monev/MOU/Proposal/P3Create';
+import MonitoringSatkerCreate from './components/Monev/MOU/Proposal/SatkerCreate';
+import MonevActivitySatkerCreate from './components/Monev/MOU/Proposal/Satker/Create';
+import ListMonevActivitySatker from './components/Monev/MOU/Proposal/Satker/List';
+import DetailMonevSatker from './components/Monev/MOU/Proposal/Satker/Detail';
+import MonevActivityP3Create from './components/Monev/MOU/Proposal/P3/Create';
+import ListMonevActivityGuest from './components/Monev/MOU/Proposal/P3/List';
+import DetailMonevGuest from './components/Monev/MOU/Proposal/P3/Detail';
+import ResultMonevActivityGuestEdit from './components/Monev/MOU/Proposal/P3/Edit';
+import ReportMonevGuest from './components/Monev/MOU/Report/P3/Create';
+import ReportMonev from './components/Monev/MOU/Report/Satker/Create';
+
+import AdendumMonitoringEvaluasiIndex from './components/Monev/Adendum/Index';
+import AdendumMonitoringP3Create from './components/Monev/Adendum/Proposal/P3Create';
+import AdendumMonitoringSatkerCreate from './components/Monev/Adendum/Proposal/SatkerCreate';
+import AdendumMonevActivitySatkerCreate from './components/Monev/Adendum/Proposal/Satker/Create';
+import AdendumListMonevActivitySatker from './components/Monev/Adendum/Proposal/Satker/List';
+import AdendumDetailMonevSatker from './components/Monev/Adendum/Proposal/Satker/Detail';
+import AdendumMonevActivityP3Create from './components/Monev/Adendum/Proposal/P3/Create';
+import AdendumListMonevActivityGuest from './components/Monev/Adendum/Proposal/P3/List';
+import AdendumDetailMonevGuest from './components/Monev/Adendum/Proposal/P3/Detail';
+import AdendumResultMonevActivityGuestEdit from './components/Monev/Adendum/Proposal/P3/Edit';
+import AdendumReportMonevGuest from './components/Monev/Adendum/Report/P3/Create';
+import AdendumReportMonev from './components/Monev/Adendum/Report/Satker/Create';
+
+import ExtensionMonitoringEvaluasiIndex from './components/Monev/Extension/Index';
+import ExtensionMonitoringP3Create from './components/Monev/Extension/Proposal/P3Create';
+import ExtensionMonitoringSatkerCreate from './components/Monev/Extension/Proposal/SatkerCreate';
+import ExtensionMonevActivitySatkerCreate from './components/Monev/Extension/Proposal/Satker/Create';
+import ExtensionListMonevActivitySatker from './components/Monev/Extension/Proposal/Satker/List';
+import ExtensionDetailMonevSatker from './components/Monev/Extension/Proposal/Satker/Detail';
+import ExtensionMonevActivityP3Create from './components/Monev/Extension/Proposal/P3/Create';
+import ExtensionListMonevActivityGuest from './components/Monev/Extension/Proposal/P3/List';
+import ExtensionDetailMonevGuest from './components/Monev/Extension/Proposal/P3/Detail';
+import ExtensionResultMonevActivityGuestEdit from './components/Monev/Extension/Proposal/P3/Edit';
+import ExtensionReportMonevGuest from './components/Monev/Extension/Report/P3/Create';
+import ExtensionReportMonev from './components/Monev/Extension/Report/Satker/Create';
 // import MonitoringEvaluasiCreate from './components/Monev/Create';
 // import MonitoringEvaluasiEdit from './components/Monev/Edit';
 // import MonevActivityCreate from './components/Monev/Activity/Create';
@@ -127,16 +152,27 @@ import MOUProposalSubmissionCooperationYourDetailGuestPreview from './components
 import MOUProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/MOU/YourDetailPreview';
 import MOUProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/MOU/Approve';
 import MOUProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/MOU/Reject';
+import MOUProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
 
 //Adendum
 import AdendumProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Adendum/Index';
 import AdendumProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Adendum/Detail';
 import AdendumProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/Adendum/YourDetail';
-// import AdendumProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/Adendum/YourDetailPreview';
+import AdendumProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/Adendum/YourDetailPreview';
 import AdendumProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/Adendum/YourDetailPreview';
 import AdendumProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/Adendum/Approve';
 import AdendumProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/Adendum/Reject';
 import AdendumProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/Adendum/Detail';
+
+//Perpanjangan
+import ExtensionProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/Extension/Index';
+import ExtensionProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/Extension/Detail';
+import ExtensionProposalSubmissionCooperationYourDetail from './components/Proposal/SubmissionCooperation/Extension/YourDetail';
+import ExtensionProposalSubmissionCooperationYourDetailGuestPreview from './components/Proposal/SubmissionCooperation/Guest/Extension/YourDetailPreview';
+import ExtensionProposalSubmissionCooperationYourDetailPreview from './components/Proposal/SubmissionCooperation/Extension/YourDetailPreview';
+import ExtensionProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/Extension/Approve';
+import ExtensionProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/Extension/Reject';
+import ExtensionProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/Extension/Detail';
 
 // import PKSProposalSubmissionCooperationIndex from './components/Proposal/SubmissionCooperation/PKS/Index';
 // import PKSProposalSubmissionCooperationDetail from './components/Proposal/SubmissionCooperation/PKS/Detail';
@@ -145,7 +181,7 @@ import AdendumProposalSubmissionCooperationDetailGuest from './components/Propos
 // import PKSProposalSubmissionCooperationApprove from './components/Proposal/SubmissionCooperation/PKS/Approve';
 // import PKSProposalSubmissionCooperationReject from './components/Proposal/SubmissionCooperation/PKS/Reject';
 
-import MOUProposalSubmissionCooperationDetailGuest from './components/Proposal/SubmissionCooperation/Guest/MOU/Detail';
+
 // import PKSProposalSubmissionCooperationDetaiGuest from './components/Proposal/SubmissionCooperation/Guest/PKS/Detail';
 // --- End Proposal --- //
 
@@ -1172,22 +1208,6 @@ const router = new VueRouter({
                         requiresAuth: true
                     }
                 },
-                {
-                    path: '/adendum/submission/cooperation/:id/detail/guest',
-                    name: 'AdendumProposalSubmissionCooperationDetailGuest',
-                    component: AdendumProposalSubmissionCooperationDetailGuest,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/adendum/submission/cooperation/:id/detail',
-                    name: 'AdendumProposalSubmissionCooperationDetail',
-                    component: AdendumProposalSubmissionCooperationDetail,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
                 // {
                 //     path: '/pks/submission/cooperation/:id/detail/guest',
                 //     name: 'PKSProposalSubmissionCooperationDetailGuest',
@@ -1247,30 +1267,6 @@ const router = new VueRouter({
                     }
                 },
                 //
-                {
-                    path: '/adendum/submission/cooperation',
-                    name: 'AdendumProposalSubmissionCooperationIndex',
-                    component: AdendumProposalSubmissionCooperationIndex,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/adendum/submission/cooperation/approve',
-                    name: 'AdendumProposalSubmissionCooperationApprove',
-                    component: AdendumProposalSubmissionCooperationApprove,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
-                {
-                    path: '/adendum/submission/cooperation/reject',
-                    name: 'AdendumProposalSubmissionCooperationReject',
-                    component: AdendumProposalSubmissionCooperationReject,
-                    meta: {
-                        requiresAuth: true
-                    }
-                },
                 //
                 {
                     path: '/submission/cooperation/create',
@@ -1544,7 +1540,7 @@ const router = new VueRouter({
                 },
                 //Monev
                 {
-                    path: '/monev',
+                    path: '/monev/mou',
                     name: 'MonitoringEvaluasiIndex',
                     component: MonitoringEvaluasiIndex,
                     meta: {
@@ -1563,7 +1559,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/p3/create',
+                    path: '/monev/mou/p3/create',
                     name: 'MonitoringP3Create',
                     component: MonitoringP3Create,
                     meta: {
@@ -1582,7 +1578,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/satker/create',
+                    path: '/monev/mou/satker/create',
                     name: 'MonitoringSatkerCreate',
                     component: MonitoringSatkerCreate,
                     meta: {
@@ -1601,7 +1597,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/activity/:id/guest/create',
+                    path: '/monev/mou/activity/:id/guest/create',
                     name: 'MonevActivityP3Create',
                     component: MonevActivityP3Create,
                     meta: {
@@ -1620,7 +1616,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/activity/:id/satker/create',
+                    path: '/monev/mou/activity/:id/satker/create',
                     name: 'MonevActivitySatkerCreate',
                     component: MonevActivitySatkerCreate,
                     meta: {
@@ -1639,7 +1635,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/activity/:id/satker/list',
+                    path: '/monev/mou/activity/:id/satker/list',
                     name: 'ListMonevActivitySatker',
                     component: ListMonevActivitySatker,
                     meta: {
@@ -1658,7 +1654,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/activity/:id/guest/list',
+                    path: '/monev/mou/activity/:id/guest/list',
                     name: 'ListMonevActivityGuest',
                     component: ListMonevActivityGuest,
                     meta: {
@@ -1677,45 +1673,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/activity/:id/satker/result',
-                    name: 'ResultMonevActivitySatker',
-                    component: ResultMonevActivitySatker,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
-
-                        let filterPermission = permission.filter(value => value === 'Monev');
-
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/monev/activity/:id/guest/result',
-                    name: 'ResultMonevActivityGuest',
-                    component: ResultMonevActivityGuest,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
-
-                        let filterPermission = permission.filter(value => value === 'Monev');
-
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/monev/detail/:id/guest',
+                    path: '/monev/mou/detail/:id/guest',
                     name: 'DetailMonevGuest',
                     component: DetailMonevGuest,
                     meta: {
@@ -1734,7 +1692,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/detail/:id/satker',
+                    path: '/monev/mou/detail/:id/satker',
                     name: 'DetailMonevSatker',
                     component: DetailMonevSatker,
                     meta: {
@@ -1753,26 +1711,7 @@ const router = new VueRouter({
                     },
                 },
                 {
-                    path: '/monev/detail/:id/satker/edit',
-                    name: 'ResultMonevActivitySatkerEdit',
-                    component: ResultMonevActivitySatkerEdit,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
-
-                        let filterPermission = permission.filter(value => value === 'Monev');
-
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/monev/detail/:id/guest/edit',
+                    path: '/monev/mou/detail/:id/guest/edit',
                     name: 'ResultMonevActivityGuestEdit',
                     component: ResultMonevActivityGuestEdit,
                     meta: {
@@ -1789,6 +1728,631 @@ const router = new VueRouter({
                             next();
                         }
                     },
+                },
+                {
+                    path: '/monev/mou/report/:id/guest/create',
+                    name: 'ReportMonevGuest',
+                    component: ReportMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/mou/report/:id/create',
+                    name: 'ReportMonev',
+                    component: ReportMonev,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                //Monev Adendum
+                {
+                    path: '/monev/adendum',
+                    name: 'AdendumMonitoringEvaluasiIndex',
+                    component: AdendumMonitoringEvaluasiIndex,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/p3/create',
+                    name: 'AdendumMonitoringP3Create',
+                    component: AdendumMonitoringP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/satker/create',
+                    name: 'AdendumMonitoringSatkerCreate',
+                    component: AdendumMonitoringSatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/activity/:id/guest/create',
+                    name: 'AdendumMonevActivityP3Create',
+                    component: AdendumMonevActivityP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/activity/:id/satker/create',
+                    name: 'AdendumMonevActivitySatkerCreate',
+                    component: AdendumMonevActivitySatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/activity/:id/satker/list',
+                    name: 'AdendumListMonevActivitySatker',
+                    component: AdendumListMonevActivitySatker,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/activity/:id/guest/list',
+                    name: 'AdendumListMonevActivityGuest',
+                    component: AdendumListMonevActivityGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/detail/:id/guest',
+                    name: 'AdendumDetailMonevGuest',
+                    component: AdendumDetailMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/detail/:id/satker',
+                    name: 'AdendumDetailMonevSatker',
+                    component: AdendumDetailMonevSatker,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/detail/:id/guest/edit',
+                    name: 'AdendumResultMonevActivityGuestEdit',
+                    component: AdendumResultMonevActivityGuestEdit,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/report/:id/guest/create',
+                    name: 'AdendumReportMonevGuest',
+                    component: AdendumReportMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/adendum/report/:id/create',
+                    name: 'AdendumReportMonev',
+                    component: AdendumReportMonev,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                //Monev Extension
+                {
+                    path: '/monev/extension/detail/:id/guest/edit',
+                    name: 'ExtensionResultMonevActivityGuestEdit',
+                    component: ExtensionResultMonevActivityGuestEdit,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension',
+                    name: 'ExtensionMonitoringEvaluasiIndex',
+                    component: ExtensionMonitoringEvaluasiIndex,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/p3/create',
+                    name: 'ExtensionMonitoringP3Create',
+                    component: ExtensionMonitoringP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/satker/create',
+                    name: 'ExtensionMonitoringSatkerCreate',
+                    component: ExtensionMonitoringSatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/activity/:id/guest/create',
+                    name: 'ExtensionMonevActivityP3Create',
+                    component: ExtensionMonevActivityP3Create,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/activity/:id/satker/create',
+                    name: 'ExtensionMonevActivitySatkerCreate',
+                    component: ExtensionMonevActivitySatkerCreate,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/activity/:id/satker/list',
+                    name: 'ExtensionListMonevActivitySatker',
+                    component: ExtensionListMonevActivitySatker,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/activity/:id/guest/list',
+                    name: 'ExtensionListMonevActivityGuest',
+                    component: ExtensionListMonevActivityGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/detail/:id/guest',
+                    name: 'ExtensionDetailMonevGuest',
+                    component: ExtensionDetailMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/detail/:id/satker',
+                    name: 'ExtensionDetailMonevSatker',
+                    component: ExtensionDetailMonevSatker,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/report/:id/guest/create',
+                    name: 'ExtensionReportMonevGuest',
+                    component: ExtensionReportMonevGuest,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/monev/extension/report/:id/create',
+                    name: 'ExtensionReportMonev',
+                    component: ExtensionReportMonev,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Monev');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/detail/guest',
+                    name: 'AdendumProposalSubmissionCooperationDetailGuest',
+                    component: AdendumProposalSubmissionCooperationDetailGuest,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/detail',
+                    name: 'AdendumProposalSubmissionCooperationDetail',
+                    component: AdendumProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation',
+                    name: 'AdendumProposalSubmissionCooperationIndex',
+                    component: AdendumProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/approve',
+                    name: 'AdendumProposalSubmissionCooperationApprove',
+                    component: AdendumProposalSubmissionCooperationApprove,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/reject',
+                    name: 'AdendumProposalSubmissionCooperationReject',
+                    component: AdendumProposalSubmissionCooperationReject,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/your/detail',
+                    name: 'AdendumProposalSubmissionCooperationYourDetail',
+                    component: AdendumProposalSubmissionCooperationYourDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/your/detail/preview',
+                    name: 'AdendumProposalSubmissionCooperationYourDetailPreview',
+                    component: AdendumProposalSubmissionCooperationYourDetailPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/adendum/submission/cooperation/:id/your/detail/guest/preview',
+                    name: 'AdendumProposalSubmissionCooperationYourDetailGuestPreview',
+                    component: AdendumProposalSubmissionCooperationYourDetailGuestPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                //
+                {
+                    path: '/extension/submission/cooperation/:id/detail/guest',
+                    name: 'ExtensionProposalSubmissionCooperationDetailGuest',
+                    component: ExtensionProposalSubmissionCooperationDetailGuest,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/:id/detail',
+                    name: 'ExtensionProposalSubmissionCooperationDetail',
+                    component: ExtensionProposalSubmissionCooperationDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation',
+                    name: 'ExtensionProposalSubmissionCooperationIndex',
+                    component: ExtensionProposalSubmissionCooperationIndex,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/approve',
+                    name: 'ExtensionProposalSubmissionCooperationApprove',
+                    component: ExtensionProposalSubmissionCooperationApprove,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/reject',
+                    name: 'ExtensionProposalSubmissionCooperationReject',
+                    component: ExtensionProposalSubmissionCooperationReject,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/:id/your/detail',
+                    name: 'ExtensionProposalSubmissionCooperationYourDetail',
+                    component: ExtensionProposalSubmissionCooperationYourDetail,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/:id/your/detail/preview',
+                    name: 'ExtensionProposalSubmissionCooperationYourDetailPreview',
+                    component: ExtensionProposalSubmissionCooperationYourDetailPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: '/extension/submission/cooperation/:id/your/detail/guest/preview',
+                    name: 'ExtensionProposalSubmissionCooperationYourDetailGuestPreview',
+                    component: ExtensionProposalSubmissionCooperationYourDetailGuestPreview,
+                    meta: {
+                        requiresAuth: true
+                    }
                 },
                 // {
                 //     path: '/monev/create',

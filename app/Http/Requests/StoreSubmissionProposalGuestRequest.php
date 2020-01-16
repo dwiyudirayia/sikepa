@@ -190,25 +190,25 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
         if($this->hasFile('agency_profile')) {
             $extention = $this->agency_profile->getClientOriginalExtension();
             $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_guest_notulen');
+            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_guest_extension');
         }
 
         if($this->hasFile('proposal')) {
             $extention = $this->proposal->getClientOriginalExtension();
             $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_guest_notulen');
+            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_guest_extension');
         }
 
         if($this->hasFile('ktp')) {
             $extention = $this->ktp->getClientOriginalExtension();
             $fileName = 'ktp-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathKTP = $this->ktp->storeAs(strtotime("now"), $fileName, 'ktp_guest_notulen');
+            $pathKTP = $this->ktp->storeAs(strtotime("now"), $fileName, 'ktp_guest_extension');
         }
 
         if($this->hasFile('npwp')) {
             $extention = $this->npwp->getClientOriginalExtension();
             $fileName = 'npwp-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathNPWP = $this->npwp->storeAs(strtotime("now"), $fileName, 'npwp_guest_notulen');
+            $pathNPWP = $this->npwp->storeAs(strtotime("now"), $fileName, 'npwp_guest_extension');
         } else {
             $pathNPWP = '';
         }
@@ -216,7 +216,7 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
         if($this->hasFile('siup')) {
             $extention = $this->siup->getClientOriginalExtension();
             $fileName = 'siup-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathSIUP = $this->siup->storeAs(strtotime("now"), $fileName, 'siup_guest_notulen');
+            $pathSIUP = $this->siup->storeAs(strtotime("now"), $fileName, 'siup_guest_extension');
         } else {
             $pathSIUP = '';
         }

@@ -73,7 +73,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -121,7 +121,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td style="vertical-align: middle;">
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -166,14 +166,14 @@
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
-                                                <!-- <td style="vertical-align: middle;">
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                <td style="vertical-align: middle;">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
                                                         </span>
                                                     </router-link>
-                                                </td> -->
+                                                </td>
                                             </tr>
                                         </template>
                                         <template v-else>
@@ -195,7 +195,7 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'MOUProposalSubmissionCooperationIndex',
+    name: 'AdendumProposalSubmissionCooperationIndex',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -203,7 +203,7 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/mou/submission/cooperation'
+                    path: '/adendum/submission/cooperation'
                 },
             ],
             approvalSubmission: [],
@@ -226,7 +226,7 @@ export default {
         },
     },
     created() {
-        $axios.get(`/admin/mou/submission/cooperation/reject/adendum`)
+        $axios.get(`/admin/adendum/submission/cooperation/reject`)
         .then(response => {
             this.youSubmission = response.data.data.satker;
             this.guestSubmission = response.data.data.guest;

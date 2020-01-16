@@ -46,4 +46,7 @@ class SubmissionProposalGuest extends Model
     public function monevActivity() {
         return $this->hasMany(MonitoringActivityGuest::class);
     }
+    public function report() {
+        return $this->hasOne(ReportMOUGuest::class);
+    }
 }

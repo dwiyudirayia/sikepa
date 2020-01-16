@@ -6,8 +6,8 @@
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
                     <div class="main-title text-center sr-btm">
                         <ul class="breadcrumb">
-                            <li><a href="#!"><i class="mdi mdi-home"></i></a></li>
-                            <li><a href="#!">Artikel</a></li>
+                            <li><a href="{{ route('home') }}"><i class="mdi mdi-home"></i></a></li>
+                            <li><a href="{{ route('article') }}">Artikel</a></li>
                         </ul>
                         <h2 class="title">Artikel</h2>
                     </div>

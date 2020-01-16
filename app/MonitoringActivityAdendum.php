@@ -20,4 +20,7 @@ class MonitoringActivityAdendum extends Model
     {
         return $this->belongsTo(Adendum::class);
     }
+    public function documentation() {
+        return $this->hasMany(MonitoringActivityDocumentationAdendum::class);
+    }
 }

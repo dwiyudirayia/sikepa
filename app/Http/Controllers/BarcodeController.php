@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Adendum;
 use App\AdendumGuest;
+use App\Extension;
+use App\ExtensionGuest;
 use App\SubmissionProposal;
 use App\SubmissionProposalGuest;
 // use Illuminate\Http\Request;
@@ -90,6 +92,49 @@ class BarcodeController extends Controller
                 'messages' => 'Barcode Berhasil di Generate'
             ]);
         } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Gagal Generate Barcode',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function generateExtension($id) {
+        try {
+            $data = Extension::findOrFail($id);
+            $data->status_barcode = 1;
+            $data->save();
+
+            $mailingNumber = $data->mailing_number;
+            $result = QrCode::format('png')->size(200)->errorCorrection('H')->generate($mailingNumber);
+            $outputFile = "/$data->id/barcode-$mailingNumber.png";
+            Storage::disk('barcode_extension')->put("$outputFile", $result);
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Barcode Berhasil di Generate'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => 'Gagal Generate Barcode',
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function generateGuestExtension($id) {
+        try {
+            $data = ExtensionGuest::findOrFail($id);
+            $data->status_barcode = 1;
+            $data->save();
+
+            $mailingNumber = $data->mailing_number;
+            $result = QrCode::format('png')->size(200)->errorCorrection('H')->generate($mailingNumber);
+            $outputFile = "/$data->id/barcode-$mailingNumber.png";
+            Storage::disk('barcode_guest_extension')->put("$outputFile", $result);
+            return response()->json([
+                'data' => $data,
+                'messages' => 'Barcode Berhasil di Generate'
+            ]);
+        } catch (\Throwable $th) {
+            dd($th);
             return response()->json([
                 'messages' => 'Gagal Generate Barcode',
                 'status' => $th->getCode(),

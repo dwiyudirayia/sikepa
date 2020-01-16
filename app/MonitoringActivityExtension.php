@@ -20,4 +20,7 @@ class MonitoringActivityExtension extends Model
     {
         return $this->belongsTo(Extension::class);
     }
+    public function documentation() {
+        return $this->hasMany(MonitoringActivityDocumentationExtension::class);
+    }
 }

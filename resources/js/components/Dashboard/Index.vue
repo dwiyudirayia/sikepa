@@ -72,6 +72,148 @@
                 </div>
             </div>
         </div>
+        <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="flaticon-statistics"></i>
+                        </span>
+                        <h2 class="m-portlet__head-label m-portlet__head-label--success">
+                            <span>Adendum</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="row m-row--no-padding m-row--col-separator-xl">
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Diterima
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-success" style="padding-bottom:30px;">
+                                    {{ widget.adendum.approve }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Ditolak
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-danger">
+                                    {{ widget.adendum.reject }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Diproses
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-brand">
+                                    {{ widget.adendum.process }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Total
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-primary">
+                                    {{ widget.adendum.total }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="flaticon-statistics"></i>
+                        </span>
+                        <h2 class="m-portlet__head-label m-portlet__head-label--brand">
+                            <span>Perpanjangan</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="row m-row--no-padding m-row--col-separator-xl">
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Diterima
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-success" style="padding-bottom:30px;">
+                                    {{ widget.extension.approve }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Ditolak
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-danger">
+                                    {{ widget.extension.reject }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Diproses
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-brand">
+                                    {{ widget.extension.process }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-3">
+
+                        <div class="m-widget24">
+                            <div class="m-widget24__item">
+                                <h4 class="m-widget24__title">
+                                    Total
+                                </h4><br>
+                                <span class="m-widget24__stats m--font-primary">
+                                    {{ widget.extension.total }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <div class="m-portlet m-portlet--creative m-portlet--first m-portlet--bordered-semi">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -783,6 +925,18 @@ export default {
         return {
             widget: {
                 mou: {
+                    approve: null,
+                    reject: null,
+                    process: null,
+                    total: null,
+                },
+                adendum: {
+                    approve: null,
+                    reject: null,
+                    process: null,
+                    total: null,
+                },
+                extension: {
                     approve: null,
                     reject: null,
                     process: null,
@@ -2196,6 +2350,16 @@ export default {
                 this.widget.mou.reject = responseData.mou_reject + responseData.mou_reject_guest;
                 this.widget.mou.process = responseData.mou_process + responseData.mou_process_guest;
                 this.widget.mou.total = responseData.mou_total + responseData.mou_total_guest;
+
+                this.widget.adendum.approve = responseData.adendum_approve + responseData.adendum_approve_guest;
+                this.widget.adendum.reject = responseData.adendum_reject + responseData.adendum_reject_guest;
+                this.widget.adendum.process = responseData.adendum_process + responseData.adendum_process_guest;
+                this.widget.adendum.total = responseData.adendum_total + responseData.adendum_total_guest;
+
+                this.widget.extension.approve = responseData.extension_approve + responseData.extension_approve_guest;
+                this.widget.extension.reject = responseData.extension_reject + responseData.extension_reject_guest;
+                this.widget.extension.process = responseData.extension_process + responseData.extension_process_guest;
+                this.widget.extension.total = responseData.extension_total + responseData.extension_total_guest;
 
                 // this.widget.pks.approve = responseData.pks_approve + responseData.pks_approve_guest;
                 // this.widget.pks.reject = responseData.pks_reject + responseData.pks_reject_guest;

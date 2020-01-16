@@ -189,7 +189,7 @@
 import $axios from '@/api.js';
 import {gmapApi} from 'vue2-google-maps';
 export default {
-    name: "MOUProposalSubmissionCooperationYourDetail",
+    name: "AdendumProposalSubmissionCooperationYourDetail",
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -266,7 +266,7 @@ export default {
     },
     methods: {
         getData() {
-            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail`)
+            $axios.get(`/admin/submission/cooperation/${this.$route.params.id}/detail/adendum`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
                 this.type_of_cooperation = response.data.data.type_of_cooperation.name;

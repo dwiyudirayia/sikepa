@@ -865,7 +865,7 @@ export default {
             })
         },
         hapusDeputi(id) {
-            $axios.delete(`/admin/deputi/pic/${id}`)
+            $axios.delete(`/admin/deputi/pic/adendum/${id}`)
             .then(response => {
                 this.getData();
                 toastr.options = {
@@ -896,7 +896,7 @@ export default {
             })
         },
         addDeputiPIC() {
-            $axios.post(`/admin/deputi/pic`, {
+            $axios.post(`/admin/deputi/pic/adendum`, {
                 id: this.$route.params.id,
                 data: this.addDeputi,
             })

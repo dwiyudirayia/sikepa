@@ -16,6 +16,7 @@ class CreateNomorAdendumTable extends Migration
         Schema::create('nomor_adendum', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('created_by');
+            $table->integer('updated_by');
             $table->bigInteger('adendum_id');
             $table->string('nomor');
             $table->timestamps();

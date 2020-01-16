@@ -22,7 +22,4 @@ class MonitoringActivityGuest extends Model
     public function documentation() {
         return $this->hasMany(MonitoringActivityDocumentationGuest::class);
     }
-    public function result() {
-        return $this->hasOne(MonitoringActivityResultGuest::class);
-    }
 }

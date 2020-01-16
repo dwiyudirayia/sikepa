@@ -8,15 +8,12 @@ use App\Http\Requests\StoreMonevP3Request;
 use App\Http\Requests\StoreMonevSatkerRequest;
 use App\Http\Resources\SubmissionProposalCollection;
 use App\Http\Resources\SubmissionProposalGuestCollection;
-use App\Http\Resources\SubmissionProposalGuestResource;
-use App\LawFileSubmissionProposal;
-use App\LawFileSubmissionProposalGuest;
 use App\MonitoringActivity;
 use App\MonitoringActivityDocumentation;
 use App\MonitoringActivityDocumentationGuest;
 use App\MonitoringActivityGuest;
-use App\MonitoringActivityResult;
-use App\MonitoringActivityResultGuest;
+use App\ReportMOU;
+use App\ReportMOUGuest;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposal;
@@ -25,7 +22,6 @@ use DB;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 class MonevController extends Controller
 {
     private $notification;
@@ -38,13 +34,13 @@ class MonevController extends Controller
         try {
             $user = auth()->user();
             if($user->roles[0]->id == 9) {
-                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
-                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 16)->where('status_proposal', 1)->get());
             }
@@ -467,56 +463,6 @@ class MonevController extends Controller
             ]);
         }
     }
-    public function storeResultActivitySatker(Request $request) {
-        try {
-            DB::beginTransaction();
-            $monev = MonitoringActivity::with('result')->findOrFail($request->id);
-
-            MonitoringActivityResult::create([
-                'monitoring_activity_id' => $request->id,
-                'evaluation' => $request->evaluation,
-                'recomendation' => $request->recomendation
-            ]);
-            $monev->result_status = 1;
-            $monev->save();
-            DB::commit();
-            return response()->json([
-                'messages' => 'Data Berhasil di update',
-                'status' => 200,
-            ]);
-        } catch (\Throwable $th) {
-            DB::rollback();
-            return response()->json([
-                'messages' => $th->getMessage(),
-                'status' => $th->getCode(),
-            ]);
-        }
-    }
-    public function storeResultActivityGuest(Request $request) {
-        try {
-            DB::beginTransaction();
-            $monev = MonitoringActivityGuest::with('result')->findOrFail($request->id);
-
-            MonitoringActivityResultGuest::create([
-                'monitoring_activity_guest_id' => $request->id,
-                'evaluation' => $request->evaluation,
-                'recomendation' => $request->recomendation
-            ]);
-            $monev->result_status = 1;
-            $monev->save();
-            DB::commit();
-            return response()->json([
-                'messages' => 'Data Berhasil di update',
-                'status' => 200,
-            ]);
-        } catch (\Throwable $th) {
-            DB::rollback();
-            return response()->json([
-                'messages' => $th->getMessage(),
-                'status' => $th->getCode(),
-            ]);
-        }
-    }
     public function downloadSummaryGuest($id) {
         ini_set('max_execution_time', 300);
         ini_set("memory_limit","512M");
@@ -736,6 +682,42 @@ class MonevController extends Controller
                 'messages' => 'Data Gagal di Perbaharui',
                 'status' => $th->getCode(),
             ]);
+        }
+    }
+    public function storeReportGuest(Request $request) {
+        try {
+            ReportMOUGuest::updateOrCreate([
+                'submission_proposal_guest_id' => $request->id,
+            ],
+            [
+                'created_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
+                'submission_proposal_guest_id' => $request->id,
+                'report' => $request->value,
+            ]);
+
+            $array = [];
+            return response()->json($this->notification->updateSuccess($array));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeReport(Request $request) {
+        try {
+            ReportMOU::updateOrCreate([
+                'submission_proposal_id' => $request->id,
+            ],
+            [
+                'created_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
+                'submission_proposal_id' => $request->id,
+                'report' => $request->value,
+            ]);
+
+            $array = [];
+            return response()->json($this->notification->updateSuccess($array));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
         }
     }
 }

@@ -73,7 +73,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -101,7 +101,7 @@
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
                                             <th style="vertical-align: middle;">Jenis Permohonan</th>
-                                            <th style="vertical-align: middle;">Judul MOU</th>
+                                            <th style="vertical-align: middle;">Judul Adendum</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
@@ -127,7 +127,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -153,7 +153,7 @@
                                             <th style="vertical-align: middle;">No</th>
                                             <th style="vertical-align: middle;">Jenis Kerjasama</th>
                                             <th style="vertical-align: middle;">Jenis Permohonan</th>
-                                            <th style="vertical-align: middle;">Judul MOU</th>
+                                            <th style="vertical-align: middle;">Judul Adendum</th>
                                             <th style="vertical-align: middle;">Negara</th>
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
@@ -207,7 +207,7 @@
 <script>
 import $axios from '@/api.js';
 export default {
-    name: 'MOUProposalSubmissionCooperationIndex',
+    name: 'AdendumProposalSubmissionCooperationIndex',
     data() {
         return {
             breadcrumbTitle: 'Pengajuan Kerjasama',
@@ -215,7 +215,7 @@ export default {
                 {
                     id: 1,
                     label: 'Daftar Pengajuan Kerjasama',
-                    path: '/mou/submission/cooperation'
+                    path: '/adendum/submission/cooperation'
                 },
             ],
             approvalSubmission: [],
@@ -242,7 +242,7 @@ export default {
     },
     methods: {
         getData() {
-            $axios.get(`/admin/mou/submission/cooperation/approve/adendum`)
+            $axios.get(`/admin/adendum/submission/cooperation/approve`)
             .then(response => {
                 this.youSubmission = response.data.data.you;
                 this.approvalSubmission = response.data.data.satker;

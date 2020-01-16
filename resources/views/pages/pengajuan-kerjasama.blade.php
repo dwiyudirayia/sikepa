@@ -83,7 +83,7 @@
                                         <div class="col-lg-12 col-md-12" id="is-not-mou" style="display:none">
                                             <div class="form-group {{ $errors->has('submission_proposal_guest_id') ? 'has-error' : '' }}">
                                                 <div class="form-input">
-                                                    <select class="form-control select2 required" id="submission_proposal_guest_id" name="submission_proposal_guest_id">
+                                                    <select class="form-control select2" id="submission_proposal_guest_id" name="submission_proposal_guest_id">
                                                         <option></option>
                                                         @foreach ($data['mou'] as $item)
                                                         <option value="{{ $item->id }}">{{ $item->title_cooperation }}</option>
@@ -317,7 +317,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-input input-file">
-                                                    <input class="upload required" type="file" id="agency_profile" name="agency_profile">
+                                                    <input class="upload required extension" type="file" id="agency_profile" name="agency_profile">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="agency_profile" onclick="getFile()"></label>
                                                         <label class="icon" for="agency_profile"><i class="mdi mdi-upload"></i></label>
@@ -333,7 +333,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group {{ $errors->has('proposal') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
-                                                    <input class="upload required" type="file" id="proposal" name="proposal">
+                                                    <input class="upload required extension" type="file" id="proposal" name="proposal">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="proposal" onclick="getFile()"></label>
                                                         <label class="icon" for="proposal"><i class="mdi mdi-upload"></i></label>
@@ -381,6 +381,7 @@
     <script src="{{ asset('assets/js/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&libraries=places&callback=initAutocomplete" async defer></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script>
         function initAutocomplete() {
             var mapstyles = [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
@@ -460,6 +461,7 @@
         saveState: true,
         onStepChanging: function (event, currentIndex, newIndex)
         {
+            console.log(1);
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex)
             {
@@ -481,15 +483,21 @@
                 rules: {
                     ktp: {
                         required: true,
+                        extension: "jpeg|pdf|png",
                     },
                     agency_profile: {
                         required: true,
+                        extension: "jpeg|pdf|png",
                     },
                     proposal: {
                         required: true,
+                        extension: "jpeg|pdf|png|mp4",
                     },
                 },
-                errorPlacement: function (error, element) { }
+                errorPlacement: function (error, element) {
+                    console.log(error);
+                    console.log(element);
+                }
             }).settings.ignore = ":disabled,:hidden";
 
             // Start validation; Prevent going forward if false
@@ -497,6 +505,7 @@
         },
         onStepChanged: function (event, currentIndex, priorIndex)
         {
+            console.log(2);
             // Used to skip the "Warning" step if the user is old enough.
             if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
             {
@@ -510,11 +519,13 @@
         },
         onFinishing: function (event, currentIndex)
         {
+            console.log(3);
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
         onFinished: function (event, currentIndex)
         {
+            console.log(4);
             $('#submission-cooperation').submit();
         }
         });
@@ -563,7 +574,8 @@
                             });
 
                             $('#countries_id').html(countryTwo);
-                            $('#countries_id').val('102');
+                            $('#countries_id').val(102).trigger('change');
+                            // $('#countries_id').val('102').trigger('change');
                             // geocoder.geocode( { 'address': 'Indonesia'}, function(results, status) {
                             //     if (status == google.maps.GeocoderStatus.OK) {
                             //         map.setCenter(results[0].geometry.location);
@@ -617,23 +629,34 @@
 
                 if(value == 3 || value == 4) {
                     $('#is-not-mou').show();
+                    $('#submission_proposal_guest_id').attr('class', 'form-control select2 required');
+                    $('.select2').select2({
+                        width: '100%',
+                        placeholder: 'Pilih dan Sesuaikan',
+                    });
                 } else {
                     $('#is-not-mou').hide();
-                    $('#agencies_id').val('').trigger('change');
-                    $('#loc-search').val('');
-                    $('#address').val('');
-                    $('#addressLabel').val('');
-                    $('#latitude').val('');
-                    $('#latitudeLabel').val('');
-                    $('#longitudeLabel').val('');
-                    $('#longitude').val('');
-                    $('#name').val('');
-                    $('#department').val('');
-                    $('#no_telp').val('');
-                    $('#background').val('');
-                    $('#countries_id').val('');
-                    $('#province_id').val('');
-                    $('#regency_id').val('');
+                    $('#submission_proposal_guest_id').val('');
+                    $('#submission_proposal_guest_id').attr('class', 'form-control select2');
+                    $('.select2').select2({
+                        width: '100%',
+                        placeholder: 'Pilih dan Sesuaikan',
+                    });
+                    // $('#agencies_id').val('');
+                    // $('#loc-search').val('');
+                    // $('#address').val('');
+                    // $('#addressLabel').val('');
+                    // $('#latitude').val('');
+                    // $('#latitudeLabel').val('');
+                    // $('#longitudeLabel').val('');
+                    // $('#longitude').val('');
+                    // $('#name').val('');
+                    // $('#department').val('');
+                    // $('#no_telp').val('');
+                    // $('#background').val('');
+                    // $('#countries_id').val('');
+                    // $('#province_id').val('');
+                    // $('#regency_id').val('');
                 }
             });
             $('#submission_proposal_guest_id').change(function(e) {
@@ -728,6 +751,7 @@
                     url: '/agency/check/goverment/' + value,
                     method: 'GET',
                     success: function(response) {
+                        console.log(response);
                         console.log(response.data.status);
                         if(response.data.status == 1) {
                             $('.is-ministry').hide();

@@ -83,8 +83,8 @@
                         <p v-if="!$v.forms.nip.required" class="m--font-danger">Field Ini Harus di Isi</p>
                         <p v-if="!$v.forms.nip.minLength" class="m--font-danger">Field Ini Harus 18 Angka</p>
                         <p v-if="!$v.forms.nip.maxLength" class="m--font-danger">Field Ini Tidak Boleh Lebih 18 Angka</p>
-                        <p v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</p>
                     </template>
+                    <p v-if="data_errors.nip.number_only" class="m--font-danger">Tidak Boleh Ada Karakter & Spasi</p>
                 </div>
                 <!-- <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Tanda Tangan</label>

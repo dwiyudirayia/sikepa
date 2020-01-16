@@ -41,12 +41,12 @@ class ExtensionGuest extends Model
         return $this->hasMany(TrackingExtensionGuest::class);
     }
     public function nomor() {
-        return $this->hasMany(NomorApprovalSubmissionCooperationGuest::class);
-    }
-    public function law() {
-        return $this->hasOne(LawFileSubmissionProposalGuest::class);
+        return $this->hasMany(NomorExtensionGuest::class);
     }
     public function monevActivity() {
         return $this->hasMany(MonitoringActivityExtensionGuest::class);
+    }
+    public function report() {
+        return $this->hasOne(ReportExtensionGuest::class);
     }
 }

@@ -190,6 +190,16 @@ return [
             'visibility' => 'public',
         ],
         //
+        'activity_documentation_guest_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/activity_documentation_guest_adendum'),
+            'visibility' => 'public',
+        ],
+        'activity_documentation_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/activity_documentation_adendum'),
+            'visibility' => 'public',
+        ],
         'barcode_guest_adendum' => [
             'driver' => 'local',
             'root' => storage_path('app/public/barcode_guest_adendum'),
@@ -230,48 +240,6 @@ return [
             'root' => storage_path('app/public/law_draft_guest_adendum'),
             'visibility' => 'public',
         ],
-        //
-        'barcode_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/barcode_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'proposal_cooperation_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/proposal_cooperation_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'agency_profile_cooperation_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/agency_profile_cooperation_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'ktp_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/ktp_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'npwp_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/npwp_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'siup_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/siup_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'law_notulen_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/law_notulen_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        'law_draft_guest_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/law_draft_guest_notulen'),
-            'visibility' => 'public',
-        ],
-        //
         'proposal_cooperation_adendum' => [
             'driver' => 'local',
             'root' => storage_path('app/public/proposal_cooperation_adendum'),
@@ -292,19 +260,85 @@ return [
             'root' => storage_path('app/public/law_draft_adendum'),
             'visibility' => 'public',
         ],
-        'proposal_cooperation_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/proposal_cooperation_notulen'),
-            'visibility' => 'public',
-        ],
-        'agency_profile_cooperation_notulen' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/agency_profile_cooperation_notulen'),
-            'visibility' => 'public',
-        ],
         'barcode_adendum' => [
             'driver' => 'local',
             'root' => storage_path('app/public/barcode_adendum'),
+            'visibility' => 'public',
+        ],
+        //
+        'activity_documentation_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/activity_documentation_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'activity_documentation_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/activity_documentation_extension'),
+            'visibility' => 'public',
+        ],
+        'barcode_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'ktp_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/ktp_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'npwp_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/npwp_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'siup_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/siup_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'law_draft_guest_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_guest_extension'),
+            'visibility' => 'public',
+        ],
+        'proposal_cooperation_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/proposal_cooperation_extension'),
+            'visibility' => 'public',
+        ],
+        'agency_profile_cooperation_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/agency_profile_cooperation_extension'),
+            'visibility' => 'public',
+        ],
+        'law_notulen_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_notulen_extension'),
+            'visibility' => 'public',
+        ],
+        'law_draft_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/law_draft_extension'),
+            'visibility' => 'public',
+        ],
+        'barcode_extension' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/barcode_extension'),
             'visibility' => 'public',
         ],
         //

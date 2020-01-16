@@ -103,12 +103,12 @@ class StoreSubmissionProposalRequest extends FormRequest
         if($this->hasFile('agency_profile')) {
             $extention = $this->agency_profile->getClientOriginalExtension();
             $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_adendum');
+            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_guest_adendum');
         }
         if($this->hasFile('proposal')) {
             $extention = $this->proposal->getClientOriginalExtension();
             $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_adendum');
+            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_guest_adendum');
         }
 
         return [
@@ -145,12 +145,12 @@ class StoreSubmissionProposalRequest extends FormRequest
         if($this->hasFile('agency_profile')) {
             $extention = $this->agency_profile->getClientOriginalExtension();
             $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_notulen');
+            $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation_guest_extension');
         }
         if($this->hasFile('proposal')) {
             $extention = $this->proposal->getClientOriginalExtension();
             $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
-            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_notulen');
+            $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation_guest_extension');
         }
 
         return [

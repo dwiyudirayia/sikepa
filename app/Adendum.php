@@ -52,4 +52,7 @@ class Adendum extends Model
     public function nomor() {
         return $this->hasMany(NomorAdendum::class);
     }
+    public function report() {
+        return $this->hasOne(ReportAdendum::class);
+    }
 }
