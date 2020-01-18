@@ -103,14 +103,18 @@ class FrontController extends Controller
     }
     public function filterFAQ($data)
     {
+        try {
+            if ($data['q'] == null) {
+                $faq = FAQ::all();
+            } else {
+                $faq = FAQ::where('question', $data['q'])->orWhere('answere', $data['q'])->get();
+            }
 
-        if ($data['q'] == null) {
-            $faq = FAQ::all();
-        } else {
-            $faq = FAQ::where('question', $data['q'])->orWhere('answere', $data['q'])->get();
+            return $faq;
+        } catch (\Throwable $th) {
+            return back()->withErrors('error', 'Tolong Tujuan FAQ Sesuaikan');
         }
 
-        return $faq;
     }
     public function home()
     {

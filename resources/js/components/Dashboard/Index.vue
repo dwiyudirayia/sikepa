@@ -754,7 +754,7 @@
                             <div class="m-form__control">
                                 <Select2
                                     :options="yearsInstansiMOU"
-                                    v-model="chartData.instansi.mou.selectedYear"
+                                    v-model="chartData.instansi.selectedYear"
                                     class="form-control"
                                 />
                             </div>
@@ -772,7 +772,7 @@
                         </div>
                         <br>
                         <bar-chart
-                            :chartData="chartData.instansi.mou.all"
+                            :chartData="chartData.instansi.all"
                             :options="options"
                         />
                     </div>
@@ -979,16 +979,13 @@ export default {
                         selectedYear: null,
                         data: [],
                         years: [],
-                        value: [],
                         yearsText: [],
                     },
                     adendum: {
                         data: [],
-                        value: [],
                     },
                     extension: {
                         data: [],
-                        value: [],
                     },
                 },
                 instansi: {
@@ -1000,20 +997,26 @@ export default {
                     //     value: [],
                     //     yearsText: [],
                     // },
-                    mou: {
-                        all: null,
-                        selectedYear: null,
-                        data: [],
-                        years: [],
-                        value: [],
-                        yearsText: [],
-                    },
-                    adendum: {
-                        data: [],
-                    },
-                    extension: {
-                        data: [],
-                    },
+                    // mou: {
+                    //     all: null,
+                    //     selectedYear: null,
+                    //     data: [],
+                    //     years: [],
+                    //     value: [],
+                    //     yearsText: [],
+                    // },
+                    // adendum: {
+                    //     data: [],
+                    // },
+                    // extension: {
+                    //     data: [],
+                    // },
+                    all: null,
+                    selectedYear: null,
+                    data: [],
+                    years: [],
+                    value: [],
+                    yearsText: [],
                 },
                 deputiKesetaraanGender: {
                     // pks: {
@@ -1138,7 +1141,7 @@ export default {
             return this.chartData.submission.mou.years;
         },
         yearsInstansiMOU() {
-            return this.chartData.instansi.mou.years;
+            return this.chartData.instansi.years;
         },
         // yearsInstansiPKS() {
         //     return this.chartData.instansi.pks.years;
@@ -1176,33 +1179,26 @@ export default {
     },
     mounted() {
         this.getData();
-        // this.options = {
-        //     title: {
-        //         display: true,
-        //     },
-        //     scales: {
-        //     yAxes: [{
-        //         stacked: true
-        //     }],
-        //     xAxes: [ {
-        //         stacked: true,
-        //     }]
-        //     },
-        //     legend: {
-        //         display: true
-        //     },
-        //     responsive: true,
-        //     maintainAspectRatio: false
-        // }
         this.options = {
+            legend: {
+                display: false
+            },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
+                    stacked: true,
                     ticks: {
                         stepSize: 1,
                         beginAtZero: true
-                    }
+                    },
+                }],
+                xAxes: [{
+                    stacked: true,
+                    ticks: {
+                        stepSize: 1,
+                        beginAtZero: true
+                    },
                 }]
             },
         }
@@ -1354,19 +1350,51 @@ export default {
 
             $axios.get(`/admin/filter/submission/mou/${this.chartData.submission.mou.selectedYear}`)
             .then(response => {
-                this.chartData.submission.mou.data = response.data.data;
+                this.chartData.submission.mou.data = response.data.data.submission_cooperation_mou;
+                this.chartData.submission.adendum.data = response.data.data.submission_cooperation_adendum;
+                this.chartData.submission.extension.data = response.data.data.submission_cooperation_extension;
 
-                this.chartData.submission.mou.yearsText = this.chartData.submission.mou.data.map(map => map.year.toString());
-                this.chartData.submission.mou.value = this.chartData.submission.mou.data.map(map => map.data);
-
+                const submissionMOU = this.chartData.submission.mou.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionExtension = this.chartData.submission.extension.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                console.log(
+                    submissionMOU,
+                    submissionAdendum,
+                    submissionExtension,
+                );
 
                 this.chartData.submission.mou.all = {
                     labels: this.chartData.submission.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
-                            data: this.chartData.submission.mou.value,
+                            data: submissionMOU,
+                        },
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#34bfa3',
+                            data: submissionAdendum,
+                        },
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#36a3f7',
+                            data: submissionExtension,
                         },
                     ]
                 };
@@ -1932,32 +1960,35 @@ export default {
         //     })
         // },
         filterAgenciesMOU() {
-            $axios.get(`/admin/filter/agencies/mou/${this.chartData.instansi.mou.selectedYear}`)
+            $axios.get(`/admin/filter/agencies/mou/${this.chartData.instansi.selectedYear}`)
             .then(response => {
-                this.chartData.instansi.mou.data = response.data.data.mou;
-                this.chartData.instansi.adendum.data = response.data.data.adendum;
-                this.chartData.instansi.extension.data = response.data.data.extension;
-
-                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
-                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
-
-                this.chartData.instansi.mou.all = {
-                    labels: this.chartData.instansi.mou.yearsText,
+                this.chartData.instansi.data = response.data.data;
+                const agenciesMOU = this.chartData.instansi.data.map((value, index) => {
+                    return value.mou.length + value.mou_guest.length;
+                });
+                const agenciesAdendum = this.chartData.instansi.data.map((value, index) => {
+                    return value.adendum.length + value.adendum_guest.length
+                });
+                const agenciesExtension = this.chartData.instansi.data.map((value, index) => {
+                    return value.extension.length + value.extension_guest.length;
+                });
+                this.chartData.instansi.all = {
+                    // labels: this.chartData.instansi.data.map(value => value.name),
                     datasets: [
                         {
                             label: "MOU",
                             backgroundColor: "#f87979",
-                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                            data: agenciesMOU,
                         },
                         {
                             label: "Adendum",
                             backgroundColor: "#34bfa3",
-                            data: this.chartData.instansi.adendum.data.map(value => value.length),
+                            data: agenciesAdendum,
                         },
                         {
                             label: "Perpanjangan",
                             backgroundColor: "#36a3f7",
-                            data: this.chartData.instansi.extension.data.map(value => value.length),
+                            data: agenciesExtension,
                         },
                     ]
                 };
@@ -1966,31 +1997,36 @@ export default {
         resetAgenciesMOU() {
             $axios.get(`/admin/reset/agencies/mou`)
             .then(response => {
-                this.chartData.instansi.mou.selectedYear = null;
-                this.chartData.instansi.mou.data = response.data.data.mou;
-                this.chartData.instansi.adendum.data = response.data.data.adendum;
-                this.chartData.instansi.extension.data = response.data.data.extension;
+                this.chartData.instansi.selectedYear = null;
+                this.chartData.instansi.data = response.data.data.agencies;
 
-                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
-                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
+                const agenciesMOU = this.chartData.instansi.data.map((value, index) => {
+                    return value.mou.length + value.mou_guest.length;
+                });
+                const agenciesAdendum = this.chartData.instansi.data.map((value, index) => {
+                    return value.adendum.length + value.adendum_guest.length
+                });
+                const agenciesExtension = this.chartData.instansi.data.map((value, index) => {
+                    return value.extension.length + value.extension_guest.length;
+                });
 
-                this.chartData.instansi.mou.all = {
-                    labels: this.chartData.instansi.mou.yearsText,
+                this.chartData.instansi.all = {
+                    labels: this.chartData.instansi.data.map(value => value.name),
                     datasets: [
                         {
                             label: "MOU",
                             backgroundColor: "#f87979",
-                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                            data: agenciesMOU,
                         },
                         {
                             label: "Adendum",
                             backgroundColor: "#34bfa3",
-                            data: this.chartData.instansi.adendum.data.map(value => value.length),
+                            data: agenciesAdendum,
                         },
                         {
                             label: "Perpanjangan",
                             backgroundColor: "#36a3f7",
-                            data: this.chartData.instansi.extension.data.map(value => value.length),
+                            data: agenciesExtension,
                         },
                     ]
                 };
@@ -2081,12 +2117,26 @@ export default {
                         text: value.year
                     };
                 })
-
+                const submissionMOU = this.chartData.submission.mou.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionExtension = this.chartData.submission.extension.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
                 this.chartData.submission.mou.years = objectSubmissionMOU;
                 this.chartData.submission.mou.yearsText = this.chartData.submission.mou.data.map(map => map.year.toString());
-                this.chartData.submission.mou.value = this.chartData.submission.mou.data.map(map => map.data);
-                this.chartData.submission.adendum.value = this.chartData.submission.adendum.data.map(map => map.data);
-                this.chartData.submission.extension.value = this.chartData.submission.extension.data.map(map => map.data);
 
 
                 this.chartData.submission.mou.all = {
@@ -2095,17 +2145,17 @@ export default {
                         {
                             label: `MOU`,
                             backgroundColor: '#f87979',
-                            data: this.chartData.submission.mou.value,
+                            data: submissionMOU,
                         },
                         {
                             label: `Adendum`,
                             backgroundColor: '#34bfa3',
-                            data: this.chartData.submission.adendum.value,
+                            data: submissionAdendum,
                         },
                         {
                             label: `Perpanjangan`,
                             backgroundColor: '#36a3f7',
-                            data: this.chartData.submission.extension.value,
+                            data: submissionExtension,
                         },
                     ]
                 };
@@ -2389,9 +2439,7 @@ export default {
                 // };
 
                 //Intansi
-                this.chartData.instansi.mou.data = response.data.data.agencies_mou;
-                this.chartData.instansi.adendum.data = response.data.data.agencies_adendum;
-                this.chartData.instansi.extension.data = response.data.data.agencies_extension;
+                this.chartData.instansi.data = response.data.data.agencies;
                 let objectInstansiMOU = response.data.data.agencies_year_mou.map(value => {
                     return {
                         id: value[0].year.toString(),
@@ -2399,27 +2447,35 @@ export default {
                     };
                 })
 
-                this.chartData.instansi.mou.years = objectInstansiMOU;
-                this.chartData.instansi.mou.yearsText = this.chartData.instansi.mou.data.map((map, index) => map[0].agencies.name.toString());
-                this.chartData.instansi.mou.value = this.chartData.instansi.mou.data.map(map => map.data);
+                this.chartData.instansi.years = objectInstansiMOU;
 
-                this.chartData.instansi.mou.all = {
-                    labels: this.chartData.instansi.mou.yearsText,
+                const agenciesMOU = this.chartData.instansi.data.map((value, index) => {
+                    return value.mou.length + value.mou_guest.length;
+                });
+                const agenciesAdendum = this.chartData.instansi.data.map((value, index) => {
+                    return value.adendum.length + value.adendum_guest.length
+                });
+                const agenciesExtension = this.chartData.instansi.data.map((value, index) => {
+                    return value.extension.length + value.extension_guest.length;
+                });
+
+                this.chartData.instansi.all = {
+                    labels: this.chartData.instansi.data.map(value => value.name),
                     datasets: [
                         {
                             label: "MOU",
                             backgroundColor: "#f87979",
-                            data: this.chartData.instansi.mou.data.map(value => value.length),
+                            data: agenciesMOU,
                         },
                         {
                             label: "Adendum",
                             backgroundColor: "#34bfa3",
-                            data: this.chartData.instansi.adendum.data.map(value => value.length),
+                            data: agenciesAdendum,
                         },
                         {
                             label: "Perpanjangan",
                             backgroundColor: "#36a3f7",
-                            data: this.chartData.instansi.extension.data.map(value => value.length),
+                            data: agenciesExtension,
                         },
                     ]
                 };
