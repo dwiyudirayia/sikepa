@@ -52,6 +52,7 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">MOU Dari</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -66,6 +67,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.mou.title_cooperation }}</td>
                                                 <td style="vertical-align: middle;">
                                                     <button @click="downloadFileDraft(value.id)" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Download File Pengajuan'">
                                                         <span>
@@ -90,6 +92,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ youSubmission.length }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </template>
                     <template v-else>
@@ -106,12 +115,13 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                            <th style="vertical-align: middle;">MOU Dari</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="youSubmission.length">
-                                            <tr v-for="(value, index) in youSubmission" :key="value.id">
+                                        <template v-if="approvalSubmission.length">
+                                            <tr v-for="(value, index) in approvalSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
@@ -120,6 +130,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.mou.title_cooperation }}</td>
                                                 <td style="vertical-align: middle;">
                                                     <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'ExtensionProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
@@ -138,6 +149,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ approvalSubmission.length }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
                             <div class="table-responsive">
@@ -152,7 +170,8 @@
                                             <th style="vertical-align: middle;">Instansi</th>
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
-                                            <!-- <th style="vertical-align: middle;">Aksi</th> -->
+                                            <th style="vertical-align: middle;">MOU Dari</th>
+                                            <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -166,6 +185,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agencies.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
+                                                <td style="vertical-align: middle;">{{ value.mou.title_cooperation }}</td>
                                                 <td style="vertical-align: middle;">
                                                     <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'ExtensionProposalSubmissionCooperationYourDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
@@ -183,6 +203,13 @@
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ guestSubmission.length }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>

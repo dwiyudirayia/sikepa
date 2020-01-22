@@ -29,6 +29,11 @@ import UserSatkerEdit from './components/User/Satker/Edit';
 import BackgroundLoginIndex from './components/BackgroundLogin/Index';
 import BackgroundLoginEdit from './components/BackgroundLogin/Edit';
 
+//Banner Landing Page
+import BannerLandingPageIndex from './components/BannerLandingPage/Index';
+import BannerLandingPageEdit from './components/BannerLandingPage/Edit';
+import BannerLandingPageChangeConfig from './components/BannerLandingPage/ChangeConfig';
+
 //monev
 import MonitoringEvaluasiIndex from './components/Monev/MOU/Index';
 import MonitoringP3Create from './components/Monev/MOU/Proposal/P3Create';
@@ -1248,7 +1253,7 @@ const router = new VueRouter({
                     component: MOUProposalSubmissionCooperationIndex,
                     meta: {
                         requiresAuth: true
-                    }
+                    },
                 },
                 {
                     path: '/mou/submission/cooperation/approve',
@@ -1364,7 +1369,18 @@ const router = new VueRouter({
                     component: BackgroundLoginIndex,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 {
                     path: '/background/login/:id/edit',
@@ -1372,7 +1388,75 @@ const router = new VueRouter({
                     component: BackgroundLoginEdit,
                     meta: {
                         requiresAuth: true,
-                    }
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/article/banner',
+                    name: 'BannerLandingPageIndex',
+                    component: BannerLandingPageIndex,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/article/banner/:id/edit',
+                    name: 'BannerLandingPageEdit',
+                    component: BannerLandingPageEdit,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
+                },
+                {
+                    path: '/article/banner/change/config',
+                    name: 'BannerLandingPageChangeConfig',
+                    component: BannerLandingPageChangeConfig,
+                    meta: {
+                        requiresAuth: true,
+                    },
+                    beforeEnter: (to, from, next) => {
+                        const permission = store.state.user.authenticated.permission;
+
+                        let filterPermission = permission.filter(value => value === 'Admin');
+
+                        if(filterPermission.length == 0) {
+                            return true;
+                        } else {
+                            next();
+                        }
+                    },
                 },
                 // {
                 //     path: '/banner/category',

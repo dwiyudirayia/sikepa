@@ -100,6 +100,7 @@
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
                                             <th style="vertical-align: middle;">Durasi</th>
+                                            <th style="vertical-align: middle;">MOU Dari</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -115,6 +116,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td style="vertical-align: middle;">{{ value.duration }}</td>
+                                                <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
                                                         <router-link :to="{name: 'ExtensionProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -213,6 +215,7 @@
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
                                             <th style="vertical-align: middle;">Durasi</th>
+                                            <th style="vertical-align: middle;">MOU Dari</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -228,6 +231,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td style="vertical-align: middle;">{{ value.duration }}</td>
+                                                <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
                                                         <router-link :to="{name: 'ExtensionProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
@@ -331,6 +335,7 @@
                                             <th style="vertical-align: middle;">Nama Kantor</th>
                                             <th style="vertical-align: middle;">Lama Pengajuan</th>
                                             <th style="vertical-align: middle;">Durasi</th>
+                                            <th style="vertical-align: middle;">MOU Dari</th>
                                             <th style="vertical-align: middle;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -346,6 +351,7 @@
                                                 <td style="vertical-align: middle;">{{ value.agency_name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td style="vertical-align: middle;">{{ value.duration }}</td>
+                                                <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                                 <td>
                                                     <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
                                                         <router-link :to="{name: 'ExtensionProposalSubmissionCooperationDetailGuest', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">

@@ -90,6 +90,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ youSubmission.length }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </template>
                     <template v-else>
@@ -110,8 +117,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="youSubmission.length">
-                                            <tr v-for="(value, index) in youSubmission" :key="value.id">
+                                        <template v-if="approvalSubmission.length">
+                                            <tr v-for="(value, index) in approvalSubmission" :key="value.id">
                                                 <td style="vertical-align: middle;">{{ index+1 }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_one.name }}</td>
                                                 <td style="vertical-align: middle;">{{ value.type_of_cooperation_two.name }}</td>
@@ -137,6 +144,13 @@
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ approvalSubmission.length }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
@@ -183,6 +197,13 @@
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ guestSubmission.length }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>

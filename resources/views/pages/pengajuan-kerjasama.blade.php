@@ -234,6 +234,7 @@
                                                 @if($errors->has('ktp'))
                                                     <p style="color:red;">{{ $errors->first('ktp') }}</p>
                                                 @endif
+                                                <span>Ekstensi File Harus <strong>JPEG, PDF, PNG & JPG</strong></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 is-ministry">
@@ -247,6 +248,7 @@
                                                     <label class="text-label">NPWP Pemohon</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                <span>Ekstensi File Harus <strong>JPEG, PDF, PNG & JPG</strong></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 is-ministry">
@@ -263,6 +265,7 @@
                                                 @if($errors->has('siup'))
                                                     <p style="color:red;">{{ $errors->first('siup') }}</p>
                                                 @endif
+                                                <span>Ekstensi File Harus <strong>JPEG, PDF, PNG & JPG</strong></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
@@ -325,6 +328,7 @@
                                                     <label class="text-label">Profil instansi</label>
                                                     <span class="remove-file"><i class="mdi mdi-close"></i></span>
                                                 </div>
+                                                <span>Ekstensi File Harus <strong>JPEG, PDF, PNG & JPG</strong></span>
                                                 @if($errors->has('agency_profile'))
                                                     <p style="color:red;">{{ $errors->first('agency_profile') }}</p>
                                                 @endif
@@ -344,6 +348,7 @@
                                                 @if($errors->has('proposal'))
                                                     <p style="color:red;">{{ $errors->first('proposal') }}</p>
                                                 @endif
+                                                <span>Ekstensi File Harus <strong>JPEG, PDF, PNG, JPG & MP4</strong></span>
                                             </div>
                                         </div>
                                     </div>
@@ -483,15 +488,15 @@
                 rules: {
                     ktp: {
                         required: true,
-                        extension: "jpeg|pdf|png",
+                        extension: "jpeg|pdf|png|jpg",
                     },
                     agency_profile: {
                         required: true,
-                        extension: "jpeg|pdf|png",
+                        extension: "jpeg|pdf|png|jpg",
                     },
                     proposal: {
                         required: true,
-                        extension: "jpeg|pdf|png|mp4",
+                        extension: "jpeg|pdf|png|jpg|mp4",
                     },
                 },
                 errorPlacement: function (error, element) {

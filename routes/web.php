@@ -11,8 +11,11 @@
 |
 */
 
-use App\Agency;
+use Illuminate\Support\Facades\Artisan;
 
+Route::get('reset', function(){
+    Artisan::call('optimize:clear');
+});
 Route::get('/', 'FrontController@home')->name('home');
 Route::get('/page/faq', 'FrontController@faq')->name('faq');
 Route::get('/page/article', 'FrontController@article')->name('article');
@@ -35,10 +38,6 @@ Route::get('/download/format/mou', 'ExportController@formatOldMOU');
 Route::get('/download/data/monev/pdf', 'ExportController@downloadDataMonevPDF');
 Route::get('/download/data/monev/detail/pdf/{id}', 'ExportController@downloadDataMonevDetailPDF');
 Route::post('/suggestion', 'FrontController@storeSuggest')->name('suggestion.store');
-
-Route::get('/agencies', function() {
-    dd(Agency::with('mou', 'mouGuest', 'adendum','adendumGuest','extension','extensionGuest')->get());
-});
 
 //AJAX
 Route::get('/ajax/type/{id}', 'FrontController@type');

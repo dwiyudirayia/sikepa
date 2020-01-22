@@ -14,7 +14,7 @@ class CreateFrontPhotoLoginTable extends Migration
     public function up()
     {
         Schema::create('front_photo_login', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->tinyIncrements('id');
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->string('image_path');

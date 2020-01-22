@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PhotoLogin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoLoginController extends Controller
 {
@@ -45,6 +46,7 @@ class PhotoLoginController extends Controller
             $name = $request->image->storeAs(strtotime(now()), $nameFile, 'photo_login');
 
             $data = PhotoLogin::findOrFail($id);
+            Storage::disk('photo_login')->delete($data->image_path);
             $data->image_path = $name;
             $data->save();
 

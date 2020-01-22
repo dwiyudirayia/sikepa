@@ -49,4 +49,7 @@ class AdendumGuest extends Model
     public function report() {
         return $this->hasOne(ReportAdendumGuest::class);
     }
+    public function mou() {
+        return $this->belongsTo(SubmissionProposalGuest::class);
+    }
 }

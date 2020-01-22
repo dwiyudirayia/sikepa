@@ -10,28 +10,53 @@
 <section class="content-page banner-area">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            @foreach ($bannerArticle as $item)
-                <div class="swiper-slide">
-                    <div class="banner-image" data-swiper-parallax="50%">
-                        <div class="thumb">
-                            <img src="{{ asset('storage/article_photo/'.$item->image) }}">
+            @if ($config['banner'] == false)
+                @foreach ($bannerArticle as $item)
+                    <div class="swiper-slide">
+                        <div class="banner-image" data-swiper-parallax="50%">
+                            <div class="thumb">
+                                <img src="{{ asset('storage/banner_photo/'.$item->image) }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="banner-caption">
-                        <div class="container">
-                            <div class="caption">
-                                <div class="meta">
-                                    <span>{{ $item->created_at->format('d') }} {{ $item->created_at->format('M') }}, {{ $item->created_at->format('Y') }}</span>
+                        <div class="banner-caption">
+                            <div class="container">
+                                <div class="caption">
+                                    <div class="meta">
+                                        <span>{{ $item->created_at->format('d') }} {{ $item->created_at->format('M') }}, {{ $item->created_at->format('Y') }}</span>
+                                    </div>
+                                    <div class="main-title">
+                                        <h2 class="title" ellipsis>{{ $item->title }}</h2>
+                                    </div>
+                                    <a class="link-icon" href="{{ route('article.detail', ['slug' => $item->url]) }}">Baca selengkapnya<i class="mdi mdi-play"></i></a>
                                 </div>
-                                <div class="main-title">
-                                    <h2 class="title" ellipsis>{{ $item->title }}</h2>
-                                </div>
-                                <a class="link-icon" href="{{ route('article.detail', ['slug' => $item->url]) }}">Baca selengkapnya<i class="mdi mdi-play"></i></a>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                @foreach ($photoBanner as $item)
+                    <div class="swiper-slide">
+                        <div class="banner-image" data-swiper-parallax="50%">
+                            <div class="thumb">
+                                <img src="{{ asset('storage/banner_article/'.$item->image_path) }}">
+                            </div>
+                        </div>
+                        <div class="banner-caption">
+                            <div class="container">
+                                <div class="caption">
+                                    <div class="meta">
+                                        {{-- <span>{{ $item->created_at->format('d') }} {{ $item->created_at->format('M') }}, {{ $item->created_at->format('Y') }}</span> --}}
+                                    </div>
+                                    <div class="main-title">
+                                        {{-- <h2 class="title" ellipsis>{{ $item->title }}</h2> --}}
+                                    </div>
+                                    {{-- <a class="link-icon" href="{{ route('article.detail', ['slug' => $item->url]) }}">Baca selengkapnya<i class="mdi mdi-play"></i></a> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
         <div class="swiper-pagination"></div>
     </div>

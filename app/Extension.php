@@ -55,4 +55,7 @@ class Extension extends Model
     public function report() {
         return $this->hasOne(ReportExtension::class);
     }
+    public function mou() {
+        return $this->belongsTo(SubmissionProposal::class, 'submission_proposal_id');
+    }
 }

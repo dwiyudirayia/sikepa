@@ -1085,9 +1085,9 @@ class ExtensionController extends Controller
     public function proposalApproveMOU()
     {
         try {
-            $data['you'] = Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            $data['guest'] = ExtensionGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            $data['you'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            $data['guest'] = ExtensionGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -1096,9 +1096,9 @@ class ExtensionController extends Controller
     public function proposalRejectMOU()
     {
         try {
-            $data['you'] = Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-            $data['guest'] = ExtensionGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+            $data['you'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+            $data['guest'] = ExtensionGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

@@ -55,4 +55,7 @@ class Adendum extends Model
     public function report() {
         return $this->hasOne(ReportAdendum::class);
     }
+    public function mou() {
+        return $this->belongsTo(SubmissionProposal::class);
+    }
 }

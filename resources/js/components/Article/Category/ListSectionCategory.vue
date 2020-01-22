@@ -11,7 +11,7 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Section</span>
+                            <span>Daftar Kategori</span>
                         </h2>
                     </div>
                 </div>

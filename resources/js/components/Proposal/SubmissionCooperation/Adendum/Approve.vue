@@ -90,6 +90,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ youSubmission.length }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </template>
                     <template v-else>
@@ -144,6 +151,13 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ approvalSubmission.length }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="m_tabs_8_3" role="tabpanel">
                             <div class="table-responsive">
@@ -195,6 +209,13 @@
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="m-portlet__foot">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        Total Record : <strong>{{ guestSubmission.length }}</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>

@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use App\User;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
+use Spatie\Permission\Models\Permission;
 
 class RolePermissionsController extends Controller
 {
@@ -46,6 +47,7 @@ class RolePermissionsController extends Controller
                 $data['permissions'] = Permission::all();
                 return response()->json($this->notification->updateSuccess($data));
             } catch (\Throwable $th) {
+                dd($th->getMessage());
                 return response()->json($this->notification->updateSuccess($th));
             }
     }

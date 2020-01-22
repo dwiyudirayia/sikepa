@@ -49,4 +49,7 @@ class ExtensionGuest extends Model
     public function report() {
         return $this->hasOne(ReportExtensionGuest::class);
     }
+    public function mou() {
+        return $this->belongsTo(SubmissionProposalGuest::class, 'submission_proposal_guest_id');
+    }
 }

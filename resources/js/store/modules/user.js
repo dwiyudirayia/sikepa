@@ -104,6 +104,12 @@ const user = {
                 $axios.post(`/set-role-permission`, payload)
                 .then((response) => {
                     resolve(response.data)
+                    $axios.get(`/user-authenticated`)
+                    .then((response) => {
+                        //SIMPAN DATA USER TERSEBUT
+                        commit('ASSIGN_USER_AUTH', response.data.data)
+                        resolve(response.data)
+                    })
                 })
                 .catch((error) => {
                     //APABILA TERJADI ERROR VALIDASI

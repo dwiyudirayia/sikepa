@@ -369,6 +369,88 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Partisipasi Masyarakat')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Partisipasi Masyarakat Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPartisipasiMasyarakatAdendum"
+                                    v-model="chartData.deputiPartisipasiMasyarakat.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPartisipasiMasyarakatAdendum" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPartisipasiMasyarakatAdendum" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiPartisipasiMasyarakat.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Partisipasi Masyarakat')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Partisipasi Masyarakat Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPartisipasiMasyarakatExtension"
+                                    v-model="chartData.deputiPartisipasiMasyarakat.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPartisipasiMasyarakatExtension" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPartisipasiMasyarakatExtension" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.deputiPartisipasiMasyarakat.extension.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
             <!-- <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Kesetaraan Gender')">
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -444,8 +526,90 @@
                             </div>
                         </div>
                         <br>
-                        <bar-chart
+                        <line-chart
                             :chartData="chartData.deputiKesetaraanGender.mou.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Kesetaraan Gender')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Kesetaraan Gender Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsKesetaraanGenderAdendum"
+                                    v-model="chartData.deputiKesetaraanGender.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterKesetaraanGenderAdendum" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetKesetaraanGenderAdendum" class="btn btn-secondary">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.deputiKesetaraanGender.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Kesetaraan Gender')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Kesetaraan Gender Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsKesetaraanGenderExtension"
+                                    v-model="chartData.deputiKesetaraanGender.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterKesetaraanGenderExtension" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetKesetaraanGenderExtension" class="btn btn-secondary">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiKesetaraanGender.extension.all"
                             :options="options"
                         />
                     </div>
@@ -533,6 +697,88 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Anak')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Perlindungan Anak Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPerlindunganAnakAdendum"
+                                    v-model="chartData.deputiPerlindunganAnak.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganAnakAdendum" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganAnakAdendum" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiPerlindunganAnak.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Anak')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Perlindungan Anak Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPerlindunganAnakExtension"
+                                    v-model="chartData.deputiPerlindunganAnak.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganAnakExtension" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganAnakExtension" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.deputiPerlindunganAnak.extension.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
             <!-- <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Hak Perempuan')">
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
@@ -608,8 +854,90 @@
                             </div>
                         </div>
                         <br>
-                        <bar-chart
+                        <line-chart
                             :chartData="chartData.deputiPerlindunganHakPerempuan.mou.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Hak Perempuan')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Perlindungan Hak Perempuan Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPerlindunganHakPerempuanAdendum"
+                                    v-model="chartData.deputiPerlindunganHakPerempuan.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganHakPerempuanAdendum" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganHakPerempuanAdendum" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.deputiPerlindunganHakPerempuan.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Perlindungan Hak Perempuan')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Perlindungan Hak Perempuan Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsPerlindunganHakPerempuanExtension"
+                                    v-model="chartData.deputiPerlindunganHakPerempuan.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganHakPerempuanExtension" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganHakPerempuanExtension" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiPerlindunganHakPerempuan.extension.all"
                             :options="options"
                         />
                     </div>
@@ -684,6 +1012,7 @@
                                     <div class="col-lg-5"></div>
                                     <div class="col-lg-7">
                                         <button type="button" @click="filterPerlindunganTumbuhKembangAnakMOU" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetPerlindunganTumbuhKembangAnakMOU" class="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -691,6 +1020,86 @@
                         <br>
                         <bar-chart
                             :chartData="chartData.deputiTumbuhKembangAnak.mou.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Tumbuh Kembang Anak')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Tumbuh Kembang Anak Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsTumbuhKembangAnakAdendum"
+                                    v-model="chartData.deputiTumbuhKembangAnak.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganTumbuhKembangAnakAdendum" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.deputiTumbuhKembangAnak.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Deputi Bidang Tumbuh Kembang Anak')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Deputi Bidang Tumbuh Kembang Anak Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsTumbuhKembangAnakExtension"
+                                    v-model="chartData.deputiTumbuhKembangAnak.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterPerlindunganTumbuhKembangAnakExtension" class="btn btn-brand">Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.deputiTumbuhKembangAnak.extension.all"
                             :options="options"
                         />
                     </div>
@@ -737,7 +1146,7 @@
                     </div>
                 </div>
             </div> -->
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Instansi')">
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
@@ -819,13 +1228,13 @@
                     </div>
                 </div>
             </div> -->
-            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Pengajuan Kerjasama')">
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Pengajuan Kerjasama
+                                    Pengajuan Kerjasama MOU
                                 </h3>
                             </div>
                         </div>
@@ -860,7 +1269,89 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12 col-lg-12 col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Pengajuan Kerjasama')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Pengajuan Kerjasama Adendum
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSubmissionAdendum"
+                                    v-model="chartData.submission.adendum.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterSubmissionAdendum" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetSubmissionAdendum" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <line-chart
+                            :chartData="chartData.submission.adendum.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-12 col-sm-12 col-md-12" v-if="$can('Chart Pengajuan Kerjasama')">
+                <div class="m-portlet  m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Pengajuan Kerjasama Perpanjangan
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group">
+                            <label for="Nama Lengkap">Tahun</label>
+                            <div class="m-form__control">
+                                <Select2
+                                    :options="yearsSubmissionExtension"
+                                    v-model="chartData.submission.extension.selectedYear"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                            <div class="m-form__actions m-form__actions--solid">
+                                <div class="row">
+                                    <div class="col-lg-5"></div>
+                                    <div class="col-lg-7">
+                                        <button type="button" @click="filterSubmissionExtension" class="btn btn-brand">Filter</button>
+                                        <button type="button" @click="resetSubmissionExtension" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <bar-chart
+                            :chartData="chartData.submission.extension.all"
+                            :options="options"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-xs-6 col-sm-6 col-md-6">
                 <div class="m-portlet  m-portlet--full-height ">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
@@ -982,10 +1473,18 @@ export default {
                         yearsText: [],
                     },
                     adendum: {
+                        all: null,
+                        selectedYear: null,
                         data: [],
+                        years: [],
+                        yearsText: [],
                     },
                     extension: {
+                        all: null,
+                        selectedYear: null,
                         data: [],
+                        years: [],
+                        yearsText: [],
                     },
                 },
                 instansi: {
@@ -1035,6 +1534,22 @@ export default {
                         value: [],
                         yearsText: [],
                     },
+                    adendum: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    extension: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
                 },
                 deputiPartisipasiMasyarakat: {
                     // pks: {
@@ -1046,6 +1561,22 @@ export default {
                     //     yearsText: [],
                     // },
                     mou: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    adendum: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    extension: {
                         all: null,
                         selectedYear: null,
                         data: [],
@@ -1071,6 +1602,22 @@ export default {
                         value: [],
                         yearsText: [],
                     },
+                    adendum: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    extension: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
                 },
                 deputiPerlindunganHakPerempuan: {
                     // pks: {
@@ -1089,6 +1636,22 @@ export default {
                         value: [],
                         yearsText: [],
                     },
+                    adendum: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    extension: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
                 },
                 deputiTumbuhKembangAnak: {
                     // pks: {
@@ -1100,6 +1663,22 @@ export default {
                     //     yearsText: [],
                     // },
                     mou: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    adendum: {
+                        all: null,
+                        selectedYear: null,
+                        data: [],
+                        years: [],
+                        value: [],
+                        yearsText: [],
+                    },
+                    extension: {
                         all: null,
                         selectedYear: null,
                         data: [],
@@ -1140,6 +1719,12 @@ export default {
         yearsSubmissionMOU() {
             return this.chartData.submission.mou.years;
         },
+        yearsSubmissionAdendum() {
+            return this.chartData.submission.adendum.years;
+        },
+        yearsSubmissionExtension() {
+            return this.chartData.submission.extension.years;
+        },
         yearsInstansiMOU() {
             return this.chartData.instansi.years;
         },
@@ -1152,11 +1737,23 @@ export default {
         yearsKesetaraanGenderMOU() {
             return this.chartData.deputiKesetaraanGender.mou.years;
         },
+        yearsKesetaraanGenderAdendum() {
+            return this.chartData.deputiKesetaraanGender.adendum.years;
+        },
+        yearsKesetaraanGenderExtension() {
+            return this.chartData.deputiKesetaraanGender.extension.years;
+        },
         // yearsPartisipasiMasyarakatPKS() {
         //     return this.chartData.deputiPartisipasiMasyarakat.pks.years;
         // },
         yearsPartisipasiMasyarakatMOU() {
             return this.chartData.deputiPartisipasiMasyarakat.mou.years;
+        },
+        yearsPartisipasiMasyarakatAdendum() {
+            return this.chartData.deputiPartisipasiMasyarakat.adendum.years;
+        },
+        yearsPartisipasiMasyarakatExtension() {
+            return this.chartData.deputiPartisipasiMasyarakat.extension.years;
         },
         // yearsPerlindunganAnakPKS() {
         //     return this.chartData.deputiPerlindunganAnak.pks.years;
@@ -1164,11 +1761,23 @@ export default {
         yearsPerlindunganAnakMOU() {
             return this.chartData.deputiPerlindunganAnak.mou.years;
         },
+        yearsPerlindunganAnakAdendum() {
+            return this.chartData.deputiPerlindunganAnak.adendum.years;
+        },
+        yearsPerlindunganAnakExtension() {
+            return this.chartData.deputiPerlindunganAnak.extension.years;
+        },
         // yearsPerlindunganHakPerempuanPKS() {
         //     return this.chartData.deputiPerlindunganHakPerempuan.pks.years;
         // },
         yearsPerlindunganHakPerempuanMOU() {
             return this.chartData.deputiPerlindunganHakPerempuan.mou.years;
+        },
+        yearsPerlindunganHakPerempuanAdendum() {
+            return this.chartData.deputiPerlindunganHakPerempuan.adendum.years;
+        },
+        yearsPerlindunganHakPerempuanExtension() {
+            return this.chartData.deputiPerlindunganHakPerempuan.extension.years;
         },
         // yearsTumbuhKembangAnakPKS() {
         //     return this.chartData.deputiTumbuhKembangAnak.pks.years;
@@ -1176,13 +1785,16 @@ export default {
         yearsTumbuhKembangAnakMOU() {
             return this.chartData.deputiTumbuhKembangAnak.mou.years;
         },
+        yearsTumbuhKembangAnakAdendum() {
+            return this.chartData.deputiTumbuhKembangAnak.adendum.years;
+        },
+        yearsTumbuhKembangAnakExtension() {
+            return this.chartData.deputiTumbuhKembangAnak.extension.years;
+        },
     },
     mounted() {
         this.getData();
         this.options = {
-            legend: {
-                display: false
-            },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -1310,7 +1922,7 @@ export default {
         //             labels: this.chartData.submission.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.submission.pks.value,
         //                 },
@@ -1335,7 +1947,7 @@ export default {
         //             labels: this.chartData.submission.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.submission.pks.value,
         //                 },
@@ -1350,9 +1962,8 @@ export default {
 
             $axios.get(`/admin/filter/submission/mou/${this.chartData.submission.mou.selectedYear}`)
             .then(response => {
-                this.chartData.submission.mou.data = response.data.data.submission_cooperation_mou;
-                this.chartData.submission.adendum.data = response.data.data.submission_cooperation_adendum;
-                this.chartData.submission.extension.data = response.data.data.submission_cooperation_extension;
+                console.log(response.data.data);
+                this.chartData.submission.mou.data = response.data.data;
 
                 const submissionMOU = this.chartData.submission.mou.data.map(value => {
                     return {
@@ -1360,41 +1971,15 @@ export default {
                         y: value.data,
                     }
                 });
-                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
-                    return {
-                        x: value.year,
-                        y: value.data,
-                    }
-                });
-                const submissionExtension = this.chartData.submission.extension.data.map(value => {
-                    return {
-                        x: value.year,
-                        y: value.data,
-                    }
-                });
-                console.log(
-                    submissionMOU,
-                    submissionAdendum,
-                    submissionExtension,
-                );
+                const submissionMOUYear = this.chartData.submission.mou.data.map(value => value.year);
 
                 this.chartData.submission.mou.all = {
-                    labels: this.chartData.submission.mou.yearsText,
+                    labels: submissionMOUYear,
                     datasets: [
                         {
                             label: `MOU`,
                             backgroundColor: '#f87979',
                             data: submissionMOU,
-                        },
-                        {
-                            label: `Adendum`,
-                            backgroundColor: '#34bfa3',
-                            data: submissionAdendum,
-                        },
-                        {
-                            label: `Perpanjangan`,
-                            backgroundColor: '#36a3f7',
-                            data: submissionExtension,
                         },
                     ]
                 };
@@ -1417,9 +2002,119 @@ export default {
                     labels: this.chartData.submission.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.submission.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterSubmissionAdendum() {
+
+            $axios.get(`/admin/filter/submission/adendum/${this.chartData.submission.adendum.selectedYear}`)
+            .then(response => {
+                console.log(response.data.data);
+                this.chartData.submission.adendum.data = response.data.data;
+
+                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionAdendumYear = this.chartData.submission.adendum.data.map(value => value.year);
+
+                this.chartData.submission.adendum.all = {
+                    labels: submissionAdendumYear,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: submissionAdendum,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetSubmissionAdendum() {
+            $axios.get(`/admin/reset/submission/adendum`)
+            .then(response => {
+                this.chartData.submission.adendum.selectedYear = null;
+                this.chartData.submission.adendum.data = response.data.data;
+
+                this.chartData.submission.adendum.yearsText = this.chartData.submission.adendum.data.map(map => map.year.toString());
+                this.chartData.submission.adendum.value = this.chartData.submission.adendum.data.map(map => map.data);
+
+
+                this.chartData.submission.adendum.all = {
+                    labels: this.chartData.submission.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `MOU`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterSubmissionExtension() {
+
+            $axios.get(`/admin/filter/submission/extension/${this.chartData.submission.extension.selectedYear}`)
+            .then(response => {
+                console.log(response.data.data);
+                this.chartData.submission.extension.data = response.data.data;
+
+                const submissionExtension = this.chartData.submission.extension.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                const submissionExtensionYear = this.chartData.submission.extension.data.map(value => value.year);
+
+                this.chartData.submission.mou.all = {
+                    labels: submissionExtensionYear,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: submissionExtension,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetSubmissionExtension() {
+            $axios.get(`/admin/reset/submission/extension`)
+            .then(response => {
+                this.chartData.submission.extension.selectedYear = null;
+                this.chartData.submission.extension.data = response.data.data;
+
+                this.chartData.submission.extension.yearsText = this.chartData.submission.extension.data.map(map => map.year.toString());
+                this.chartData.submission.extension.value = this.chartData.submission.extension.data.map(map => map.data);
+
+
+                this.chartData.submission.extension.all = {
+                    labels: this.chartData.submission.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.submission.extension.value,
                         },
                     ]
                 };
@@ -1441,7 +2136,7 @@ export default {
         //             labels: this.chartData.deputiKesetaraanGender.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiKesetaraanGender.pks.value,
         //                 },
@@ -1466,7 +2161,7 @@ export default {
         //             labels: this.chartData.deputiKesetaraanGender.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiKesetaraanGender.pks.value,
         //                 },
@@ -1490,7 +2185,7 @@ export default {
                     labels: this.chartData.deputiKesetaraanGender.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiKesetaraanGender.mou.value,
                         },
@@ -1515,9 +2210,107 @@ export default {
                     labels: this.chartData.deputiKesetaraanGender.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiKesetaraanGender.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterKesetaraanGenderAdendum() {
+            $axios.get(`/admin/filter/kesetaraan/gender/adendum/${this.chartData.deputiKesetaraanGender.adendum.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiKesetaraanGender.adendum.data = response.data.data;
+
+                this.chartData.deputiKesetaraanGender.adendum.yearsText = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.adendum.value = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.adendum.all = {
+                    labels: this.chartData.deputiKesetaraanGender.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetKesetaraanGenderAdendum() {
+            $axios.get(`/admin/reset/kesetaraan/gender/adendum`)
+            .then(response => {
+                this.chartData.deputiKesetaraanGender.adendum.selectedYear = null;
+                this.chartData.deputiKesetaraanGender.adendum.data = response.data.data;
+
+                this.chartData.deputiKesetaraanGender.adendum.yearsText = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.adendum.value = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.adendum.all = {
+                    labels: this.chartData.deputiKesetaraanGender.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterKesetaraanGenderExtension() {
+            $axios.get(`/admin/filter/kesetaraan/gender/extension/${this.chartData.deputiKesetaraanGender.extension.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiKesetaraanGender.extension.data = response.data.data;
+
+                this.chartData.deputiKesetaraanGender.extension.yearsText = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.extension.value = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.extension.all = {
+                    labels: this.chartData.deputiKesetaraanGender.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.extension.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetKesetaraanGenderExtension() {
+            $axios.get(`/admin/reset/kesetaraan/gender/extension`)
+            .then(response => {
+                this.chartData.deputiKesetaraanGender.extension.selectedYear = null;
+                this.chartData.deputiKesetaraanGender.extension.data = response.data.data;
+
+                this.chartData.deputiKesetaraanGender.extension.yearsText = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.extension.value = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.extension.all = {
+                    labels: this.chartData.deputiKesetaraanGender.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.extension.value,
                         },
                     ]
                 };
@@ -1539,7 +2332,7 @@ export default {
         //             labels: this.chartData.deputiPartisipasiMasyarakat.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPartisipasiMasyarakat.pks.value,
         //                 },
@@ -1564,7 +2357,7 @@ export default {
         //             labels: this.chartData.deputiPartisipasiMasyarakat.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPartisipasiMasyarakat.pks.value,
         //                 },
@@ -1588,7 +2381,7 @@ export default {
                     labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
                         },
@@ -1613,9 +2406,156 @@ export default {
                     labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPartisipasiMasyarakatMOU() {
+            $axios.get(`/admin/filter/partisipasi/masyarakat/mou/${this.chartData.deputiPartisipasiMasyarakat.mou.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.mou.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.yearsText = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.mou.value = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `MOU`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPartisipasiMasyarakatMOU() {
+            $axios.get(`/admin/reset/partisipasi/masyarakat/mou`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.mou.selectedYear = null;
+                this.chartData.deputiPartisipasiMasyarakat.mou.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.yearsText = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.mou.value = this.chartData.deputiPartisipasiMasyarakat.mou.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.mou.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
+                    datasets: [
+                        {
+                            label: `MOU`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPartisipasiMasyarakatAdendum() {
+            $axios.get(`/admin/filter/partisipasi/masyarakat/adendum/${this.chartData.deputiPartisipasiMasyarakat.adendum.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.adendum.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.adendum.value = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPartisipasiMasyarakatAdendum() {
+            $axios.get(`/admin/reset/partisipasi/masyarakat/adendum`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.adendum.selectedYear = null;
+                this.chartData.deputiPartisipasiMasyarakat.adendum.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.adendum.value = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPartisipasiMasyarakatExtension() {
+            $axios.get(`/admin/filter/partisipasi/masyarakat/extension/${this.chartData.deputiPartisipasiMasyarakat.extension.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.extension.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.extension.yearsText = this.chartData.deputiPartisipasiMasyarakat.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.extension.value = this.chartData.deputiPartisipasiMasyarakat.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.extension.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Extension`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.extension.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPartisipasiMasyarakatExtension() {
+            $axios.get(`/admin/reset/partisipasi/masyarakat/extension`)
+            .then(response => {
+                this.chartData.deputiPartisipasiMasyarakat.extension.selectedYear = null;
+                this.chartData.deputiPartisipasiMasyarakat.extension.data = response.data.data;
+
+                this.chartData.deputiPartisipasiMasyarakat.extension.yearsText = this.chartData.deputiPartisipasiMasyarakat.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.extension.value = this.chartData.deputiPartisipasiMasyarakat.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.extension.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.extension.value,
                         },
                     ]
                 };
@@ -1637,7 +2577,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganAnak.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganAnak.pks.value,
         //                 },
@@ -1662,7 +2602,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganAnak.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganAnak.pks.value,
         //                 },
@@ -1686,7 +2626,7 @@ export default {
                     labels: this.chartData.deputiPerlindunganAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganAnak.mou.value,
                         },
@@ -1711,9 +2651,107 @@ export default {
                     labels: this.chartData.deputiPerlindunganAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganAnak.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganAnakAdendum() {
+            $axios.get(`/admin/filter/perlindungan/anak/adendum/${this.chartData.deputiPerlindunganAnak.adendum.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.adendum.yearsText = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.adendum.value = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganAnakAdendum() {
+            $axios.get(`/admin/reset/perlindungan/anak/adendum`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.adendum.selectedYear = null;
+                this.chartData.deputiPerlindunganAnak.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.adendum.yearsText = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.adendum.value = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganAnakExtension() {
+            $axios.get(`/admin/filter/perlindungan/anak/extension/${this.chartData.deputiPerlindunganAnak.extension.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.extension.yearsText = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.extension.value = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.extension.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.extension.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganAnakExtension() {
+            $axios.get(`/admin/reset/perlindungan/anak/extension`)
+            .then(response => {
+                this.chartData.deputiPerlindunganAnak.extension.selectedYear = null;
+                this.chartData.deputiPerlindunganAnak.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganAnak.extension.yearsText = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.extension.value = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.extension.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.extension.value,
                         },
                     ]
                 };
@@ -1735,7 +2773,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganHakPerempuan.pks.value,
         //                 },
@@ -1760,7 +2798,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganHakPerempuan.pks.value,
         //                 },
@@ -1784,7 +2822,7 @@ export default {
                     labels: this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganHakPerempuan.mou.value,
                         },
@@ -1809,9 +2847,107 @@ export default {
                     labels: this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganHakPerempuan.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganHakPerempuanAdendum() {
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/adendum/${this.chartData.deputiPerlindunganHakPerempuan.adendum.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.value = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganHakPerempuanAdendum() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/adendum`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.selectedYear = null;
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.value = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganHakPerempuanExtension() {
+            $axios.get(`/admin/filter/perlindungan/hak/perempuan/mou/${this.chartData.deputiPerlindunganHakPerempuan.extension.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.extension.value = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.extension.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganHakPerempuanExtension() {
+            $axios.get(`/admin/reset/perlindungan/hak/perempuan/mou`)
+            .then(response => {
+                this.chartData.deputiPerlindunganHakPerempuan.extension.selectedYear = null;
+                this.chartData.deputiPerlindunganHakPerempuan.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.extension.value = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.extension.value,
                         },
                     ]
                 };
@@ -1833,7 +2969,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.value,
         //                 },
@@ -1858,7 +2994,7 @@ export default {
         //             labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.yearsText,
         //             datasets: [
         //                 {
-        //                     label: `Berdasarkan Tahun`,
+        //                     label: `MOU`,
         //                     backgroundColor: '#f87979',
         //                     data: this.chartData.deputiPerlindunganTumbuhKembangAnak.pks.value,
         //                 },
@@ -1870,7 +3006,7 @@ export default {
         //     });
         // },
         filterPerlindunganTumbuhKembangAnakMOU() {
-            $axios.get(`/admin/filter/perlindungan/hak/perempuan/mou/${this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear}`)
+            $axios.get(`/admin/filter/perlindungan/tumbuh/kembang/anak/mou/${this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear}`)
             .then(response => {
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data = response.data.data;
 
@@ -1882,7 +3018,7 @@ export default {
                     labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.value,
                         },
@@ -1893,8 +3029,8 @@ export default {
                 console.log(error);
             });
         },
-        filterPerlindunganTumbuhKembangAnakMOU() {
-            $axios.get(`/admin/reset/perlindungan/hak/perempuan/mou`)
+        resetPerlindunganTumbuhKembangAnakMOU() {
+            $axios.get(`/admin/reset/perlindungan/tumbuh/kembang/anak/mou`)
             .then(response => {
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.selectedYear = null;
                 this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.data = response.data.data;
@@ -1907,9 +3043,107 @@ export default {
                     labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganTumbuhKembangAnak.mou.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganTumbuhKembangAnakAdendum() {
+            $axios.get(`/admin/filter/perlindungan/tumbuh/kembang/anak/adendum/${this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganTumbuhKembangAnakAdendum() {
+            $axios.get(`/admin/reset/perlindungan/tumbuh/kembang/anak/adendum`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.selectedYear = null;
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.adendum.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        filterPerlindunganTumbuhKembangAnakExtension() {
+            $axios.get(`/admin/filter/perlindungan/tumbuh/kembang/anak/extension/${this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.selectedYear}`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.value,
+                        },
+                    ]
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        resetPerlindunganTumbuhKembangAnakExtension() {
+            $axios.get(`/admin/reset/perlindungan/tumbuh/kembang/anak/extension`)
+            .then(response => {
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.selectedYear = null;
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data = response.data.data;
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.yearsText = this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.value = this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.all = {
+                    labels: this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganTumbuhKembangAnak.extension.value,
                         },
                     ]
                 };
@@ -2100,7 +3334,7 @@ export default {
                 //     labels: this.chartData.submission.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.submission.pks.value,
                 //         },
@@ -2108,8 +3342,6 @@ export default {
                 // };
                 //Pengajuan Kerjasama MOU
                 this.chartData.submission.mou.data = response.data.data.submission_cooperation_mou;
-                this.chartData.submission.adendum.data = response.data.data.submission_cooperation_adendum;
-                this.chartData.submission.extension.data = response.data.data.submission_cooperation_extension;
 
                 let objectSubmissionMOU = this.chartData.submission.mou.data.map(value => {
                     return {
@@ -2118,18 +3350,6 @@ export default {
                     };
                 })
                 const submissionMOU = this.chartData.submission.mou.data.map(value => {
-                    return {
-                        x: value.year,
-                        y: value.data,
-                    }
-                });
-                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
-                    return {
-                        x: value.year,
-                        y: value.data,
-                    }
-                });
-                const submissionExtension = this.chartData.submission.extension.data.map(value => {
                     return {
                         x: value.year,
                         y: value.data,
@@ -2147,14 +3367,63 @@ export default {
                             backgroundColor: '#f87979',
                             data: submissionMOU,
                         },
+                    ]
+                };
+
+
+                this.chartData.submission.adendum.data = response.data.data.submission_cooperation_adendum;
+
+                let objectSubmissionAdendum = this.chartData.submission.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+                const submissionAdendum = this.chartData.submission.adendum.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                this.chartData.submission.adendum.years = objectSubmissionAdendum;
+                this.chartData.submission.adendum.yearsText = this.chartData.submission.adendum.data.map(map => map.year.toString());
+
+
+                this.chartData.submission.adendum.all = {
+                    labels: this.chartData.submission.adendum.yearsText,
+                    datasets: [
                         {
                             label: `Adendum`,
-                            backgroundColor: '#34bfa3',
+                            backgroundColor: '#f87979',
                             data: submissionAdendum,
                         },
+                    ]
+                };
+
+                this.chartData.submission.extension.data = response.data.data.submission_cooperation_extension;
+
+                let objectSubmissionExtension = this.chartData.submission.extension.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+                const submissionExtension = this.chartData.submission.extension.data.map(value => {
+                    return {
+                        x: value.year,
+                        y: value.data,
+                    }
+                });
+                this.chartData.submission.extension.years = objectSubmissionExtension;
+                this.chartData.submission.extension.yearsText = this.chartData.submission.extension.data.map(map => map.year.toString());
+
+
+                this.chartData.submission.extension.all = {
+                    labels: this.chartData.submission.extension.yearsText,
+                    datasets: [
                         {
                             label: `Perpanjangan`,
-                            backgroundColor: '#36a3f7',
+                            backgroundColor: '#f87979',
                             data: submissionExtension,
                         },
                     ]
@@ -2178,7 +3447,7 @@ export default {
                 //     labels: this.chartData.deputiKesetaraanGender.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.deputiKesetaraanGender.pks.value,
                 //         },
@@ -2203,9 +3472,59 @@ export default {
                     labels: this.chartData.deputiKesetaraanGender.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiKesetaraanGender.mou.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiKesetaraanGender.adendum.data = response.data.data.deputi_kesetaraan_gender_adendum;
+
+                let objectDeputiKesetaraanGenderAdendum = this.chartData.deputiKesetaraanGender.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiKesetaraanGender.adendum.years = objectDeputiKesetaraanGenderAdendum;
+                this.chartData.deputiKesetaraanGender.adendum.yearsText = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.adendum.value = this.chartData.deputiKesetaraanGender.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.adendum.all = {
+                    labels: this.chartData.deputiKesetaraanGender.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.adendum.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiKesetaraanGender.extension.data = response.data.data.deputi_kesetaraan_gender_extension;
+
+                let objectDeputiKesetaraanGenderExtension = this.chartData.deputiKesetaraanGender.extension.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiKesetaraanGender.extension.years = objectDeputiKesetaraanGenderExtension;
+                this.chartData.deputiKesetaraanGender.extension.yearsText = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.year.toString());
+                this.chartData.deputiKesetaraanGender.extension.value = this.chartData.deputiKesetaraanGender.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiKesetaraanGender.extension.all = {
+                    labels: this.chartData.deputiKesetaraanGender.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiKesetaraanGender.extension.value,
                         },
                     ]
                 };
@@ -2229,7 +3548,7 @@ export default {
                 //     labels: this.chartData.deputiPartisipasiMasyarakat.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.deputiPartisipasiMasyarakat.pks.value,
                 //         },
@@ -2254,9 +3573,34 @@ export default {
                     labels: this.chartData.deputiPartisipasiMasyarakat.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPartisipasiMasyarakat.mou.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.data = response.data.data.deputi_partisipasi_masyarakat_adendum;
+
+                let objectDeputiPartisipasideputiPartisipasiMasyarakatAdendum = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.years = objectDeputiPartisipasideputiPartisipasiMasyarakatAdendum;
+                this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPartisipasiMasyarakat.adendum.value = this.chartData.deputiPartisipasiMasyarakat.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPartisipasiMasyarakat.adendum.all = {
+                    labels: this.chartData.deputiPartisipasiMasyarakat.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPartisipasiMasyarakat.adendum.value,
                         },
                     ]
                 };
@@ -2280,7 +3624,7 @@ export default {
                 //     labels: this.chartData.deputiPerlindunganAnak.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.deputiPerlindunganAnak.pks.value,
                 //         },
@@ -2305,9 +3649,59 @@ export default {
                     labels: this.chartData.deputiPerlindunganAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganAnak.mou.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiPerlindunganAnak.adendum.data = response.data.data.deputi_perlindungan_anak_adendum;
+
+                let objectDeputiPartisipasideputiPerlindunganAnakAdendum = this.chartData.deputiPerlindunganAnak.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiPerlindunganAnak.adendum.years = objectDeputiPartisipasideputiPerlindunganAnakAdendum;
+                this.chartData.deputiPerlindunganAnak.adendum.yearsText = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.adendum.value = this.chartData.deputiPerlindunganAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.adendum.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiPerlindunganAnak.extension.data = response.data.data.deputi_perlindungan_anak_extension;
+
+                let objectDeputiPartisipasideputiPerlindunganAnakExtension = this.chartData.deputiPerlindunganAnak.extension.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiPerlindunganAnak.extension.years = objectDeputiPartisipasideputiPerlindunganAnakExtension;
+                this.chartData.deputiPerlindunganAnak.extension.yearsText = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganAnak.extension.value = this.chartData.deputiPerlindunganAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganAnak.extension.all = {
+                    labels: this.chartData.deputiPerlindunganAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganAnak.extension.value,
                         },
                     ]
                 };
@@ -2331,7 +3725,7 @@ export default {
                 //     labels: this.chartData.deputiPerlindunganHakPerempuan.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.deputiPerlindunganHakPerempuan.pks.value,
                 //         },
@@ -2356,13 +3750,62 @@ export default {
                     labels: this.chartData.deputiPerlindunganHakPerempuan.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiPerlindunganHakPerempuan.mou.value,
                         },
                     ]
                 };
 
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.data = response.data.data.deputi_perlindungan_hak_perempuan_adendum;
+
+                let objectDeputiPartisipasideputiPerlindunganHakPerempuanAdendum = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.years = objectDeputiPartisipasideputiPerlindunganHakPerempuanAdendum;
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.value = this.chartData.deputiPerlindunganHakPerempuan.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.adendum.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.adendum.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.data = response.data.data.deputi_perlindungan_hak_perempuan_extension;
+
+                let objectDeputiPartisipasideputiPerlindunganHakPerempuanExtension = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.years = objectDeputiPartisipasideputiPerlindunganHakPerempuanExtension;
+                this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.year.toString());
+                this.chartData.deputiPerlindunganHakPerempuan.extension.value = this.chartData.deputiPerlindunganHakPerempuan.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiPerlindunganHakPerempuan.extension.all = {
+                    labels: this.chartData.deputiPerlindunganHakPerempuan.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiPerlindunganHakPerempuan.extension.value,
+                        },
+                    ]
+                };
                 //Perlindungan Tumbuh Kembang Anak
                 // this.chartData.deputiTumbuhKembangAnak.pks.data = response.data.data.deputi_tumbuh_kembang_anak_pks;
 
@@ -2382,7 +3825,7 @@ export default {
                 //     labels: this.chartData.deputiTumbuhKembangAnak.pks.yearsText,
                 //     datasets: [
                 //         {
-                //             label: `Berdasarkan Tahun`,
+                //             label: `MOU`,
                 //             backgroundColor: '#f87979',
                 //             data: this.chartData.deputiTumbuhKembangAnak.pks.value,
                 //         },
@@ -2407,9 +3850,59 @@ export default {
                     labels: this.chartData.deputiTumbuhKembangAnak.mou.yearsText,
                     datasets: [
                         {
-                            label: `Berdasarkan Tahun`,
+                            label: `MOU`,
                             backgroundColor: '#f87979',
                             data: this.chartData.deputiTumbuhKembangAnak.mou.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiTumbuhKembangAnak.adendum.data = response.data.data.deputi_tumbuh_kembang_anak_adendum;
+
+                let objectdunganTumbuhKembangAnakAdendum = this.chartData.deputiTumbuhKembangAnak.adendum.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiTumbuhKembangAnak.adendum.years = objectdunganTumbuhKembangAnakAdendum;
+                this.chartData.deputiTumbuhKembangAnak.adendum.yearsText = this.chartData.deputiTumbuhKembangAnak.adendum.data.map(map => map.year.toString());
+                this.chartData.deputiTumbuhKembangAnak.adendum.value = this.chartData.deputiTumbuhKembangAnak.adendum.data.map(map => map.data);
+
+
+                this.chartData.deputiTumbuhKembangAnak.adendum.all = {
+                    labels: this.chartData.deputiTumbuhKembangAnak.adendum.yearsText,
+                    datasets: [
+                        {
+                            label: `Adendum`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiTumbuhKembangAnak.adendum.value,
+                        },
+                    ]
+                };
+
+                this.chartData.deputiTumbuhKembangAnak.extension.data = response.data.data.deputi_tumbuh_kembang_anak_extension;
+
+                let objectdunganTumbuhKembangAnakExtension = this.chartData.deputiTumbuhKembangAnak.extension.data.map(value => {
+                    return {
+                        id: value.year.toString(),
+                        text: value.year
+                    };
+                })
+
+                this.chartData.deputiTumbuhKembangAnak.extension.years = objectdunganTumbuhKembangAnakExtension;
+                this.chartData.deputiTumbuhKembangAnak.extension.yearsText = this.chartData.deputiTumbuhKembangAnak.extension.data.map(map => map.year.toString());
+                this.chartData.deputiTumbuhKembangAnak.extension.value = this.chartData.deputiTumbuhKembangAnak.extension.data.map(map => map.data);
+
+
+                this.chartData.deputiTumbuhKembangAnak.extension.all = {
+                    labels: this.chartData.deputiTumbuhKembangAnak.extension.yearsText,
+                    datasets: [
+                        {
+                            label: `Perpanjangan`,
+                            backgroundColor: '#f87979',
+                            data: this.chartData.deputiTumbuhKembangAnak.extension.value,
                         },
                     ]
                 };

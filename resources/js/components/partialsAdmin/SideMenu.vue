@@ -42,16 +42,6 @@
                     </router-link>
                 </li>
                 <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
-                    <router-link class="m-menu__link" to="/background/login">
-                        <i class="m-menu__link-icon la la-image"></i>
-                        <span class="m-menu__link-title">
-                            <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">Background Login</span><span class="m-menu__link-badge"></span>
-                            </span>
-                        </span>
-                    </router-link>
-                </li>
-                <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
                     <router-link class="m-menu__link" to="/testimoni">
                         <i class="m-menu__link-icon la la-comment"></i>
                         <span class="m-menu__link-title">
@@ -171,8 +161,28 @@
                     <h4 class="m-menu__section-text">Konfigurasi</h4>
                     <i class="m-menu__section-icon flaticon-more-v2"></i>
                 </li>
+                <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/article/banner">
+                        <i class="m-menu__link-icon la la-image"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Banner Halaman</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
+                <li v-if="$can('Admin')" class="m-menu__item" aria-haspopup="true">
+                    <router-link class="m-menu__link" to="/background/login">
+                        <i class="m-menu__link-icon la la-image"></i>
+                        <span class="m-menu__link-title">
+                            <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">Background Login</span><span class="m-menu__link-badge"></span>
+                            </span>
+                        </span>
+                    </router-link>
+                </li>
                 <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/config')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-cogs"></i><span class="m-menu__link-text">Hak Akses</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-cogs"></i><span class="m-menu__link-text">Pengaturan User</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li v-if="$can('Mengatur Role')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -181,10 +191,13 @@
                             <li v-if="$can('Mengubah Role User')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                                 <router-link to="/config/role/user" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">User</span></router-link>
                             </li>
+                            <li v-if="$can('Admin')" class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <router-link to="/article/banner/change/config" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Pengaturan Banner</span></router-link>
+                            </li>
                         </ul>
                     </div>
                 </li>
-                <li class="m-menu__section ">
+                <li class="m-menu__section" v-if="$can('Monev')">
                     <h4 class="m-menu__section-text">Monitoring Evaluasi</h4>
                     <i class="m-menu__section-icon flaticon-more-v2"></i>
                 </li>

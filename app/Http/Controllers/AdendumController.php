@@ -47,33 +47,33 @@ class AdendumController extends Controller
 
             $idRoles = $mappingRole->all();
             if ($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                $data['approval'] = new SubmissionProposalCollection(Adendum::with('mou','deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('mou','deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->get());
             } elseif ($user->roles[0]->id == 9) {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
+                $data['approval'] = new SubmissionProposalCollection(Adendum::with('mou','country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('mou','country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
             } elseif ($user->roles[0]->id == 11) {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                $data['approval'] = new SubmissionProposalCollection(Adendum::with('mou','deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->orWhere->orWhere(function ($query) use ($idRoles) {
                     $query->whereIn('status_disposition', $idRoles)->where('status_proposal', 1);
                 })->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('mou','deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->orWhere(function ($query) use ($idRoles) {
                     $query->whereIn('status_disposition', $idRoles)->where('status_proposal', 1);
                 })->get());
             } else {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->paginate(10));
+                $data['approval'] = new SubmissionProposalCollection(Adendum::with('mou','country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('mou','country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->paginate(10));
             }
             $data['you'] = new SubmissionProposalCollection(Adendum::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get());
             $data['type'] = TypeOfCooperationOneDerivative::all();
@@ -1084,9 +1084,9 @@ class AdendumController extends Controller
     public function proposalApproveMOU()
     {
         try {
-            $data['you'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            $data['guest'] = AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            $data['you'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
+            $data['guest'] = AdendumGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -1095,9 +1095,9 @@ class AdendumController extends Controller
     public function proposalRejectMOU()
     {
         try {
-            $data['you'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-            $data['guest'] = AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+            $data['you'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
+            $data['satker'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
+            $data['guest'] = AdendumGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

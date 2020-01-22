@@ -316,6 +316,13 @@ Route::middleware('jwt')->group(function () {
         Route::get('photo/login/{id}/edit', 'PhotoLoginController@edit');
         Route::post('photo/login/{id}', 'PhotoLoginController@update');
         //End Photo Login
+        //Banner Article
+        Route::get('banner/landing/page', 'BannerLandingPageController@index');
+        Route::get('banner/landing/page/{id}/edit', 'BannerLandingPageController@edit');
+        Route::post('banner/landing/page/{id}', 'BannerLandingPageController@update');
+        Route::post('banner/landing/page/change/config', 'BannerLandingPageController@changeConfig');
+        Route::get('banner/landing/page/config', 'BannerLandingPageController@config');
+        //End Banner Article
         //End Validation
         Route::post('comment', 'CommentController@store');
 
@@ -430,32 +437,52 @@ Route::middleware('jwt')->group(function () {
         Route::get('filter/kesetaraan/gender/mou/{year}', 'DashboardController@filterKesetaraanGenderMOU');
         // Route::get('filter/partisipasi/masyarakat/pks/{year}', 'DashboardController@filterPartisipasiMasyarakatPKS');
         Route::get('filter/partisipasi/masyarakat/mou/{year}', 'DashboardController@filterPartisipasiMasyarakatMOU');
+        Route::get('filter/partisipasi/masyarakat/adendum/{year}', 'DashboardController@filterPartisipasiMasyarakatAdendum');
+        Route::get('filter/partisipasi/masyarakat/extension/{year}', 'DashboardController@filterPartisipasiMasyarakatExtension');
         // Route::get('filter/perlindungan/anak/pks/{year}', 'DashboardController@filterPerlindunganAnakPKS');
         Route::get('filter/perlindungan/anak/mou/{year}', 'DashboardController@filterPerlindunganAnakMOU');
+        Route::get('filter/perlindungan/anak/adendum/{year}', 'DashboardController@filterPerlindunganAnakAdendum');
+        Route::get('filter/perlindungan/anak/extension/{year}', 'DashboardController@filterPerlindunganAnakExtension');
         // Route::get('filter/perlindungan/hak/perempuan/pks/{year}', 'DashboardController@filterPerlindunganHakPerempuanPKS');
         Route::get('filter/perlindungan/hak/perempuan/mou/{year}', 'DashboardController@filterPerlindunganHakPerempuanMOU');
+        Route::get('filter/perlindungan/hak/perempuan/adendum/{year}', 'DashboardController@filterPerlindunganHakPerempuanAdendum');
+        Route::get('filter/perlindungan/hak/perempuan/extension/{year}', 'DashboardController@filterPerlindunganHakPerempuanExtension');
         // Route::get('filter/perlindungan/tumbuh/kembang/anak/pks/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakPKS');
         Route::get('filter/perlindungan/tumbuh/kembang/anak/mou/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakMOU');
+        Route::get('filter/perlindungan/tumbuh/kembang/anak/adendum/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakAdendum');
+        Route::get('filter/perlindungan/tumbuh/kembang/anak/extension/{year}', 'DashboardController@filterPerlindunganTumbuhKembangAnakExtension');
         // Route::get('filter/agencies/pks/{year}', 'DashboardController@filterAgenciesPKS');
         Route::get('filter/agencies/mou/{year}', 'DashboardController@filterAgenciesMOU');
         // Route::get('filter/submission/pks/{year}', 'DashboardController@filterSubmissionPKS');
         Route::get('filter/submission/mou/{year}', 'DashboardController@filterSubmissionMOU');
+        Route::get('filter/submission/adendum/{year}', 'DashboardController@filterSubmissionAdendum');
+        Route::get('filter/submission/extension/{year}', 'DashboardController@filterSubmissionExtension');
         Route::get('filter/survey/{year}', 'DashboardController@filterSurvey');
 
         // Route::get('reset/kesetaraan/gender/pks', 'DashboardController@resetKesetaraanGenderPKS');
         Route::get('reset/kesetaraan/gender/mou', 'DashboardController@resetKesetaraanGenderMOU');
         // Route::get('reset/partisipasi/masyarakat/pks', 'DashboardController@resetPartisipasiMasyarakatPKS');
         Route::get('reset/partisipasi/masyarakat/mou', 'DashboardController@resetPartisipasiMasyarakatMOU');
+        Route::get('reset/partisipasi/masyarakat/adendum', 'DashboardController@resetPartisipasiMasyarakatAdendum');
+        Route::get('reset/partisipasi/masyarakat/extension', 'DashboardController@resetPartisipasiMasyarakatExtension');
         // Route::get('reset/perlindungan/anak/pks', 'DashboardController@resetPerlindunganAnakPKS');
         Route::get('reset/perlindungan/anak/mou', 'DashboardController@resetPerlindunganAnakMOU');
+        Route::get('reset/perlindungan/anak/adendum', 'DashboardController@resetPerlindunganAnakAdendum');
+        Route::get('reset/perlindungan/anak/extension', 'DashboardController@resetPerlindunganAnakExtension');
         // Route::get('reset/perlindungan/hak/perempuan/pks', 'DashboardController@resetPerlindunganHakPerempuanPKS');
         Route::get('reset/perlindungan/hak/perempuan/mou', 'DashboardController@resetPerlindunganHakPerempuanMOU');
+        Route::get('reset/perlindungan/hak/perempuan/adendum', 'DashboardController@resetPerlindunganHakPerempuanAdendum');
+        Route::get('reset/perlindungan/hak/perempuan/extension', 'DashboardController@resetPerlindunganHakPerempuanExtension');
         // Route::get('reset/perlindungan/tumbuh/kembang/anak/pks', 'DashboardController@resetPerlindunganTumbuhKembangAnakPKS');
         Route::get('reset/perlindungan/tumbuh/kembang/anak/mou', 'DashboardController@resetPerlindunganTumbuhKembangAnakMOU');
+        Route::get('reset/perlindungan/tumbuh/kembang/anak/adendum', 'DashboardController@resetPerlindunganTumbuhKembangAnakAdendum');
+        Route::get('reset/perlindungan/tumbuh/kembang/anak/extension', 'DashboardController@resetPerlindunganTumbuhKembangAnakExtension');
         // Route::get('reset/agencies/pks', 'DashboardController@resetAgenciesPKS');
         Route::get('reset/agencies/mou', 'DashboardController@resetAgenciesMOU');
         // Route::get('reset/submission/pks', 'DashboardController@resetSubmissionPKS');
         Route::get('reset/submission/mou', 'DashboardController@resetSubmissionMOU');
+        Route::get('reset/submission/adendum', 'DashboardController@resetSubmissionAdendum');
+        Route::get('reset/submission/extension', 'DashboardController@resetSubmissionExtension');
         Route::get('reset/survey', 'DashboardController@resetSurvey');
         //Information Deputi
         Route::get('/deputi/information', 'DeputiInformationController@index');
@@ -486,3 +513,4 @@ Route::middleware('jwt')->group(function () {
     Route::post('set-role-permission', 'RolePermissionsController@setRolePermission');
     Route::post('set-role-user', 'RolePermissionsController@setRoleUser');
 });
+

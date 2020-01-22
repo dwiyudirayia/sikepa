@@ -6,6 +6,7 @@ use App\AdendumGuest;
 use App\Agency;
 use Illuminate\Http\Request;
 use App\Article;
+use App\BannerLandingPage;
 use App\FAQ;
 use App\Testimoni;
 use App\Page;
@@ -118,11 +119,13 @@ class FrontController extends Controller
     }
     public function home()
     {
+        $config = config('banner.config');
         $bannerArticle = Article::orderBy('created_at', 'desc')->where('approved', 1)->where('publish', 1)->take(3)->get();
         $article = Article::orderBy('created_at', 'desc')->where('approved', 1)->where('publish', 1)->take(8)->get();
         $testimoni = Testimoni::where('active', 1)->get();
+        $photoBanner = BannerLandingPage::all();
 
-        return view('pages.home', compact('bannerArticle', 'testimoni', 'article'));
+        return view('pages.home', compact('bannerArticle', 'testimoni', 'article', 'photoBanner', 'config'));
     }
     public function page($slug)
     {
@@ -158,15 +161,23 @@ class FrontController extends Controller
     // }
     public function faq(Request $request)
     {
-        if ($request->q) {
-            $data['q'] = $request->q;
-        } else {
-            $data['q'] = null;
+        try {
+            if(is_array($request->q)) {
+                abort(404);
+            } else {
+                if ($request->q) {
+                    $data['q'] = $request->q;
+                } else {
+                    $data['q'] = null;
+                }
+                $data['data'] = $this->filterFAQ($data);
+
+                return view('pages.faq', compact('data'));
+            }
+
+        } catch (\Throwable $th) {
+            abort(404);
         }
-
-        $data['data'] = $this->filterFAQ($data);
-
-        return view('pages.faq', compact('data'));
     }
     public function article()
     {
@@ -222,14 +233,22 @@ class FrontController extends Controller
     }
     public function monitoringResultCooperation(Request $request)
     {
-        if ($request->q) {
-            $data['q'] = $request->q;
-        } else {
-            $data['q'] = null;
-        }
-        $data['data'] = $this->filterMonitoringCooperation($data);
+        try {
+            if(is_array($request->q)) {
+                abort(404);
+            } else {
+                if ($request->q) {
+                    $data['q'] = $request->q;
+                } else {
+                    $data['q'] = null;
+                }
+                $data['data'] = $this->filterMonitoringCooperation($data);
 
-        return view('pages.status-kerjasama', compact('data'));
+                return view('pages.status-kerjasama', compact('data'));
+            }
+        } catch (\Throwable $th) {
+            abort(404);
+        }
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request)
     {

@@ -318,6 +318,8 @@ export default {
                 formData.append('approved', this.forms.approved);
                 formData.append('_method', 'PUT');
 
+                this.$v.$reset();
+
                 $axiosFormData.post(`/admin/page/${this.$route.params.id}`, formData)
                 .then(response => {
                     this.$store.commit('page/notification', response);
@@ -327,7 +329,6 @@ export default {
                 .catch(error => {
                     this.$store.commit('page/notification', error);
                 });
-                this.$v.$reset();
             }
 
         }

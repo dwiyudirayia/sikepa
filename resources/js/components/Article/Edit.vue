@@ -188,7 +188,7 @@ import $axiosFormData from '@/apiformdata.js';
 import Select2Edit from './Select2Edit';
 
 export default {
-    name: 'ArticleCreate',
+    name: 'ArticleEdit',
     components: {
         Select2Edit,
         Editor
@@ -230,8 +230,8 @@ export default {
             previewImage: null,
         }
     },
-    validations: {
-        forms: {
+    validations() {
+        const tmpForm = {
             section_id: {
                 required,
             },
@@ -241,10 +241,21 @@ export default {
             title: {
                 required,
             },
-            image: {
+        };
+
+        if (this.forms.image == "") {
+            tmpForm.image = {
                 fileType: fileType('image/jpg', 'image/jpeg', 'image/png'),
-            }
+            };
+        } else {
+            tmpForm.image = {
+
+            };
         }
+
+        return {
+            forms: tmpForm,
+        };
     },
     created() {
         $axios.get(`/admin/article/${this.$route.params.id}/edit`)

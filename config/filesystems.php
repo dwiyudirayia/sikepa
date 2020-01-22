@@ -59,6 +59,11 @@ return [
             'root' => storage_path('app/public/file_page'),
             'visibility' => 'public',
         ],
+        'banner_article' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/banner_article'),
+            'visibility' => 'public',
+        ],
         'signature_user' => [
             'driver' => 'local',
             'root' => storage_path('app/public/signature_user'),

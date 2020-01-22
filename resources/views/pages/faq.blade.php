@@ -11,7 +11,7 @@
                     <form method="GET" action="{{ route('faq') }}">
                         <div class="search-header sr-btm">
                             <button class="btn btn-search" type="submit"><i class="mdi mdi-magnify"></i></button>
-                            <input class="form-control" placeholder="Cari seputar pertanyaan" name="q" value="{{ old('q', '') ?? $data['q'] }}">
+                            <input class="form-control" placeholder="Cari seputar pertanyaan" name="q" value="{{ old('q') ?? $data['q'] }}">
                         </div>
                     </form>
                 </div>
