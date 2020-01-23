@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" v-if="$can('Tracking')">
+            <div class="row px-5" v-if="$can('Tracking')">
 				<div class="col-md-12">
 					<div style="display:inline-block;width:100%;overflow-y:auto;">
                         <ul class="timeline timeline-horizontal">

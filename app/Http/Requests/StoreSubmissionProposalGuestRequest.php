@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\AdendumGuest;
+use App\ExtensionGuest;
 use App\SubmissionProposalGuest;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
@@ -49,7 +51,13 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
     public function barcodeNumberExists($number) {
         // query the database and return a boolean
         // for instance, it might look like this in Laravel
-        return SubmissionProposalGuest::where('mailing_number', $number)->exists();
+        if($this->type_of_cooperation_two_derivative_id == 3) {
+            return ExtensionGuest::where('mailing_number', $number)->exists();
+        } elseif ($this->type_of_cooperation_two_derivative_id == 4) {
+            return AdendumGuest::where('mailing_number', $number)->exists();
+        } else {
+            return SubmissionProposalGuest::where('mailing_number', $number)->exists();
+        }
     }
     public function storeMOU() {
         if($this->hasFile('agency_profile')) {

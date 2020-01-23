@@ -54,7 +54,6 @@ class FrontController extends Controller
         } else {
             return true;
         }
-        dd($monitoring['biro']);
     }
     public function storeSatisfactionSurvey(Request $request)
     {
