@@ -51,6 +51,8 @@ Route::get('/page/{slug}', 'FrontController@page')->name('page');
 Route::get('/information/{slug}', 'FrontController@deputyInformation')->name('information');
 Route::get('/download/information/file/{id}', 'FrontController@downloadFileInformation')->name('information.download.file');
 Route::get('download/file/cooperation/{id}', 'FrontController@downloadFileCooperation')->name('download.file.cooperation');
+Route::get('download/file/cooperation/adendum/{id}', 'FrontController@downloadFileCooperationAdendum')->name('download.file.cooperation.adendum');
+Route::get('download/file/cooperation/extension/{id}', 'FrontController@downloadFileCooperationExtension')->name('download.file.cooperation.extension');
 Route::get('/information/detail/{slug}', 'FrontController@deputyInformationDetail')->name('information.detail');
 Route::get('/agency/check/goverment/{id}', 'AgencyController@isGoverment')->name('agency.goverment');
 Route::get('/{any}', function(){

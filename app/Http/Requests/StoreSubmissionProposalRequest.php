@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Adendum;
+use App\Extension;
 use App\SubmissionProposal;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Storage;
 class StoreSubmissionProposalRequest extends FormRequest
 {
     /**
@@ -55,7 +56,11 @@ class StoreSubmissionProposalRequest extends FormRequest
     public function barcodeNumberExists($number) {
         // query the database and return a boolean
         // for instance, it might look like this in Laravel
-        return SubmissionProposal::where('mailing_number', $number)->exists();
+        if(Extension::where('mailing_number', $number)->exists() === true && Adendum::where('mailing_number', $number)->exists() === true && SubmissionProposal::where('mailing_number', $number)->exists() === true) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public function storeMOU()
     {

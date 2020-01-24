@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adendum;
 use App\AdendumGuest;
 use App\Agency;
 use Illuminate\Http\Request;
@@ -12,8 +13,11 @@ use App\Testimoni;
 use App\Page;
 use App\Country;
 use App\DeputiInformation;
+use App\Extension;
 use App\ExtensionGuest;
 use App\FileDeputiInformation;
+use App\FileDraftAdendumGuest;
+use App\FileDraftExtensionGuest;
 use App\FileDraftGuest;
 use App\Http\Requests\StoreSubmissionProposalGuestRequest;
 use App\Mail\NomorResi;
@@ -41,12 +45,16 @@ class FrontController extends Controller
     public function filterMonitoringCooperation($data)
     {
         if ($data['q'] != null) {
-            $monitoring['data'] = SubmissionProposalGuest::with('country', 'province', 'regency', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'deputi.role', 'tracking.role', 'nomor', 'draft')->where('mailing_number', $data['q'])->first();
+            $merge['mou'] = SubmissionProposalGuest::with('country', 'province', 'regency', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'deputi.role', 'tracking.role', 'nomor', 'draft')->get();
+            $merge['adendum'] = AdendumGuest::with('country', 'province', 'regency', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'deputi.role', 'tracking.role', 'nomor', 'draft')->get();
+            $merge['extension'] = ExtensionGuest::with('country', 'province', 'regency', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo', 'deputi.role', 'tracking.role', 'nomor', 'draft')->get();
+            $dataMerge = collect(array_merge($merge['mou']->toArray(), $merge['adendum']->toArray(), $merge['extension']->toArray()));
+            $monitoring['data'] = collect($dataMerge)->where('mailing_number', $data['q'])->first();
             if ($monitoring['data'] != null) {
                 $monitoring['biro'] = $monitoring['data']['tracking'][0];
-                $data = array_values($monitoring['data']['tracking']->toArray());
+                $data = array_values($monitoring['data']['tracking']);
                 $monitoring['user_kppa'] = array_splice($data, 1, 8);
-                $monitoring['count_deputi'] = $monitoring['data']['deputi']->count();
+                $monitoring['count_deputi'] = count($monitoring['data']['deputi']);
                 return $monitoring;
             } else {
                 return true;
@@ -400,21 +408,30 @@ class FrontController extends Controller
     }
     public function mapDistributionOfCooperation()
     {
-        $data['satker'] = SubmissionProposal::with('agencies')->get();
-        $data['guest'] = SubmissionProposalGuest::with('agencies')->get();
+        $data['mou'] = SubmissionProposal::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['mou_guest'] = SubmissionProposalGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['adendum'] = Adendum::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['adendum_guest'] = AdendumGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['extension'] = Extension::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['extension_guest'] = ExtensionGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
 
-        $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
+        $merge = array_merge($data['mou']->toArray(), $data['mou_guest']->toArray(), $data['adendum']->toArray(), $data['adendum_guest']->toArray(), $data['extension']->toArray(), $data['extension_guest']->toArray());
 
         return response()->json([
             'data' => $merge,
+            'chart' => $data,
         ]);
     }
     public function filterMapDistributionOfCooperation(Request $request)
     {
-        $data['satker'] = SubmissionProposal::all();
-        $data['guest'] = SubmissionProposalGuest::all();
+        $data['mou'] = SubmissionProposal::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['mou_guest'] = SubmissionProposalGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['adendum'] = Adendum::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['adendum_guest'] = AdendumGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['extension'] = Extension::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
+        $data['extension_guest'] = ExtensionGuest::with('agencies')->where('status_disposition', 16)->where('status_proposal', 1)->get();
 
-        $merge = array_merge($data['satker']->toArray(), $data['guest']->toArray());
+        $merge = array_merge($data['mou']->toArray(), $data['mou_guest']->toArray(), $data['adendum']->toArray(), $data['adendum_guest']->toArray(), $data['extension']->toArray(), $data['extension_guest']->toArray());
 
         $collectMerge = collect($merge);
 
@@ -483,6 +500,36 @@ class FrontController extends Controller
             $lastData = $data->last();
 
             return response()->download(storage_path("/app/public/law_draft_guest/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadFileCooperationAdendum($id)
+    {
+        try {
+            $data = FileDraftAdendumGuest::where('adendum_guest_id', $id)->get();
+
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_guest_adendum/" . $lastData->name));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messages' => $th->getMessage(),
+                'status' => $th->getCode(),
+            ]);
+        }
+    }
+    public function downloadFileCooperationExtension($id)
+    {
+        try {
+            $data = FileDraftExtensionGuest::where('extension_guest_id', $id)->get();
+
+            $lastData = $data->last();
+
+            return response()->download(storage_path("/app/public/law_draft_guest_extension/" . $lastData->name));
         } catch (\Throwable $th) {
             return response()->json([
                 'messages' => $th->getMessage(),

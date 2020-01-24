@@ -10,11 +10,12 @@ use App\MonitoringActivityExtension;
 use App\MonitoringActivityDocumentationExtension;
 use App\MonitoringActivityDocumentationExtensionGuest;
 use App\MonitoringActivityExtensionGuest;
-use App\ReportMOUGuest;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Extension;
 use App\ExtensionGuest;
+use App\ReportExtension;
+use App\ReportExtensionGuest;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
@@ -525,7 +526,7 @@ class MonevExtensionController extends Controller
                 $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation_guest_extension');
 
                 MonitoringActivityDocumentationExtensionGuest::create([
-                    'monitoring_activity_guest_id' => $request->id,
+                    'activity_documentation_guest_extension' => $request->id,
                     'file' => $path
                 ]);
             }
@@ -549,7 +550,7 @@ class MonevExtensionController extends Controller
                 $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation_extension');
 
                 MonitoringActivityDocumentationExtension::create([
-                    'monitoring_activity_id' => $request->id,
+                    'monitoring_activity_extension_id' => $request->id,
                     'file' => $path
                 ]);
             }
@@ -607,13 +608,31 @@ class MonevExtensionController extends Controller
     }
     public function storeReportGuest(Request $request) {
         try {
-            ReportMOUGuest::updateOrCreate([
+            ReportExtensionGuest::updateOrCreate([
                 'submission_proposal_guest_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
                 'updated_by' => auth()->user()->id,
-                'submission_proposal_guest_id' => $request->id,
+                'extension_guest_id' => $request->id,
+                'report' => $request->value,
+            ]);
+
+            $array = [];
+            return response()->json($this->notification->updateSuccess($array));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeReport(Request $request) {
+        try {
+            ReportExtension::updateOrCreate([
+                'submission_proposal_id' => $request->id,
+            ],
+            [
+                'created_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
+                'extension_id' => $request->id,
                 'report' => $request->value,
             ]);
 

@@ -1,4 +1,7 @@
 @extends('layouts.layout-single')
+@section('styles2')
+    <link rel="stylesheet" href="{{ asset('css/chart.min.css') }}"/>
+@endsection
 @section('content')
     <section class="map-wrapper">
         <div id="map" class="map"></div>
@@ -39,7 +42,14 @@
             </div>
         </div>
     </section>
-
+    <section class="content-wrap">
+        <div class="container">
+            <div class="main-title text-center sr-btm">
+                <h3 class="title">Grafik Pengajuan Kerjasama</h3>
+            </div>
+            <canvas id="myChart" width="400" height="100"></canvas>
+        </div>
+    </section>
     <section class="content-wrap">
         <div class="container">
             <div class="main-title text-center sr-btm">
@@ -160,9 +170,10 @@
 @endsection
 @section('scripts')
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI&callback=initMap"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfeBwT8ZlyiYyOMHt-jpeVQWVtwEoS_UI"></script>
+<script src="{{ asset('js/oms.min.js') }}"></script>
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script src="{{ asset('js/chart.min.js') }}"></script>
 <script>
     function initMap(){
         axios.get('/map/distribution/cooperation').then((response) => {
@@ -191,16 +202,18 @@
                 //     map.setCenter(markers.getPosition());
                 //   });
 
-                const data = response.data.data;
+            const data = response.data.data;
+            const chart = response.data.chart;
 
-                var bounds = new google.maps.LatLngBounds();
+            var bounds = new google.maps.LatLngBounds();
 
-                var infoWindow = new google.maps.InfoWindow();
-                var oms = new OverlappingMarkerSpiderfier(map, {
-                    markersWontMove: true,   // we promise not to move any markers, allowing optimizations
-                    markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
-                    basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
-                });
+            var infoWindow = new google.maps.InfoWindow();
+            var oms = new OverlappingMarkerSpiderfier(map, {
+                markersWontMove: true,   // we promise not to move any markers, allowing optimizations
+                markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
+                basicFormatEvents: true  // allow the library to skip calculating advanced formatting information
+            });
+
             var infoWindowContent = data.map(content => {
                 return [`
                     <tr>
@@ -219,7 +232,7 @@
                         <td>${content.agency_name}</td>
                     </tr>
                 `];
-                    });
+            });
             var markers = data.map((location, i) => {
 
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
@@ -289,6 +302,89 @@
 
             $('#title-table').html('Daftar Kerjasama KemenPPPA');
             $('#is-search-table').html(tableData);
+            //chart
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jumlah Pengajuan Kerjasama'],
+                    datasets: [
+                        {
+                            label: 'MOU',
+                            data: [chart.mou.length + chart.mou_guest.length],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(75, 192, 192, 0.2)',
+                                // 'rgba(153, 102, 255, 0.2)',
+                                // 'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                // 'rgba(54, 162, 235, 1)',
+                                // 'rgba(255, 206, 86, 1)',
+                                // 'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Adendum',
+                            data: [chart.adendum.length + chart.adendum_guest.length],
+                            backgroundColor: [
+                                // 'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(75, 192, 192, 0.2)',
+                                // 'rgba(153, 102, 255, 0.2)',
+                                // 'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                // 'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                // 'rgba(255, 206, 86, 1)',
+                                // 'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Perpanjangan',
+                            data: [chart.extension.length + chart.extension_guest.length],
+                            backgroundColor: [
+                                // 'rgba(255, 99, 132, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(75, 192, 192, 0.2)',
+                                // 'rgba(153, 102, 255, 0.2)',
+                                // 'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                // 'rgba(255, 99, 132, 1)',
+                                // 'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                // 'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
         });
     }
     function filterUmum(country_id, province_id, regency_id)
@@ -389,6 +485,8 @@
         });
     }
     $(document).ready(function(e) {
+        initMap();
+
         var mHeader = $(".main-header").outerHeight();
         $(".map-wrapper").css("padding-top",""+mHeader+"px");
         $('#countries_id').change(function(e) {

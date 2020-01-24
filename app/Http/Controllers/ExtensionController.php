@@ -252,7 +252,7 @@ class ExtensionController extends Controller
                 $path = 'ExtensionProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                Mail::to(auth()->user()->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
+                Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } else {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
@@ -360,7 +360,7 @@ class ExtensionController extends Controller
                 $path = 'ExtensionProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                Mail::to(auth()->user()->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
+                Mail::to($proposal->email)->send(new OfflineMeetingGuest($request->keterangan_pesan));
             } else {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,

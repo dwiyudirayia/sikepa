@@ -10,11 +10,12 @@ use App\MonitoringActivityAdendum;
 use App\MonitoringActivityDocumentationAdendum;
 use App\MonitoringActivityDocumentationAdendumGuest;
 use App\MonitoringActivityAdendumGuest;
-use App\ReportMOUGuest;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Adendum;
 use App\AdendumGuest;
+use App\ReportAdendum;
+use App\ReportAdendumGuest;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
@@ -524,7 +525,7 @@ class MonevAdendumController extends Controller
                 $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation_guest_adendum');
 
                 MonitoringActivityDocumentationAdendumGuest::create([
-                    'monitoring_activity_guest_id' => $request->id,
+                    'monitoring_activity_adendum_guest_id' => $request->id,
                     'file' => $path
                 ]);
             }
@@ -548,7 +549,7 @@ class MonevAdendumController extends Controller
                 $path = $request->file->storeAs($request->id, $nameFile, 'activity_documentation_adendum');
 
                 MonitoringActivityDocumentationAdendum::create([
-                    'monitoring_activity_id' => $request->id,
+                    'monitoring_activity_adendum_id' => $request->id,
                     'file' => $path
                 ]);
             }
@@ -606,13 +607,31 @@ class MonevAdendumController extends Controller
     }
     public function storeReportGuest(Request $request) {
         try {
-            ReportMOUGuest::updateOrCreate([
+            ReportAdendumGuest::updateOrCreate([
                 'submission_proposal_guest_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
                 'updated_by' => auth()->user()->id,
-                'submission_proposal_guest_id' => $request->id,
+                'adendum_guest_id' => $request->id,
+                'report' => $request->value,
+            ]);
+
+            $array = [];
+            return response()->json($this->notification->updateSuccess($array));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function storeReport(Request $request) {
+        try {
+            ReportAdendum::updateOrCreate([
+                'submission_proposal_id' => $request->id,
+            ],
+            [
+                'created_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
+                'adendum_id' => $request->id,
                 'report' => $request->value,
             ]);
 

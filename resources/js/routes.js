@@ -1823,7 +1823,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;
@@ -1842,7 +1842,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;
@@ -2052,7 +2052,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;
@@ -2071,7 +2071,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;
@@ -2281,7 +2281,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;
@@ -2300,7 +2300,7 @@ const router = new VueRouter({
                     beforeEnter: (to, from, next) => {
                         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                        let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
                         if(filterPermission.length == 0) {
                             return true;

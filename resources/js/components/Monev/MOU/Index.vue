@@ -140,7 +140,7 @@
                                                         <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'ReportMonevGuest', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="!value.check_report">
+                                                <router-link :to="{name: 'ReportMonevGuest', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="!value.check_report && !$can('Bagian Kerjasama')">
                                                     <span>
                                                         <i class="la la-pencil-square-o"></i>
                                                         <span>Report MOU</span>
@@ -235,7 +235,7 @@
                                                         <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'ReportMonev', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="value.check_report">
+                                                <router-link :to="{name: 'ReportMonev', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="value.check_report && !$can('Bagian Kerjasama')">
                                                     <span>
                                                         <i class="la la-pencil-square-o"></i>
                                                         <span>Report MOU</span>

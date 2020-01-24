@@ -69,25 +69,25 @@
 
                         @endphp
                         @foreach ($data['data']['data']['deputi'] as $item)
-                            @if ($item->approval == 1)
+                            @if ($item['approval'] == 1)
                                 <li class="step-item active">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $initDeputi++ }}</a>
                                 </li>
-                            @elseif($item->approval == 2)
+                            @elseif($item['approval'] == 2)
                                 <li class="step-item warning">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $initDeputi++ }}</a>
                                 </li>
-                            @elseif($item->approval == null)
+                            @elseif($item['approval'] == null)
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $initDeputi++ }}</a>
                                 </li>
-                            @elseif($item->approval == 3)
+                            @elseif($item['approval'] == 3)
                                 <li class="step-item danger">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @else
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item->role->name }}" data-content="{{ $item->reason }}">{{ $initDeputi++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $initDeputi++ }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -97,23 +97,23 @@
                         @foreach ($data['data']['user_kppa'] as $item)
                             @if ($item['approval'] == 1)
                                 <li class="step-item active">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @elseif($item['approval'] == 2)
                                 <li class="step-item warning">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @elseif($item['approval'] == null)
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @elseif($item['approval'] == 3)
                                 <li class="step-item danger">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @else
                                 <li class="step-item">
-                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}" data-content="{{ $item['reason'] }}">{{ $countInitUserKPPA++ }}</a>
+                                    <a class="step-icon" href="#!" data-container="body" data-toggle="popover" data-placement="top"  title="{{ $item['role']['name'] }}">{{ $countInitUserKPPA++ }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -129,7 +129,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Permohonan kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperationOne']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['type_of_cooperation_one']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4"><p>Kesepahaman jenis kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="input-value"><b>{{ $data['data']['data']['typeOfCooperationTwo']['name']}}</b></div>
+                                            <div class="input-value"><b>{{ $data['data']['data']['type_of_cooperation_two']['name']}}</b></div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,12 +197,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if ($data['data']['data']['status_disposition'] == 17)
+                                @if ($data['data']['data']['status_disposition'] == 16)
                                     <div class="form-group sr-btm">
                                         <div class="row flex flex-center">
                                             <div class="col-lg-4 col-md-4"><p>Download File Kerjasama</p></div>
                                             <div class="col-lg-8 col-md-8">
-                                                <div class="input-value"><a href="{{ route('download.file.cooperation', ['id' => $data['data']['data']['id']]) }}">Download</a></div>
+                                                @if ($data['data']['data']['type_of_cooperation_two_derivative_id'] == 3)
+                                                    <div class="input-value"><a href="{{ route('download.file.cooperation.extension', ['id' => $data['data']['data']['id']]) }}">Download</a></div>
+                                                @elseif($data['data']['data']['type_of_cooperation_two_derivative_id'] == 4)
+                                                    <div class="input-value"><a href="{{ route('download.file.cooperation.adendum', ['id' => $data['data']['data']['id']]) }}">Download</a></div>
+                                                @else
+                                                    <div class="input-value"><a href="{{ route('download.file.cooperation', ['id' => $data['data']['data']['id']]) }}">Download</a></div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -278,7 +284,7 @@
                                         <div class="col-lg-4 col-md-4"><p>Sasaran kerjasama</p></div>
                                         <div class="col-lg-8 col-md-8">
                                             @foreach ($data['data']['data']['deputi'] as $item)
-                                                <div class="input-value"><b>{{ $item->role->name }}</b></div>
+                                                <div class="input-value"><b>{{ $item['role']['name'] }}</b></div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -292,7 +298,6 @@
     @endif
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="{{ asset('assets/js/lightpick.js') }}"></script>
 <script>
     $('[data-toggle="popover"]').popover({
