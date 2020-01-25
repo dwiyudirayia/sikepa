@@ -48,6 +48,7 @@
                                         <th style="vertical-align: middle;">Nama Kantor</th>
                                         <th style="vertical-align: middle;">Lama Pengajuan</th>
                                         <th style="vertical-align: middle;">Durasi</th>
+                                        <th style="vertical-align: middle;">MOU Dari</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -65,6 +66,7 @@
                                             <td style="vertical-align: middle;">
                                                 <span class="m-badge m-badge--wide" :class="value.year_duration == 0 ? 'm-badge--danger' : 'm-badge--success'">{{ value.duration }}</span>
                                             </td>
+                                            <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                             <td style="vertical-align: middle;">
                                                 <router-link :to="{name: 'AdendumMonevActivityP3Create', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
@@ -84,7 +86,7 @@
                                                         <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'AdendumReportMonevGuest', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="!value.check_report && !$can('Bagian Kerjasama')">
+                                                <router-link :to="{name: 'AdendumReportMonevGuest', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="$can('Bagian Kerjasama')">
                                                     <span>
                                                         <i class="la la-pencil-square-o"></i>
                                                         <span>Report MOU</span>
@@ -179,7 +181,7 @@
                                                         <span>Detail Monev</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'AdendumReportMonev', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="value.check_report && !$can('Bagian Kerjasama')">
+                                                <router-link :to="{name: 'AdendumReportMonev', params: { id: value.id }}" class="btn m-btn btn-warning btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Nilai MOU'" v-if="$can('Bagian Kerjasama')">
                                                     <span>
                                                         <i class="la la-pencil-square-o"></i>
                                                         <span>Report MOU</span>

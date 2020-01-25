@@ -482,7 +482,7 @@ class MonevController extends Controller
     }
     public function detailMonevGuest($id) {
         try {
-            $data = SubmissionProposalGuest::with('deputi.role', 'tracking.role', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = SubmissionProposalGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -494,7 +494,7 @@ class MonevController extends Controller
     }
     public function detailMonevSatker($id) {
         try {
-            $data = SubmissionProposalGuest::with('deputi.role', 'tracking.role', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = SubmissionProposalGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

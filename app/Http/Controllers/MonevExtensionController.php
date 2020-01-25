@@ -34,13 +34,13 @@ class MonevExtensionController extends Controller
         try {
             $user = auth()->user();
             if($user->roles[0]->id == 9) {
-                $data['approval'] = new SubmissionProposalCollection(Extension::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(ExtensionGuest::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['approval'] = new SubmissionProposalCollection(Extension::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                $data['guest'] = new SubmissionProposalGuestCollection(ExtensionGuest::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
-                $data['approval'] = new SubmissionProposalCollection(Extension::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['approval'] = new SubmissionProposalCollection(Extension::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(ExtensionGuest::with('deputi','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                $data['guest'] = new SubmissionProposalGuestCollection(ExtensionGuest::with('deputi','mou','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                 })->where('status_disposition', 16)->where('status_proposal', 1)->get());
             }
@@ -404,7 +404,7 @@ class MonevExtensionController extends Controller
     }
     public function detailMonevGuest($id) {
         try {
-            $data = ExtensionGuest::with('deputi.role', 'tracking.role', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = ExtensionGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -416,7 +416,7 @@ class MonevExtensionController extends Controller
     }
     public function detailMonevSatker($id) {
         try {
-            $data = ExtensionGuest::with('deputi.role', 'tracking.role', 'country','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = ExtensionGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

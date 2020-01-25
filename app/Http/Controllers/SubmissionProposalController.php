@@ -26,6 +26,7 @@ use App\SubmissionProposalGuest;
 use App\TypeOfCooperationOneDerivative;
 use App\TypeOfCooperationTwoDerivative;
 use App\User;
+use Carbon\Carbon;
 use DB;
 // use App\Mail\SubmissionCooperationApprove;
 // use App\Mail\SubmissionCooperationReject;
@@ -419,7 +420,7 @@ class SubmissionProposalController extends Controller
                 $path = 'MOUProposalSubmissionCooperationIndex';
 
                 Notification::send($users, new DispositionNotification(auth()->user(), $path, $proposal));
-                Mail::to(auth()->user()->email)->send(new OfflineMeeting($request->keterangan_pesan));
+                Mail::to($proposal->user->email)->send(new OfflineMeeting($request->keterangan_pesan));
             } else {
                 $proposal->tracking()->where('role_id', $user->roles[0]->id)->update([
                     'status' => 1,
@@ -588,6 +589,7 @@ class SubmissionProposalController extends Controller
             $proposal = SubmissionProposal::findOrFail($id);
             $proposal->title_cooperation = $request->title_cooperation_final;
             $proposal->time_period = $request->time_period_final;
+            $proposal->expired_at = Carbon::parse($proposal->created_at)->addYears($request->time_period_final);
             $proposal->save();
 
             foreach ($request->nomor as $key => $value) {

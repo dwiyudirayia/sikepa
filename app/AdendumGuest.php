@@ -50,6 +50,6 @@ class AdendumGuest extends Model
         return $this->hasOne(ReportAdendumGuest::class);
     }
     public function mou() {
-        return $this->belongsTo(SubmissionProposalGuest::class);
+        return $this->belongsTo(SubmissionProposalGuest::class, 'submission_proposal_guest_id');
     }
 }

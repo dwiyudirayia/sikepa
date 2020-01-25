@@ -12,6 +12,7 @@ use App\Notifications\DispositionNotification;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SubmissionProposalGuest;
 use App\User;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -363,6 +364,7 @@ class SubmissionProposalGuestController extends Controller
             $proposal = SubmissionProposalGuest::findOrFail($id);
             $proposal->title_cooperation = $request->title_cooperation_final;
             $proposal->time_period = $request->time_period_final;
+            $proposal->expired_at = Carbon::parse($proposal->created_at)->addYears($request->time_period_final);
             $proposal->save();
 
             foreach ($request->nomor as $key => $value) {

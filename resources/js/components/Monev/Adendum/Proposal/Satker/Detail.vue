@@ -10,6 +10,32 @@
                         </h3>
                     </div>
                 </div>
+                <div class="m-portlet__head-tools">
+                    <ul class="m-portlet__nav">
+                        <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                            <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                Opsi
+                            </a>
+                            <div class="m-dropdown__wrapper">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">
+                                                <li class="m-nav__item context-menu">
+                                                    <a class="m-nav__link" @click="modalEditDeputiPIC">
+                                                        <i class="m-nav__link-icon la la-users"></i>
+                                                        <span class="m-nav__link-text">Deputi Tertuju</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="m-portlet__body">
                 <ul class="nav nav-tabs nav-fill" role="tablist">
@@ -164,13 +190,51 @@
                                     <div class="m-portlet__body">
                                         <div class="row">
                                             <div v-for="item in value.documentation" :key="item.id" class="col-lg-4">
-                                                <img :src="`/storage/activity_documentation_guest/${item.file}`" height="100">
+                                                <img :src="`/storage/activity_documentation_adendum/${item.file}`" height="100">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deputi-target" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deputi Tertuju</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table m-table m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: middle;">No</th>
+                                    <th style="vertical-align: middle;">Nama Deputi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-if="deputi.length">
+                                    <tr v-for="(value, index) in deputi" :key="value.id">
+                                        <td style="vertical-align: middle;">{{ index+1 }}</td>
+                                        <td style="vertical-align: middle;">{{ value.role.name }}</td>
+                                    </tr>
+                                </template>
+                                <template v-else>
+                                    <tr>
+                                        <td colspan="9" class="text-center">Data Kosong</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -220,6 +284,9 @@ export default {
         this.getData();
     },
     methods: {
+        modalEditDeputiPIC() {
+            $('#deputi-target').modal('show');
+        },
         getData() {
             $axios.get(`/admin/adendum/monev/detail/satker/${this.$route.params.id}`)
             .then(response => {

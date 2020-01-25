@@ -200,11 +200,6 @@ return [
             'root' => storage_path('app/public/activity_documentation_guest_adendum'),
             'visibility' => 'public',
         ],
-        'activity_documentation_adendum' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/activity_documentation_adendum'),
-            'visibility' => 'public',
-        ],
         'barcode_guest_adendum' => [
             'driver' => 'local',
             'root' => storage_path('app/public/barcode_guest_adendum'),
@@ -268,6 +263,11 @@ return [
         'barcode_adendum' => [
             'driver' => 'local',
             'root' => storage_path('app/public/barcode_adendum'),
+            'visibility' => 'public',
+        ],
+        'activity_documentation_adendum' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/activity_documentation_adendum'),
             'visibility' => 'public',
         ],
         //

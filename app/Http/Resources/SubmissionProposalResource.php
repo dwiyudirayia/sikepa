@@ -28,7 +28,7 @@ class SubmissionProposalResource extends JsonResource
             'duration' => Carbon::createFromDate($this->created_at->format('Y'), $this->created_at->format('m'), $this->created_at->format('d'))->diff($this->expired_at)->format('%y Tahun %m Bulan dan %d Hari'),
             'status_disposition' => $this->status_disposition,
             'check_report' => $this->report()->exists(),
-            'mou_from' => $this->mou->title_cooperation,
+            'mou_from' => $this->mou == null ? '' : $this->mou->title_cooperation,
         ];
     }
 }

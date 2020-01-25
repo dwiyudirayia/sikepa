@@ -34,6 +34,7 @@ use App\TypeOfCooperationTwoDerivative;
 use Illuminate\Support\Facades\Notification;
 use DB;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -259,48 +260,53 @@ class FrontController extends Controller
     }
     public function submissionProposalsStore(StoreSubmissionProposalGuestRequest $request)
     {
-        DB::beginTransaction();
-        if($request->type_of_cooperation_two_derivative_id == 2) {
-            $proposal = SubmissionProposalGuest::create($request->storeMOU());
-            $path = 'MOUProposalSubmissionCooperationIndex';
-        } elseif ($request->type_of_cooperation_two_derivative_id == 3) {
-            $proposal = ExtensionGuest::create($request->storeExtension());
-            $path = 'ExtensionProposalSubmissionCooperationIndex';
-        } else {
-            $proposal = AdendumGuest::create($request->storeAdendum());
-            $path = 'AdendumProposalSubmissionCooperationIndex';
+        try {
+            //code...
+            DB::beginTransaction();
+            if($request->type_of_cooperation_two_derivative_id == 2) {
+                $proposal = SubmissionProposalGuest::create($request->storeMOU());
+                $path = 'MOUProposalSubmissionCooperationIndex';
+            } elseif ($request->type_of_cooperation_two_derivative_id == 3) {
+                $proposal = ExtensionGuest::create($request->storeExtension());
+                $path = 'ExtensionProposalSubmissionCooperationIndex';
+            } else {
+                $proposal = AdendumGuest::create($request->storeAdendum());
+                $path = 'AdendumProposalSubmissionCooperationIndex';
+            }
+
+            foreach ($request->deputi as $key => $value) {
+                $proposal->deputi()->create([
+                    'role_id' => $value,
+                ]);
+            }
+
+            $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15];
+            foreach ($userKPPA as $key => $value) {
+                $proposal->tracking()->create([
+                    'role_id' => $value,
+                ]);
+            }
+            Cookie::forget('email');
+            Cookie::queue(Cookie::make('email', $proposal->email));
+
+            $resi = $proposal->mailing_number;
+
+            $messages = "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. " . $resi . " Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.";
+
+            DB::commit();
+
+            $deputi = $request->deputi;
+            $users = User::whereHas('roles', function (Builder $query) use ($deputi) {
+                $query->whereIn('id', [2, 9]);
+            })->get();
+
+            Notification::send($users, new DeputiNotificationGuest($path));
+            Mail::to($request->email)->send(new NomorResi($proposal));
+
+            return redirect()->route('satisfaction.survey')->with('success', $messages);
+        } catch (\Throwable $th) {
+
         }
-
-        foreach ($request->deputi as $key => $value) {
-            $proposal->deputi()->create([
-                'role_id' => $value,
-            ]);
-        }
-
-        $userKPPA = [2, 9, 10, 11, 12, 13, 14, 15];
-        foreach ($userKPPA as $key => $value) {
-            $proposal->tracking()->create([
-                'role_id' => $value,
-            ]);
-        }
-        Cookie::forget('email');
-        Cookie::queue(Cookie::make('email', $proposal->email));
-
-        $resi = $proposal->mailing_number;
-
-        $messages = "Data Berhasil di Simpan! Terimakasih atas permohonan kerja sama yang Anda ajukan. Permohonan Anda akan segera kami tindak lanjuti. " . $resi . " Permohonan telah berhasil kami kirim ke email Anda. Untuk memantau dan mengetahui status permohonan Anda, silahkan mengunjungi website SIKEPA.";
-
-        DB::commit();
-
-        $deputi = $request->deputi;
-        $users = User::whereHas('roles', function (Builder $query) use ($deputi) {
-            $query->whereIn('id', [2, 9]);
-        })->get();
-
-        Notification::send($users, new DeputiNotificationGuest($path));
-        Mail::to($request->email)->send(new NomorResi($proposal));
-
-        return redirect()->route('satisfaction.survey')->with('success', $messages);
     }
     // public function type($id) {
     //     try {
