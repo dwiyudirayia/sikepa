@@ -169,10 +169,10 @@ export default {
             })
         },
         changePublishStatus(id) {
-            this.$store.dispatch('article/changePublishStatus', id);
+            this.$store.dispatch('article/changePublishStatus', id).then(() => this.getData());
         },
         changeApprovedStatus(id) {
-            this.$store.dispatch('article/changeApprovedStatus', id);
+            this.$store.dispatch('article/changeApprovedStatus', id).then(() => this.getData());
         },
     }
 }

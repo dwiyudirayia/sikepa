@@ -365,7 +365,7 @@
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomer MOU</h3>
+                                    <h3 class="m-form__heading-title">Nomor MOU</h3>
                                 </div>
                                 <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
                                     <div class="text-right">

@@ -345,6 +345,8 @@
                                     <button class="btn btn-primary" type="button" @click="handleExploreNotulen">Browse</button>
                                 </div>
                             </div>
+                            <span v-if="!$v.notulenFile.required" class="m--font-danger">Field ini harus di isi</span>
+                            <span v-else-if="!$v.notulenFile.fileType" class="m--font-danger">Ektensi file harus .pdf</span>
                             <input type="file" class="custom-file-input" style="display:none;" ref="notulen" id="customFile" @change="uploadNotulen">
                         </div>
                         <div class="form-group m-form__group">
@@ -355,6 +357,8 @@
                                     <button class="btn btn-primary" type="button" @click="handleExploreDraft">Browse</button>
                                 </div>
                             </div>
+                            <span v-if="!$v.draftFile.required" class="m--font-danger">Field ini harus di isi</span>
+                            <span v-else-if="!$v.draftFile.fileType" class="m--font-danger">Ektensi file harus .pdf</span>
                             <input type="file" class="custom-file-input" style="display:none;" ref="draft" id="customFile" @change="uploadDraft">
                         </div>
                         <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
@@ -372,7 +376,7 @@
                         <form @submit.prevent="final">
                             <div class="m-form__section m-form__section--first">
                                 <div class="m-form__heading">
-                                    <h3 class="m-form__heading-title">Nomer Adendum</h3>
+                                    <h3 class="m-form__heading-title">Nomor Adendum</h3>
                                 </div>
                                 <div class="form-group m-form__group" v-for="(value, index) in nomor" :key="index">
                                     <div class="text-right">
@@ -595,14 +599,14 @@
                                         <span class="m--font-brand context-menu" @click="downloadProposal">Download</span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="vertical-align: middle;">3</td>
-                                    <td style="vertical-align: middle;">KTP</td>
-                                    <td>
-                                        <span class="m--font-brand context-menu" @click="downloadKTP">Download</span>
-                                    </td>
-                                </tr>
                                 <template v-if="isGoverment == 0">
+                                    <tr>
+                                        <td style="vertical-align: middle;">3</td>
+                                        <td style="vertical-align: middle;">KTP</td>
+                                        <td>
+                                            <span class="m--font-brand context-menu" @click="downloadKTP">Download</span>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="vertical-align: middle;">4</td>
                                         <td style="vertical-align: middle;">NPWP</td>
@@ -691,6 +695,8 @@
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleDraft">
                                 <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ draftLabel }}</label>
                             </div>
+                            <span v-if="!$v.draftFile.required" class="m--font-danger">Field ini harus di isi</span>
+                            <span v-else-if="!$v.draftFile.fileType" class="m--font-danger">Ektensi file harus .pdf</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -742,6 +748,8 @@
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="handleNotulen">
                                 <label class="custom-file-label" for="customFile" id="label_file_deputi_informasi">{{ notulenLabel }}</label>
                             </div>
+                            <span v-if="!$v.notulenFile.required" class="m--font-danger">Field ini harus di isi</span>
+                            <span v-else-if="!$v.notulenFile.fileType" class="m--font-danger">Ektensi file harus .pdf</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -759,6 +767,8 @@ import $axios from '@/api.js';
 import $axiosFormData from '@/apiformdata.js';
 import {gmapApi} from 'vue2-google-maps';
 import Editor from '@tinymce/tinymce-vue';
+import { required } from 'vuelidate/lib/validators';
+import { fileType } from '@/validators';
 
 export default {
     name: 'AdendumProposalSubmissionCooperationDetailGuest',
@@ -843,6 +853,30 @@ export default {
             modalDraftFile: [],
             modalNotulenFile: [],
         }
+    },
+    validations() {
+        const tmpForm = {};
+        if(this.status_disposition == 12) {
+            tmpForm.draftFile = {
+                required,
+                fileType: fileType('application/pdf'),
+            };
+            tmpForm.notulenFile = {
+                required,
+                fileType: fileType('application/pdf'),
+            };
+        } else if(this.status_disposition == 15) {
+            tmpForm.draftFile = {
+                fileType: fileType('application/pdf'),
+            };
+            tmpForm.notulenFile = {
+                fileType: fileType('application/pdf'),
+            };
+        } else {
+
+        }
+
+        return tmpForm;
     },
     computed: {
         google: gmapApi,
@@ -1174,60 +1208,65 @@ export default {
             window.location.href = `/api/admin/download/summary/cooperation/${this.$route.params.id}/guest/adendum?token=${localStorage.getItem('token')}`;
         },
         hukum() {
-            let formData = new FormData();
+            if(this.$v.draftFile.$invalid && this.$v.notulenFile.$invalid) {
+                return true;
+            } else {
+                let formData = new FormData();
 
-            formData.append('draft', this.draftFile);
-            formData.append('notulen', this.notulenFile);
+                formData.append('draft', this.draftFile);
+                formData.append('notulen', this.notulenFile);
 
-            $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}/guest/adendum`, formData)
-            .then(response => {
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
+                $axiosFormData.post(`/admin/submission/cooperation/law/${this.$route.params.id}/guest/adendum`, formData)
+                .then(response => {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
 
-                toastr.success(`Data Berhasil di Perbaharui`);
+                    toastr.success(`Data Berhasil di Perbaharui`);
 
-                this.$router.push({
-                    name: 'AdendumProposalSubmissionCooperationIndex'
-                });
-            })
-            .catch(error => {
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
+                    this.$router.push({
+                        name: 'AdendumProposalSubmissionCooperationIndex'
+                    });
+                    this.$v.$reset();
+                })
+                .catch(error => {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
 
-                toastr.error(`Data Gagal di Perbaharui`);
-            })
+                    toastr.error(`Data Gagal di Perbaharui`);
+                })
+            }
         },
         downloadFormatWord() {
             axios.get(`/api/admin/download/format/word/${this.$route.params.id}/guest/adendum`, {
@@ -1266,65 +1305,69 @@ export default {
             }, 100)
         },
         final() {
-            let formData = new FormData();
-            $.each(this.nomor, function(key, value) {
-                formData.append(`nomor[${key}]`, value);
-            });
-            formData.append('title_cooperation_final', this.title_cooperation_final);
-            formData.append('time_period_final', this.time_period_final);
-
-            $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}/guest/adendum`, formData)
-            .then(response => {
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
-
-                toastr.success(`Data Berhasil di Perbaharui`);
-
-                this.$router.push({
-                    name: 'AdendumProposalSubmissionCooperationIndex'
+            if(this.$v.draftFile.$invalid) {
+                return true;
+            } else {
+                let formData = new FormData();
+                $.each(this.nomor, function(key, value) {
+                    formData.append(`nomor[${key}]`, value);
                 });
-            })
-            .catch(error => {
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "progressBar": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
+                formData.append('title_cooperation_final', this.title_cooperation_final);
+                formData.append('time_period_final', this.time_period_final);
 
-                toastr.error(`Data Gagal di Perbaharui`);
-            });
+                $axiosFormData.post(`/admin/submission/cooperation/final/${this.$route.params.id}/guest/adendum`, formData)
+                .then(response => {
 
-            this.getData();
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    toastr.success(`Data Berhasil di Perbaharui`);
+                    this.$v.$reset();
+                    this.$router.push({
+                        name: 'AdendumProposalSubmissionCooperationIndex'
+                    });
+                })
+                .catch(error => {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "progressBar": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    toastr.error(`Data Gagal di Perbaharui`);
+                });
+
+                this.getData();
+            }
         },
         handleExploreNotulenFinal() {
             this.$refs.notulenFinal.click();

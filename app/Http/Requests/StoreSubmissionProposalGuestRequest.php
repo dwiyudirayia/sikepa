@@ -29,7 +29,6 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
         return [
             'title_cooperation' => 'required',
             'agency_profile' => 'required|mimes:pdf,jpeg,png',
-            'ktp' => 'required|mimes:pdf,jpeg,png',
             'proposal' => 'required|mimes:pdf,jpeg,png,mp4',
             'npwp' => 'mimes:pdf,jpeg,png',
             'siup' => 'mimes:pdf,jpeg,png',
@@ -73,6 +72,8 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             $extention = $this->ktp->getClientOriginalExtension();
             $fileName = 'ktp-guest'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
             $pathKTP = $this->ktp->storeAs(strtotime("now"), $fileName, 'ktp_guest');
+        } else {
+            $pathKTP = '';
         }
 
         if($this->hasFile('npwp')) {
@@ -103,7 +104,6 @@ class StoreSubmissionProposalGuestRequest extends FormRequest
             'postal_code' => $this->postal_code,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            // 'nominal' => (int) Str::replaceArray('.', [''], $this->nominal),
             'department' => $this->department,
             'ktp' => $pathKTP,
             'npwp' => $pathNPWP,

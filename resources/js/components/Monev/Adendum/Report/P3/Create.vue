@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Report
+                            Nilai Laporan
                         </h3>
                     </div>
                 </div>
@@ -43,6 +43,7 @@
 
 <script>
 import $axiosFormData from '@/apiformdata.js';
+import $axios from '@/api.js';
 
 export default {
     name: 'ReportMonevGuest',
@@ -78,9 +79,14 @@ export default {
             }
         }
     },
+    created() {
+        $axios.get(`/admin/adendum/monev/check/report/guest/${this.$route.params.id}`)
+        .then(response => {
+            this.forms.value = response.data.data.report;
+        })
+    },
     methods: {
         store() {
-            console.log(1);
             let formData = new FormData();
             formData.append('id', this.$route.params.id);
             formData.append('value', parseInt(this.forms.value));

@@ -33,7 +33,7 @@ class MonevController extends Controller
     public function index() {
         try {
             $user = auth()->user();
-            if($user->roles[0]->id == 9) {
+            if($user->roles[0]->id == 9 || $user->roles[0]->id == 1) {
                 $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
                 $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
@@ -718,6 +718,32 @@ class MonevController extends Controller
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function checkDataGuest($id) {
+        try {
+            if(ReportMOUGuest::where('submission_proposal_guest_id', $id)->exists()) {
+                $data = ReportMOUGuest::where('submission_proposal_guest_id', $id)->first();
+            } else {
+                $data = [];
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function checkData($id) {
+        try {
+            if(ReportMOU::where('submission_proposal_id', $id)->exists()) {
+                $data = ReportMOU::where('submission_proposal_id', $id)->first();
+            } else {
+                $data = [];
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
     }
 }

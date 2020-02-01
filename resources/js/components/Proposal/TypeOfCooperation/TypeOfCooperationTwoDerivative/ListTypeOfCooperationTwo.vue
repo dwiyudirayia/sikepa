@@ -11,15 +11,15 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Daftar Kesepahaman Kerjasama</span>
+                            <span>Daftar Kesepakatan Bersama</span>
                         </h2>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
-                    <router-link to="/proposal/typeof/cooperation/two/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kesepahaman Kerjasama Proposal'">
+                    <router-link to="/proposal/typeof/cooperation/two/derivative/create" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kesepakatan Bersama Proposal'">
                         <span>
                             <i class="la la-plus"></i>
-                            <span>Tambah Kesepahaman Kerjasama</span>
+                            <span>Tambah Kesepakatan Bersama</span>
                         </span>
                     </router-link>
                 </div>
@@ -42,18 +42,18 @@
                                 </div>
                                 <div class="m-widget5__content">
                                     <div class="m-widget5__stats1">
-                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Kesepahaman Kerjasama Proposal'">
+                                        <router-link :to="{name: 'ProposalTypeOfCooperationTwoDerivativeEdit', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Edit Kesepakatan Bersama Proposal'">
                                             <span>
                                                 <i class="la la-pencil"></i>
-                                                <span>Edit Kesepahaman Kerjasama</span>
+                                                <span>Edit Kesepakatan Bersama</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kesepahaman Kerjasama Proposal'">
+                                        <!-- <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kesepakatan Bersama Proposal'">
                                             <span>
                                                 <i class="la la-trash"></i>
-                                                <span>Hapus Kesepahaman Kerjasama</span>
+                                                <span>Hapus Kesepakatan Bersama</span>
                                             </span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ export default {
     name: 'ListTypeOfCooperationTwo',
     data() {
         return {
-            breadcrumbTitle: 'Kerjasama',
+            breadcrumbTitle: 'Daftar Kesepakatan Bersama',
             breadcrumbLink: [
                 {
                     id: 1,
@@ -96,7 +96,7 @@ export default {
                 },
                 {
                     id: 2,
-                    label: 'Daftar Kesepahaman Kerjasama',
+                    label: 'Daftar Kesepakatan Bersama',
                     path: `/proposal/typeof/cooperation/list/${this.$route.params.id}/two`
                 },
             ],

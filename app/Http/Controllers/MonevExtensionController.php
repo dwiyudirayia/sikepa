@@ -33,7 +33,7 @@ class MonevExtensionController extends Controller
     public function index() {
         try {
             $user = auth()->user();
-            if($user->roles[0]->id == 9) {
+            if($user->roles[0]->id == 9 || $user->roles[0]->id == 1) {
                 $data['approval'] = new SubmissionProposalCollection(Extension::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
                 $data['guest'] = new SubmissionProposalGuestCollection(ExtensionGuest::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
@@ -609,7 +609,7 @@ class MonevExtensionController extends Controller
     public function storeReportGuest(Request $request) {
         try {
             ReportExtensionGuest::updateOrCreate([
-                'submission_proposal_guest_id' => $request->id,
+                'extension_guest_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
@@ -627,7 +627,7 @@ class MonevExtensionController extends Controller
     public function storeReport(Request $request) {
         try {
             ReportExtension::updateOrCreate([
-                'submission_proposal_id' => $request->id,
+                'extension_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
@@ -640,6 +640,32 @@ class MonevExtensionController extends Controller
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function checkDataGuest($id) {
+        try {
+            if(ReportExtensionGuest::where('extension_guest_id', $id)->exists()) {
+                $data = ReportExtensionGuest::where('extension_guest_id', $id)->first();
+            } else {
+                $data = [];
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function checkData($id) {
+        try {
+            if(ReportExtension::where('extension_id', $id)->exists()) {
+                $data = ReportExtension::where('extension_id', $id)->first();
+            } else {
+                $data = [];
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
     }
 }

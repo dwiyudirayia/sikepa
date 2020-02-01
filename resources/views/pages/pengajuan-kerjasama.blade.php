@@ -76,7 +76,7 @@
                                                 <div class="form-input">
                                                     <select class="form-control select2 required" id="type_of_cooperation_two_derivative_id" name="type_of_cooperation_two_derivative_id">
                                                     </select>
-                                                    <label class="text-label">Jenis Permohonan</label>
+                                                    <label class="text-label">Jenis Kesepakatan</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,10 +220,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="is-not-mou" style="display:none">
                                             <div class="form-group {{ $errors->has('ktp') ? 'has-error' : '' }}">
                                                 <div class="form-input input-file">
-                                                    <input class="upload required" id="ktp" type="file" name="ktp">
+                                                    <input class="upload" id="ktp" type="file" name="ktp">
                                                     <div class="form-control">
                                                         <label class="input-upload" for="ktp" onclick="getFile()"></label>
                                                         <label class="icon" for="ktp"><i class="mdi mdi-upload"></i></label>
@@ -486,22 +486,36 @@
             }
             form.validate({
                 rules: {
-                    ktp: {
-                        required: true,
-                        extension: "jpeg|pdf|png|jpg",
-                    },
                     agency_profile: {
                         required: true,
                         extension: "jpeg|pdf|png|jpg",
+                        filesize: 2000000   //max size 200 kb
                     },
                     proposal: {
                         required: true,
                         extension: "jpeg|pdf|png|jpg|mp4",
+                        filesize: 2000000   //max size 200 kb
                     },
                 },
                 errorPlacement: function (error, element) {
-                    console.log(error);
-                    console.log(element);
+                    const config = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "0",
+                        "extendedTimeOut": "0",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr.warning('Harap Perhatikan Ukuran File Yang di Upload (Maks.2MB)', 'Perhatian!', config);
                 }
             }).settings.ignore = ":disabled,:hidden";
 
@@ -524,19 +538,27 @@
         },
         onFinishing: function (event, currentIndex)
         {
-            console.log(3);
             form.validate().settings.ignore = ":disabled";
             return form.valid();
+
+            toastr.warning('Harap Perhatikan Ukuran File Yang di Upload (Maks.2MB)', 'Perhatian!', config);
         },
         onFinished: function (event, currentIndex)
         {
-            console.log(4);
             $('#submission-cooperation').submit();
         }
         });
     </script>
     <script>
         $(document).ready(function() {
+            $.validator.addMethod('filesize', function (value, element, arg) {
+                var minsize=1000; // min 1kb
+                if((value>minsize)&&(value<=arg)){
+                    return true;
+                }else{
+                    return false;
+                }
+            });
             $('.select2').select2({
                 width: '100%',
                 placeholder: 'Pilih dan Sesuaikan',
@@ -751,7 +773,7 @@
             });
             $('#agencies_id').change(function() {
                 const value = $(this).val();
-                console.log(value);
+
                 $.ajax({
                     url: '/agency/check/goverment/' + value,
                     method: 'GET',

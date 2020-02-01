@@ -353,6 +353,8 @@ Route::middleware('jwt')->group(function () {
         Route::get('show/monev/activity/guest/{id}', 'MonevController@showActivityGuest');
         Route::post('monev/report/satker', 'MonevController@storeReport');
         Route::post('monev/report/guest', 'MonevController@storeReportGuest');
+        Route::get('monev/check/report/satker/{id}', 'MonevController@checkData');
+        Route::get('monev/check/report/guest/{id}', 'MonevController@checkDataGuest');
         Route::get('list/monev/activity/guest/{id}', 'MonevController@listActivityGuest');
         Route::delete('list/monev/activity/satker/{id}', 'MonevController@destroyActivitySatker');
         Route::delete('list/monev/activity/guest/{id}', 'MonevController@destroyActivityGuest');
@@ -382,6 +384,8 @@ Route::middleware('jwt')->group(function () {
         Route::get('adendum/show/monev/activity/guest/{id}', 'MonevAdendumController@showActivityGuest');
         Route::post('adendum/monev/report/satker', 'MonevAdendumController@storeReport');
         Route::post('adendum/monev/report/guest', 'MonevAdendumController@storeReportGuest');
+        Route::get('adendum/monev/check/report/satker/{id}', 'MonevAdendumController@checkData');
+        Route::get('adendum/monev/check/report/guest/{id}', 'MonevAdendumController@checkDataGuest');
         Route::get('adendum/list/monev/activity/guest/{id}', 'MonevAdendumController@listActivityGuest');
         Route::delete('adendum/list/monev/activity/satker/{id}', 'MonevAdendumController@destroyActivitySatker');
         Route::delete('adendum/list/monev/activity/guest/{id}', 'MonevAdendumController@destroyActivityGuest');
@@ -411,6 +415,8 @@ Route::middleware('jwt')->group(function () {
         Route::get('extension/show/monev/activity/guest/{id}', 'MonevExtensionController@showActivityGuest');
         Route::post('extension/monev/report/satker', 'MonevExtensionController@storeReport');
         Route::post('extension/monev/report/guest', 'MonevExtensionController@storeReportGuest');
+        Route::get('extension/monev/check/report/satker/{id}', 'MonevExtensionController@checkData');
+        Route::get('extension/monev/check/report/guest/{id}', 'MonevExtensionController@checkDataGuest');
         Route::get('extension/list/monev/activity/guest/{id}', 'MonevExtensionController@listActivityGuest');
         Route::delete('extension/list/monev/activity/satker/{id}', 'MonevExtensionController@destroyActivitySatker');
         Route::delete('extension/list/monev/activity/guest/{id}', 'MonevExtensionController@destroyActivityGuest');

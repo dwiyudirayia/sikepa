@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Tambah Kegiatan
+                            Nilai Pengajuan
                         </h3>
                     </div>
                 </div>
@@ -77,6 +77,12 @@ export default {
                 ],
             }
         }
+    },
+    created() {
+        $axios.get(`/admin/extension/monev/check/report/satker/${this.$route.params.id}`)
+        .then(response => {
+            this.forms.value = response.data.data.report;
+        })
     },
     methods: {
         store() {

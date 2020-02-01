@@ -54,7 +54,7 @@
                                                 <span>Hapus Page</span>
                                             </span>
                                         </button>
-                                        <button @click="changePublishStatus(value.id)" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Ganti Status Publish'">
+                                        <!-- <button @click="changePublishStatus(value.id)" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Ganti Status Publish'">
                                             <span v-if="value.publish == 0">
                                                 <i class="la la-close"></i>
                                                 <span>Ganti Status Publish</span>
@@ -73,7 +73,7 @@
                                                 <i class="la la-check"></i>
                                                 <span>Ganti Status Persetujuan</span>
                                             </span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -150,12 +150,12 @@ export default {
                 }
             })
         },
-        changePublishStatus(id) {
-            this.$store.dispatch('page/changePublishStatus', id);
-        },
-        changeApprovedStatus(id) {
-            this.$store.dispatch('page/changeApprovedStatus', id);
-        },
+        // changePublishStatus(id) {
+        //     this.$store.dispatch('page/changePublishStatus', id);
+        // },
+        // changeApprovedStatus(id) {
+        //     this.$store.dispatch('page/changeApprovedStatus', id);
+        // },
     }
 }
 </script>

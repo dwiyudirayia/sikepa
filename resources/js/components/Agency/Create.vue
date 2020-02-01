@@ -68,12 +68,12 @@ export default {
                 {
                     id: 1,
                     label: 'Intansi',
-                    path: '/agency'
+                    path: '/proposal/agency'
                 },
                 {
                     id: 1,
                     label: 'Tambah Intansi',
-                    path: '/agency/create'
+                    path: '/proposal/agency/create'
                 }
             ]
         }

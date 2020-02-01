@@ -32,7 +32,7 @@ class MonevAdendumController extends Controller
     public function index() {
         try {
             $user = auth()->user();
-            if($user->roles[0]->id == 9) {
+            if($user->roles[0]->id == 9 || $user->roles[0]->id == 1) {
                 $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
                 $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
             } else {
@@ -608,7 +608,7 @@ class MonevAdendumController extends Controller
     public function storeReportGuest(Request $request) {
         try {
             ReportAdendumGuest::updateOrCreate([
-                'submission_proposal_guest_id' => $request->id,
+                'adendum_guest_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
@@ -626,7 +626,7 @@ class MonevAdendumController extends Controller
     public function storeReport(Request $request) {
         try {
             ReportAdendum::updateOrCreate([
-                'submission_proposal_id' => $request->id,
+                'adendum_id' => $request->id,
             ],
             [
                 'created_by' => auth()->user()->id,
@@ -639,6 +639,30 @@ class MonevAdendumController extends Controller
             return response()->json($this->notification->updateSuccess($array));
         } catch (\Throwable $th) {
             return response()->json($this->notification->updateFailed($th));
+        }
+    }
+    public function checkDataGuest($id) {
+        try {
+            if(ReportAdendumGuest::where('adendum_guest_id', $id)->exists()) {
+                $data = ReportAdendumGuest::where('adendum_guest_id', $id)->first();
+            } else {
+                $data = [];
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function checkData($id) {
+        try {
+            if(ReportAdendum::where('adendum_id', $id)->exists()) {
+                $data = ReportAdendum::where('adendum_id', $id)->first();
+            }
+
+            return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
         }
     }
 }

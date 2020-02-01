@@ -49,12 +49,12 @@
                                                 <span>Edit Agency</span>
                                             </span>
                                         </router-link>
-                                        <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Agency'">
+                                        <!-- <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Agency'">
                                             <span>
                                                 <i class="la la-trash"></i>
                                                 <span>Hapus Agency</span>
                                             </span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@ export default {
                 {
                     id: 1,
                     label: 'Intansi',
-                    path: '/agency'
+                    path: '/proposal/agency'
                 },
             ],
             dataArray: {},

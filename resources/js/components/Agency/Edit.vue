@@ -9,7 +9,7 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Edit Agency
+                            Edit Instansi
                         </h3>
                     </div>
                 </div>
@@ -66,12 +66,12 @@ export default {
                 {
                     id: 1,
                     label: 'Intansi',
-                    path: '/agency'
+                    path: '/proposal/agency'
                 },
                 {
                     id: 1,
                     label: 'Edit Intansi',
-                    path: `/agency/${this.$route.params.id}/edit`
+                    path: `/proposal/agency/${this.$route.params.id}/edit`
                 }
             ]
         }
@@ -116,8 +116,8 @@ export default {
     methods: {
         update() {
             this.$v.name.$touch();
-            this.$v.address.$touch();
-            if(this.$v.name.$invalid || this.$v.address.$invalid) {
+            this.$v.status.$touch();
+            if(this.$v.name.$invalid || this.$v.status.$invalid) {
                 return;
             } else {
                 this.$store.dispatch('agency/update').then(() => {

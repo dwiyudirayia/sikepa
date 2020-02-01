@@ -49,6 +49,7 @@ export default {
     data() {
         return {
             forms: {
+                id: this.$route.params.id,
                 value: null,
             },
             breadcrumbTitle: 'Nilai MOU',
@@ -77,6 +78,12 @@ export default {
                 ],
             }
         }
+    },
+    created() {
+        $axios.get(`/admin/adendum/monev/check/report/satker/${this.$route.params.id}`)
+        .then(response => {
+            this.forms.value = response.data.data.report;
+        })
     },
     methods: {
         store() {
