@@ -15,7 +15,7 @@ class CreateMonitoringActivityDocumentationAdendumTable extends Migration
     {
         Schema::create('monitoring_activity_documentation_adendum', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('monitoring_activity_adendum_guest_id');
+            $table->bigInteger('monitoring_activity_adendum_id');
             $table->string('file');
             $table->timestamps();
         });
