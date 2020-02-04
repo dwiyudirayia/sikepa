@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\SatisfactionSurvey;
 use App\SubmissionProposalGuest;
 use App\SubmissionProposal;
+use App\TypeOfCooperationTwoDerivative;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -325,6 +326,10 @@ class DashboardController extends Controller
             // $data['pks_process_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->where('status_proposal', 1)->where('status_disposition', '<', 16)->get()->count();
             // $data['pks_total'] = SubmissionProposal::where('type_id', 1)->get()->count();
             // $data['pks_total_guest'] = SubmissionProposalGuest::where('type_guest_id', 1)->get()->count();
+
+            $data['mou_label'] = TypeOfCooperationTwoDerivative::findOrFail(2);
+            $data['perpanjangan_label'] = TypeOfCooperationTwoDerivative::findOrFail(3);
+            $data['adendum_label'] = TypeOfCooperationTwoDerivative::findOrFail(4);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

@@ -112,21 +112,21 @@ class TypeOfCooperationSeeder extends Seeder
             'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'MOU'
+            'name' => 'MOU Baru'
         ]);
 
         TypeOfCooperationTwoDerivative::create([
             'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Perpanjangan'
+            'name' => 'Pembaharuan/Perpanjangan MOU'
         ]);
 
         TypeOfCooperationTwoDerivative::create([
             'type_of_cooperation_one_derivative_id' => $typeOfCooperationOne2->id,
             'created_by' => 1,
             'updated_by' => 1,
-            'name' => 'Adendum'
+            'name' => 'Adendum MOU'
         ]);
     }
 }

@@ -9,7 +9,7 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--info">
-                            <span>MOU</span>
+                            <span>{{ mouLabel }}</span>
                         </h2>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--success">
-                            <span>Adendum</span>
+                            <span>{{ adendumLabel }}</span>
                         </h2>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                             <i class="flaticon-statistics"></i>
                         </span>
                         <h2 class="m-portlet__head-label m-portlet__head-label--brand">
-                            <span>Perpanjangan</span>
+                            <span>{{ perpanjanganLabel }}</span>
                         </h2>
                     </div>
                 </div>
@@ -1414,6 +1414,9 @@ export default {
     },
     data() {
         return {
+            mouLabel: null,
+            perpanjanganLabel:  null,
+            adendumLabel: null,
             widget: {
                 mou: {
                     approve: null,
@@ -3989,6 +3992,10 @@ export default {
                 this.widget.extension.reject = responseData.extension_reject + responseData.extension_reject_guest;
                 this.widget.extension.process = responseData.extension_process + responseData.extension_process_guest;
                 this.widget.extension.total = responseData.extension_total + responseData.extension_total_guest;
+
+                this.mouLabel = responseData.mou_label.name;
+                this.perpanjanganLabel = responseData.perpanjangan_label.name;
+                this.adendumLabel = responseData.adendum_label.name;
 
                 // this.widget.pks.approve = responseData.pks_approve + responseData.pks_approve_guest;
                 // this.widget.pks.reject = responseData.pks_reject + responseData.pks_reject_guest;
