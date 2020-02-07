@@ -855,30 +855,31 @@ export default {
         }
     },
     validations() {
-        const tmpForm = {};
-        if(this.status_disposition == 12) {
-            tmpForm.draftFile = {
-                required,
-                fileType: fileType('application/pdf'),
-            };
-            tmpForm.notulenFile = {
-                required,
-                fileType: fileType('application/pdf'),
-            };
-        } else if(this.status_disposition == 15) {
-            tmpForm.draftFile = {
-                fileType: fileType('application/pdf'),
-            };
-            tmpForm.notulenFile = {
-                fileType: fileType('application/pdf'),
-            };
-        } else {
-
+        return {
+            draftFile: this.rules.draftFile,
+            notulenFile: this.rules.notulenFile,
         }
-
-        return tmpForm;
     },
     computed: {
+        rules() {
+            return this.status_disposition == 12 ? {
+                draftFile: {
+                    required,
+                    fileType: fileType('application/pdf'),
+                },
+                notulenFile: {
+                    required,
+                    fileType: fileType('application/pdf'),
+                },
+            } : {
+                draftFile: {
+                    fileType: fileType('application/pdf'),
+                },
+                notulenFile: {
+                    fileType: fileType('application/pdf'),
+                },
+            }
+        },
         google: gmapApi,
         bpd: function() {
             const data = this.tracking;

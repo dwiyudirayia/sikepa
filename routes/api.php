@@ -375,8 +375,6 @@ Route::middleware('jwt')->group(function () {
 
         //Monev Adendum
         Route::get('adendum/monev', 'MonevAdendumController@index');
-        Route::post('adendum/monev/p3', 'MonevAdendumController@storeP3');
-        Route::post('adendum/monev/satker', 'MonevAdendumController@storeSatker');
         Route::post('adendum/monev/activity/satker', 'MonevAdendumController@storeActivitySatker');
         Route::post('adendum/monev/activity/guest', 'MonevAdendumController@storeActivityGuest');
         Route::get('adendum/list/monev/activity/satker/{id}', 'MonevAdendumController@listActivitySatker');
@@ -406,8 +404,6 @@ Route::middleware('jwt')->group(function () {
 
         //Monev Perpanjangan
         Route::get('extension/monev', 'MonevExtensionController@index');
-        Route::post('extension/monev/p3', 'MonevExtensionController@storeP3');
-        Route::post('extension/monev/satker', 'MonevExtensionController@storeSatker');
         Route::post('extension/monev/activity/satker', 'MonevExtensionController@storeActivitySatker');
         Route::post('extension/monev/activity/guest', 'MonevExtensionController@storeActivityGuest');
         Route::get('extension/list/monev/activity/satker/{id}', 'MonevExtensionController@listActivitySatker');

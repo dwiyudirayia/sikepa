@@ -489,15 +489,17 @@
                     agency_profile: {
                         required: true,
                         extension: "jpeg|pdf|png|jpg",
-                        filesize: 2000000   //max size 200 kb
+                        filesize: 3000000,
                     },
                     proposal: {
                         required: true,
                         extension: "jpeg|pdf|png|jpg|mp4",
-                        filesize: 2000000   //max size 200 kb
+                        filesize: 3000000,
                     },
                 },
                 errorPlacement: function (error, element) {
+                    console.log(error);
+                    console.log(element);
                     const config = {
                         "closeButton": false,
                         "debug": false,
@@ -551,14 +553,9 @@
     </script>
     <script>
         $(document).ready(function() {
-            $.validator.addMethod('filesize', function (value, element, arg) {
-                var minsize=1000; // min 1kb
-                if((value>minsize)&&(value<=arg)){
-                    return true;
-                }else{
-                    return false;
-                }
-            });
+            $.validator.addMethod('filesize', function(value, element, param) {
+              return this.optional(element) || (element.files[0].size <= param)
+            }, 'File size must be less than {0} Kb');
             $('.select2').select2({
                 width: '100%',
                 placeholder: 'Pilih dan Sesuaikan',

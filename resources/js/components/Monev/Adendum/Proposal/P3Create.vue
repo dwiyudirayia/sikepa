@@ -484,8 +484,8 @@ export default {
     created() {
         $axios.get(`/admin/submission/cooperation/create`)
         .then(response => {
-            this.data_select.agencies_id = response.data.data.agency;
-            this.data_select.type_of_cooperation_one_derivative_id = response.data.data.typeof_one;
+            this.data_select.agencies_id = response.data.data.agencies;
+            this.data_select.type_of_cooperation_one_derivative_id = response.data.data.type_two;
         });
     },
     methods: {

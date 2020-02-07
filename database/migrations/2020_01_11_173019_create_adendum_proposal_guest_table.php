@@ -44,7 +44,7 @@ class CreateAdendumProposalGuestTable extends Migration
             $table->string('agency_profile')->nullable();
             $table->string('proposal')->nullable();
             $table->tinyInteger('status_barcode')->default(0);
-            $table->date('expired_at');
+            $table->date('expired_at')->nullable();
             // $table->string('reject_dana')->nullable();
             $table->timestamps();
         });

@@ -35,12 +35,12 @@
                                     <div class="m-dropdown__body">
                                         <div class="m-dropdown__content">
                                             <ul class="m-nav">
-                                                <li class="m-nav__item context-menu">
+                                                <!-- <li class="m-nav__item context-menu">
                                                     <router-link class="m-nav__link" :to="{name: 'MonitoringP3Create'}" v-tooltip.top="'Tambah MOU P3 Terdahulu'">
                                                         <i class="m-nav__link-icon la la-file"></i>
                                                         <span class="m-nav__link-text">Tambah MOU P3 Terdahulu </span>
                                                     </router-link>
-                                                </li>
+                                                </li> -->
                                                 <li class="m-nav__item context-menu">
                                                     <router-link class="m-nav__link" :to="{name: 'MonitoringSatkerCreate'}" v-tooltip.top="'Tambah MOU Satker Terdahulu'">
                                                         <i class="m-nav__link-icon la la-file-text"></i>

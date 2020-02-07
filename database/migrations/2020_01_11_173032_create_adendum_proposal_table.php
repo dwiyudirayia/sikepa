@@ -40,7 +40,7 @@ class CreateAdendumProposalTable extends Migration
             $table->string('agency_profile');
             $table->string('proposal');
             $table->tinyInteger('status_barcode')->default(0);
-            $table->date('expired_at');
+            $table->date('expired_at')->nullable();
             $table->timestamps();
         });
     }

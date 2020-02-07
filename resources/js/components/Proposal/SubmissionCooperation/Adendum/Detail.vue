@@ -802,8 +802,14 @@ export default {
         }
     },
     validations() {
-        if(this.status_disposition == 12) {
-            const tmpForm = {
+        return {
+            draftFile: this.rules.draftFile,
+            notulenFile: this.rules.notulenFile,
+        }
+    },
+    computed: {
+        rules() {
+            return this.status_disposition == 12 ? {
                 draftFile: {
                     required,
                     fileType: fileType('application/pdf'),
@@ -812,9 +818,7 @@ export default {
                     required,
                     fileType: fileType('application/pdf'),
                 },
-            };
-        } else if(this.status_disposition == 15) {
-            const tmpForm = {
+            } : {
                 draftFile: {
                     fileType: fileType('application/pdf'),
                 },
@@ -822,11 +826,7 @@ export default {
                     fileType: fileType('application/pdf'),
                 },
             }
-        }
-
-        return tmpForm;
-    },
-    computed: {
+        },
         google: gmapApi,
         sortDeputi: function() {
             const data = this.deputi;

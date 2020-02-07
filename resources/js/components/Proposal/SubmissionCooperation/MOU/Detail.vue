@@ -801,17 +801,32 @@ export default {
             modalNotulenFile: null,
         }
     },
-    validations: {
-        draftFile: {
-            required,
-            fileType: fileType('application/pdf'),
-        },
-        notulenFile: {
-            required,
-            fileType: fileType('application/pdf'),
-        },
+    validations() {
+        return {
+            draftFile: this.rules.draftFile,
+            notulenFile: this.rules.notulenFile,
+        }
     },
     computed: {
+        rules() {
+            return this.status_disposition == 12 ? {
+                draftFile: {
+                    required,
+                    fileType: fileType('application/pdf'),
+                },
+                notulenFile: {
+                    required,
+                    fileType: fileType('application/pdf'),
+                },
+            } : {
+                draftFile: {
+                    fileType: fileType('application/pdf'),
+                },
+                notulenFile: {
+                    fileType: fileType('application/pdf'),
+                },
+            }
+        },
         google: gmapApi,
         sortDeputi: function() {
             const data = this.deputi;
