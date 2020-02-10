@@ -58,11 +58,15 @@ class StoreMonevSatkerRequest extends FormRequest
             $extention = $this->agency_profile->getClientOriginalExtension();
             $fileName = 'agency-profile'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
             $pathAgency = $this->agency_profile->storeAs(strtotime("now"), $fileName, 'agency_profile_cooperation');
+        } else {
+            $pathAgency = '';
         }
         if($this->hasFile('proposal')) {
             $extention = $this->proposal->getClientOriginalExtension();
             $fileName = 'proposal-cooperation'.'-'.date('Y-m-d').'-'.time().'.'.$extention;
             $pathProposal = $this->proposal->storeAs(strtotime("now"), $fileName, 'proposal_cooperation');
+        } else {
+            $pathProposal = '';
         }
 
         return [
@@ -84,13 +88,13 @@ class StoreMonevSatkerRequest extends FormRequest
             // 'purpose_objectives' => $this->purpose_objectives,
             'background' => $this->background,
             'status_proposal' => 1,
-            'status_disposition' => 3,
+            'status_disposition' => 16,
             'time_period' => $this->time_period,
             // 'time_period_of' => $this->time_period_of,
             // 'time_period_to' => $this->time_period_to,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
-            'expired_at' => Carbon::now()->addYears($this->time_period),
+            'expired_at' => $this->implementation_date,
         ];
     }
     public function storeAdendum()

@@ -36,7 +36,7 @@ import BannerLandingPageChangeConfig from './components/BannerLandingPage/Change
 
 //monev
 import MonitoringEvaluasiIndex from './components/Monev/MOU/Index';
-import MonitoringP3Create from './components/Monev/MOU/Proposal/P3Create';
+// import MonitoringP3Create from './components/Monev/MOU/Proposal/P3Create';
 import MonitoringSatkerCreate from './components/Monev/MOU/Proposal/SatkerCreate';
 import MonevActivitySatkerCreate from './components/Monev/MOU/Proposal/Satker/Create';
 import ListMonevActivitySatker from './components/Monev/MOU/Proposal/Satker/List';
@@ -49,8 +49,8 @@ import ReportMonevGuest from './components/Monev/MOU/Report/P3/Create';
 import ReportMonev from './components/Monev/MOU/Report/Satker/Create';
 
 import AdendumMonitoringEvaluasiIndex from './components/Monev/Adendum/Index';
-import AdendumMonitoringP3Create from './components/Monev/Adendum/Proposal/P3Create';
-import AdendumMonitoringSatkerCreate from './components/Monev/Adendum/Proposal/SatkerCreate';
+// import AdendumMonitoringP3Create from './components/Monev/Adendum/Proposal/P3Create';
+// import AdendumMonitoringSatkerCreate from './components/Monev/Adendum/Proposal/SatkerCreate';
 import AdendumMonevActivitySatkerCreate from './components/Monev/Adendum/Proposal/Satker/Create';
 import AdendumListMonevActivitySatker from './components/Monev/Adendum/Proposal/Satker/List';
 import AdendumDetailMonevSatker from './components/Monev/Adendum/Proposal/Satker/Detail';
@@ -62,8 +62,8 @@ import AdendumReportMonevGuest from './components/Monev/Adendum/Report/P3/Create
 import AdendumReportMonev from './components/Monev/Adendum/Report/Satker/Create';
 
 import ExtensionMonitoringEvaluasiIndex from './components/Monev/Extension/Index';
-import ExtensionMonitoringP3Create from './components/Monev/Extension/Proposal/P3Create';
-import ExtensionMonitoringSatkerCreate from './components/Monev/Extension/Proposal/SatkerCreate';
+// import ExtensionMonitoringP3Create from './components/Monev/Extension/Proposal/P3Create';
+// import ExtensionMonitoringSatkerCreate from './components/Monev/Extension/Proposal/SatkerCreate';
 import ExtensionMonevActivitySatkerCreate from './components/Monev/Extension/Proposal/Satker/Create';
 import ExtensionListMonevActivitySatker from './components/Monev/Extension/Proposal/Satker/List';
 import ExtensionDetailMonevSatker from './components/Monev/Extension/Proposal/Satker/Detail';
@@ -268,7 +268,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -287,7 +287,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -306,7 +306,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -325,7 +325,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -361,7 +361,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -380,7 +380,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -399,7 +399,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -419,7 +419,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -438,7 +438,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -457,7 +457,7 @@ const router = new VueRouter({
                         requiresAuth: true
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -477,7 +477,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -496,7 +496,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -515,7 +515,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -535,7 +535,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -554,7 +554,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -573,7 +573,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -593,7 +593,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -612,7 +612,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -631,7 +631,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -651,7 +651,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -670,7 +670,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -689,7 +689,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -709,7 +709,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -728,7 +728,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -747,7 +747,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -767,7 +767,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -786,7 +786,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -805,7 +805,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -825,7 +825,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -844,7 +844,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -863,7 +863,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -883,7 +883,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -902,7 +902,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -921,7 +921,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1097,7 +1097,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1116,7 +1116,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1135,7 +1135,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1155,7 +1155,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1174,7 +1174,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1193,7 +1193,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1211,7 +1211,8 @@ const router = new VueRouter({
                     component: MOUProposalSubmissionCooperationDetailGuest,
                     meta: {
                         requiresAuth: true
-                    }
+                    },
+                    
                 },
                 // {
                 //     path: '/pks/submission/cooperation/:id/detail/guest',
@@ -1371,7 +1372,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1390,7 +1391,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1409,7 +1410,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1428,7 +1429,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1447,7 +1448,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1515,7 +1516,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1534,7 +1535,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1553,7 +1554,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1573,7 +1574,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1592,7 +1593,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1611,7 +1612,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Admin');
 
@@ -1631,7 +1632,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1642,25 +1643,25 @@ const router = new VueRouter({
                         }
                     },
                 },
-                {
-                    path: '/monev/mou/p3/create',
-                    name: 'MonitoringP3Create',
-                    component: MonitoringP3Create,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                // {
+                //     path: '/monev/mou/p3/create',
+                //     name: 'MonitoringP3Create',
+                //     component: MonitoringP3Create,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                //         let filterPermission = permission.filter(value => value === 'Monev');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
                 {
                     path: '/monev/mou/satker/create',
                     name: 'MonitoringSatkerCreate',
@@ -1669,7 +1670,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1688,7 +1689,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1707,7 +1708,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1726,7 +1727,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1745,7 +1746,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1764,7 +1765,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1783,7 +1784,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1802,7 +1803,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1821,7 +1822,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
@@ -1840,7 +1841,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
@@ -1860,7 +1861,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1871,44 +1872,44 @@ const router = new VueRouter({
                         }
                     },
                 },
-                {
-                    path: '/monev/adendum/p3/create',
-                    name: 'AdendumMonitoringP3Create',
-                    component: AdendumMonitoringP3Create,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                // {
+                //     path: '/monev/adendum/p3/create',
+                //     name: 'AdendumMonitoringP3Create',
+                //     component: AdendumMonitoringP3Create,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                //         let filterPermission = permission.filter(value => value === 'Monev');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/monev/adendum/satker/create',
-                    name: 'AdendumMonitoringSatkerCreate',
-                    component: AdendumMonitoringSatkerCreate,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/monev/adendum/satker/create',
+                //     name: 'AdendumMonitoringSatkerCreate',
+                //     component: AdendumMonitoringSatkerCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                //         let filterPermission = permission.filter(value => value === 'Monev');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
                 {
                     path: '/monev/adendum/activity/:id/guest/create',
                     name: 'AdendumMonevActivityP3Create',
@@ -1917,7 +1918,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1936,7 +1937,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1955,7 +1956,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1974,7 +1975,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -1993,7 +1994,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2012,7 +2013,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2031,7 +2032,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2050,7 +2051,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
@@ -2069,7 +2070,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
@@ -2089,7 +2090,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2108,7 +2109,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2119,44 +2120,44 @@ const router = new VueRouter({
                         }
                     },
                 },
-                {
-                    path: '/monev/extension/p3/create',
-                    name: 'ExtensionMonitoringP3Create',
-                    component: ExtensionMonitoringP3Create,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                // {
+                //     path: '/monev/extension/p3/create',
+                //     name: 'ExtensionMonitoringP3Create',
+                //     component: ExtensionMonitoringP3Create,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                //         let filterPermission = permission.filter(value => value === 'Monev');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
-                {
-                    path: '/monev/extension/satker/create',
-                    name: 'ExtensionMonitoringSatkerCreate',
-                    component: ExtensionMonitoringSatkerCreate,
-                    meta: {
-                        requiresAuth: true,
-                    },
-                    beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
+                // {
+                //     path: '/monev/extension/satker/create',
+                //     name: 'ExtensionMonitoringSatkerCreate',
+                //     component: ExtensionMonitoringSatkerCreate,
+                //     meta: {
+                //         requiresAuth: true,
+                //     },
+                //     beforeEnter: (to, from, next) => {
+                //         const permission = store.state.user.authenticated.permission;
 
-                        let filterPermission = permission.filter(value => value === 'Monev');
+                //         let filterPermission = permission.filter(value => value === 'Monev');
 
-                        if(filterPermission.length == 0) {
-                            return true;
-                        } else {
-                            next();
-                        }
-                    },
-                },
+                //         if(filterPermission.length == 0) {
+                //             return true;
+                //         } else {
+                //             next();
+                //         }
+                //     },
+                // },
                 {
                     path: '/monev/extension/activity/:id/guest/create',
                     name: 'ExtensionMonevActivityP3Create',
@@ -2165,7 +2166,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2184,7 +2185,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2203,7 +2204,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2222,7 +2223,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2241,7 +2242,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2260,7 +2261,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Monev');
 
@@ -2279,7 +2280,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 
@@ -2298,7 +2299,7 @@ const router = new VueRouter({
                         requiresAuth: true,
                     },
                     beforeEnter: (to, from, next) => {
-                        const permission = store.state.user.authenticated.permission;
+                        const permission = JSON.parse(window.localStorage.getItem('permissions'));
 
                         let filterPermission = permission.filter(value => value === 'Bagian Kerjasama');
 

@@ -44,9 +44,9 @@
                                         <th style="vertical-align: middle;">Jenis Permohonan</th>
                                         <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Nama Kantor</th>
-                                        <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Jenis Instansi</th>
+                                        <th style="vertical-align: middle;">Nama Instansi</th>
+                                        <th style="vertical-align: middle;">Masa Berlaku</th>
                                         <th style="vertical-align: middle;">Durasi</th>
                                         <th style="vertical-align: middle;">MOU Dari</th>
                                         <th style="vertical-align: middle;">Aksi</th>

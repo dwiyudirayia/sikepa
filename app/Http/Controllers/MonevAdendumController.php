@@ -572,7 +572,6 @@ class MonevAdendumController extends Controller
                 'implementation_date' => $request->implementation_date,
                 'location' => $request->location,
                 'description_activities' => $request->description_activities,
-                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',
@@ -592,7 +591,6 @@ class MonevAdendumController extends Controller
                 'implementation_date' => $request->implementation_date,
                 'location' => $request->location,
                 'description_activities' => $request->description_activities,
-                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',

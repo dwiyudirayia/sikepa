@@ -16,7 +16,7 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Judul Kerjasama</label>
+                    <label for="Nama Lengkap">Judul MOU</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
                     </div>
@@ -27,7 +27,7 @@
                     </template>
                 </div>
                 <div class="m-form__group form-group">
-                    <label for="">Tujuan Deputi</label>
+                    <label for="">Unit yang akan terlibat</label>
                     <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
                             <input type="checkbox" :value="value.id" @click="deputiDirect(index, value.id)"> {{ value.name }}
@@ -58,7 +58,6 @@
                         <span class="m-form__help">Ketikan Nominal Yang di Inginkan</span>
                     </div>
                 </div> -->
-                <!-- <div v-else> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
@@ -69,15 +68,14 @@
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Jenis Kesepakatan</label>
                     <div class="m-form__control">
                         <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control">
                             <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
                         </select>
                     </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Jenis Kesepakatan Sesuai Dengan Kriteria Nanti</span>
                 </div>
-                <!-- </div> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
@@ -100,7 +98,6 @@
                                 <option v-for="(value, index) in data_select.province_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
                             </select>
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Kabupaten / Kota</label>
@@ -109,11 +106,10 @@
                                 <option v-for="(value, index) in data_select.regency_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
                             </select>
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama</label>
+                    <label for="Nama Lengkap">Nama Pemohon</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.name.$model">
                     </div>
@@ -123,7 +119,7 @@
                     </template>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Email</label>
+                    <label for="Nama Lengkap">Email Pemohon</label>
                     <div class="m-form__control">
                         <input type="email" class="form-control" v-model="$v.forms.email.$model">
                     </div>
@@ -133,14 +129,11 @@
                     </template>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Instansi</label>
+                    <label for="Nama Lengkap">Jenis Instdansi</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.agencies_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select.agencies_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2 v-model="$v.forms.agencies_id.$model" class="form-control" :options="data_select.agencies_id">
+                        </select2>
                     </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <br>
                     <template v-if="$v.forms.agencies_id.$error">
                         <span v-if="!$v.forms.agencies_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
@@ -245,7 +238,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="form-group m-form__group">
                             <label for="exampleInputEmail1">Lama Pengajuan</label>
                             <div class="m-form__control">
@@ -353,7 +346,11 @@ export default {
                 {
                     id: 7,
                     name: 'Deputi Bidang Tumbuh Kembang Anak'
-                }
+                },
+                {
+                    id: 11,
+                    name: 'Sesmen'
+                },
             ],
             markers: [
                 {
@@ -540,7 +537,7 @@ export default {
                 formData.append('email', this.forms.email);
                 formData.append('file_pengajuan', this.forms.file_pengajuan);
 
-                $axiosFormData.post(`/admin/adendum/monev/satker`, formData)
+                $axiosFormData.post(`/admin/monev/satker`, formData)
                 .then(response => {
                     toastr.options = {
                         "closeButton": false,

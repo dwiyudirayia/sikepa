@@ -16,18 +16,17 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Judul Kerjasama</label>
+                    <label for="Nama Lengkap">Judul MOU</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
                     </div>
                     <span class="m-form__help">Pastikan Judul Kerjasama Sesuai</span>
-                    <br>
                     <template v-if="$v.forms.title_cooperation.$error">
                         <span v-if="!$v.forms.title_cooperation.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
                 <div class="m-form__group form-group">
-                    <label for="">Tujuan Deputi</label>
+                    <label for="">Unit yang akan terlibat</label>
                     <!-- <div class="m-checkbox-inline">
                         <label class="m-checkbox" v-for="(value, index) in deputi" :key="value.id">
                             <input type="checkbox" :value="value.id" @click="deputiDirect(index, value.id)"> {{ value.name }}
@@ -58,93 +57,75 @@
                         <span class="m-form__help">Ketikan Nominal Yang di Inginkan</span>
                     </div>
                 </div> -->
-                <!-- <div v-else> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Jenis Kerjasama</label>
                     <div class="m-form__control">
-                        <select v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @change="onChangeTypeOfCooperationTwoDerivative()">
-                            <option v-for="(value, index) in data_select.type_of_cooperation_one_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2 v-model="forms.type_of_cooperation_one_derivative_id" class="form-control" @input="onChangeTypeOfCooperationTwoDerivative()" :options="data_select.type_of_cooperation_one_derivative_id">
+                        </select2>
                     </div>
                     <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Kesepahaman Jenis Kerjasama</label>
+                    <label for="Nama Lengkap">Jenis Kesepakatan</label>
                     <div class="m-form__control">
-                        <select v-model="forms.type_of_cooperation_two_derivative_id" class="form-control">
-                            <option v-for="(value, index) in data_select.type_of_cooperation_two_derivative_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2 v-model="forms.type_of_cooperation_two_derivative_id" class="form-control" :options="data_select.type_of_cooperation_two_derivative_id">
+                        </select2>
                     </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
+                    <span class="m-form__help">Pastikan Nama Jenis Kesepakatan Sesuai Dengan Kriteria Nanti</span>
                 </div>
-                <!-- </div> -->
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Negara</label>
                     <div class="m-form__control">
-                        <select class="form-control" v-model="$v.forms.country_id.$model">
-                            <option :value="value.id" v-for="(value, index) in data_select.country_id" :key="index">
-                                {{ value.country_name }}
-                            </option>
-                        </select>
+                        <select2 class="form-control" v-model="$v.forms.country_id.$model" :options="data_select.country_id">
+                        </select2>
                     </div>
                     <template v-if="$v.forms.country_id.$error">
                         <span v-if="!$v.forms.country_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
                 </div>
                 <div v-if="isIndonesian">
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Provinsi</label>
                         <div class="m-form__control">
-                            <select v-model="forms.province_id" class="form-control" @change="getRegencies()">
-                                <option v-for="(value, index) in data_select.province_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
-                            </select>
+                            <select2 v-model="forms.province_id" class="form-control" @input="getRegencies()" :options="data_select.province_id">
+                            </select2>
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                     <div class="form-group m-form__group">
                         <label for="Nama Lengkap">Kabupaten / Kota</label>
                         <div class="m-form__control">
-                            <select v-model="forms.regency_id" class="form-control">
-                                <option v-for="(value, index) in data_select.regency_id" :key="index" :value="value.id">{{ value.name.toUpperCase() }}</option>
-                            </select>
+                            <select2 v-model="forms.regency_id" class="form-control" :options="data_select.regency_id">
+                            </select2>
                         </div>
-                        <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
                     </div>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Nama</label>
+                    <label for="Nama Lengkap">Nama Pemohon</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.name.$model">
                     </div>
-                    <br>
                     <template v-if="$v.forms.name.$error">
                         <span v-if="!$v.forms.name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Email</label>
+                    <label for="Nama Lengkap">Email Pemohon</label>
                     <div class="m-form__control">
                         <input type="email" class="form-control" v-model="$v.forms.email.$model">
                     </div>
-                    <br>
                     <template v-if="$v.forms.email.$error">
                         <span v-if="!$v.forms.email.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Instansi</label>
+                    <label for="Nama Lengkap">Jenis Instansi</label>
                     <div class="m-form__control">
-                        <select v-model="$v.forms.agencies_id.$model" class="form-control">
-                            <option v-for="(value, index) in data_select.agencies_id" :key="index" :value="value.id">{{ value.name }}</option>
-                        </select>
+                        <select2 v-model="$v.forms.agencies_id.$model" class="form-control" :options="data_select.agencies_id">
+                        </select2>
                     </div>
-                    <span class="m-form__help">Pastikan Nama Jenis Kerjasama Sesuai Dengan Kriteria Nanti</span>
-                    <br>
                     <template v-if="$v.forms.agencies_id.$error">
                         <span v-if="!$v.forms.agencies_id.required" class="m--font-danger">Field Ini Harus di Isi</span>
                     </template>
-                    <br>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
@@ -187,7 +168,6 @@
                                 <input type="text" class="form-control" v-model="$v.forms.agency_name.$model">
                             </div>
                             <span class="m-form__help">Pastikan Nama Instansi Sesuai</span>
-                            <br>
                             <template v-if="$v.forms.agency_name.$error">
                                 <span v-if="!$v.forms.agency_name.required" class="m--font-danger">Field Ini Harus di Isi</span>
                             </template>
@@ -198,7 +178,6 @@
                                 <textarea v-model="$v.forms.address.$model" cols="30" rows="10" class="form-control"></textarea>
                             </div>
                             <span class="m-form__help">Pastikan Alamat Instansi Sesuai</span>
-                                <br>
                                 <template v-if="$v.forms.address.$error">
                                     <span v-if="!$v.forms.address.required" class="m--font-danger">Field Ini Harus di Isi</span>
                                 </template>
@@ -209,7 +188,6 @@
                                 <input type="text" v-model="$v.forms.postal_code.$model" class="form-control">
                             </div>
                             <span class="m-form__help">Pastikan Kode Pos Sesuai</span>
-                            <br>
                             <template v-if="$v.forms.postal_code.$error">
                                 <span v-if="!$v.forms.postal_code.required" class="m--font-danger">Field Ini Harus di Isi</span>
                             </template>
@@ -228,7 +206,6 @@
                             </div>
                             <span class="m-form__help">Sudah Terisi Otomatis</span>
                         </div>
-                        <br>
                     </div>
                 </div>
                 <div class="row">
@@ -245,7 +222,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="form-group m-form__group">
                             <label for="exampleInputEmail1">Lama Pengajuan</label>
                             <div class="m-form__control">
@@ -259,8 +236,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group m-form__group">
+                            <label for="exampleInputEmail1">Tanggal Kesepakatan</label>
+                            <div class="m-form__control">
+                                <date-picker v-model="forms.implementation_date" valueType="format"  style="width: 100%;" lang="en"></date-picker>
+                                <template v-if="$v.forms.time_period.$error">
+                                    <span v-if="!$v.forms.time_period.required" class="m--font-danger">Field Ini Harus di Isi</span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group m-form__group">
@@ -268,7 +255,6 @@
                             <div class="m-form__control">
                                 <textarea v-model="$v.forms.background.$model" cols="30" class="form-control"></textarea>
                                 <span class="m-form__help">Pastikan Latar Belakang Sesuai</span>
-                                <br>
                                 <template v-if="$v.forms.background.$error">
                                     <span v-if="!$v.forms.background.required" class="m--font-danger">Field Ini Harus di Isi</span>
                                 </template>
@@ -328,9 +314,19 @@
 import { required, email } from 'vuelidate/lib/validators';
 import $axios from '@/api.js';
 import $axiosFormData from '@/apiformdata.js';
+import DatePicker from 'vue2-datepicker';
+DatePicker.methods.displayPopup = function () {
+  this.position = {
+    left: 0,
+    top: '100%'
+  }
+}
 
 export default {
     name: 'MonitoringSatkerCreate',
+    components: {
+        DatePicker,
+    },
     data() {
         return {
             deputi: [
@@ -353,7 +349,11 @@ export default {
                 {
                     id: 7,
                     name: 'Deputi Bidang Tumbuh Kembang Anak'
-                }
+                },
+                {
+                    id: 11,
+                    name: 'Sesmen'
+                },
             ],
             options:[
                 {
@@ -412,6 +412,7 @@ export default {
                 time_period: 1,
                 email: null,
                 file_pengajuan: null,
+                implementation_date: null,
             },
             data_select: {
                 time_period: [
@@ -548,6 +549,7 @@ export default {
                 formData.append('background', this.forms.background);
                 formData.append('time_period', this.forms.time_period);
                 formData.append('email', this.forms.email);
+                formData.append('implementation_date', this.forms.implementation_date);
                 formData.append('file_pengajuan', this.forms.file_pengajuan);
 
                 $axiosFormData.post(`/admin/monev/satker`, formData)

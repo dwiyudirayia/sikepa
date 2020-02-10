@@ -1558,6 +1558,24 @@ export default {
                 toastr.error(`Barcode Gagal di Generate`);
             })
         }
+    },
+    beforeRouteEnter(to, from, next) {
+        $axios.get(`/admin/submission/cooperation/${to.params.id}/detail/guest`)
+        .then(response => {
+            const roles = JSON.parse(window.localStorage.getItem('roles'));
+            const statusDisposition = response.data.data.data.status_disposition;
+            if(statusDisposition === 3) {
+                next()
+            } else {
+                let filterRoles = roles.filter(value => value.id === response.data.data.data.status_disposition)
+    
+                if(filterRoles.length == 0) {
+                    next({ path: '/mou/submission/cooperation' })
+                } else {
+                    next();
+                }
+            }
+        })
     }
 }
 </script>

@@ -87,7 +87,6 @@
                                     <td>{{ value.title_activity }}</td>
                                     <td>{{ value.implementation_date }}</td>
                                     <td>{{ value.location }}</td>
-                                    <td>{{ value.result_status == 1 ? "Rekomendasi" : "Tidak"}}</td>
                                     <td>
                                         <button @click="confirmDelete(value.id)" class="btn m-btn btn-danger btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Hapus Kegiatan'">
                                             <span>

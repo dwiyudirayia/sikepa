@@ -275,7 +275,9 @@ export default {
         logout() {
             $axios.post(`/admin/logout`)
             .then(() => {
-                localStorage.removeItem('token')
+                localStorage.removeItem('token');
+                localStorage.removeItem('permissions');
+                localStorage.removeItem('roles');
                 this.$store.state.token = localStorage.getItem('token')
                 window.location.href = '/login/admin';
             })

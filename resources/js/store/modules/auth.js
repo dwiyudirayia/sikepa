@@ -6,6 +6,7 @@ const auth = {
     actions: {
         login({ commit }, payload) {
             localStorage.setItem('token', null) //RESET LOCAL STORAGE MENJADI NULL
+            localStorage.setItem('auth', null) //RESET LOCAL STORAGE MENJADI NULL
             commit('setAuth', null, { root: true }) //RESET STATE TOKEN MENJADI NULL
             //KARENA MUTATIONS SET_TOKEN BERADA PADA ROOT STORES, MAKA DITAMBAHKAN PARAMETER
             //{ root: true }
@@ -16,11 +17,15 @@ const auth = {
                 //DAN PAYLOAD ADALAH DATA YANG DIKIRIMKAN DARI COMPONENT LOGIN.VUE
                 $axios.post('/login', payload)
                 .then((response) => {
+                    console.log(response);
                     //KEMUDIAN JIKA RESPONNYA SUKSES
                     if (response.data.status == 'success') {
                         //MAKA LOCAL STORAGE DAN STATE TOKEN AKAN DISET MENGGUNAKAN
                         //API DARI SERVER RESPONSE
-                        localStorage.setItem('token', response.data.access_token)
+                        localStorage.setItem('token', response.data.access_token);
+                        localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
+                        localStorage.setItem('roles', JSON.stringify(response.data.roles));
+
                         commit('setAuth', response.data.access_token, { root: true })
                     }
                     //JANGAN LUPA UNTUK MELAKUKAN RESOLVE AGAR DIANGGAP SELESAI

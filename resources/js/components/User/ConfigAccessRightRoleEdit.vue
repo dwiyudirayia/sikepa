@@ -199,7 +199,10 @@ export default {
                     };
 
                     toastr.success(`Data Berhasil di Perbaharui`);
-
+                    $axios.get('/admin/update/permission')
+                    .then(response => {
+                        localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                    })
                     this.$router.push('/config/access/rights');
                 })
             }

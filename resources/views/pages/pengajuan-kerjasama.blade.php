@@ -105,7 +105,7 @@
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label class="text-label">Instansi Pemohon</label>
+                                                    <label class="text-label">Jenis Instansi</label>
                                                 </div>
                                                 @if($errors->has('agencies_id'))
                                                     <p style="color:red;">{{ $errors->first('agencies_id') }}</p>

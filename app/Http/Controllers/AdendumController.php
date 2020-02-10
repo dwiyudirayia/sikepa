@@ -815,9 +815,10 @@ class AdendumController extends Controller
 
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([
-                    'created_by' => auth()->user()->id,
-                    'nomor' => $value,
-                ]);
+                    'adendum_guest_id' => $id,
+                ],
+                ['created_by' => auth()->user()->id,
+                'nomor' => $value,]);
             }
             $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                 'status' => 1,
@@ -858,9 +859,10 @@ class AdendumController extends Controller
 
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([
-                    'created_by' => auth()->user()->id,
-                    'nomor' => $value,
-                ]);
+                    'adendum_id' => $id,
+                ],
+                ['created_by' => auth()->user()->id,
+                'nomor' => $value,]);
             }
             $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([
                 'status' => 1,

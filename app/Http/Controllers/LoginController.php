@@ -6,6 +6,7 @@ use App\PhotoLogin;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 
 class LoginController extends Controller
 {
@@ -68,11 +69,20 @@ class LoginController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $user = auth()->user();
+        $permissions = [];
+        foreach (Permission::all() as $permission) {
+            if ($user->can($permission->name)) {
+                $permissions[] = $permission->name;
+            }
+        }
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => 60*60*24*365*10,
-            'status' => 'success'
+            'status' => 'success',
+            'permissions' => $permissions,
+            'roles' => $user->roles,
         ]);
     }
     public function guard()
@@ -88,7 +98,7 @@ class LoginController extends Controller
                 'messages' => 'Data Berhasil di Ambil',
             ]);
         } catch (\Throwable $th) {
-            
+
         }
     }
 }

@@ -69,11 +69,15 @@ export default {
                 report: [
                     {
                         id: 1,
-                        name: 'Perpanjangan'
+                        name: 'Di Adendum'
                     },
                     {
                         id: 2,
-                        name: 'Adendum'
+                        name: 'Di Perpanjangan'
+                    },
+                    {
+                        id: 3,
+                        name: 'Tidak di Lanjutkan'
                     }
                 ],
             }

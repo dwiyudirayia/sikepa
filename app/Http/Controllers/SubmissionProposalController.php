@@ -594,9 +594,10 @@ class SubmissionProposalController extends Controller
 
             foreach ($request->nomor as $key => $value) {
                 $proposal->nomor()->updateOrCreate([
-                    'created_by' => auth()->user()->id,
-                    'nomor' => $value,
-                ]);
+                    'submission_proposal_id' => $id,
+                ],
+                ['created_by' => auth()->user()->id,
+                'nomor' => $value,]);
             }
 
             $proposal->tracking()->where('role_id', $user->roles[1]->id)->update([

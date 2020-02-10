@@ -151,12 +151,6 @@
                                                     <input class="form-control m-input" disabled="disabled" :value="value.location" type="text">
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">Penilaian:</label>
-                                                <div class="col-10">
-                                                    <input class="form-control m-input" disabled="disabled" :value="value.result_status" type="text">
-                                                </div>
-                                            </div>
                                             <!-- <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">Evaluasi:</label>
                                                 <div class="col-10">

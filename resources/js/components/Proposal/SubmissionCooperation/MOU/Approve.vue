@@ -73,7 +73,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -127,7 +127,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>
@@ -179,7 +179,7 @@
                                                             <span>Download File Pengajuan</span>
                                                         </span>
                                                     </button>
-                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                    <router-link v-if="$can('Bagian Kerjasama')" :to="{name: 'MOUProposalSubmissionCooperationYourDetailGuestPreview', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
                                                         <span>
                                                             <i class="la la-pencil-square"></i>
                                                             <span>Detail Pengajuan</span>

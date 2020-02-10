@@ -309,7 +309,7 @@ class MonevController extends Controller
     public function storeSatker(StoreMonevSatkerRequest $request) {
         try {
             DB::beginTransaction();
-            $proposal = SubmissionProposal::create($request->store());
+            $proposal = SubmissionProposal::create($request->storeMOU());
             foreach ($request->deputi as $key => $value) {
                 $proposal->deputi()->create([
                     'role_id' => $value,
@@ -651,7 +651,6 @@ class MonevController extends Controller
                 'implementation_date' => $request->implementation_date,
                 'location' => $request->location,
                 'description_activities' => $request->description_activities,
-                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',
@@ -671,7 +670,6 @@ class MonevController extends Controller
                 'implementation_date' => $request->implementation_date,
                 'location' => $request->location,
                 'description_activities' => $request->description_activities,
-                'result_status' => $request->result_status,
             ]);
             return response()->json([
                 'messages' => 'Data Berahasil di Perbaharui',

@@ -22,7 +22,6 @@ class CreateMonitoringActivityAdendumGuestTable extends Migration
             $table->text('description_activities')->nullable();
             // $table->text('problem_solving')->nullable();
             // $table->text('report')->nullable();
-            $table->tinyInteger('result_status')->default(0);
             $table->timestamps();
         });
     }

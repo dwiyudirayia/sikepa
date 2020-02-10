@@ -200,7 +200,7 @@
                             </div>
                         </div>
                         <div class="form-group m-form__group">
-                            <label for="exampleInputEmail1">Pilih File Deputi Informasi </label>
+                            <label for="exampleInputEmail1">Pilih File </label>
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file_deputi_informasi" @change="fileDeputiInfomasi(index)">

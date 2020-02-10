@@ -13,7 +13,6 @@ class MonitoringActivityGuest extends Model
         'implementation_date',
         'location',
         'description_activities',
-        'result_status',
     ];
 
     public function proposal() {

@@ -1796,6 +1796,7 @@ export default {
         },
     },
     mounted() {
+        console.log(window.localStorage.getItem('auth'));
         this.getData();
         this.options = {
             responsive: true,

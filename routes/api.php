@@ -510,6 +510,7 @@ Route::middleware('jwt')->group(function () {
     Route::delete('access/right/role/{id}', 'UserController@destroyRole');
     Route::get('access/right/role/{id}/edit', 'UserController@editRole');
     Route::get('config/user/role', 'UserController@getData');
+    Route::get('update/permission', 'UserController@updatePermission');
 
     Route::post('role-permission', 'RolePermissionsController@getRolePermission');
     Route::post('set-role-permission', 'RolePermissionsController@setRolePermission');

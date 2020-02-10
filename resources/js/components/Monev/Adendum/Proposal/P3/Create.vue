@@ -39,19 +39,6 @@
                         <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities"></textarea>
                     </div>
                 </div>
-                <div class="m-form__group form-group">
-                    <label for="">Nilai Kegiatan</label>
-                    <div class="m-radio-inline">
-                        <label class="m-radio">
-                            <input type="radio" v-model="forms.result_status" value="1"> Rekomendasi
-                            <span></span>
-                        </label>
-                        <label class="m-radio">
-                            <input type="radio" v-model="forms.result_status" value="0"> Tidak
-                            <span></span>
-                        </label>
-                    </div>
-                </div>
                 <div
                     v-for="(item, index) in forms.file" :key="index"
                 >
@@ -115,14 +102,13 @@ export default {
                 implementation_date: null,
                 location: null,
                 description_activities: null,
-                result_status: null,
                 file: [''],
             },
             budget: {
                 message: null,
                 error: false,
             },
-            breadcrumbTitle: 'Pengajuan Kerjasama',
+            breadcrumbTitle: 'Aktivitas',
             breadcrumbLink: [
                 {
                     id: 1,
@@ -168,7 +154,6 @@ export default {
             formData.append('implementation_date', this.forms.implementation_date);
             formData.append('location', this.forms.location);
             formData.append('description_activities', this.forms.description_activities);
-            formData.append('result_status', this.forms.result_status);
             // formData.append('budget', this.forms.budget);
             // formData.append('target', this.forms.target);
             // formData.append('reach', this.forms.reach);

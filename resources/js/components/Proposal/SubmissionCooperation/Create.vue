@@ -16,7 +16,7 @@
             </div>
             <form class="m-form m-form--fit" @submit.prevent="store">
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Usulan Judul Kerjasama</label>
+                    <label for="Nama Lengkap">Usulan Judul MOU</label>
                     <div class="m-form__control">
                         <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
                     </div>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="form-group m-form__group">
-                        <label for="Nama Lengkap">Jenis Permohonan</label>
+                        <label for="Nama Lengkap">Jenis Kesepakatan</label>
                         <div class="m-form__control">
                             <select2 :options="data_select.type_of_cooperation_two_derivative_id" v-model="forms.type_of_cooperation_two_derivative_id" @input="onChangeIsNotMOU"/>
                         </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="form-group m-form__group">
-                    <label for="Nama Lengkap">Instansi</label>
+                    <label for="Nama Lengkap">Jenis Instansi</label>
                     <div class="m-form__control">
                         <select2 :options="data_select.agencies_id" v-model="$v.forms.agencies_id.$model" />
                     </div>
@@ -282,6 +282,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import $axios from '@/api.js';
+import { fileType } from '@/validators';
 import $axiosFormData from '@/apiformdata.js';
 // import DatePicker from 'vue2-datepicker';
 
@@ -442,6 +443,14 @@ export default {
             time_period: {
                 required
             },
+            agency_profile: {
+                required,
+                fileType: fileType('application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'),
+            },
+            proposal: {
+                required,
+                fileType: fileType('application/pdf', 'image/jpeg', 'video/mp4'),
+            }
         }
     },
     created() {

@@ -42,9 +42,9 @@
                                                     </router-link>
                                                 </li> -->
                                                 <li class="m-nav__item context-menu">
-                                                    <router-link class="m-nav__link" :to="{name: 'MonitoringSatkerCreate'}" v-tooltip.top="'Tambah MOU Satker Terdahulu'">
+                                                    <router-link class="m-nav__link" :to="{name: 'MonitoringSatkerCreate'}" v-tooltip.top="'Tambah MOU Internal Terdahulu'">
                                                         <i class="m-nav__link-icon la la-file-text"></i>
-                                                        <span class="m-nav__link-text">Tambah MOU Satker Terdahulu </span>
+                                                        <span class="m-nav__link-text">Tambah MOU Internal Terdahulu </span>
                                                     </router-link>
                                                 </li>
                                                 <!-- <li class="m-nav__item">
@@ -100,9 +100,9 @@
                                         <th style="vertical-align: middle;">Jenis Permohonan</th>
                                         <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Nama Kantor</th>
-                                        <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Jenis Instansi</th>
+                                        <th style="vertical-align: middle;">Nama Instansi</th>
+                                        <th style="vertical-align: middle;">Masa Berlaku</th>
                                         <th style="vertical-align: middle;">Durasi</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>

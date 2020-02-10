@@ -34,7 +34,6 @@ class StoreMonevActivitySatkerGuestRequest extends FormRequest
             'implementation_date' => $this->implementation_date,
             'location' => $this->location,
             'description_activities' => $this->description_activities,
-            'result_status' => (int) $this->result_status,
         ];
     }
 }

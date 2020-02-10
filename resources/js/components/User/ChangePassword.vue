@@ -136,7 +136,9 @@ export default {
     methods: {
         logout() {
             return new Promise((resolve, reject) => {
-                localStorage.removeItem('token')
+                localStorage.removeItem('token');
+                localStorage.removeItem('permissions');
+                localStorage.removeItem('roles');
                 resolve()
             }).then(() => {
                 this.$store.state.token = localStorage.getItem('token')

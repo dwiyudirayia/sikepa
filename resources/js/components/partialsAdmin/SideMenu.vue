@@ -74,7 +74,7 @@
                     </div>
                 </li>
                 <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/mou')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-file-alt"></i><span class="m-menu__link-text">MOU</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-file-alt"></i><span class="m-menu__link-text">MOU Baru</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -90,7 +90,7 @@
                     </div>
                 </li>
                 <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/extension')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-text"></i><span class="m-menu__link-text">Perpanjangan</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-text"></i><span class="m-menu__link-text">Perpanjangan MOU</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -106,7 +106,7 @@
                     </div>
                 </li>
                 <li v-if="$can('Lihat Pengajuan Kerjasama')" class="m-menu__item m-menu__item--submenu" :class="{'m-menu__item--open': subOpenMenu('/adendum')}" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-o"></i><span class="m-menu__link-text">Adendum</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                    <a class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-file-o"></i><span class="m-menu__link-text">Adendum MOU</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="m-menu__submenu " m-hidden-height="80" style=""><span class="m-menu__arrow"></span>
                         <ul class="m-menu__subnav">
                             <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -293,7 +293,9 @@ export default {
         logout() {
             $axios.post(`/admin/logout`)
             .then(() => {
-                localStorage.removeItem('token')
+                localStorage.removeItem('token');
+                localStorage.removeItem('permissions');
+                localStorage.removeItem('roles');
                 this.$store.state.token = localStorage.getItem('token')
                 window.location.href = '/login/admin';
             })

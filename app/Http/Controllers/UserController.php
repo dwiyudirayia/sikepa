@@ -187,4 +187,20 @@ class UserController extends Controller
             'messages' => 'Data Berhasil di Masukan'
         ]);
     }
+    public function updatePermission() {
+        try {
+            $user = auth()->user();
+            $permissions = [];
+            foreach (Permission::all() as $permission) {
+                if ($user->can($permission->name)) {
+                    $permissions[] = $permission->name;
+                }
+            }
+            return response()->json([
+                'auth' => $permissions,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }

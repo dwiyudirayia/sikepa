@@ -65,19 +65,6 @@
                         <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities"></textarea>
                     </div>
                 </div>
-                <div class="m-form__group form-group">
-                    <label for="">Nilai Kegiatan</label>
-                    <div class="m-radio-inline">
-                        <label class="m-radio">
-                            <input type="radio" v-model="forms.result_status" value="1"> Rekomendasi
-                            <span></span>
-                        </label>
-                        <label class="m-radio">
-                            <input type="radio" v-model="forms.result_status" value="0"> Tidak
-                            <span></span>
-                        </label>
-                    </div>
-                </div>
                 <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions--solid">
                         <div class="row">
@@ -128,7 +115,7 @@
                             </tbody>
                         </table>
                         <div class="form-group m-form__group">
-                            <label for="exampleInputEmail1">Pilih File Deputi Informasi </label>
+                            <label for="exampleInputEmail1">Pilih File </label>
                             <div></div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" ref="file" @change="onImageChange">
@@ -169,11 +156,10 @@ export default {
                 implementation_date: null,
                 location: null,
                 description_activities: null,
-                result_status: null,
                 file: null,
             },
             documentation: [],
-            breadcrumbTitle: 'Pengajuan Kerjasama',
+            breadcrumbTitle: 'Aktivitas',
             breadcrumbLink: [
                 {
                     id: 1,
@@ -309,7 +295,6 @@ export default {
                 this.forms.implementation_date = response.data.data.implementation_date;
                 this.forms.location = response.data.data.location;
                 this.forms.description_activities = response.data.data.description_activities;
-                this.forms.result_status = response.data.data.result_status;
                 this.documentation = response.data.data.documentation;
             })
         },
