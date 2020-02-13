@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class StoreMonevActivitySatkerRequest extends FormRequest
 {
@@ -31,7 +31,7 @@ class StoreMonevActivitySatkerRequest extends FormRequest
     public function store() {
         return [
             'title_activity' => $this->title_activity,
-            'implementation_date' => $this->implementation_date,
+            'implementation_date' => Carbon::now(),
             'location' => $this->location,
             'description_activities' => $this->description_activities,
         ];

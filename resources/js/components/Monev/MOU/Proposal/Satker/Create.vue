@@ -18,7 +18,7 @@
                 <div class="form-group m-form__group">
                     <label for="exampleInputEmail1">Judul Kegiatan</label>
                     <div class="m-form__control">
-                        <input type="text" class="form-control" v-model="forms.title_activity">
+                        <input type="text" class="form-control" v-model="forms.title_activity" maxlength="255">
                     </div>
                 </div>
                 <div class="form-group m-form__group">
@@ -30,13 +30,13 @@
                 <div class="form-group m-form__group">
                     <label for="exampleInputEmail1">Lokasi</label>
                     <div class="m-form__control">
-                        <input type="text" class="form-control" v-model="forms.location">
+                        <input type="text" class="form-control" v-model="forms.location" required>
                     </div>
                 </div>
                 <div class="form-group m-form__group">
                     <label>Deskripsi Kegiatan</label>
                     <div class="m-form__control">
-                        <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities"></textarea>
+                        <textarea class="form-control" cols="30" rows="10" v-model="forms.description_activities" required></textarea>
                     </div>
                 </div>
                 <div
@@ -81,10 +81,19 @@
 </template>
 
 <script>
-// import { required, email } from 'vuelidate/lib/validators';
+import DatePicker from 'vue2-datepicker';
+DatePicker.methods.displayPopup = function () {
+  this.position = {
+    left: 0,
+    top: '100%'
+  }
+}
 import $axiosFormData from '@/apiformdata.js';
 export default {
     name: 'MonevActivitySatkerCreate',
+    components: {
+        DatePicker
+    },
     data() {
         return {
             forms: {

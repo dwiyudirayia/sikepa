@@ -257,7 +257,6 @@ export default {
                 }
             ],
             title_cooperation: null,
-            type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
             country: null,
@@ -285,7 +284,6 @@ export default {
             $axios.get(`/admin/adendum/monev/detail/satker/${this.$route.params.id}`)
             .then(response => {
                 this.title_cooperation = response.data.data.title_cooperation;
-                this.type_of_cooperation = response.data.data.type_of_cooperation.name;
                 this.type_of_cooperation_one = response.data.data.type_of_cooperation_one.name;
                 this.type_of_cooperation_two = response.data.data.type_of_cooperation_two.name;
                 this.country = response.data.data.country.country_name;

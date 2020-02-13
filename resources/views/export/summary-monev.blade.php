@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kelompok Tani</title>
+    <title>Rangkuman Monev Terdahulu</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
@@ -69,7 +69,7 @@
     <div class="box-header">
         {{-- <img src="{{ asset('simponi-new.png') }}" style="float:left" width=100 height=100> --}}
         <div class="header-content" style="margin-top:15px">
-            <p class="bold">Data Pengajuan {{ $data->title_cooperation }} </p>
+            <p class="bold" style="line-height:100%;">Data Pengajuan {{ $data->title_cooperation }} </p>
         </div>
     </div>
     <table class="table table-bordered table-striped text-center" style="margin-top:10px">
@@ -81,7 +81,9 @@
         <tr>
             <td><span class="text-table">Jenis Kerjasama</span></td>
             <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table"> {{ $data->typeOfCooperationOne->name ?? "Kosong" }} </span></td>
+            <td><span class="text-table"> {{ $data->typeOfCooperationOne->name ?? "Kosong" }} </span></td>
+        </tr>
+        <tr>
             <td><span class="text-table">Kesepahaman Jenis Kerjasama</span></td>
             <td><span class="text-table"> : </span></td>
             <td><span class="text-table">{{ $data->typeOfCooperationTwo->name ?? "Kosong" }}</span></td>
@@ -89,7 +91,9 @@
         <tr>
             <td><span class="text-table">Negara</span></td>
             <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table"> {{ $data->country->country_name }} </span></td>
+            <td><span class="text-table"> {{ $data->country->country_name }} </span></td>
+        </tr>
+        <tr>
             <td><span class="text-table">Instansi</span></td>
             <td><span class="text-table"> : </span></td>
             <td><span class="text-table">{{ $data->agencies->name }}</span></td>
@@ -97,78 +101,40 @@
         <tr>
             <td><span class="text-table">Nama Instansi</span></td>
             <td><span class="text-table"> : </span></td>
-            <td width="250"><span class="text-table">{{ $data->agency_name }}</span></td>
+            <td><span class="text-table">{{ $data->agency_name }}</span></td>
+        </tr>
+        <tr>
             <td><span class="text-table">Alamat Instansi</span></td>
             <td><span class="text-table"> : </span></td>
             <td><span class="text-table"> {{ $data->address }} </span></td>
         </tr>
     </table>
     @foreach ($data->monevActivity as $key => $item)
-    @php
-        if($item->result != null) {
-            if($item->result->evaluation == 1)
-            {
-                $evaluation = "Sangat Tidak Memuaskan";
-            } elseif($item->result->evaluation == 2) {
-                $evaluation = "Tidak Memuaskan";
-            } elseif ($item->result->evaluation == 3) {
-                $evaluation = "Sesuai Standar";
-            } elseif ($item->result->evaluation == 4) {
-                $evaluation = "Memuaskan";
-            } else {
-                $evaluation = "Sangat Memuaskan";
-            }
-
-            if($item->result->recomendation == 1)
-            {
-                $recomendation = "Diadendum";
-            } elseif($item->result->recomendation == 2) {
-                $recomendation = "Dihentikan";
-            } else {
-                $recomendation = "Dilanjutkan";
-            }
-        }
-    @endphp
         <table class="table table-bordered table-striped texth -center" style="margin-top:10px">
             <tr>
-                <td colspan="3" class="width:100px"><span class="text-header">Aktifitas Kegiatan Ke -{{ $key +1 }}</span></td>
+                <td colspan="3" class="width:100px"><span class="text-header">Aktivitas Kegiatan Ke -{{ $key +1 }}</span></td>
             </tr>
         </table>
         <table>
             <tr>
-                <td><span class="text-table">Anggaran</span></td>
+                <td><span class="text-table">Judul Kegiatan</span></td>
                 <td><span class="text-table"> : </span></td>
-                <td><span class="text-table">Rp. {{ number_format($item->budget,2,',','.') }}</span></td>
+                <td><span class="text-table"> {{ $item->title_activity }} </span></td>
             </tr>
             <tr>
-                <td><span class="text-table">Target</span></td>
+                <td><span class="text-table">Tanggal Kegiatan</span></td>
                 <td><span class="text-table"> : </span></td>
                 <td><span class="text-table"> {{ $item->target }} </span></td>
             </tr>
             <tr>
-                <td><span class="text-table">Capaian</span></td>
+                <td><span class="text-table">Lokasi</span></td>
                 <td><span class="text-table"> : </span></td>
-                <td><span class="text-table">{{ $item->reach }}</span></td>
+                <td><span class="text-table">{{ $item->location }}</span></td>
             </tr>
             <tr>
-                <td><span class="text-table">Masalah</span></td>
+                <td><span class="text-table">Deksripsi Kegiatan</span></td>
                 <td><span class="text-table"> : </span></td>
                 <td><span class="text-table">{{ $item->problem }}</span></td>
-            </tr>
-            <tr>
-                <td><span class="text-table">Upaya Penyelesaian</span></td>
-                <td><span class="text-table"> : </span></td>
-                <td><span class="text-table">{{ $item->problem_solving }}</span></td>
-            </tr>
-            <tr>
-                <td><span class="text-table"><b>Evaluasi<b></span></td>
-                <td><span class="text-table"> : </span></td>
-                <td><span class="text-table"><b>{{ $evaluation }}</b></span></td>
-            </tr>
-            <tr>
-                <td><span class="text-table"><b>Rekomendasi</b></span></td>
-                <td><span class="text-table"> : </span></td>
-                <td><span class="text-table"><b>{{ $recomendation }}</b></span></td>
             </tr>
         </table>
     @endforeach

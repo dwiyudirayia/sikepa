@@ -257,7 +257,6 @@ export default {
                 }
             ],
             title_cooperation: null,
-            type_of_cooperation: null,
             type_of_cooperation_one: null,
             type_of_cooperation_two: null,
             country: null,

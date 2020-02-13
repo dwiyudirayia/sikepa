@@ -18,7 +18,7 @@
                 <div class="form-group m-form__group">
                     <label for="Nama Lengkap">Judul MOU</label>
                     <div class="m-form__control">
-                        <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model">
+                        <input type="text" class="form-control" v-model="$v.forms.title_cooperation.$model" maxlength="255">
                     </div>
                     <span class="m-form__help">Pastikan Judul Kerjasama Sesuai</span>
                     <template v-if="$v.forms.title_cooperation.$error">
@@ -224,7 +224,7 @@
                     </div> -->
                     <div class="col-lg-6">
                         <div class="form-group m-form__group">
-                            <label for="exampleInputEmail1">Lama Pengajuan</label>
+                            <label for="exampleInputEmail1">Masa Berlaku</label>
                             <div class="m-form__control">
                                 <select2
                                     v-model="$v.forms.time_period.$model"

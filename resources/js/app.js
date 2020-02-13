@@ -3,6 +3,7 @@ require('./bootstrap');
 
 //Core Vue
 import Vue from 'vue';
+import { BootstrapVue } from 'bootstrap-vue'
 import Routes from './routes.js'
 import App from './layouts/App.vue';
 import store from './store/store';
@@ -41,6 +42,8 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.use(vuevalidate);
 Vue.use(VTooltip);
+Vue.use(BootstrapVue)
+
 Vue.mixin(Permissions)
 
 VTooltip.options.defaultClass = 'tooltip';

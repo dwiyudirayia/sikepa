@@ -53,8 +53,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="tableData.guest.data.length">
-                                        <tr v-for="(value, index) in tableData.guest.data" :key="value.id">
+                                    <template v-if="tableData.guest.length">
+                                        <tr v-for="(value, index) in tableData.guest" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
@@ -141,16 +141,17 @@
                                         <th style="vertical-align: middle;">Jenis Permohonan</th>
                                         <th style="vertical-align: middle;">Judul MOU</th>
                                         <th style="vertical-align: middle;">Negara</th>
-                                        <th style="vertical-align: middle;">Instansi</th>
-                                        <th style="vertical-align: middle;">Nama Kantor</th>
-                                        <th style="vertical-align: middle;">Lama Pengajuan</th>
+                                        <th style="vertical-align: middle;">Jenis Instansi</th>
+                                        <th style="vertical-align: middle;">Nama Instansi</th>
+                                        <th style="vertical-align: middle;">Masa Berlaku</th>
                                         <th style="vertical-align: middle;">Durasi</th>
+                                        <th style="vertical-align: middle;">MOU Dari</th>
                                         <th style="vertical-align: middle;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="tableData.satker.data.length">
-                                        <tr v-for="(value, index) in tableData.satker.data" :key="value.id">
+                                    <template v-if="tableData.satker.length">
+                                        <tr v-for="(value, index) in tableData.satker" :key="value.id">
                                             <td style="vertical-align: middle;">{{ index+1 }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_cooperation == null ? "Kosong" : value.type_of_cooperation }}</td>
                                             <td style="vertical-align: middle;">{{ value.type_of_application == null ? "Kosong" : value.type_of_application }}</td>
@@ -162,6 +163,7 @@
                                             <td style="vertical-align: middle;">
                                                 <span class="m-badge m-badge--wide" :class="value.year_duration == 0 ? 'm-badge--danger' : 'm-badge--success'">{{ value.duration }}</span>
                                             </td>
+                                            <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                             <td style="vertical-align: middle;">
                                                 <router-link :to="{name: 'AdendumMonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
@@ -258,13 +260,26 @@ export default {
                 guest: [],
                 satker: [],
             },
+            metaGuest: {
+                current_page: null,
+                per_page: null,
+                last_page: null,
+                total: null,
+            },
+            metaSatker: {
+                current_page: null,
+                per_page: null,
+                last_page: null,
+                total: null,
+            },
             reportMOU: null,
             reportMOUGuest: null,
             checkMOU: null,
         }
     },
     created() {
-        this.getData();
+        this.getDataApproval();
+        this.getDataGuest();
     },
     methods: {
         downloadSummaryMonevSatker(id) {
@@ -273,19 +288,35 @@ export default {
         downloadSummaryMonevGuest(id) {
             window.location.href = `/api/admin/adendum/download/monev/activity/guest/${id}?token=${localStorage.getItem('token')}`;
         },
-        getData() {
-            $axios.get(`/admin/adendum/monev`)
+        getDataApproval(page = 1) {
+            $axios.get(`/admin/adendum/monev/approval?page=${page}`)
             .then(response => {
-                this.tableData.guest = response.data.data.guest;
-                this.tableData.satker = response.data.data.approval;
+                // this.tableData.guest = response.data.data.guest;
+                // this.tableData.satker = response.data.data.approval;
 
-                const dataGuest = response.data.data.guest.data;
-                const dataSatker = response.data.data.approval.data;
+                // const dataGuest = response.data.data.guest.data;
+                // const dataSatker = response.data.data.approval.data;
 
-                const filterGuest = dataGuest.filter(value => value.year_duration == 0).length;
-                const filterSatker = dataSatker.filter(value => value.year_duration == 0).length;
+                // const filterGuest = dataGuest.filter(value => value.year_duration == 0).length;
+                // const filterSatker = dataSatker.filter(value => value.year_duration == 0).length;
 
-                this.checkMOU = filterGuest + filterSatker;
+                // this.checkMOU = filterGuest + filterSatker;
+
+                this.tableData.satker = response.data.data;
+                this.metaSatker.current_page = response.data.meta.current_page;
+                this.metaSatker.per_page = response.data.meta.per_page;
+                this.metaSatker.last_page = response.data.meta.last_page;
+                this.metaSatker.total = response.data.meta.total;
+            })
+        },
+        getDataGuest(page = 1) {
+            $axios.get(`/admin/adendum/monev/guest?page=${page}`)
+            .then(response => {
+                this.tableData.guest = response.data.data;
+                this.metaGuest.current_page = response.data.meta.current_page;
+                this.metaGuest.per_page = response.data.meta.per_page;
+                this.metaGuest.last_page = response.data.meta.last_page;
+                this.metaGuest.total = response.data.meta.total;
             })
         },
         // showModalImportMonev() {

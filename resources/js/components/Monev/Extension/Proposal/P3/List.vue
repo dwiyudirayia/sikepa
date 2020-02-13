@@ -74,9 +74,8 @@
                             <tr>
                                 <th style="vertical-align: middle; text-align:center;">No</th>
                                 <th style="vertical-align: middle; text-align:center;">Judul Kegiatan</th>
-                                <th style="vertical-align: middle; text-align:center;">Tanggal Pelaksanaan</th>
+                                <th style="vertical-align: middle; text-align:center;">Tanggal Kegiatan</th>
                                 <th style="vertical-align: middle; text-align:center;">Lokasi</th>
-                                <th style="vertical-align: middle; text-align:center;">Penilaian</th>
                                 <th style="vertical-align: middle; text-align:center;">Aksi</th>
                             </tr>
                         </thead>

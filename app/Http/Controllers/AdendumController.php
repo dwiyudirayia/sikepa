@@ -10,6 +10,7 @@ use App\FileDraftAdendum;
 use App\FileDraftAdendumGuest;
 use App\FileNotulenAdendum;
 use App\FileNotulenAdendumGuest;
+use App\Http\Resources\SubmissionMOUCollection;
 use App\Http\Resources\SubmissionProposalCollection;
 use App\Http\Resources\SubmissionProposalGuestCollection;
 use App\Mail\ApproveCooperationFinal;
@@ -1085,25 +1086,50 @@ class AdendumController extends Controller
             ]);
         }
     }
-    public function proposalApproveMOU()
+    public function proposalApproveMOUYou()
     {
         try {
-            $data['you'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            $data['guest'] = AdendumGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            return response()->json($this->notification->generalSuccess($data));
+            return new SubmissionMOUCollection(Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->paginate(10));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function proposalRejectMOU()
+    public function proposalApproveMOUSatker()
     {
         try {
-            $data['you'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Adendum::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-            $data['guest'] = AdendumGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-
-            return response()->json($this->notification->generalSuccess($data));
+            return new SubmissionMOUCollection(Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->paginate(10));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalApproveMOUGuest()
+    {
+        try {
+            return new SubmissionMOUCollection(AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->paginate(10));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUYou()
+    {
+        try {
+            return new SubmissionMOUCollection(Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->paginate(1));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUSatker()
+    {
+        try {
+            return new SubmissionMOUCollection(Adendum::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->paginate(1));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUGuest()
+    {
+        try {
+            return new SubmissionMOUCollection(AdendumGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->paginate(1));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }

@@ -1212,7 +1212,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true
                     },
-                    
+
                 },
                 // {
                 //     path: '/pks/submission/cooperation/:id/detail/guest',

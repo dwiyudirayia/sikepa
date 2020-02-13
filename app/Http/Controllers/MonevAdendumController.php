@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NotificationRepositoryInterfaces;
 use App\Adendum;
 use App\AdendumGuest;
+use App\Http\Resources\MonevCollection;
 use App\ReportAdendum;
 use App\ReportAdendumGuest;
 use DB;
@@ -29,22 +30,35 @@ class MonevAdendumController extends Controller
     {
         $this->notification = $notification;
     }
-    public function index() {
+    public function indexApproval() {
         try {
             $user = auth()->user();
             if($user->roles[0]->id == 9 || $user->roles[0]->id == 1) {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi','mou','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                return new MonevCollection(Adendum::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->orderBy('created_at', 'DESC')->paginate(10));
             } else {
-                $data['approval'] = new SubmissionProposalCollection(Adendum::with('deputi','mou', 'report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                return new MonevCollection(Adendum::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
-                })->where('status_disposition', 16)->where('status_proposal', 1)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(AdendumGuest::with('deputi','mou','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
-                    $query->where('role_id', $user->roles[0]->id);
-                })->where('status_disposition', 16)->where('status_proposal', 1)->get());
+                })->where('status_disposition', 16)->where('status_proposal', 1)->orderBy('created_at', 'DESC')->paginate(10));
+                // $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                //     $query->where('role_id', $user->roles[0]->id);
+                // })->where('status_disposition', 16)->where('status_proposal', 1)->orderBy('created_at', 'DESC')->get());
             }
 
-            return response()->json($this->notification->generalSuccess($data));
+            // return response()->json($this->notification->generalSuccess($data));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function indexGuest() {
+        try {
+            $user = auth()->user();
+            if($user->roles[0]->id == 9 || $user->roles[0]->id == 1) {
+                return new MonevCollection(AdendumGuest::with('deputi','report','country','agencies', 'monevActivity', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', 16)->where('status_proposal', 1)->orderBy('created_at', 'DESC')->paginate(10));
+            } else {
+                return new MonevCollection(AdendumGuest::with('deputi','report','country','agencies', 'monevActivity','typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function(Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                })->where('status_disposition', 16)->where('status_proposal', 1)->orderBy('created_at', 'DESC')->paginate(10));
+            }
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }

@@ -82,9 +82,19 @@
 
 <script>
 // import { required, email } from 'vuelidate/lib/validators';
+import DatePicker from 'vue2-datepicker';
+DatePicker.methods.displayPopup = function () {
+  this.position = {
+    left: 0,
+    top: '100%'
+  }
+}
 import $axiosFormData from '@/apiformdata.js';
 export default {
     name: 'AdendumMonevActivitySatkerCreate',
+    components: {
+        DatePicker
+    },
     data() {
         return {
             forms: {

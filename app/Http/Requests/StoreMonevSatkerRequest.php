@@ -94,7 +94,7 @@ class StoreMonevSatkerRequest extends FormRequest
             // 'time_period_to' => $this->time_period_to,
             'agency_profile' => $pathAgency,
             'proposal' => $pathProposal,
-            'expired_at' => $this->implementation_date,
+            'expired_at' => Carbon::parse($this->implementation_date)->addYears($this->time_period),
         ];
     }
     public function storeAdendum()

@@ -10,6 +10,7 @@ use App\FileDraftExtension;
 use App\FileDraftExtensionGuest;
 use App\FileNotulenExtension;
 use App\FileNotulenExtensionGuest;
+use App\Http\Resources\SubmissionMOUCollection;
 use App\Http\Resources\SubmissionProposalCollection;
 use App\Http\Resources\SubmissionProposalGuestCollection;
 use App\Mail\ApproveCooperationFinal;
@@ -1088,25 +1089,50 @@ class ExtensionController extends Controller
             ]);
         }
     }
-    public function proposalApproveMOU()
+    public function proposalApproveMOUYou()
     {
         try {
-            $data['you'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            $data['guest'] = ExtensionGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->get();
-            return response()->json($this->notification->generalSuccess($data));
+            return new SubmissionMOUCollection(Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->where('created_by', auth()->user()->id)->paginate(10));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }
     }
-    public function proposalRejectMOU()
+    public function proposalApproveMOUSatker()
     {
         try {
-            $data['you'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->get();
-            $data['satker'] = Extension::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-            $data['guest'] = ExtensionGuest::with('mou','tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->get();
-
-            return response()->json($this->notification->generalSuccess($data));
+            return new SubmissionMOUCollection(Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->paginate(10));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalApproveMOUGuest()
+    {
+        try {
+            return new SubmissionMOUCollection(ExtensionGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', 16)->paginate(10));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUYou()
+    {
+        try {
+            return new SubmissionMOUCollection(Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->where('created_by', auth()->user()->id)->paginate(1));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUSatker()
+    {
+        try {
+            return new SubmissionMOUCollection(Extension::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->paginate(1));
+        } catch (\Throwable $th) {
+            return response()->json($this->notification->generalFailed($th));
+        }
+    }
+    public function proposalRejectMOUGuest()
+    {
+        try {
+            return new SubmissionMOUCollection(ExtensionGuest::with('tracking', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 0)->paginate(1));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
         }

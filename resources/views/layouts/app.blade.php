@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>SIKEPA</title>
-	<meta name="description" content="Sistem Informasi Kelompok Tani Perkebunan">
+	<meta name="description" content="SIKEPA">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}" sizes="32x32">
