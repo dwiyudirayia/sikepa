@@ -430,7 +430,7 @@ class MonevExtensionController extends Controller
     }
     public function detailMonevSatker($id) {
         try {
-            $data = ExtensionGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = Extension::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {

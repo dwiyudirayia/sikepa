@@ -71,7 +71,7 @@ class SubmissionProposalController extends Controller
                 $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
-                })->where('status_disposition', 3)->where('status_proposal', 1)->orWhereIn('status_disposition', $idRoles)->get());
+                })->where('status_proposal', 1)->whereIn('status_disposition', [3, 11, 13])->get());
                 $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
@@ -80,9 +80,9 @@ class SubmissionProposalController extends Controller
                 })->get());
             } else {
                 $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
-                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->paginate(10));
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
             }
-            $data['you'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get());
+            $data['you'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->where('status_disposition', '<', 16)->get());
             $data['type'] = TypeOfCooperationOneDerivative::all();
 
             return response()->json($this->notification->generalSuccess($data));
@@ -922,54 +922,53 @@ class SubmissionProposalController extends Controller
     {
         try {
             $user = auth()->user();
-            $roles = collect($user['roles']);
 
-            $mappingRole = $roles->map(function ($item, $key) {
-                return $item['id'];
-            });
-
-            $idRoles = $mappingRole->all();
-            $data['guest'] = SubmissionProposal::query();
+            $data['approval'] = SubmissionProposal::query();
             if ($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
+                $data['approval']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_disposition', 3)->where('status_proposal', 1);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
-                        $query->where('role_id', $user->roles[0]->id);
-                        $query->whereNull('approval');
-                    })->where('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['approval']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
-                        $query->where('role_id', $user->roles[0]->id);
-                        $query->whereNull('approval');
-                    })->where('status_disposition', 3)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['approval']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } elseif ($user->roles[0]->id == 9) {
+                $data['approval']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', '<', 16)->where('status_proposal', 1);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['approval']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['approval']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } elseif ($user->roles[0]->id == 11) {
+                $data['approval']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_proposal', 1)->whereIn('status_disposition', [3, 11, 13]);
+
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q)->orWhere('status_disposition', $user->roles[0]->id);
+                    $data['approval']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one)->orWhere('status_disposition', $user->roles[0]->id);
+                    $data['approval']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } else {
+                $data['approval']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', '<', 16)->where('status_proposal', auth()->user()->roles[0]->id);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['approval']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['approval']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             }
-            $result['guest'] = new SubmissionProposalCollection($data['guest']->get());
+            $result['approval'] = new SubmissionProposalCollection($data['approval']->get());
             return response()->json($this->notification->generalSuccess($result));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -980,11 +979,12 @@ class SubmissionProposalController extends Controller
         try {
             $user = auth()->user();
             $data['you'] = SubmissionProposal::query();
+            $data['you']->with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id);
             if ($request->q != null) {
-                $data['you']->with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->where('type_of_cooperation_one_derivative_id', $request->type_one)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                $data['you']->where('title_cooperation', 'LIKE', '%' . $request->q);
             }
             if ($request->type_one != null) {
-                $data['you']->with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->where('type_of_cooperation_one_derivative_id', $request->type_one)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                $data['you']->where('type_of_cooperation_one_derivative_id', $request->type_one);
             }
 
             $result['you'] = new SubmissionProposalCollection($data['you']->get());
@@ -997,54 +997,52 @@ class SubmissionProposalController extends Controller
     {
         try {
             $user = auth()->user();
-            $roles = collect($user['roles']);
 
-            $mappingRole = $roles->map(function ($item, $key) {
-                return $item['id'];
-            });
-
-            $idRoles = $mappingRole->all();
             $data['guest'] = SubmissionProposalGuest::query();
             if ($user->roles[0]->id <= 7 && $user->roles[0]->id >= 3) {
+                $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_disposition', 3)->where('status_proposal', 1);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
-                        $query->where('role_id', $user->roles[0]->id);
-                        $query->whereNull('approval');
-                    })->where('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['guest']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
-                        $query->where('role_id', $user->roles[0]->id);
-                        $query->whereNull('approval');
-                    })->where('status_disposition', 3)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['guest']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } elseif ($user->roles[0]->id == 9) {
+                $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', '<', 16)->where('status_proposal', 1);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['guest']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['guest']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } elseif ($user->roles[0]->id == 11) {
+                $data['approval']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_proposal', 1)->whereIn('status_disposition', [3, 11, 13]);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', 3)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q)->orWhere('status_disposition', $user->roles[0]->id);
+                    $data['guest']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one)->orWhere('status_disposition', $user->roles[0]->id);
+                    $data['guest']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             } else {
+                $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_disposition', '<', 16)->where('status_proposal', auth()->user()->roles[0]->id);
                 if ($request->q != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('title_cooperation', 'LIKE', '%' . $request->q);
+                    $data['guest']->where('title_cooperation', 'LIKE', '%' . $request->q);
                 }
 
                 if ($request->type_one != null) {
-                    $data['guest']->with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereIn('status_disposition', $idRoles)->where('status_proposal', 1)->where('type_of_cooperation_one_derivative_id', $request->type_one);
+                    $data['guest']->where('type_of_cooperation_one_derivative_id', $request->type_one);
                 }
             }
-            $result['guest'] = new SubmissionProposalGuestCollection($data['guest']->get());
+            $result['guest'] = new SubmissionProposalCollection($data['guest']->get());
             return response()->json($this->notification->generalSuccess($result));
         } catch (\Throwable $th) {
             return response()->json($this->notification->generalFailed($th));
@@ -1052,8 +1050,7 @@ class SubmissionProposalController extends Controller
     }
     public function resetSatkerSesmenApprovalMOU(Request $request)
     {
-        try {
-            $user = auth()->user();
+        $user = auth()->user();
             $roles = collect($user['roles']);
 
             $mappingRole = $roles->map(function ($item, $key) {
@@ -1066,19 +1063,22 @@ class SubmissionProposalController extends Controller
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->get());
+            } elseif ($user->roles[0]->id == 9) {
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
+            } elseif ($user->roles[0]->id == 11) {
+                $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_proposal', 1)->whereIn('status_disposition', [3, 11, 13])->get());
             } else {
                 $data['approval'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
             }
-            return response()->json($this->notification->generalSuccess($data));
-        } catch (\Throwable $th) {
-            return response()->json($this->notification->generalFailed($th));
-        }
     }
     public function resetSatkerSesmenYouMOU(Request $request)
     {
         try {
             $user = auth()->user();
-            $data['you'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->get());
+            $data['you'] = new SubmissionProposalCollection(SubmissionProposal::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('created_by', $user->id)->where('status_disposition', '<', 16)->get());
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
@@ -1101,6 +1101,15 @@ class SubmissionProposalController extends Controller
                     $query->where('role_id', $user->roles[0]->id);
                     $query->whereNull('approval');
                 })->where('status_disposition', 3)->where('status_proposal', 1)->get());
+            } elseif ($user->roles[0]->id == 9) {
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->where('status_disposition', '<', 16)->get());
+            } elseif ($user->roles[0]->id == 11) {
+                $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('deputi', 'country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->whereHas('deputi', function (Builder $query) use ($user) {
+                    $query->where('role_id', $user->roles[0]->id);
+                    $query->whereNull('approval');
+                })->where('status_disposition', 3)->where('status_proposal', 1)->orWhere(function ($query) use ($idRoles) {
+                    $query->whereIn('status_disposition', $idRoles)->where('status_proposal', 1);
+                })->get());
             } else {
                 $data['guest'] = new SubmissionProposalGuestCollection(SubmissionProposalGuest::with('country', 'agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo')->where('status_proposal', 1)->whereIn('status_disposition', $idRoles)->get());
             }

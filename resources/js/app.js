@@ -47,7 +47,7 @@ Vue.use(BootstrapVue)
 Vue.mixin(Permissions)
 
 VTooltip.options.defaultClass = 'tooltip';
-Vue.config.devtools = false;
+Vue.config.devtools = true;
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyB0CuuQ5YQNoIc91Ser9cbum8gYy0oOf4w',

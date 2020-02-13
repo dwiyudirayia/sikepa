@@ -52,7 +52,7 @@
                                                     <div class="m-form__control">
                                                         <select2
                                                             :options="type"
-                                                            v-model="filter.satkerSesmenApproval.type"
+                                                            v-model="filter.satkerSesmenApproval.type_one"
                                                         />
                                                     </div>
                                                 </div>
@@ -116,28 +116,12 @@
                                                 <td style="vertical-align: middle;">{{ value.time_period }} Tahun</td>
                                                 <td style="vertical-align: middle;">{{ value.duration }}</td>
                                                 <td>
-                                                    <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
-                                                        <router-link :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-eye"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                    </template>
-                                                    <template v-else-if="value.status_disposition < 9 || value.status_disposition > 9">
-                                                        <router-link v-if="$can('Bagian Kerjasama') == false" :to="{name: 'MOUProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-eye"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                        <router-link v-if="$can('Bagian Kerjasama') && value.status_disposition != 9" :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-pencil-square"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                    </template>
+                                                    <router-link :to="{name: 'MOUProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                        <span>
+                                                            <i class="la la-pencil-square"></i>
+                                                            <span>Detail Pengajuan</span>
+                                                        </span>
+                                                    </router-link>
                                                 </td>
                                             </tr>
                                         </template>
@@ -165,7 +149,7 @@
                                                     <div class="m-form__control">
                                                         <select2
                                                             :options="type"
-                                                            v-model="filter.satkerSesmen.type"
+                                                            v-model="filter.satkerSesmen.type_one"
                                                         />
                                                     </div>
                                                 </div>
@@ -283,7 +267,7 @@
                                                     <div class="m-form__control">
                                                         <select2
                                                             :options="type"
-                                                            v-model="filter.guest.type"
+                                                            v-model="filter.guest.type_one"
                                                         />
                                                     </div>
                                                 </div>
@@ -458,8 +442,8 @@ export default {
         filterSatkerSesmenYou() {
             $axios.get('/admin/filter/satker/sesmen/mou', {
                 params: {
-                    type_one: this.filter.satkerSesmen.type,
-                    q: this.filter.satkerSesmen.q,
+                    type_one: this.filter.satkerSesmenApproval.type_one,
+                    q: this.filter.satkerSesmenApproval.q,
                 }
             })
             .then(response => {
@@ -469,8 +453,8 @@ export default {
         filterSatkerSesmen() {
             $axios.get('/admin/filter/satker/sesmen/approval/mou', {
                 params: {
-                    type_one: this.filter.satkerSesmenApproval.type,
-                    q: this.filter.satkerSesmenApproval.q,
+                    type_one: this.filter.satkerSesmen.type_one,
+                    q: this.filter.satkerSesmen.q,
                 }
             })
             .then(response => {
@@ -480,7 +464,7 @@ export default {
         filterGuest() {
             $axios.get('/admin/filter/guest/mou', {
                 params: {
-                    type_one: this.filter.guest.type,
+                    type_one: this.filter.guest.type_one,
                     q: this.filter.guest.q,
                 }
             })
@@ -491,7 +475,7 @@ export default {
         resetSatkerSesmenYou() {
             $axios.get('/admin/reset/satker/sesmen/mou')
             .then(response => {
-                this.filter.satkerSesmen.type = null;
+                this.filter.satkerSesmen.type_one = null;
                 this.filter.satkerSesmen.q = null;
 
                 this.youSubmission = response.data.data.you;
@@ -500,7 +484,7 @@ export default {
         resetSatkerSesmen() {
             $axios.get('/admin/reset/satker/sesmen/approval/mou')
             .then(response => {
-                this.filter.satkerSesmenApproval.type = null;
+                this.filter.satkerSesmenApproval.type_one = null;
                 this.filter.satkerSesmenApproval.q = null;
 
                 this.approvalSubmission = response.data.data.approval;
@@ -509,7 +493,7 @@ export default {
         resetGuest() {
             $axios.get('/admin/reset/guest/mou')
             .then(response => {
-                this.filter.guest.type = null;
+                this.filter.guest.type_one = null;
                 this.filter.guest.q = null;
 
                 this.guestSubmission = response.data.data.guest;

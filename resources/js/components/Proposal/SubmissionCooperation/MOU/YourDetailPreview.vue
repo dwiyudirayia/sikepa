@@ -247,6 +247,7 @@ export default {
                 this.latitude = parseFloat(response.data.data.latitude);
                 this.longitude = parseFloat(response.data.data.longitude);
                 this.tracking = response.data.data.tracking;
+                this.deputi = response.data.data.deputi;
                 this.status_disposition = response.data.data.status_disposition;
                 this.status_barcode = response.data.data.status_barcode;
             });

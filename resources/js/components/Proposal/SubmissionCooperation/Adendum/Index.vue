@@ -118,28 +118,12 @@
                                                 <td style="vertical-align: middle;">{{ value.duration }}</td>
                                                 <td style="vertical-align: middle;">{{ value.mou_from }}</td>
                                                 <td>
-                                                    <template v-if="value.status_disposition === 9 || value.status_disposition === 15">
-                                                        <router-link :to="{name: 'AdendumProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-eye"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                    </template>
-                                                    <template v-else-if="value.status_disposition < 9 || value.status_disposition > 9">
-                                                        <router-link v-if="$can('Bagian Kerjasama') == false" :to="{name: 'AdendumProposalSubmissionCooperationDetail', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-eye"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                        <router-link v-if="$can('Bagian Kerjasama') && value.status_disposition != 9" :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
-                                                            <span>
-                                                                <i class="la la-pencil-square"></i>
-                                                                <span>Detail Pengajuan</span>
-                                                            </span>
-                                                        </router-link>
-                                                    </template>
+                                                    <router-link :to="{name: 'AdendumProposalSubmissionCooperationYourDetailPreview', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Untuk Detail Pengajuan'">
+                                                        <span>
+                                                            <i class="la la-pencil-square"></i>
+                                                            <span>Detail Pengajuan</span>
+                                                        </span>
+                                                    </router-link>
                                                 </td>
                                             </tr>
                                         </template>
@@ -464,8 +448,8 @@ export default {
         filterSatkerSesmenYou() {
             $axios.get('/admin/filter/satker/sesmen/adendum', {
                 params: {
-                    type_one: this.filter.satkerSesmen.type,
-                    q: this.filter.satkerSesmen.q,
+                    type_one: this.filter.satkerSesmenApproval.type,
+                    q: this.filter.satkerSesmenApproval.q,
                 }
             })
             .then(response => {
@@ -475,8 +459,8 @@ export default {
         filterSatkerSesmen() {
             $axios.get('/admin/filter/satker/sesmen/approval/adendum', {
                 params: {
-                    type_one: this.filter.satkerSesmenApproval.type,
-                    q: this.filter.satkerSesmenApproval.q,
+                    type_one: this.filter.satkerSesmen.type,
+                    q: this.filter.satkerSesmen.q,
                 }
             })
             .then(response => {

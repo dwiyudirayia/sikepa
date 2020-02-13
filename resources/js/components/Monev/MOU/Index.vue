@@ -225,13 +225,13 @@
                                                 <span class="m-badge m-badge--wide" :class="value.year_duration == 0 ? 'm-badge--danger' : 'm-badge--success'">{{ value.duration }}</span>
                                             </td>
                                             <td style="vertical-align: middle;">
-                                                <router-link :to="{name: 'MonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
+                                                <router-link :to="{name: 'MonevActivitySatkerCreate', params: { id: value.id }}" class="btn m-btn btn-success btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Tambah Kegiatan'">
                                                     <span>
                                                         <i class="la la-plus"></i>
                                                         <span>Tambah Kegiatan</span>
                                                     </span>
                                                 </router-link>
-                                                <router-link :to="{name: 'ListMonevActivitySatker', params: { id: value.id }}" class="btn m-btn btn-primary btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
+                                                <router-link :to="{name: 'ListMonevActivitySatker', params: { id: value.id }}" class="btn m-btn btn-brand btn-sm  m-btn--icon m-btn--pill icon-only" v-tooltip.top="'Daftar Kegiatan'">
                                                     <span>
                                                         <i class="la la-list"></i>
                                                         <span>Daftar Kegiatan</span>

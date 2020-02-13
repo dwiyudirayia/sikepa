@@ -1639,12 +1639,12 @@ export default {
         $axios.get(`/admin/submission/cooperation/${to.params.id}/detail/guest`)
         .then(response => {
             const roles = JSON.parse(window.localStorage.getItem('roles'));
-            const statusDisposition = response.data.data.data.status_disposition;
+            const statusDisposition = response.data.data.status_disposition;
             if(statusDisposition === 3) {
                 next()
             } else {
-                let filterRoles = roles.filter(value => value.id === response.data.data.data.status_disposition)
-    
+                let filterRoles = roles.filter(value => value.id === statusDisposition)
+
                 if(filterRoles.length == 0) {
                     next({ path: '/mou/submission/cooperation' })
                 } else {

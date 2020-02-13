@@ -429,7 +429,7 @@ class MonevAdendumController extends Controller
     }
     public function detailMonevSatker($id) {
         try {
-            $data = AdendumGuest::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
+            $data = Adendum::with('deputi.role', 'tracking.role', 'country','province','regency','agencies', 'typeOfCooperationOne', 'typeOfCooperationTwo','monevActivity', 'monevActivity.documentation')->findOrFail($id);
 
             return response()->json($this->notification->generalSuccess($data));
         } catch (\Throwable $th) {
